@@ -197,3 +197,45 @@ TEST(TestSuite_AABBTesting, CollisionTest008_TestVectorProjection)
 	SUCCEED();
 }
 
+TEST(TestSuite_AABBTesting, CollisionTest009_TestVectorProjection)
+{
+	Collider objectOne;
+	Vector3 inputMin;
+	Vector3 inputMax;
+	Projection resultProjection;
+
+
+	objectOne.SetMinPoint(1.0, 1.0, 1.0);
+	objectOne.SetMaxPoint(2.0, 2.0, 2.0);
+
+	objectOne.ProjectionNormal();
+
+	resultProjection = objectOne.VectorProjection();
+
+	std::cout << "Projection Minima: " << resultProjection.GetMinProjection() << std::endl;
+	std::cout << "Projection Maxima: " << resultProjection.GetMaxProjection() << std::endl;
+
+	SUCCEED();
+}
+
+TEST(TestSuite_AABBTesting, CollisionTest010_TestVectorProjection)
+{
+	Collider objectOne;
+	Vector3 inputMin;
+	Vector3 inputMax;
+	Projection resultProjection;
+
+
+	objectOne.SetMinPoint(2.0, 2.0, 2.0);
+	objectOne.SetMaxPoint(3.0, 3.0, 3.0);
+
+	objectOne.ProjectionNormal();
+
+	resultProjection = objectOne.VectorProjection();
+
+	std::cout << "Projection Minima: " << resultProjection.GetMinProjection() << std::endl;
+	std::cout << "Projection Maxima: " << resultProjection.GetMaxProjection() << std::endl;
+
+	SUCCEED();
+}
+
