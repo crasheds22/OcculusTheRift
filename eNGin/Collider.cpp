@@ -3,9 +3,11 @@
 
 #include <math.h>
 #include <algorithm>
+#include <gl/glut.h>
 
 #include "Collider.h"
 #include "Projection.h"
+
 
 using namespace std;
 
