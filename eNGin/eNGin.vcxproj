@@ -76,7 +76,8 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)eNGin\glut_bin\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(projectDir)\.\occulus_the_rift_gtest\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.0\build\native\include;$(projectDir)\occulus_the_rift_gtest;$(SolutionDir)eNGin\glut_bin\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)eNGin\glut_bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -128,6 +129,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Projection.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
@@ -139,6 +141,7 @@
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Projection.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>

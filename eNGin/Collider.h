@@ -3,7 +3,9 @@
 
 #include <gl/glut.h>
 
+
 #include "Vector3.h"
+#include "Projection.h"
 
 /**
  *	@class AABB
@@ -64,6 +66,15 @@ public:
 	//============================================================
 
 	/**
+		*	@brief collision detection function
+		*	@param objectOther target object for comparison
+		*	@return a boolean of intersection is returned
+		*	@pre minimum and maximum points must exist
+		*	@post
+		*/
+	bool AABBtoAABB(AABB &objectOther);
+
+	/**
 	 *	An overloaded operator function returning a boolean
 	 *	Returns the AABB that is less than another AABB
 	 *	@return bool If the box is within or outside another box
@@ -76,6 +87,44 @@ public:
 	 *	@return bool If the box is within or outside another box
 	 */
 	bool operator > (AABB &other);
+
+	/**
+	*	@brief to find the orthognoal vector to the projection
+	*	@param 
+	*	@return vector perpendicular to the projection is returned
+	*	@pre
+	*	@post
+	*/
+	Vector3 ProjectionNormal();
+
+
+	/**
+	*	@brief to find the projection between two bounding boxes
+	*	@param 
+	*	@return projected projection is returned
+	*	@pre
+	*	@post
+	*/
+	Projection VectorProjection();
+
+	/**
+	*	@brief to find the depth of intersection
+	*	@param objectOther target object for comparison
+	*	@return a depth of intersection is returned
+	*	@pre minimum and maximum points must exist
+	*	@post
+	*/
+	GLdouble ProjectionOverlap(Projection targetProjection);
+
+	/**
+	*	@brief to find the depth of intersection
+	*	@param objectOther target object for comparison
+	*	@return a depth of intersection is returned
+	*	@pre minimum and maximum points must exist
+	*	@post
+	*/
+	Vector3 MinimumTranslationVector(AABB &projectTarget);
+
 private:
 	Vector3 minPoint,	/*<! The minimum point of the bounding box */
 			maxPoint;	/*<! The maximum point of the bounding box */

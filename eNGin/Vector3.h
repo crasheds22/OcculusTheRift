@@ -83,7 +83,7 @@ public:
 	 *	Calculates the magnitude of the current vector
 	 *	@return GLdouble The magnitude of the vector
 	 */
-	GLdouble MagnitudeOfVector();
+	GLdouble VectorMagnitude();
 
 	/**
 	 *	A utility function taking one argument and returning a GLdouble
@@ -116,6 +116,9 @@ public:
 	 */
 	Vector3 UnitNormal();
 	//========================================
+
+	GLdouble VectorAngle(Vector3 targetVector);
+	Vector3 SubtractVector(Vector3 theInputVector);
 
 private:
 	GLdouble x;	/*<! The x point value */

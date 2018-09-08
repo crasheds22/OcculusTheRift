@@ -1,3 +1,5 @@
+
+#include <pch.h>
 #include <math.h>
 
 #include "Vector3.h"
@@ -40,7 +42,8 @@ GLdouble Vector3::GetPointZ() {
 	return z;
 }
 
-GLdouble Vector3::MagnitudeOfVector() {
+GLdouble Vector3::VectorMagnitude() 
+{
 	return sqrt((x * x + y * y + z * z));
 }
 
@@ -65,10 +68,38 @@ Vector3 Vector3::MultiplyByScalar(GLdouble scalar) {
 }
 
 Vector3 Vector3::UnitNormal() {
-	GLdouble mag = MagnitudeOfVector();
+	GLdouble mag = VectorMagnitude();
 	Vector3 tempVec(x / mag,
 					y / mag,
 					z / mag);
 
 	return tempVec;
+}
+
+GLdouble Vector3::VectorAngle(Vector3 targetVector)
+{
+	GLdouble tempDotResult;
+	GLdouble magnitudeOne;
+	GLdouble magnitudeTwo;
+	GLdouble magnitudeProduct;
+	GLdouble resultAngle;
+
+	tempDotResult = DotProduct(targetVector);
+	magnitudeOne = VectorMagnitude();
+	magnitudeTwo = targetVector.VectorMagnitude();
+	magnitudeProduct = magnitudeOne * magnitudeTwo;
+	resultAngle = acos(tempDotResult / magnitudeProduct);
+
+	return resultAngle;
+}
+
+Vector3 Vector3::SubtractVector(Vector3 theInputVector)
+{
+	Vector3 resultVector;
+
+	resultVector.x = x - theInputVector.x;
+	resultVector.y = y - theInputVector.y;
+	resultVector.z = z - theInputVector.z;
+
+	return resultVector;
 }
