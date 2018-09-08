@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{CACD260C-5F98-4740-8222-0189C66EF915}</ProjectGuid>
     <RootNamespace>eNGin</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -69,7 +69,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(SolutionDir)\eNGin\SDL2-devel-2.0.8-VC\SDL2-2.0.8\include;$(SolutionDir)\eNGin\SDL2_Mixer\include;$(SolutionDir);$(SolutionDir)\eNGin\glut_bin;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\eNGin\SDL2-devel-2.0.8-VC\SDL2-2.0.8\lib\x86;$(SolutionDir)\eNGin\SDL2_Mixer\lib\x86\SLD2_mixer.lib;$(SolutionDir)\eNGin\glut_bin;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)\eNGin\SDL2-devel-2.0.8-VC\SDL2-2.0.8\include;$(SolutionDir)\eNGin\SDL2_Mixer\include;$(SolutionDir);$(SolutionDir)\eNGin\glut_bin;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\eNGin\SDL2-devel-2.0.8-VC\SDL2-2.0.8\lib\x86;$(SolutionDir)\eNGin\SDL2_Mixer\lib\x86\SLD2_mixer.lib;$(SolutionDir)\eNGin\glut_bin;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -80,8 +87,11 @@
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)eNGin\glut_bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glut32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)eNGin\SDL2_Mixer\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;glut32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -104,6 +114,11 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>SDL2_mixer.lib;glut32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)eNGin\SDL2_Mixer\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -130,6 +145,20 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Projection.cpp" />
+    <ClCompile Include="Shay.cpp" />
+    <ClCompile Include="Shay\AABB.CPP" />
+    <ClCompile Include="Shay\AABBLinkedList.cpp" />
+    <ClCompile Include="Shay\AABBNode.cpp" />
+    <ClCompile Include="Shay\camera.cpp" />
+    <ClCompile Include="Shay\cameraMap.cpp" />
+    <ClCompile Include="Shay\collision.cpp" />
+    <ClCompile Include="Shay\EasySound.cpp" />
+    <ClCompile Include="Shay\Model_Shay.cpp" />
+    <ClCompile Include="Shay\PlainLinkedList.cpp" />
+    <ClCompile Include="Shay\PlainNode.cpp" />
+    <ClCompile Include="Shay\Sound.cpp" />
+    <ClCompile Include="Shay\SoundTime.cpp" />
+    <ClCompile Include="Shay\texturedPolygons.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
@@ -142,6 +171,19 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projection.h" />
+    <ClInclude Include="Shay.h" />
+    <ClInclude Include="Shay\AABB.h" />
+    <ClInclude Include="Shay\AABBLinkedList.h" />
+    <ClInclude Include="Shay\AABBNode.h" />
+    <ClInclude Include="Shay\camera.h" />
+    <ClInclude Include="Shay\cameraMap.h" />
+    <ClInclude Include="Shay\collision.h" />
+    <ClInclude Include="Shay\Model_Shay.h" />
+    <ClInclude Include="Shay\PlainLinkedList.h" />
+    <ClInclude Include="Shay\PlainNode.h" />
+    <ClInclude Include="Shay\Sound.h" />
+    <ClInclude Include="Shay\SoundTime.h" />
+    <ClInclude Include="Shay\texturedPolygons.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>

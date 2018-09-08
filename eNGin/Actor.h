@@ -9,7 +9,7 @@
 #include "Model.h"
 #include "Texture.h"
 
-const float PI = 3.141592654;
+//const float PI = 3.141592654;
 
 /**
  *	@struct Point
@@ -140,8 +140,8 @@ protected:
 
 	Collider collisionBox;	/*<! The collider box associated with the Actor */
 
-	Model *model;		/*<! The model owned by this instance of Actor */
-	Texture *texture;	/*<! The texture to be used for this Actor's Model */
+	Model *model = NULL;		/*<! The model owned by this instance of Actor */
+	Texture *texture = NULL;	/*<! The texture to be used for this Actor's Model */
 };
 
 #endif

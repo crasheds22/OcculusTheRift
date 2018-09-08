@@ -1,5 +1,5 @@
-#ifndef AABB_H
-#define AABB_H
+#ifndef Collider_H
+#define Collider_H
 
 #include <gl/glut.h>
 

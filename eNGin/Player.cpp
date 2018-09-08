@@ -25,8 +25,11 @@ void Player::Update() {
 }
 
 void Player::Draw() {
-	//model->DrawModel(position.GetPointX(), position.GetPointY(), position.GetPointZ(),
-	//				 texture->GetTexture(), texture->GetWidth(), texture->GetHeight());
+	if((model != NULL) && (texture != NULL))
+	{
+		model->DrawModel(position.GetPointX(), position.GetPointY(), position.GetPointZ(),
+			texture->GetTexture(), texture->GetWidth(), texture->GetHeight());
+	}
 }
 
 void Player::SetMoveSpeed(GLdouble spd) {
@@ -109,7 +112,7 @@ void Player::MoveUD() {
 void Player::LookLR() {
 	rotLR += deltaRotLR;
 
-
+	float PI = 3.141592654;
 
 	lookFB.x = sin(rotLR);
 	lookFB.z = -cos(rotLR);
@@ -121,7 +124,7 @@ void Player::LookLR() {
 void Player::LookUD() {
 	rotUD += deltaRotUD;
 
-	
+	float PI = 3.141592654;
 	lookFB.y = sin(rotUD);
 
 	lookLR.y = sin(rotUD + (float)PI / 2.0);

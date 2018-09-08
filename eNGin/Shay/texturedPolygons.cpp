@@ -31,10 +31,11 @@ GLubyte* TexturedPolygons::LoadTexture(char* filename, int imgWidth, int imgHeig
 GLubyte* TexturedPolygons::LoadRawImageFile(char* filename, int width, int height)
 {
 	FILE* file;
+	errno_t err;
 	unsigned char* image;
 	// create memory space w x h x 3 (3 stores RGB values)
 	image = (unsigned char*)malloc(sizeof(unsigned char) * width * height * 3);
-	file = fopen(filename, "rb" );
+	err = fopen_s(&file,filename, "rb" );
 	// exit program if image not found and inform user
 	if (file == NULL)
 	{
@@ -62,6 +63,7 @@ void TexturedPolygons::SetTextureCount(const int &textureNo)
 
 void TexturedPolygons::Clear()
 {
+	glDeleteTextures(250, m_texture);
 	m_texture = NULL;
 	if (m_texture == NULL)
 	{
@@ -81,25 +83,6 @@ void TexturedPolygons::CreateTexture(int textureNo, unsigned char* image, int im
 	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, imgWidth, imgHeight, GL_RGB, GL_UNSIGNED_BYTE, image);
 }
 
-
-void TexturedPolygons::CreateModelTexture(int textureNo, Texture & T, int imgWidth, int imgHeight)
-{
-	unsigned char * tempData;
-
-	tempData = new unsigned char[T.GetTexture().size()];
-
-	int l;
-
-	for (l = 0; l < T.GetTexture().size(); l++)
-	{
-		tempData[l] = T.GetTexture()[l];
-	}
-
-	glBindTexture(GL_TEXTURE_2D, m_texture[textureNo]);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
-	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, imgWidth, imgHeight, GL_RGB, GL_UNSIGNED_BYTE, tempData);
-}
 //--------------------------------------------------------------------------------------
 //  Calls functions to create display lists, depending on parameters.
 //  I created these functions very early on in the program before I had a full understanding,
