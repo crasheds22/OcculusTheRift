@@ -1,13 +1,13 @@
 #include "pch.h"
 
-#include <AABB.h>
+#include <Collider.h>
 #include <Vector3.h>
 #include "Projection.h"
 
 TEST(TestSuite1_AABBTesting, CollisionTest000_TestObjectCreation)
 {
-	AABB objectOne;
-	AABB objectTwo;
+	Collider objectOne;
+	Collider objectTwo;
 	
 
 	objectOne.SetMinPoint(0.0, 0.0, 0.00);
@@ -24,8 +24,8 @@ TEST(TestSuite1_AABBTesting, CollisionTest000_TestObjectCreation)
 
 TEST(TestSuite1_AABBTesting, CollisionTest001_TestCollisionObjectApart)
 {
-	AABB objectOne;
-	AABB objectTwo;
+	Collider objectOne;
+	Collider objectTwo;
 	Vector3 inputMin;
 	Vector3 inputMax;
 
@@ -43,8 +43,8 @@ TEST(TestSuite1_AABBTesting, CollisionTest001_TestCollisionObjectApart)
 
 TEST(TestSuite1_AABBTesting, CollisionTest002_TestCollisionObjectsCollided)
 {
-	AABB objectOne;
-	AABB objectTwo;
+	Collider objectOne;
+	Collider objectTwo;
 	Vector3 inputMin;
 	Vector3 inputMax;
 
@@ -61,8 +61,8 @@ TEST(TestSuite1_AABBTesting, CollisionTest002_TestCollisionObjectsCollided)
 
 TEST(TestSuite1_AABBTesting, CollisionTest003_TestObjectJustTouching)
 {
-	AABB objectOne;
-	AABB objectTwo;
+	Collider objectOne;
+	Collider objectTwo;
 	Vector3 inputMin;
 	Vector3 inputMax;
 
@@ -80,8 +80,8 @@ TEST(TestSuite1_AABBTesting, CollisionTest003_TestObjectJustTouching)
 
 TEST(TestSuite_AABBTesting, CollisionTest004_TestObjectOverlap)
 {
-	AABB objectOne;
-	AABB objectTwo;
+	Collider objectOne;
+	Collider objectTwo;
 	Vector3 inputMin;
 	Vector3 inputMax;
 	GLdouble testOverlap;
@@ -105,8 +105,8 @@ TEST(TestSuite_AABBTesting, CollisionTest004_TestObjectOverlap)
 
 TEST(TestSuite_AABBTesting, CollisionTest005_TestObjectNotOverlap)
 {
-	AABB objectOne;
-	AABB objectTwo;
+	Collider objectOne;
+	Collider objectTwo;
 	Vector3 inputMin;
 	Vector3 inputMax;
 	GLdouble testOverlap;
@@ -131,8 +131,8 @@ TEST(TestSuite_AABBTesting, CollisionTest005_TestObjectNotOverlap)
 
 TEST(TestSuite_AABBTesting, CollisionTest006_TestObjectTouching)
 {
-	AABB objectOne;
-	AABB objectTwo;
+	Collider objectOne;
+	Collider objectTwo;
 	Vector3 inputMin;
 	Vector3 inputMax;
 	GLdouble testOverlap;
@@ -155,7 +155,7 @@ TEST(TestSuite_AABBTesting, CollisionTest006_TestObjectTouching)
 
 TEST(TestSuite_AABBTesting, CollisionTest007_TestProjectionNormal)
 {
-	AABB objectOne;
+	Collider objectOne;
 	Vector3 inputMin;
 	Vector3 inputMax;
 	Vector3 resultVector;
@@ -177,7 +177,7 @@ TEST(TestSuite_AABBTesting, CollisionTest007_TestProjectionNormal)
 
 TEST(TestSuite_AABBTesting, CollisionTest008_TestVectorProjection)
 {
-	AABB objectOne;
+	Collider objectOne;
 	Vector3 inputMin;
 	Vector3 inputMax;
 	Projection resultProjection;

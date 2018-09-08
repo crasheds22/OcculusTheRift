@@ -38,13 +38,13 @@
     <SourcePath>$(projectDir)/..;$(projectDir)/.;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemGroup>
-    <ClInclude Include="..\AABB.h" />
+    <ClInclude Include="..\Collider.h" />
     <ClInclude Include="..\Projection.h" />
     <ClInclude Include="..\Vector3.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\AABB.cpp" />
+    <ClCompile Include="..\Collider.cpp" />
     <ClCompile Include="..\Projection.cpp" />
     <ClCompile Include="..\Vector3.cpp" />
     <ClCompile Include="pch.cpp">
