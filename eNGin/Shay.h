@@ -493,7 +493,7 @@ public:
 private:
 	//Models
 	ModelShay * statBase;
-	ModelShay * statRing;
+	ModelShay * portalMod;
 
 	
 
@@ -527,7 +527,7 @@ private:
 	clock_t lastClock = 0;
 
 	int width, height;
-
+	bool hasSwitched = false;
 	int i, j, k;
 };
 

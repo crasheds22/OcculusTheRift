@@ -180,8 +180,5 @@ void Game::SwitchState()
 		state = GAME_STATE;
 		delete shaysWorld;
 	}
-	else
-	{
-		state = SHAY_STATE;
-	}
+
 }

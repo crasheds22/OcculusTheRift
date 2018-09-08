@@ -10,7 +10,7 @@ Shay::Shay(Game* ownerIn)
 Shay::~Shay()
 {
 	delete statBase;
-	delete statRing;
+	delete portalMod;
 }
 
 
@@ -20,7 +20,7 @@ void Shay::Init()
 
 
 
-	statRing = new ModelShay((char*)"data/handgun.obj");
+	portalMod = new ModelShay((char*)"data/portal.obj");
 	statBase = new ModelShay((char*)"data/statue_base.obj");
 
 	// settings for glut cylinders
@@ -79,11 +79,14 @@ void Shay::Draw() {
 		// displays the map
 		if (DisplayMap) 
 			cam.DisplayMap(width, height, tp.GetTexture(MAP));
+		
+
+
 		// display no exit sign (position check should really be in an object, but didn't have time)
 		if ((cam.GetLR() > 35500.0) && (cam.GetFB() < 25344.0) ||
 			(cam.GetLR() > 34100.0) && (cam.GetFB() > 41127.0))
 		{
-			cam.DisplayNoExit(width, height,tp.GetTexture(NO_EXIT));
+			cam.DisplayNoExit(width, height, tp.GetTexture(NO_EXIT));
 		}
 		
 		// set the movement and rotation speed according to frame count
@@ -107,10 +110,9 @@ void Shay::Draw() {
 	}
 	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(234));
 	glPushMatrix();
-		glTranslatef(-6000, 10400, 34000);
-		glScalef(200, 200, 200);
-		glRotatef(rot, 0, 1, 0);
-		statRing->DrawModel(0, 0, 0, tp.GetTexture(234));
+		glTranslatef(-2000, 9800, 31650);
+		glScalef(120, 120, 120);
+		portalMod->DrawModel(0, 0, 0, tp.GetTexture(234));
 	glPopMatrix();
 
 	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(235));
@@ -121,6 +123,19 @@ void Shay::Draw() {
 	glPopMatrix();
 
 	glDisable(GL_TEXTURE_2D);
+
+	//Take Portal
+	if ((cam.GetLR() > -2240.0) && (cam.GetLR() < -1760.0) &&
+		(cam.GetFB() < 31700) && (cam.GetFB() > 31500) && (cam.GetUD() <= 10450) && (cam.GetUD() >= 10250))
+	{
+		if (!hasSwitched)
+		{
+			std::cout << "State Changed" << std::endl;
+			hasSwitched = true;
+			owner->SwitchState();
+		}
+	}
+
 }
 
 void Shay::DownKey(unsigned char key, int x, int y) {
@@ -1249,8 +1264,8 @@ void Shay::CreateTextures()
 	image = tp.LoadTexture((char*)"data/BookshopWindow3.raw", 320, 320);
 	tp.CreateTexture(BOOKSHOP_WINDOW_3, image, 320, 320);
 
-	image = tp.LoadTexture((char*)"data/handgun.raw", 1024, 1024);
-	tp.CreateTexture(234, image, 1024, 1024);
+	image = tp.LoadTexture((char*)"data/portal.raw", 128, 128);
+	tp.CreateTexture(234, image, 128, 128);
 
 	image = tp.LoadTexture((char*)"data/Statue.raw", 1024, 1024);
 	tp.CreateTexture(235, image, 1024, 1024);
