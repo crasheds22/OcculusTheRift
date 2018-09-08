@@ -1,59 +1,84 @@
 #include "Game.h"
 
 Game::Game() {
+	shaysWorld = new Shay();
+	state = SHAY_STATE;
 	
 }
 
+Game::~Game()
+{
+	delete shaysWorld;
+}
+
+
 void Game::Run() {
 	Update();
-
 	Draw();
 }
 
 void Game::Initialise() {
+	shaysWorld->Init();
 	centreX = 400;
 	centreY = 250;
 	//centreX = glutGet(GLUT_WINDOW_WIDTH) / 2;
 	//centreY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
 	deltaTime = clock();
 
-	playerCharacter.SetMoveSpeed(0.005);
-	playerCharacter.SetRotateSpeed(0.0001);
+	playerCharacter.SetMoveSpeed(0.05);
+	playerCharacter.SetRotateSpeed(0.01);
+
+	
 }
 
 void Game::Update() {
-	playerCharacter.Update();
+
+	if (state == GAME_STATE)
+	{
+		playerCharacter.Update();
+	}
+
+	
+	
 }
 
 void Game::Draw() {
+	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	playerCharacter.Draw();
+	if (state == GAME_STATE)
+	{
+		playerCharacter.Draw();
 
-	glPushMatrix();
+		glPushMatrix();
 		glTranslatef(5.0, 0.0, 0.0);
 		glScalef(1.0, 2.0, 1.0);
 		alpha.Draw();
-	glPopMatrix();
+		glPopMatrix();
 
-	glPushMatrix();
+		glPushMatrix();
 		glTranslatef(-5.0, 0.0, 0.0);
 		glScalef(2.0, 1.0, 1.0);
 		beta.Draw();
-	glPopMatrix();
+		glPopMatrix();
 
-	glPushMatrix();
+		glPushMatrix();
 		glTranslatef(0.0, 0.0, 5.0);
 		glScalef(1.0, 1.0, 2.0);
 		gamma.Draw();
-	glPopMatrix();
+		glPopMatrix();
 
-	glPushMatrix();
+		glPushMatrix();
 		glTranslatef(0.0, 0.0, -5.0);
 		delta.Draw();
-	glPopMatrix();
+		glPopMatrix();
 
-	glFlush();
+		glFlush();
+	}
+	else
+	{
+		shaysWorld->Draw();
+	}
 }
 
 void Game::InputDown(unsigned char key, int x, int y) {
@@ -104,4 +129,19 @@ void Game::MouseLook(int x, int y) {
 		playerCharacter.DirectionLookLR(deltaX);
 		playerCharacter.DirectionLookUD(deltaY);
 	}
+}
+
+Shay * Game::GetShaysWorld() const
+{
+	return shaysWorld;
+}
+
+int Game::GetState() const
+{
+	return state;
+}
+
+void Game::SetState(int stateIn)
+{
+	state = stateIn;
 }

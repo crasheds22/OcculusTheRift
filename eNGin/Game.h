@@ -11,6 +11,11 @@
 #include "Cube.h"
 #include "Model.h"
 #include "Texture.h"
+#include "Shay/Shay.h"
+
+#define SHAY_STATE 0
+#define MENU_STATE 1
+#define GAME_STATE 2
 
 /**
  *	@class Game
@@ -24,6 +29,10 @@
  *	@author Liam Kinsella
  *	@version 1.1 Added mouse motion
  *	@date 06-09-2018
+ *
+ *	@author Liam Kinsella
+ *	@version 1.2 Added Shays world black box and Finite state machine
+ *	@date 08/09/2018
  */
 class Game {
 public:
@@ -31,6 +40,13 @@ public:
 	 *	Default constructor
 	 */
 	Game();
+
+	
+
+	/**
+	*	Default deconstructor
+	*/
+	~Game();
 
 	/**
 	 *	A normal member taking no arguments
@@ -82,9 +98,31 @@ public:
 	 */
 	void MouseLook(int x, int y);
 
+	/**
+	*	A normal member returning a pointer to a Shay object
+	*	Returns a pointer to ShaysWorld
+	*	@return Shay pointer
+	*/
+	Shay * GetShaysWorld() const;
+
+	/**
+	*	A normal member returning the state value
+	*	Returns the value representing the current state of the game
+	*	@return the game state
+	*/
+	int GetState() const;
+
+	/**
+	*	A normal member taking 1 argument
+	*	Used to set the state of the game
+	*	@param stateIn the new state of the game
+	*/
+	void SetState(int stateIn);
+
 private:
 	float deltaTime;			/*<! A change in time variable */
-
+	int state;			/*<! an int representing current game state>*/
+	Shay * shaysWorld;			/*<! shaysWorld black box>*/
 	Player playerCharacter;		/*<! The player in a scene */
 	Cube alpha, beta, gamma, delta;
 

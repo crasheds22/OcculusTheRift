@@ -7,8 +7,9 @@
 
 #include "texturedPolygons.h"
 #include "camera.h"
-#include "Model.h"
+#include "Model_Shay.h"
 #include "SDL_mixer.h"
+
 
 #define PI 3.1415962654
 
@@ -488,10 +489,9 @@ public:
 
 	void IncrementFrameCount();
 private:
-	void StartSong();
 	//Models
-	Model * statBase;
-	Model * statRing;
+	ModelShay * statBase;
+	ModelShay * statRing;
 
 	float rot = 0;
 
