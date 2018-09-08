@@ -1,8 +1,10 @@
 #include "Shay.h"
+#include "Game.h"
 #include <iostream>
 
-Shay::Shay() {
-
+Shay::Shay(Game* ownerIn)
+{
+	owner = ownerIn;
 }
 
 Shay::~Shay()
@@ -124,6 +126,11 @@ void Shay::Draw() {
 void Shay::DownKey(unsigned char key, int x, int y) {
 	switch (key)
 	{
+		case 'f':
+		case 'F':
+			owner->SwitchState();
+			break;
+
 		case 'A':
 		case 'a':
 			cam.DirectionRotateLR(-1);

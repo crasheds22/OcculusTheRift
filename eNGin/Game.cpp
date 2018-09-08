@@ -1,7 +1,7 @@
 #include "Game.h"
 
 Game::Game() {
-	shaysWorld = new Shay();
+	shaysWorld = new Shay(this);
 	state = SHAY_STATE;
 	
 }
@@ -78,7 +78,10 @@ void Game::Draw() {
 	}
 	else
 	{
-		shaysWorld->Draw();
+		if (shaysWorld != NULL)
+		{
+			shaysWorld->Draw();
+		}
 	}
 }
 
@@ -99,10 +102,6 @@ void Game::InputDown(unsigned char key, int x, int y) {
 	case 'w':
 	case 'W':
 		playerCharacter.DirectionFB(1);
-
-	case 'f':
-	case 'F':
-		SwitchState();
 		break;
 	}
 }
@@ -179,6 +178,7 @@ void Game::SwitchState()
 	if (state == SHAY_STATE)
 	{
 		state = GAME_STATE;
+		delete shaysWorld;
 	}
 	else
 	{

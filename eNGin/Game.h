@@ -6,6 +6,7 @@
 #include <gl/glut.h>
 #include <vector>
 #include <cstdlib>
+#include <iostream>
 
 #include "Player.h"
 #include "Cube.h"
@@ -120,6 +121,8 @@ public:
 	*/
 	void SetState(int stateIn);
 
+	void SwitchState();
+
 private:
 	float deltaTime;			/*<! A change in time variable */
 	int state;			/*<! an int representing current game state>*/
@@ -140,7 +143,7 @@ private:
 	*/
 	void StartSong();
 
-	void SwitchState();
+	
 
 };
 

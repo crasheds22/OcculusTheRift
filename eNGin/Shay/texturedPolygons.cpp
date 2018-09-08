@@ -63,6 +63,7 @@ void TexturedPolygons::SetTextureCount(const int &textureNo)
 
 void TexturedPolygons::Clear()
 {
+	glDeleteTextures(250, m_texture);
 	m_texture = NULL;
 	if (m_texture == NULL)
 	{

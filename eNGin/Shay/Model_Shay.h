@@ -53,7 +53,7 @@ public:
 	* Deletes dynamically sized 2d arrays at destruction of model
 	*
 	*/
-	~ModelShay();
+	virtual ~ModelShay();
 
 	/**
 	* Draws model to screen via OpenGL calls

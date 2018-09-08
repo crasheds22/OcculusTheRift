@@ -10,6 +10,8 @@
 #include "Shay/Model_Shay.h"
 
 
+class Game;
+
 #define PI 3.1415962654
 
 // TEXTURE IMAGE AXISES
@@ -288,8 +290,10 @@
 
 class Shay {
 public:
-	Shay();
-	~Shay();
+	Shay(Game * ownerIn);
+	virtual ~Shay();
+
+	Game* owner;
 
 	void Draw();
 
@@ -490,6 +494,8 @@ private:
 	//Models
 	ModelShay * statBase;
 	ModelShay * statRing;
+
+	
 
 	float rot = 0;
 
