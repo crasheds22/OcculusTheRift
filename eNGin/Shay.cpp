@@ -11,6 +11,7 @@ Shay::~Shay()
 {
 	delete statBase;
 	delete portalMod;
+	owner = NULL;
 }
 
 
@@ -108,18 +109,18 @@ void Shay::Draw() {
 	{
 		rot = 0;
 	}
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(234));
+	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(235));
 	glPushMatrix();
-		glTranslatef(-2000, 9800, 31650);
+		glTranslatef(-2000, 9800, 31550);
 		glScalef(120, 120, 120);
-		portalMod->DrawModel(0, 0, 0, tp.GetTexture(234));
+		portalMod->DrawModel(0, 0, 0, tp.GetTexture(235));
 	glPopMatrix();
 
-	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(235));
+	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(236));
 	glPushMatrix();
 		glTranslatef(-5000, 9800, 34000);
 		glScalef(150, 150, 150);
-		statBase->DrawModel(0, 0, 0, tp.GetTexture(235));
+		statBase->DrawModel(0, 0, 0, tp.GetTexture(236));
 	glPopMatrix();
 
 	glDisable(GL_TEXTURE_2D);
@@ -1265,10 +1266,10 @@ void Shay::CreateTextures()
 	tp.CreateTexture(BOOKSHOP_WINDOW_3, image, 320, 320);
 
 	image = tp.LoadTexture((char*)"data/portal.raw", 128, 128);
-	tp.CreateTexture(234, image, 128, 128);
+	tp.CreateTexture(235, image, 128, 128);
 
 	image = tp.LoadTexture((char*)"data/Statue.raw", 1024, 1024);
-	tp.CreateTexture(235, image, 1024, 1024);
+	tp.CreateTexture(236, image, 1024, 1024);
 
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);	

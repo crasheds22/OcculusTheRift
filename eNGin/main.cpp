@@ -36,7 +36,7 @@ void keys(unsigned char key, int x, int y);
 // keyboard and mouse functions
 void releaseKeys(unsigned char key, int x, int y);
 void Mouse(int button, int state, int x, int y);
-void mouseMove(int x, int y);
+void MouseMove(int x, int y);
 
 //--------------------------------------------------------------------------------------
 //  Main function 
@@ -60,6 +60,7 @@ int main(int argc, char **argv)
 	glutIdleFunc(Display);
 
 	glutMouseFunc(Mouse);
+	glutPassiveMotionFunc(MouseMove);
 
 	// ONLY USE IF REQUIRE MOUSE MOVEMENT
 	//glutPassiveMotionFunc(mouseMove);
@@ -77,29 +78,9 @@ void myinit()
 {
 
 	glClearColor(97.0 / 255.0, 140.0 / 255.0, 185.0 / 255.0, 1.0);
-	glLineWidth(5.0);
-
-	glDisable(GL_CULL_FACE);
-	glDisable(GL_DEPTH_TEST);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	
 	glEnable(GL_BLEND);
-	glDisable(GL_ALPHA_TEST);
-
-	// Somewhere in the initialization part of your program…
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-
-	// Create light components
-	GLfloat ambientLight[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	GLfloat diffuseLight[] = { 0.8f, 0, 0, 1.0f };
-	GLfloat specularLight[] = { 0, 0, 0.5f, 1.0f };
-	GLfloat position[] = { -5000, 20000, 34000, 1.0f };
-
-	// Assign created components to GL_LIGHT0
-	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
-	//glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
-	glLightfv(GL_LIGHT0, GL_POSITION, position);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
 	glMatrixMode(GL_PROJECTION);
@@ -198,6 +179,16 @@ void Mouse(int button, int state, int x, int y)
 {
 	//shaysWorld.MouseClick(button, state, x, y);
 }
+
+void MouseMove(int x, int y)
+{
+	if (game.GetState() == GAME_STATE)
+	{
+		game.MouseLook(x, y);
+		glutWarpPointer(400, 250);
+	}
+}
+
 /*
 //--------------------------------------------------------------------------------------
 //  Mouse Movements (NOT USED)
