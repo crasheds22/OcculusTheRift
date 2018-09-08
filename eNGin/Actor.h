@@ -4,7 +4,7 @@
 #include <math.h>
 #include <gl\glut.h>
 
-#include "AABB.h"
+#include "Collider.h"
 #include "Vector3.h"
 #include "Model.h"
 #include "Texture.h"
@@ -138,7 +138,7 @@ protected:
 	Point rotations,	/*<! The rotation of the Actor */
 		  scale;		/*<! The scale of the Actor */
 
-	AABB collisionBox;	/*<! The collider box associated with the Actor */
+	Collider collisionBox;	/*<! The collider box associated with the Actor */
 
 	Model *model;		/*<! The model owned by this instance of Actor */
 	Texture *texture;	/*<! The texture to be used for this Actor's Model */

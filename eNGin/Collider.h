@@ -8,7 +8,7 @@
 #include "Projection.h"
 
 /**
- *	@class AABB
+ *	@class Collider
  *	@brief Defines the min and max points of a box
  *	@details A box is defined by it's maximum and minimum points
  *
@@ -20,12 +20,12 @@
  *	@version 1.1 Changed Set methods from Vector3 type to 3 GLdouble types, Replaced AABBtoAABB function with overloaded < operators
  *	@date 05-09-2018
  */
-class AABB {
+class Collider {
 public:
 	/**
 	 *	Default constructor
 	 */
-	AABB();
+	Collider();
 
 	//======================================================================
 	// Set methods
@@ -72,21 +72,21 @@ public:
 		*	@pre minimum and maximum points must exist
 		*	@post
 		*/
-	bool AABBtoAABB(AABB &objectOther);
+	bool AABBtoAABB(Collider &objectOther);
 
 	/**
 	 *	An overloaded operator function returning a boolean
 	 *	Returns the AABB that is less than another AABB
 	 *	@return bool If the box is within or outside another box
 	 */
-	bool operator < (AABB &other);
+	bool operator < (Collider &other);
 
 	/**
 	 *	An overloaded operator function returning a boolean
 	 *	Returns the AABB that is greater than another AABB
 	 *	@return bool If the box is within or outside another box
 	 */
-	bool operator > (AABB &other);
+	bool operator > (Collider &other);
 
 	/**
 	*	@brief to find the orthognoal vector to the projection
@@ -123,7 +123,7 @@ public:
 	*	@pre minimum and maximum points must exist
 	*	@post
 	*/
-	Vector3 MinimumTranslationVector(AABB &projectTarget);
+	Vector3 MinimumTranslationVector(Collider &projectTarget);
 
 private:
 	Vector3 minPoint,	/*<! The minimum point of the bounding box */

@@ -121,7 +121,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AABB.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -134,7 +134,7 @@
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AABB.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Game.h" />

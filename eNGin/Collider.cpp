@@ -4,38 +4,38 @@
 #include <math.h>
 #include <algorithm>
 
-#include "AABB.h"
+#include "Collider.h"
 #include "Projection.h"
 
 using namespace std;
 
-AABB::AABB() 
+Collider::Collider() 
 {
 	minPoint = Vector3(0.0, 0.0, 0.0);
 	maxPoint = Vector3(0.0, 0.0, 0.0);
 }
 
-void AABB::SetMinPoint(GLdouble tempX, GLdouble tempY, GLdouble tempZ) 
+void Collider::SetMinPoint(GLdouble tempX, GLdouble tempY, GLdouble tempZ) 
 {
 	minPoint = Vector3(tempX, tempY, tempZ);
 }
 
-void AABB::SetMaxPoint(GLdouble tempX, GLdouble tempY, GLdouble tempZ) 
+void Collider::SetMaxPoint(GLdouble tempX, GLdouble tempY, GLdouble tempZ) 
 {
 	maxPoint = Vector3(tempX, tempY, tempZ);
 }
 
-Vector3 AABB::GetMinPoint() 
+Vector3 Collider::GetMinPoint() 
 {
 	return minPoint;
 }
 
-Vector3 AABB::GetMaxPoint() 
+Vector3 Collider::GetMaxPoint() 
 {
 	return maxPoint;
 }
 
-bool AABB::AABBtoAABB(AABB &objectOther)
+bool Collider::AABBtoAABB(Collider &objectOther)
 {
 
 
@@ -47,18 +47,18 @@ bool AABB::AABBtoAABB(AABB &objectOther)
 				minPoint.GetPointZ() < objectOther.maxPoint.GetPointZ());
 }
 
-bool AABB::operator<(AABB &other) 
+bool Collider::operator < (Collider &other) 
 {
 	return AABBtoAABB(other);
 }
 
-bool AABB::operator>(AABB &other) 
+bool Collider::operator > (Collider &other) 
 {
 	return !operator<(other);
 }
 
 
-Vector3 AABB::ProjectionNormal()
+Vector3 Collider::ProjectionNormal()
 {
 	Vector3 theProjection;
 	Vector3 theNormalVector;
@@ -70,7 +70,7 @@ Vector3 AABB::ProjectionNormal()
 }
 
 
-Projection AABB::VectorProjection()
+Projection Collider::VectorProjection()
 {
 	Vector3 resultNormal;
 	GLdouble projectionOne;
@@ -88,7 +88,7 @@ Projection AABB::VectorProjection()
 
 
 //float intersectionDepth = (mina < minb)? (maxa - minb) : (mina - maxb);
-GLdouble AABB::ProjectionOverlap(Projection targetProjection)
+GLdouble Collider::ProjectionOverlap(Projection targetProjection)
 {
 	Projection theProjection;
 	GLdouble theOverlap;
@@ -110,7 +110,7 @@ GLdouble AABB::ProjectionOverlap(Projection targetProjection)
 
 // https://stackoverflow.com/questions/40255953/finding-the-mtv-minimal-translation-vector-using-separating-axis-theorem
 // calculating depth penetration using SAT to find the minimum translation vector
-Vector3 AABB::MinimumTranslationVector(AABB &projectTarget)
+Vector3 Collider::MinimumTranslationVector(Collider &projectTarget)
 {
 	Projection targetObject;
 	GLdouble overlapDepth;
