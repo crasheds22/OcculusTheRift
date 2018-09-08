@@ -27,6 +27,7 @@ void Game::Initialise() {
 
 	playerCharacter.SetMoveSpeed(0.05);
 	playerCharacter.SetRotateSpeed(0.01);
+	StartSong();
 
 	
 }
@@ -98,6 +99,11 @@ void Game::InputDown(unsigned char key, int x, int y) {
 	case 'w':
 	case 'W':
 		playerCharacter.DirectionFB(1);
+
+	case 'f':
+	case 'F':
+		SwitchState();
+		break;
 	}
 }
 
@@ -144,4 +150,38 @@ int Game::GetState() const
 void Game::SetState(int stateIn)
 {
 	state = stateIn;
+}
+
+void Game::StartSong()
+{
+	const char * filePath = "data/test_song.mp3";
+	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 640);
+	int result = 0;
+	int flags = MIX_INIT_MP3;
+
+	if (SDL_Init(SDL_INIT_AUDIO) < 0) {
+		std::cout << "Failed to init SDL" << std::endl;
+		exit(1);
+	}
+
+	if (flags != (result = Mix_Init(flags))) {
+		std::cout << "Could not initialize mixer, result: " << std::endl;
+		std::cout << "Mix_Init: " << Mix_GetError() << std::endl;
+		exit(1);
+	}
+
+	Mix_Music * song = Mix_LoadMUS(filePath);
+	Mix_PlayMusic(song, -1);
+}
+
+void Game::SwitchState()
+{
+	if (state == SHAY_STATE)
+	{
+		state = GAME_STATE;
+	}
+	else
+	{
+		state = SHAY_STATE;
+	}
 }

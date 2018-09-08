@@ -5,10 +5,9 @@
 #include <gl/glut.h>
 #include <time.h>
 
-#include "texturedPolygons.h"
-#include "camera.h"
-#include "Model_Shay.h"
-#include "SDL_mixer.h"
+#include "Shay/texturedPolygons.h"
+#include "Shay/camera.h"
+#include "Shay/Model_Shay.h"
 
 
 #define PI 3.1415962654
@@ -290,7 +289,6 @@
 class Shay {
 public:
 	Shay();
-
 	~Shay();
 
 	void Draw();

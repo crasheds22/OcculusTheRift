@@ -11,7 +11,7 @@
 #include "Cube.h"
 #include "Model.h"
 #include "Texture.h"
-#include "Shay.h"
+#include "Shay/Shay.h"
 #include "SDL2_Mixer\include\SDL_mixer.h"
 
 #define SHAY_STATE 0

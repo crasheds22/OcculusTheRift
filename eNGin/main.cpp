@@ -4,6 +4,7 @@
 
 #include "Game.h"
 
+
 // USE THESE STTEINGS TO CHANGE SPEED (on different spec computers)
 // Set speed (steps)
 GLdouble movementSpeed = 10.0;
