@@ -291,7 +291,7 @@ class Game;
 class Shay {
 public:
 	Shay(Game * ownerIn);
-	virtual ~Shay();
+	~Shay();
 
 	Game* owner;
 

@@ -3,12 +3,17 @@
 Game::Game() {
 	shaysWorld = new Shay(this);
 	state = SHAY_STATE;
+	textures.resize(10);
+
 	
 }
 
 Game::~Game()
 {
-	delete shaysWorld;
+	if (shaysWorld != NULL)
+	{
+		delete shaysWorld;
+	}
 }
 
 
@@ -28,60 +33,76 @@ void Game::Initialise() {
 	playerCharacter.SetMoveSpeed(0.05);
 	playerCharacter.SetRotateSpeed(0.01);
 	StartSong();
+	textures[0].LoadTexture("data/spr_healthbar.png", 128, 128);
+	textures[1].LoadTexture("data/spr_health_pellet.png", 32, 32);
 
 	
 }
 
 void Game::Update() {
 
-	if (state == GAME_STATE)
+	if (state != SHAY_STATE)
 	{
-		playerCharacter.Update();
+		DrawGUI();
 	}
 
-	
+	switch (state)
+	{
+		case GAME_STATE:
+			playerCharacter.Update();
+			break;
+
+		case MENU_STATE:
+			break;
+	}
 	
 }
 
 void Game::Draw() {
 	
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	if (state == GAME_STATE)
+	switch (state)
 	{
-		playerCharacter.Draw();
+		case MENU_STATE:
+			break;
 
-		glPushMatrix();
-		glTranslatef(5.0, 0.0, 0.0);
-		glScalef(1.0, 2.0, 1.0);
-		alpha.Draw();
-		glPopMatrix();
+		case SHAY_STATE:
+			if (shaysWorld != NULL)
+			{
+				shaysWorld->Draw();
+			}
+			break;
 
-		glPushMatrix();
-		glTranslatef(-5.0, 0.0, 0.0);
-		glScalef(2.0, 1.0, 1.0);
-		beta.Draw();
-		glPopMatrix();
+		case GAME_STATE:
+			
+			playerCharacter.Draw();
 
-		glPushMatrix();
-		glTranslatef(0.0, 0.0, 5.0);
-		glScalef(1.0, 1.0, 2.0);
-		gamma.Draw();
-		glPopMatrix();
+			glPushMatrix();
+			glTranslatef(5.0, 0.0, 0.0);
+			glScalef(1.0, 2.0, 1.0);
+			alpha.Draw();
+			glPopMatrix();
 
-		glPushMatrix();
-		glTranslatef(0.0, 0.0, -5.0);
-		delta.Draw();
-		glPopMatrix();
+			glPushMatrix();
+			glTranslatef(-5.0, 0.0, 0.0);
+			glScalef(2.0, 1.0, 1.0);
+			beta.Draw();
+			glPopMatrix();
 
-		glFlush();
-	}
-	else
-	{
-		if (shaysWorld != NULL)
-		{
-			shaysWorld->Draw();
-		}
+			glPushMatrix();
+			glTranslatef(0.0, 0.0, 5.0);
+			glScalef(1.0, 1.0, 2.0);
+			gamma.Draw();
+			glPopMatrix();
+
+			glPushMatrix();
+			glTranslatef(0.0, 0.0, -5.0);
+			delta.Draw();
+			glPopMatrix();
+
+			glFlush();
+
+
+			break;
 	}
 }
 
@@ -124,7 +145,7 @@ void Game::InputUp(unsigned char key, int x, int y) {
 }
 
 void Game::MouseLook(int x, int y) {
-	int deadzone = 10;
+	int deadzone = 100;
 
 	//If the mouse pointer has moved far enough, rotate camera
 	if ((abs((long double)x) > deadzone) || (abs((long double)y) > deadzone)) {
@@ -179,6 +200,64 @@ void Game::SwitchState()
 	{
 		state = GAME_STATE;
 		delete shaysWorld;
+		shaysWorld = NULL;
+
 	}
+
+}
+
+void Game::DrawGUI()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	//Set View mode to orthographic
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-8.0, 8.0, -8.0, 8.0, 1.0, 30.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	//Draw Content
+	std::vector<unsigned char> temp = textures[0].GetTexture();
+	glEnable(GL_TEXTURE_2D);
+	glDisable(GL_DEPTH_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //GL_NEAREST = no smoothing
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textures[0].GetWidth(), textures[0].GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, &temp[0]);
+
+	glPushMatrix();
+	glBegin(GL_QUADS);
+		glTexCoord2f(0.0, -1);
+		glVertex3f(-8, 8, -1);
+		glTexCoord2f(1.0, -1);
+		glVertex3f(0, 8, -1);
+		glTexCoord2f(1.0, 0.0);
+		glVertex3f(0, 0, -1);
+		glTexCoord2f(0.0, 0.0);
+		glVertex3f(-8, 0, -1);
+	glEnd();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+
+	/*
+
+	int l, i;
+	char* st = (char*)"Test";
+	l = strlen(st);
+	glRasterPos3i(-3, -4, -1);
+	for (i = 0; i < l; i++)
+	{
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, st[i]);
+	}*/
+	glEnable(GL_DEPTH_TEST);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	gluPerspective(60.0, 1, 1.0, 30.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
 
 }
