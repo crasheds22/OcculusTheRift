@@ -126,9 +126,8 @@ Vector3 Collider::MinimumTranslationVector(Collider &projectTarget)
 	}
 
 	// projection normal is analogous to axis
-	theMTV.SetPointX(ProjectionNormal().GetPointX() * overlapDepth);
-	theMTV.SetPointY(ProjectionNormal().GetPointY() * overlapDepth);
-	theMTV.SetPointZ(ProjectionNormal().GetPointZ() * overlapDepth);
+	theMTV = ProjectionNormal().MultiplyByScalar(overlapDepth);
+
 
 	return theMTV;
 }
