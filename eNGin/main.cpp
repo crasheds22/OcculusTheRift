@@ -78,9 +78,6 @@ void myinit()
 {
 
 	glClearColor(97.0 / 255.0, 140.0 / 255.0, 185.0 / 255.0, 1.0);
-	
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
 	glMatrixMode(GL_PROJECTION);
@@ -97,7 +94,7 @@ void myinit()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 	gluLookAt(0.0, 1.75, 0.0,
 		0.0, 1.75, -1,
 		0.0f, 1.0f, 0.0f);

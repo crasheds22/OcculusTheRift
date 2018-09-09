@@ -138,6 +138,8 @@ private:
 	int centreX,		/*<! The x value of the centre of the screen */
 		centreY;		/*<! The y value of the centre of the screen */
 
+	Texture * tex;
+
 
 	/**
 	*	
