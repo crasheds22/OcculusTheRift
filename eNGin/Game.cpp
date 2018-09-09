@@ -1,11 +1,10 @@
 #include "Game.h"
 
-Game::Game() {
+Game::Game() 
+{
 	shaysWorld = new Shay(this);
 	state = SHAY_STATE;
 	textures.resize(10);
-
-	
 }
 
 Game::~Game()
@@ -14,16 +13,17 @@ Game::~Game()
 	{
 		delete shaysWorld;
 	}
-
 }
 
 
-void Game::Run() {
+void Game::Run() 
+{
 	Draw();
 	Update();
 }
 
-void Game::Initialise() {
+void Game::Initialise() 
+{
 	shaysWorld->Init();
 	centreX = 400;
 	centreY = 250;
@@ -33,7 +33,7 @@ void Game::Initialise() {
 
 	playerCharacter.SetMoveSpeed(0.05);
 	playerCharacter.SetRotateSpeed(0.03);
-	StartSong();
+	
 	textures[0].LoadTexture("data/hb_empty_left.png", 32, 32);
 	textures[1].LoadTexture("data/hb_empty_middle.png", 32, 32);
 	textures[2].LoadTexture("data/hb_empty_right.png", 32, 32);
@@ -41,13 +41,11 @@ void Game::Initialise() {
 	textures[3].LoadTexture("data/hb_full_left.png", 32, 32);
 	textures[4].LoadTexture("data/hb_full_middle.png", 32, 32);
 	textures[5].LoadTexture("data/hb_full_right.png", 32, 32);
-
-
-	
 }
 
-void Game::Update() {
-
+void Game::Update()
+{
+	bgmControl.PlaySong();
 	if (state != SHAY_STATE)
 	{
 		DrawGUI();
@@ -61,11 +59,11 @@ void Game::Update() {
 
 		case MENU_STATE:
 			break;
-	}
-	
+	}	
 }
 
-void Game::Draw() {
+void Game::Draw()
+{
 	
 	switch (state)
 	{
@@ -110,14 +108,12 @@ void Game::Draw() {
 			DrawGUI();
 
 			glFlush();
-
-			
-
 			break;
 	}
 }
 
-void Game::InputDown(unsigned char key, int x, int y) {
+void Game::InputDown(unsigned char key, int x, int y)
+{
 	switch (key) {
 	case 'a':
 	case 'A':
@@ -138,7 +134,8 @@ void Game::InputDown(unsigned char key, int x, int y) {
 	}
 }
 
-void Game::InputUp(unsigned char key, int x, int y) {
+void Game::InputUp(unsigned char key, int x, int y) 
+{
 	switch (key) {
 	case 'a':
 	case 'A':
@@ -155,7 +152,8 @@ void Game::InputUp(unsigned char key, int x, int y) {
 	}
 }
 
-void Game::MouseLook(int x, int y) {
+void Game::MouseLook(int x, int y)
+{
 	int deadzone = 100;
 
 	//If the mouse pointer has moved far enough, rotate camera
@@ -183,28 +181,6 @@ void Game::SetState(int stateIn)
 	state = stateIn;
 }
 
-void Game::StartSong()
-{
-	const char * filePath = "data/test_song.mp3";
-	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 640);
-	int result = 0;
-	int flags = MIX_INIT_MP3;
-
-	if (SDL_Init(SDL_INIT_AUDIO) < 0) {
-		std::cout << "Failed to init SDL" << std::endl;
-		exit(1);
-	}
-
-	if (flags != (result = Mix_Init(flags))) {
-		std::cout << "Could not initialize mixer, result: " << std::endl;
-		std::cout << "Mix_Init: " << Mix_GetError() << std::endl;
-		exit(1);
-	}
-
-	Mix_Music * song = Mix_LoadMUS(filePath);
-	Mix_PlayMusic(song, -1);
-}
-
 void Game::SwitchState()
 {
 	if (state == SHAY_STATE)
@@ -212,24 +188,19 @@ void Game::SwitchState()
 		state = GAME_STATE;
 		delete shaysWorld;
 		shaysWorld = NULL;
-
+		bgmControl.SetSong(1);
 	}
 
 }
 
 void Game::DrawGUI()
 {
-	
-
 	//Set View mode to orthographic
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(-8.0, 8.0, -5.0, 5.0, 1.0, 30.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
-
-
 
 	float x1 = -7.5;
 	float x2 = -6.5;
@@ -239,8 +210,6 @@ void Game::DrawGUI()
 	int maxHealth = 5;
 	int currentHealth = 4;
 	int hbSlot = 0;
-
-
 
 	for (int i = 0; i < maxHealth; i++)
 	{
@@ -266,7 +235,6 @@ void Game::DrawGUI()
 		{
 			hbSlot -= 3;
 		}
-
 
 		//Assign Texture
 		std::vector<unsigned char> temp = textures[hbSlot].GetTexture();
@@ -294,16 +262,6 @@ void Game::DrawGUI()
 		glDisable(GL_TEXTURE_2D);
 	}
 
-	/*
-
-	int l, i;
-	char* st = (char*)"Test";
-	l = strlen(st);
-	glRasterPos3i(-3, -4, -1);
-	for (i = 0; i < l; i++)
-	{
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, st[i]);
-	}*/
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -311,6 +269,5 @@ void Game::DrawGUI()
 	gluPerspective(60.0, 1, 1.0, 30.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
 
 }

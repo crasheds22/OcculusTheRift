@@ -144,6 +144,7 @@
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
+    <ClCompile Include="MusicPlayer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Projection.cpp" />
     <ClCompile Include="Shay.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="MusicPlayer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projection.h" />
     <ClInclude Include="Shay.h" />

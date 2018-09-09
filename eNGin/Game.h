@@ -13,7 +13,7 @@
 #include "Model.h"
 #include "Texture.h"
 #include "Shay.h"
-#include "SDL2_Mixer\include\SDL_mixer.h"
+#include "MusicPlayer.h"
 
 #define SHAY_STATE 0
 #define MENU_STATE 1
@@ -126,11 +126,13 @@ public:
 	void DrawGUI();
 
 private:
-	float deltaTime;			/*<! A change in time variable */
+	float deltaTime;			/*<! A change in time variable> */
 	int state;			/*<! an int representing current game state>*/
 	Shay * shaysWorld;			/*<! shaysWorld black box>*/
 	Player playerCharacter;		/*<! The player in a scene */
 	Cube alpha, beta, gamma, delta;
+
+	MusicPlayer bgmControl; /*<! Handles the BGM for the Game> */
 
 	std::vector<Model> models;		/*<! All possible models to be used in the running of the game */
 	std::vector<Texture> textures;	/*<! All possible textures to be used in the running of the game */
@@ -139,15 +141,6 @@ private:
 		centreY;		/*<! The y value of the centre of the screen */
 
 	Texture * tex;
-
-
-	/**
-	*	
-	* Current placeholder for music, needs to be updated, probably post assignment 1
-	*/
-	void StartSong();
-
-	
 
 };
 
