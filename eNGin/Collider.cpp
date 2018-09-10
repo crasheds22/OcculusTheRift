@@ -60,18 +60,20 @@ bool Collider::operator > (Collider &other)
 }
 
 
+
 Vector3 Collider::ProjectionNormal()
 {
-	Vector3 theProjection;
 	Vector3 theNormalVector;
 
-	theProjection = maxPoint.SubtractVector(minPoint);
-	theNormalVector = theProjection.UnitNormal();
-
+	theNormalVector = minPoint.UnitNormal(maxPoint);
+	
 	return theNormalVector;
 }
 
-
+// this is suspect 
+// ProjectionAB should equal the scalar multiplication magnitude of source times cosine theta and the projection normal 
+// the dot product can be decomposed to magnitude of source times the magnitude of target 
+// multiplied by the cosine angle of the two
 Projection Collider::VectorProjection()
 {
 	Vector3 resultNormal;
@@ -109,13 +111,19 @@ GLdouble Collider::ProjectionOverlap(Projection targetProjection)
 	return theOverlap;
 
 }
-
+// https://gamedev.stackexchange.com/questions/32545/what-is-the-mtv-minimum-translation-vector-in-sat-seperation-of-axis
 // https://stackoverflow.com/questions/40255953/finding-the-mtv-minimal-translation-vector-using-separating-axis-theorem
 // calculating depth penetration using SAT to find the minimum translation vector
 Vector3 Collider::MinimumTranslationVector(Collider &projectTarget)
 {
 	Projection targetObject;
+	Vector3 sourceVector;
+	Vector3 targetVector;
+	Vector3 unitVector;
 	GLdouble overlapDepth;
+	GLdouble sourceMagnitude;
+	GLdouble targetMagnitude;
+	GLdouble sourceTheta;
 	Vector3 theMTV;
 
 	targetObject = projectTarget.VectorProjection();
@@ -125,9 +133,10 @@ Vector3 Collider::MinimumTranslationVector(Collider &projectTarget)
 		overlapDepth = ProjectionOverlap(targetObject);
 	}
 
+	// MTV is usually the normal of the vector times the overlapdepth
 	// projection normal is analogous to axis
+	
 	theMTV = ProjectionNormal().MultiplyByScalar(overlapDepth);
-
 
 	return theMTV;
 }

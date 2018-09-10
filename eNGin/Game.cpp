@@ -1,11 +1,10 @@
 #include "Game.h"
 
-Game::Game() {
+Game::Game() 
+{
 	shaysWorld = new Shay(this);
 	state = SHAY_STATE;
 	textures.resize(10);
-
-	
 }
 
 Game::~Game()
@@ -17,12 +16,14 @@ Game::~Game()
 }
 
 
-void Game::Run() {
-	Update();
+void Game::Run() 
+{
 	Draw();
+	Update();
 }
 
-void Game::Initialise() {
+void Game::Initialise() 
+{
 	shaysWorld->Init();
 	centreX = 400;
 	centreY = 250;
@@ -31,16 +32,20 @@ void Game::Initialise() {
 	deltaTime = clock();
 
 	playerCharacter.SetMoveSpeed(0.05);
-	playerCharacter.SetRotateSpeed(0.01);
-	StartSong();
-	textures[0].LoadTexture("data/spr_healthbar.png", 128, 128);
-	textures[1].LoadTexture("data/spr_health_pellet.png", 32, 32);
-
+	playerCharacter.SetRotateSpeed(0.03);
 	
+	textures[0].LoadTexture("data/hb_empty_left.png", 32, 32);
+	textures[1].LoadTexture("data/hb_empty_middle.png", 32, 32);
+	textures[2].LoadTexture("data/hb_empty_right.png", 32, 32);
+
+	textures[3].LoadTexture("data/hb_full_left.png", 32, 32);
+	textures[4].LoadTexture("data/hb_full_middle.png", 32, 32);
+	textures[5].LoadTexture("data/hb_full_right.png", 32, 32);
 }
 
-void Game::Update() {
-
+void Game::Update()
+{
+	bgmControl.PlaySong();
 	if (state != SHAY_STATE)
 	{
 		DrawGUI();
@@ -54,15 +59,16 @@ void Game::Update() {
 
 		case MENU_STATE:
 			break;
-	}
-	
+	}	
 }
 
-void Game::Draw() {
+void Game::Draw()
+{
 	
 	switch (state)
 	{
 		case MENU_STATE:
+			DrawGUI();
 			break;
 
 		case SHAY_STATE:
@@ -73,9 +79,10 @@ void Game::Draw() {
 			break;
 
 		case GAME_STATE:
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
 			playerCharacter.Draw();
-
+			
 			glPushMatrix();
 			glTranslatef(5.0, 0.0, 0.0);
 			glScalef(1.0, 2.0, 1.0);
@@ -98,15 +105,15 @@ void Game::Draw() {
 			glTranslatef(0.0, 0.0, -5.0);
 			delta.Draw();
 			glPopMatrix();
+			DrawGUI();
 
 			glFlush();
-
-
 			break;
 	}
 }
 
-void Game::InputDown(unsigned char key, int x, int y) {
+void Game::InputDown(unsigned char key, int x, int y)
+{
 	switch (key) {
 	case 'a':
 	case 'A':
@@ -127,7 +134,8 @@ void Game::InputDown(unsigned char key, int x, int y) {
 	}
 }
 
-void Game::InputUp(unsigned char key, int x, int y) {
+void Game::InputUp(unsigned char key, int x, int y) 
+{
 	switch (key) {
 	case 'a':
 	case 'A':
@@ -144,7 +152,8 @@ void Game::InputUp(unsigned char key, int x, int y) {
 	}
 }
 
-void Game::MouseLook(int x, int y) {
+void Game::MouseLook(int x, int y)
+{
 	int deadzone = 100;
 
 	//If the mouse pointer has moved far enough, rotate camera
@@ -172,28 +181,6 @@ void Game::SetState(int stateIn)
 	state = stateIn;
 }
 
-void Game::StartSong()
-{
-	const char * filePath = "data/test_song.mp3";
-	Mix_OpenAudio(22050, AUDIO_S16SYS, 2, 640);
-	int result = 0;
-	int flags = MIX_INIT_MP3;
-
-	if (SDL_Init(SDL_INIT_AUDIO) < 0) {
-		std::cout << "Failed to init SDL" << std::endl;
-		exit(1);
-	}
-
-	if (flags != (result = Mix_Init(flags))) {
-		std::cout << "Could not initialize mixer, result: " << std::endl;
-		std::cout << "Mix_Init: " << Mix_GetError() << std::endl;
-		exit(1);
-	}
-
-	Mix_Music * song = Mix_LoadMUS(filePath);
-	Mix_PlayMusic(song, -1);
-}
-
 void Game::SwitchState()
 {
 	if (state == SHAY_STATE)
@@ -201,56 +188,80 @@ void Game::SwitchState()
 		state = GAME_STATE;
 		delete shaysWorld;
 		shaysWorld = NULL;
-
+		bgmControl.SetSong(1);
 	}
 
 }
 
 void Game::DrawGUI()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	//Set View mode to orthographic
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-8.0, 8.0, -8.0, 8.0, 1.0, 30.0);
+	glOrtho(-8.0, 8.0, -5.0, 5.0, 1.0, 30.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	//Draw Content
-	std::vector<unsigned char> temp = textures[0].GetTexture();
-	glEnable(GL_TEXTURE_2D);
-	glDisable(GL_DEPTH_TEST);
-	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_BLEND);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //GL_NEAREST = no smoothing
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textures[0].GetWidth(), textures[0].GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, &temp[0]);
+	float x1 = -7.5;
+	float x2 = -6.5;
 
-	glPushMatrix();
-	glBegin(GL_QUADS);
-		glTexCoord2f(0.0, -1);
-		glVertex3f(-8, 8, -1);
-		glTexCoord2f(1.0, -1);
-		glVertex3f(0, 8, -1);
-		glTexCoord2f(1.0, 0.0);
-		glVertex3f(0, 0, -1);
-		glTexCoord2f(0.0, 0.0);
-		glVertex3f(-8, 0, -1);
-	glEnd();
-	glPopMatrix();
-	glDisable(GL_TEXTURE_2D);
+	float y1 = 4.5;
+	float y2 = 3.5;
+	int maxHealth = 5;
+	int currentHealth = 4;
+	int hbSlot = 0;
 
-	/*
-
-	int l, i;
-	char* st = (char*)"Test";
-	l = strlen(st);
-	glRasterPos3i(-3, -4, -1);
-	for (i = 0; i < l; i++)
+	for (int i = 0; i < maxHealth; i++)
 	{
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, st[i]);
-	}*/
+
+		//Choose Texture
+		if (i == 0)
+		{
+			hbSlot = 3;
+		}
+		else
+		{
+			if (i == maxHealth - 1)
+			{
+				hbSlot = 5;
+			}
+			else
+			{
+				hbSlot = 4;
+			}
+		}
+
+		if (i + 1 > currentHealth)
+		{
+			hbSlot -= 3;
+		}
+
+		//Assign Texture
+		std::vector<unsigned char> temp = textures[hbSlot].GetTexture();
+		glEnable(GL_TEXTURE_2D);
+		glDisable(GL_DEPTH_TEST);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_BLEND);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //GL_NEAREST = no smoothing
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textures[hbSlot].GetWidth(), textures[hbSlot].GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, &temp[0]);
+
+		//Draw Healthbar
+		glPushMatrix();
+		glBegin(GL_QUADS);
+			glTexCoord2f(0.0, -1);
+			glVertex3f(x1 + i, y1, -1);
+			glTexCoord2f(1.0, -1);
+			glVertex3f(x2 + i, y1, -1);
+			glTexCoord2f(1.0, 0.0);
+			glVertex3f(x2 + i, y2, -1);
+			glTexCoord2f(0.0, 0.0);
+			glVertex3f(x1 + i, y2, -1);
+		glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+	}
+
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -258,6 +269,5 @@ void Game::DrawGUI()
 	gluPerspective(60.0, 1, 1.0, 30.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
-
+	
 }

@@ -114,7 +114,7 @@ public:
 	 *	Calculates the vector equal to one unit in the same direction of the vector
 	 *	@return Vector3 The unit normal
 	 */
-	Vector3 UnitNormal();
+	Vector3 UnitNormal(Vector3 &inputVector);
 	//========================================
 
 	GLdouble VectorAngle(Vector3 targetVector);
