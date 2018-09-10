@@ -14,13 +14,8 @@ Shay::~Shay()
 	owner = NULL;
 }
 
-
-
 void Shay::Init()
 {
-
-
-
 	portalMod = new ModelShay((char*)"data/portal.obj");
 	statBase = new ModelShay((char*)"data/statue_base.obj");
 
@@ -61,8 +56,6 @@ void Shay::Init()
 
 void Shay::Draw() {
 	// check for movement
-
-	std::cout << "X: " << cam.GetLR() << " Y: " << cam.GetUD() << " Z: " << cam.GetFB() << std::endl;
 	cam.CheckCamera();
 	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -80,9 +73,6 @@ void Shay::Draw() {
 		// displays the map
 		if (DisplayMap) 
 			cam.DisplayMap(width, height, tp.GetTexture(MAP));
-		
-
-
 		// display no exit sign (position check should really be in an object, but didn't have time)
 		if ((cam.GetLR() > 35500.0) && (cam.GetFB() < 25344.0) ||
 			(cam.GetLR() > 34100.0) && (cam.GetFB() > 41127.0))
@@ -95,12 +85,12 @@ void Shay::Draw() {
 
 		cam.SetMoveSpeed (stepIncrement);
 		cam.SetRotateSpeed (angleIncrement);
+
 		// display images
 		DrawBackdrop();
 
 	glPopMatrix();
 	 
-
 	if (rot < 360)
 	{
 		rot += 0.5;
@@ -109,6 +99,7 @@ void Shay::Draw() {
 	{
 		rot = 0;
 	}
+
 	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(235));
 	glPushMatrix();
 		glTranslatef(-2000, 9800, 31550);

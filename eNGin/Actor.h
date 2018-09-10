@@ -47,16 +47,22 @@ public:
 	Actor();
 
 	/**
-	 *	A pure virtual member taking no arguments
-	 *	Every Actor needs to override the Update function for their own unique reasons
+	 *	Constructor with parameters
+	 *	Assigns a model and a texture to the actor
 	 */
-	virtual void Update() = 0;
+	Actor(Model* mod, Texture* tex);
 
 	/**
-	 *	A pure virtual member taking no arguments
-	 *	Every Actor need to override te Draw function tor their own unique models and textures
+	 *	A virtual member taking no arguments
+	 *	Every Actor can override the Update function for their own unique reasons
 	 */
-	virtual void Draw() = 0;
+	virtual void Update();
+
+	/**
+	 *	A virtual member taking no arguments
+	 *	Every Actor can override the Draw function for their own unique models and textures
+	 */
+	virtual void Draw();
 
 	//================================================================================
 	// Set methods

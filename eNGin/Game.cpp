@@ -2,6 +2,8 @@
 
 Game::Game() 
 {
+	playerCharacter = Player::GetInstance();
+
 	shaysWorld = new Shay(this);
 	state = SHAY_STATE;
 	textures.resize(10);
@@ -15,24 +17,26 @@ Game::~Game()
 	}
 }
 
-
 void Game::Run() 
 {
 	Draw();
+
 	Update();
 }
 
 void Game::Initialise() 
 {
 	shaysWorld->Init();
-	centreX = 400;
-	centreY = 250;
-	//centreX = glutGet(GLUT_WINDOW_WIDTH) / 2;
-	//centreY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
+	
+	//centreX = 400;
+	//centreY = 250;
+	centreX = glutGet(GLUT_WINDOW_WIDTH) / 2;
+	centreY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
+
 	deltaTime = clock();
 
-	playerCharacter.SetMoveSpeed(0.05);
-	playerCharacter.SetRotateSpeed(0.03);
+	playerCharacter->SetMoveSpeed(0.05);
+	playerCharacter->SetRotateSpeed(0.009);
 	
 	textures[0].LoadTexture("data/hb_empty_left.png", 32, 32);
 	textures[1].LoadTexture("data/hb_empty_middle.png", 32, 32);
@@ -46,6 +50,7 @@ void Game::Initialise()
 void Game::Update()
 {
 	bgmControl.PlaySong();
+
 	if (state != SHAY_STATE)
 	{
 		DrawGUI();
@@ -54,7 +59,7 @@ void Game::Update()
 	switch (state)
 	{
 		case GAME_STATE:
-			playerCharacter.Update();
+			playerCharacter->Update();
 			break;
 
 		case MENU_STATE:
@@ -64,7 +69,6 @@ void Game::Update()
 
 void Game::Draw()
 {
-	
 	switch (state)
 	{
 		case MENU_STATE:
@@ -81,7 +85,7 @@ void Game::Draw()
 		case GAME_STATE:
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
-			playerCharacter.Draw();
+			playerCharacter->Draw();
 			
 			glPushMatrix();
 			glTranslatef(5.0, 0.0, 0.0);
@@ -108,6 +112,7 @@ void Game::Draw()
 			DrawGUI();
 
 			glFlush();
+
 			break;
 	}
 }
@@ -117,19 +122,19 @@ void Game::InputDown(unsigned char key, int x, int y)
 	switch (key) {
 	case 'a':
 	case 'A':
-		playerCharacter.DirectionLR(-1);
+		playerCharacter->DirectionLR(-1);
 		break;
 	case 's':
 	case 'S':
-		playerCharacter.DirectionFB(-1);
+		playerCharacter->DirectionFB(-1);
 		break;
 	case 'd':
 	case 'D':
-		playerCharacter.DirectionLR(1);
+		playerCharacter->DirectionLR(1);
 		break;
 	case 'w':
 	case 'W':
-		playerCharacter.DirectionFB(1);
+		playerCharacter->DirectionFB(1);
 		break;
 	}
 }
@@ -141,13 +146,13 @@ void Game::InputUp(unsigned char key, int x, int y)
 	case 'A':
 	case 'd':
 	case 'D':
-		playerCharacter.DirectionLR(0);
+		playerCharacter->DirectionLR(0);
 		break;
 	case 'w':
 	case 'W':
 	case 's':
 	case 'S':
-		playerCharacter.DirectionFB(0);
+		playerCharacter->DirectionFB(0);
 		break;
 	}
 }
@@ -161,8 +166,8 @@ void Game::MouseLook(int x, int y)
 		int deltaX = ((centreX - x) < 0) - (0 < (centreX - x));
 		int deltaY = -(((centreY - y) < 0) - (0 < (centreY - y)));
 
-		playerCharacter.DirectionLookLR(deltaX);
-		playerCharacter.DirectionLookUD(deltaY);
+		playerCharacter->DirectionLookLR(deltaX);
+		playerCharacter->DirectionLookUD(deltaY);
 	}
 }
 
@@ -270,4 +275,12 @@ void Game::DrawGUI()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+}
+
+void Game::SetCentreX(int x) {
+	centreX = x;
+}
+
+void Game::SetCentreY(int y) {
+	centreY = y;
 }

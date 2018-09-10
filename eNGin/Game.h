@@ -35,6 +35,10 @@
  *	@author Liam Kinsella
  *	@version 1.2 Added Shays world black box and Finite state machine
  *	@date 08/09/2018
+ *
+ *	@author Aaron Thomson
+ *	@version 1.3 Moved Update and Draw funcs to private
+ *	@date 10-09-2018
  */
 class Game {
 public:
@@ -43,10 +47,8 @@ public:
 	 */
 	Game();
 
-	
-
 	/**
-	*	Default deconstructor
+	*	Default destructor
 	*/
 	~Game();
 
@@ -61,18 +63,6 @@ public:
 	 *	Initialises the game state and loads assets necessary
 	 */
 	void Initialise();
-
-	/**
-	 *	A normal member taking no arguments
-	 *	Updates and reolves interactions between game entities
-	 */
-	void Update();
-
-	/**
-	 *	A normal member taking no arguments
-	 *	Draws the world, actors and the player in a scene
-	 */
-	void Draw();
 
 	/**
 	 *	A normal member taking 3 arguments
@@ -125,14 +115,31 @@ public:
 
 	void DrawGUI();
 
+	/**
+	 *	A normal member taking one argument
+	 *	Sets the value for the centre of the screen on the x axis
+	 *	@param x The x value for the centre of the screen
+	 */
+	void SetCentreX(int x);
+
+	/**
+	 *	A normal member taking one argument
+	 *	Sets the value for the centre of the screen on the y axis
+	 *	@param y The y valkue for the centre of the screen
+	 */
+	void SetCentreY(int y);
+
 private:
 	float deltaTime;			/*<! A change in time variable> */
-	int state;			/*<! an int representing current game state>*/
+	int state;					/*<! an int representing current game state>*/
+
 	Shay * shaysWorld;			/*<! shaysWorld black box>*/
-	Player playerCharacter;		/*<! The player in a scene */
+
+	Player *playerCharacter;		/*<! The player in a scene */
+
 	Cube alpha, beta, gamma, delta;
 
-	MusicPlayer bgmControl; /*<! Handles the BGM for the Game> */
+	MusicPlayer bgmControl;		/*<! Handles the BGM for the Game> */
 
 	std::vector<Model> models;		/*<! All possible models to be used in the running of the game */
 	std::vector<Texture> textures;	/*<! All possible textures to be used in the running of the game */
@@ -141,6 +148,18 @@ private:
 		centreY;		/*<! The y value of the centre of the screen */
 
 	Texture * tex;
+
+	/**
+	 *	A normal member taking no arguments
+	 *	Updates and reolves interactions between game entities
+	 */
+	void Update();
+
+	/**
+	 *	A normal member taking no arguments
+	 *	Draws the world, actors and the player in a scene
+	 */
+	void Draw();
 
 };
 
