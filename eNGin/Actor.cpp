@@ -1,10 +1,39 @@
 #include "Actor.h"
 
-Actor::Actor() : position(0.0, 0.0, 0.0),
+Actor::Actor() : position{ 0.0, 0.0, 0.0 },
 				 rotations{ 0.0, 0.0, 0.0 },
 				 scale{ 1.0, 1.0, 1.0 }
 {
 
+}
+
+Actor::Actor(Model* mod, Texture* tex) : position{ 0.0, 0.0, 0.0 },
+										 rotations{ 0.0, 0.0, 0.0 },
+										 scale{ 1.0, 1.0, 1.0 },
+										 model(mod),
+										 texture(tex)
+{
+
+}
+
+void Actor::Update() {
+
+}
+
+void Actor::Draw() {
+	if ((model != NULL) && (texture != NULL))
+	{
+		glPushMatrix();
+			glRotatef(rotations.x, 1.0, 0.0, 0.0);
+			glRotatef(rotations.y, 0.0, 1.0, 0.0);
+			glRotatef(rotations.z, 0.0, 0.0, 1.0);
+
+			glScalef(scale.x, scale.y, scale.z);
+
+			model->DrawModel(position.GetPointX(), position.GetPointY(), position.GetPointZ(),
+				texture->GetTexture(), texture->GetWidth(), texture->GetHeight());
+		glPopMatrix();
+	}
 }
 
 void Actor::SetPos(Vector3 pos) {

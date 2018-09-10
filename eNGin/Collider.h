@@ -19,6 +19,10 @@
  *	@author Aaron Thomson
  *	@version 1.1 Changed Set methods from Vector3 type to 3 GLdouble types, Replaced AABBtoAABB function with overloaded < operators
  *	@date 05-09-2018
+ *
+ *	@author Rebecca Lim
+ *	@version 2.0 Renamed class from AABB to Collider
+ *	@date 08-09-2018
  */
 class Collider {
 public:

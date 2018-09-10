@@ -4,16 +4,6 @@
 
 #include "Game.h"
 
-
-// USE THESE STTEINGS TO CHANGE SPEED (on different spec computers)
-// Set speed (steps)
-GLdouble movementSpeed = 10.0;
-GLdouble rotationSpeed = 0.005;
-
-// 224 Next #define
-
-//--------------------------------------------------------------------------------------
-
 #define SHAY_STATE 0
 #define MENU_STATE 1
 #define GAME_STATE 2
@@ -22,8 +12,6 @@ Game game;
 
 // ratio of screen
 float ratio;
-// screen width and height
-int width, height;
 
 // initializes setting
 void myinit();
@@ -31,10 +19,11 @@ void myinit();
 // display functions
 void Display();
 void reshape(int w, int h);
-void keys(unsigned char key, int x, int y);
 
 // keyboard and mouse functions
+void keys(unsigned char key, int x, int y);
 void releaseKeys(unsigned char key, int x, int y);
+
 void Mouse(int button, int state, int x, int y);
 void MouseMove(int x, int y);
 
@@ -47,7 +36,7 @@ int main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(800, 500);
-	glutCreateWindow("Murdoch University Campus Tour");
+	glutCreateWindow("Oculus The Rift");
 
 	myinit();
 	game.Initialise();
@@ -60,14 +49,13 @@ int main(int argc, char **argv)
 	glutIdleFunc(Display);
 
 	glutMouseFunc(Mouse);
-	glutPassiveMotionFunc(MouseMove);
 
-	// ONLY USE IF REQUIRE MOUSE MOVEMENT
-	//glutPassiveMotionFunc(mouseMove);
-	//ShowCursor(FALSE);
+	glutMotionFunc(MouseMove);
+	glutPassiveMotionFunc(MouseMove);
 
 	glutReshapeFunc(reshape);
 	glutMainLoop();
+
 	return(0);
 }
 
@@ -76,9 +64,7 @@ int main(int argc, char **argv)
 //--------------------------------------------------------------------------------------
 void myinit()
 {
-
 	glClearColor(97.0 / 255.0, 140.0 / 255.0, 185.0 / 255.0, 1.0);
-
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -98,7 +84,6 @@ void myinit()
 	gluLookAt(0.0, 1.75, 0.0,
 		0.0, 1.75, -1,
 		0.0f, 1.0f, 0.0f);
-
 }
 
 //--------------------------------------------------------------------------------------
@@ -108,7 +93,6 @@ void Display()
 {
 	game.Run();
 
-	// clear buffers
 	glFlush();
 	glutSwapBuffers();
 }
@@ -116,15 +100,19 @@ void Display()
 //--------------------------------------------------------------------------------------
 void reshape(int w, int h)
 {
-	width = w;
-	height = h;
-	if((game.GetShaysWorld() != NULL) && (game.GetState( )== SHAY_STATE))
+	if((game.GetShaysWorld() != NULL) && (game.GetState()== SHAY_STATE))
 	{
 		game.GetShaysWorld()->SetWidthHeight(w, h);
 	}
+	
 	// Prevent a divide by zero, when window is too short
 	// (you cant make a window of zero width).
-	if (h == 0) h = 1;
+	if (h == 0) 
+		h = 1;
+
+	game.SetCentreX(w / 2);
+	game.SetCentreY(h / 2);
+	
 	ratio = 1.0f * w / h;
 
 	// Reset the coordinate system before modifying
@@ -174,7 +162,7 @@ void releaseKeys(unsigned char key, int x, int y)
 //--------------------------------------------------------------------------------------
 void Mouse(int button, int state, int x, int y)
 {
-	//shaysWorld.MouseClick(button, state, x, y);
+	game.GetShaysWorld()->MouseClick(button, state, x, y);
 }
 
 void MouseMove(int x, int y)
@@ -185,45 +173,3 @@ void MouseMove(int x, int y)
 		glutWarpPointer(400, 250);
 	}
 }
-
-/*
-//--------------------------------------------------------------------------------------
-//  Mouse Movements (NOT USED)
-//  Can be used to rotate around screen using mouse, but keyboard used instead
-//--------------------------------------------------------------------------------------
-void mouseMove(int x, int y)
-{
-if (x < 0)
-cam.DirectionRotateLR(0);
-else if (x > width)
-cam.DirectionRotateLR(0);
-else if (x > width/2.0)
-{
-cam.DirectionRotateLR(1);
-Display();
-glutWarpPointer(width/2.0,height/2.0);
-}
-else if (x < width/2.0)
-{
-cam.DirectionRotateLR(-1);
-Display();
-glutWarpPointer(width/2.0,height/2.0);
-}
-else
-cam.DirectionRotateLR(0);
-if (y < 0 || y > height)
-cam.DirectionLookUD(0);
-
-else if (y > height/2.0) {
-cam.DirectionLookUD(-1);
-Display();
-glutWarpPointer(width/2.0,height/2.0);
-}
-else if (y < height/2.0) {
-cam.DirectionLookUD(1);
-Display();
-glutWarpPointer(width/2.0,height/2.0);
-}
-else
-cam.DirectionLookUD(0);
-}*/

@@ -70,10 +70,11 @@ Vector3 Collider::ProjectionNormal()
 	return theNormalVector;
 }
 
-// this is suspect 
+
 // ProjectionAB should equal the scalar multiplication magnitude of source times cosine theta and the projection normal 
 // the dot product can be decomposed to magnitude of source times the magnitude of target 
 // multiplied by the cosine angle of the two
+// this is suspect 
 Projection Collider::VectorProjection()
 {
 	Vector3 resultNormal;
@@ -111,6 +112,7 @@ GLdouble Collider::ProjectionOverlap(Projection targetProjection)
 	return theOverlap;
 
 }
+
 // https://gamedev.stackexchange.com/questions/32545/what-is-the-mtv-minimum-translation-vector-in-sat-seperation-of-axis
 // https://stackoverflow.com/questions/40255953/finding-the-mtv-minimal-translation-vector-using-separating-axis-theorem
 // calculating depth penetration using SAT to find the minimum translation vector
