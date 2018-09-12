@@ -94,30 +94,45 @@ public:
 	GLdouble DotProduct(Vector3 &in);
 
 	/**
-	 *	A utility function taking one argument and returning a Vector3
-	 *	Calculates the resultant vector of two other vectors
-	 *	@param in The vector to multiply by
-	 *	@return Vector3 The resultant vector
-	 */
+	*	A utility function taking one argument and returning a Vector3
+	*	Calculates the resultant vector of two other vectors
+	*	@param in The vector to multiply by
+	*	@return Vector3 The resultant vector
+	*/
 	Vector3 CrossProduct(Vector3 &in);
 
 	/**
-	 *	A utility function taking one argument and returning a Vector3
-	 *	Calculates the result of multiplying a Vector by a scalar
-	 *	@param scalar The scalar to multiply the Vector by
-	 *	@return Vector3 The resultof multiplying the Vector by the scalar
-	 */
+	*	A utility function taking one argument and returning a Vector3
+	*	Calculates the result of multiplying a Vector by a scalar
+	*	@param scalar The scalar to multiply the Vector by
+	*	@return Vector3 The resultof multiplying the Vector by the scalar
+	*/
 	Vector3 MultiplyByScalar(GLdouble scalar);
 
 	/**
-	 *	A utility function returning a Vector3
-	 *	Calculates the vector equal to one unit in the same direction of the vector
-	 *	@return Vector3 The unit normal
-	 */
+	*	A utility function returning a Vector3
+	*	Calculates the vector equal to one unit in the same direction of the vector
+	*	@return Vector3 The unit normal
+	*/
 	Vector3 UnitNormal(Vector3 &inputVector);
-	//========================================
 
+
+	/**
+	*	@brief calculates the angle of a vector in relation to another 
+	*	@param targetVector the comparison vector
+	*	@return the angle in degrees? is returned
+	*	@pre the comparison vector must exist
+	*	@post 
+	*/
 	GLdouble VectorAngle(Vector3 targetVector);
+	
+	/**
+	*	@brief to calculate the difference between two vectors
+	*	@param theInputVector target vector
+	*	@return a vector
+	*	@pre minimum and maximum points must exist
+	*	@post
+	*/
 	Vector3 SubtractVector(Vector3 theInputVector);
 
 private:

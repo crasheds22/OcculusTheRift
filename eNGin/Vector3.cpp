@@ -52,9 +52,9 @@ GLdouble Vector3::DotProduct(Vector3 &in) {
 }
 
 Vector3 Vector3::CrossProduct(Vector3 &in) {
-	Vector3 tempVec(y * in.z - z * in.y,
-					x * in.z - z * in.x,
-					x * in.y - y * in.x);
+	Vector3 tempVec(y * in.GetPointZ() - z * in.GetPointY(),
+					x * in.GetPointZ() - z * in.GetPointX(),
+					x * in.GetPointY() - y * in.GetPointX());
 
 	return tempVec;
 }

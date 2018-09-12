@@ -1,15 +1,16 @@
 #include "pch.h"
 
-#include <Collider.h>
+
 #include <Vector3.h>
+#include <Collider.h>
 #include "Projection.h"
 
-TEST(TestSuite1_AABBTesting, CollisionTest000_TestObjectCreation)
+TEST(TestSuite001_AABBTesting, CollisionTest000_TestObjectCreation)
 {
 	Collider objectOne;
 	Collider objectTwo;
 	
-
+	
 	objectOne.SetMinPoint(0.0, 0.0, 0.00);
 	objectOne.SetMaxPoint(1.0, 1.0, 1.0);
 
@@ -22,7 +23,7 @@ TEST(TestSuite1_AABBTesting, CollisionTest000_TestObjectCreation)
 	SUCCEED();
 }
 
-TEST(TestSuite1_AABBTesting, CollisionTest001_TestCollisionObjectApart)
+TEST(TestSuite001_AABBTesting, CollisionTest001_TestCollisionObjectApart)
 {
 	Collider objectOne;
 	Collider objectTwo;
@@ -41,7 +42,7 @@ TEST(TestSuite1_AABBTesting, CollisionTest001_TestCollisionObjectApart)
 	EXPECT_FALSE(objectOne.AABBtoAABB(objectTwo));
 }
 
-TEST(TestSuite1_AABBTesting, CollisionTest002_TestCollisionObjectsCollided)
+TEST(TestSuite001_AABBTesting, CollisionTest002_TestCollisionObjectsCollided)
 {
 	Collider objectOne;
 	Collider objectTwo;
@@ -59,7 +60,7 @@ TEST(TestSuite1_AABBTesting, CollisionTest002_TestCollisionObjectsCollided)
 	EXPECT_TRUE(objectOne.AABBtoAABB(objectTwo));
 }
 
-TEST(TestSuite1_AABBTesting, CollisionTest003_TestObjectJustTouching)
+TEST(TestSuite001_AABBTesting, CollisionTest003_TestObjectJustTouching)
 {
 	Collider objectOne;
 	Collider objectTwo;
@@ -78,32 +79,50 @@ TEST(TestSuite1_AABBTesting, CollisionTest003_TestObjectJustTouching)
 	EXPECT_FALSE(objectOne.AABBtoAABB(objectTwo));
 }
 
-TEST(TestSuite_AABBTesting, CollisionTest004_TestObjectOverlap)
+TEST(TestSuite001_AABBTesting, CollisionTest004_TestProjectionUnitNormal)
 {
+
+	Collider objectOne;
+	Vector3 testNormal;
+
+	objectOne.SetMinPoint(1.0, 1.0, 1.0);
+	objectOne.SetMaxPoint(1.0, 2.0, 1.0);
+
+	testNormal = objectOne.ProjectionNormal();
+
+	std::cout << "Normal X: " << testNormal.GetPointX()  << std::endl;
+	std::cout << "Normal Y: " << testNormal.GetPointY() << std::endl;
+	std::cout << "Normal Z: " << testNormal.GetPointZ() << std::endl;
+
+	SUCCEED();
+}
+
+
+TEST(TestSuite001_AABBTesting, CollisionTest005TestObjectOverlap)
+{
+	
 	Collider objectOne;
 	Collider objectTwo;
-	Vector3 inputMin;
-	Vector3 inputMax;
 	GLdouble testOverlap;
 
-	objectOne.SetMinPoint(0.0, 0.0, 0.00);
-	objectOne.SetMaxPoint(1.0, 1.0, 1.0);
+	objectOne.SetMinPoint(1.0, 1.0, 1.00);
+	objectOne.SetMaxPoint(2.0, 2.0, 1.0);
 
-	objectTwo.SetMinPoint(0.5, 0.5, 0.5);
-	objectTwo.SetMaxPoint(1.5, 1.5, 1.5);
+	objectTwo.SetMinPoint(1.5, 1.5, 1.5);
+	objectTwo.SetMaxPoint(2.5, 2.5, 1.5);
 
-	Projection targetTest;
+	GLdouble targetTest;
 
-	targetTest = objectTwo.VectorProjection();
+	targetTest = objectTwo.VectorProjection001();
 
-	testOverlap = objectOne.ProjectionOverlap(targetTest);
+	testOverlap = objectOne.ProjectionOverlap001(targetTest);
 
 	std::cout << "Overlap test: " << testOverlap << std::endl;
 
 	SUCCEED();
 }
 
-TEST(TestSuite_AABBTesting, CollisionTest005_TestObjectNotOverlap)
+TEST(TestSuite001_AABBTesting, DISABLED_CollisionTest005_TestObjectNotOverlap)
 {
 	Collider objectOne;
 	Collider objectTwo;
@@ -129,7 +148,7 @@ TEST(TestSuite_AABBTesting, CollisionTest005_TestObjectNotOverlap)
 	SUCCEED();
 }
 
-TEST(TestSuite_AABBTesting, CollisionTest006_TestObjectTouching)
+TEST(TestSuite001_AABBTesting, CollisionTest006_TestObjectTouching)
 {
 	Collider objectOne;
 	Collider objectTwo;
@@ -153,7 +172,7 @@ TEST(TestSuite_AABBTesting, CollisionTest006_TestObjectTouching)
 	SUCCEED();
 }
 
-TEST(TestSuite_AABBTesting, CollisionTest007_TestProjectionNormal)
+TEST(TestSuite001_AABBTesting, CollisionTest007_TestProjectionNormal)
 {
 	Collider objectOne;
 	Vector3 inputMin;
@@ -175,13 +194,12 @@ TEST(TestSuite_AABBTesting, CollisionTest007_TestProjectionNormal)
 	SUCCEED();
 }
 
-TEST(TestSuite_AABBTesting, CollisionTest008_TestVectorProjection)
+TEST(TestSuite001_AABBTesting, CollisionTest008_TestVectorProjection)
 {
 	Collider objectOne;
 	Vector3 inputMin;
 	Vector3 inputMax;
 	Projection resultProjection;
-
 
 	objectOne.SetMinPoint(0.0, 0.0, 0.00);
 	objectOne.SetMaxPoint(1.0, 1.0, 1.0);
@@ -197,7 +215,7 @@ TEST(TestSuite_AABBTesting, CollisionTest008_TestVectorProjection)
 	SUCCEED();
 }
 
-TEST(TestSuite_AABBTesting, CollisionTest009_TestVectorProjection)
+TEST(TestSuite001_AABBTesting, CollisionTest009_TestVectorProjection)
 {
 	Collider objectOne;
 	Vector3 inputMin;
@@ -218,7 +236,7 @@ TEST(TestSuite_AABBTesting, CollisionTest009_TestVectorProjection)
 	SUCCEED();
 }
 
-TEST(TestSuite_AABBTesting, CollisionTest010_TestVectorProjection)
+TEST(TestSuite001_AABBTesting, CollisionTest010_TestVectorProjection)
 {
 	Collider objectOne;
 	Vector3 inputMin;
@@ -238,4 +256,42 @@ TEST(TestSuite_AABBTesting, CollisionTest010_TestVectorProjection)
 
 	SUCCEED();
 }
+
+TEST(TestSuite2_Vector3Testing, VectorTest001_VectorMagnitude)
+{
+	Vector3 objectOne;
+	GLdouble resultTest;
+
+	objectOne = Vector3(1.0, 1.0, 1.0);
+	resultTest = objectOne.VectorMagnitude();
+
+	std::cout << "Magnitude: " << resultTest << std::endl;
+
+	SUCCEED();
+}
+
+TEST(TestSuite001_AABBTesting, CollisionTest011_TestMTV)
+{
+	Collider objectOne;
+	Collider objectTwo;
+	Vector3 resultMTV;
+
+
+	objectOne.SetMinPoint(1.0, 1.0, 1.0);
+	objectOne.SetMaxPoint(3.0, 4.0, 0.0);
+	objectTwo.SetMinPoint(1.0, 1.0, 1.0);
+	objectTwo.SetMaxPoint(5.0, -12.0, 0.0);
+
+	
+
+	resultMTV = objectOne.MinimumTranslationVector(objectTwo);
+
+	std::cout << "Projection Minima: " << resultMTV.GetPointX() << std::endl;
+	std::cout << "Projection Maxima: " << resultMTV.GetPointY() << std::endl;
+	std::cout << "Projection Maxima: " << resultMTV.GetPointZ() << std::endl;
+
+	SUCCEED();
+}
+
+
 

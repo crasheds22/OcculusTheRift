@@ -60,12 +60,13 @@ bool Collider::operator > (Collider &other)
 }
 
 
-
+// Need to double check this
 Vector3 Collider::ProjectionNormal()
 {
 	Vector3 theNormalVector;
 
-	theNormalVector = minPoint.UnitNormal(maxPoint);
+
+	theNormalVector = maxPoint.UnitNormal(minPoint);
 	
 	return theNormalVector;
 }
@@ -75,6 +76,7 @@ Vector3 Collider::ProjectionNormal()
 // the dot product can be decomposed to magnitude of source times the magnitude of target 
 // multiplied by the cosine angle of the two
 // this is suspect 
+// this should gives us the min and max scalar projection on the normal
 Projection Collider::VectorProjection()
 {
 	Vector3 resultNormal;
@@ -91,6 +93,32 @@ Projection Collider::VectorProjection()
 	return resultProjection;
 }
 
+GLdouble Collider::VectorProjection001()
+{
+	Vector3 resultNormal;
+	Vector3 edgeVector;
+	GLdouble scalarProjection;
+	
+	resultNormal = ProjectionNormal();
+	edgeVector = maxPoint.SubtractVector(minPoint);
+
+	scalarProjection = resultNormal.DotProduct(edgeVector);
+	std::cout << "Scalar projection: " << scalarProjection << std::endl;
+	return scalarProjection;
+}
+
+
+GLdouble Collider::ProjectionOverlap001(GLdouble targetProjection)
+{
+	GLdouble theProjection;
+	GLdouble theOverlap;
+
+	theProjection = VectorProjection001();
+	std::cout << "===The Projection===" << theProjection << std::endl;
+	theOverlap = theProjection - targetProjection;
+
+	return theOverlap;
+}
 
 //float intersectionDepth = (mina < minb)? (maxa - minb) : (mina - maxb);
 GLdouble Collider::ProjectionOverlap(Projection targetProjection)
@@ -119,13 +147,7 @@ GLdouble Collider::ProjectionOverlap(Projection targetProjection)
 Vector3 Collider::MinimumTranslationVector(Collider &projectTarget)
 {
 	Projection targetObject;
-	Vector3 sourceVector;
-	Vector3 targetVector;
-	Vector3 unitVector;
-	GLdouble overlapDepth;
-	GLdouble sourceMagnitude;
-	GLdouble targetMagnitude;
-	GLdouble sourceTheta;
+	GLdouble overlapDepth = 0.0;
 	Vector3 theMTV;
 
 	targetObject = projectTarget.VectorProjection();
