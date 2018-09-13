@@ -162,7 +162,9 @@ void releaseKeys(unsigned char key, int x, int y)
 //--------------------------------------------------------------------------------------
 void Mouse(int button, int state, int x, int y)
 {
-	game.GetShaysWorld()->MouseClick(button, state, x, y);
+	if (game.GetState() == SHAY_STATE) {
+		game.GetShaysWorld()->MouseClick(button, state, x, y);
+	}
 }
 
 void MouseMove(int x, int y)

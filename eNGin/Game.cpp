@@ -136,6 +136,10 @@ void Game::InputDown(unsigned char key, int x, int y)
 	case 'W':
 		playerCharacter->DirectionFB(1);
 		break;
+	case 't':
+	case 'T':
+
+		break;
 	}
 }
 
@@ -213,7 +217,7 @@ void Game::DrawGUI()
 	float y1 = 4.5;
 	float y2 = 3.5;
 	int maxHealth = 5;
-	int currentHealth = 4;
+	int currentHealth = 3;
 	int hbSlot = 0;
 
 	for (int i = 0; i < maxHealth; i++)
