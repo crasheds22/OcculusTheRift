@@ -113,9 +113,9 @@ TEST(TestSuite001_AABBTesting, CollisionTest005TestObjectOverlap)
 
 	GLdouble targetTest;
 
-	targetTest = objectTwo.VectorProjection001();
+	targetTest = objectTwo.VectorProjection();
 
-	testOverlap = objectOne.ProjectionOverlap001(targetTest);
+	testOverlap = objectOne.ProjectionOverlap(targetTest);
 
 	std::cout << "Overlap test: " << testOverlap << std::endl;
 
@@ -137,7 +137,7 @@ TEST(TestSuite001_AABBTesting, DISABLED_CollisionTest005_TestObjectNotOverlap)
 	objectTwo.SetMaxPoint(3.0, 3.0, 3.0);
 
 
-	Projection targetTest;
+	GLdouble targetTest;
 
 	targetTest = objectTwo.VectorProjection();
 
@@ -161,7 +161,7 @@ TEST(TestSuite001_AABBTesting, CollisionTest006_TestObjectTouching)
 	objectTwo.SetMinPoint(1.0, 1.0, 1.0);
 	objectTwo.SetMaxPoint(2.0, 2.0, 2.0);
 
-	Projection targetTest;
+	GLdouble targetTest;
 
 	targetTest = objectTwo.VectorProjection();
 
@@ -199,7 +199,7 @@ TEST(TestSuite001_AABBTesting, CollisionTest008_TestVectorProjection)
 	Collider objectOne;
 	Vector3 inputMin;
 	Vector3 inputMax;
-	Projection resultProjection;
+	GLdouble resultProjection;
 
 	objectOne.SetMinPoint(0.0, 0.0, 0.00);
 	objectOne.SetMaxPoint(1.0, 1.0, 1.0);
@@ -208,8 +208,8 @@ TEST(TestSuite001_AABBTesting, CollisionTest008_TestVectorProjection)
 
 	resultProjection = objectOne.VectorProjection();
 
-	std::cout << "Projection Minima: " << resultProjection.GetMinProjection() << std::endl;
-	std::cout << "Projection Maxima: " << resultProjection.GetMaxProjection() << std::endl;
+	std::cout << "Projection Minima: " << resultProjection << std::endl;
+	
 	
 
 	SUCCEED();
@@ -220,7 +220,7 @@ TEST(TestSuite001_AABBTesting, CollisionTest009_TestVectorProjection)
 	Collider objectOne;
 	Vector3 inputMin;
 	Vector3 inputMax;
-	Projection resultProjection;
+	GLdouble resultProjection;
 
 
 	objectOne.SetMinPoint(1.0, 1.0, 1.0);
@@ -230,9 +230,8 @@ TEST(TestSuite001_AABBTesting, CollisionTest009_TestVectorProjection)
 
 	resultProjection = objectOne.VectorProjection();
 
-	std::cout << "Projection Minima: " << resultProjection.GetMinProjection() << std::endl;
-	std::cout << "Projection Maxima: " << resultProjection.GetMaxProjection() << std::endl;
-
+	std::cout << "Projection: " << resultProjection << std::endl;
+	
 	SUCCEED();
 }
 
@@ -241,7 +240,7 @@ TEST(TestSuite001_AABBTesting, CollisionTest010_TestVectorProjection)
 	Collider objectOne;
 	Vector3 inputMin;
 	Vector3 inputMax;
-	Projection resultProjection;
+	GLdouble resultProjection;
 
 
 	objectOne.SetMinPoint(2.0, 2.0, 2.0);
@@ -251,8 +250,7 @@ TEST(TestSuite001_AABBTesting, CollisionTest010_TestVectorProjection)
 
 	resultProjection = objectOne.VectorProjection();
 
-	std::cout << "Projection Minima: " << resultProjection.GetMinProjection() << std::endl;
-	std::cout << "Projection Maxima: " << resultProjection.GetMaxProjection() << std::endl;
+	std::cout << "Projection Minima: " << resultProjection << std::endl;
 
 	SUCCEED();
 }

@@ -2,7 +2,8 @@
 #define MusicPlayer_h
 
 #include "SDL2_Mixer\include\SDL_mixer.h"
-#include "SDL.h"
+#include "SDL_mixer.h"
+#include <SDL.h>
 #include<vector>
 
 class MusicPlayer

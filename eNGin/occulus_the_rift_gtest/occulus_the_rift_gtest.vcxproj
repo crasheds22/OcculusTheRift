@@ -33,18 +33,21 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(projectDir)/.;$(projectDir)/..;$(projectDir)/../glut_bin;$(IncludePath)</IncludePath>
-    <LibraryPath>$(projectDir)/../glut_bin;$(LibraryPath)</LibraryPath>
-    <SourcePath>$(projectDir)/..;$(projectDir)/.;$(SourcePath)</SourcePath>
+    <IncludePath>$(projectDir)/.;$(projectDir)/..;$(projectDir)/../glut_bin;$(projectDir)/../SDL2-devel-2.0.8-VC/SDL2-2.0.8/include;$(projectDir)/../SDL2_Mixer/include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(projectDir)../glut_bin;$(projectDir)../SDL2-devel-2.0.8-VC/SDL2-2.0.8/lib/x86;$(projectDir)../SDL2_Mixer/lib/x86/;$(projectDir)../data;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(projectDir)/..;$(projectDir)/.;$(projectDir)/./data;$(SourcePath)</SourcePath>
+    <ReferencePath>$(projectDir)..;$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <ItemGroup>
     <ClInclude Include="..\Collider.h" />
+    <ClInclude Include="..\MusicPlayer.h" />
     <ClInclude Include="..\Projection.h" />
     <ClInclude Include="..\Vector3.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Collider.cpp" />
+    <ClCompile Include="..\MusicPlayer.cpp" />
     <ClCompile Include="..\Projection.cpp" />
     <ClCompile Include="..\Vector3.cpp" />
     <ClCompile Include="pch.cpp">
@@ -53,16 +56,31 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TestMusic.cpp" />
     <ClCompile Include="TestVector3.cpp" />
     <ClCompile Include="TestAABB.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="data\hb_full_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="data\test_song.mp3" />
+    <Media Include="data\test_song2.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\eNGin.vcxproj">
+      <Project>{cacd260c-5f98-4740-8222-0189c66ef915}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.0\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets" Condition="Exists('packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.0\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets')" />
+    <Import Project="packages\SDL.redist.1.2.15.16\build\native\SDL.redist.targets" Condition="Exists('packages\SDL.redist.1.2.15.16\build\native\SDL.redist.targets')" />
+    <Import Project="packages\SDL.1.2.15.16\build\native\SDL.targets" Condition="Exists('packages\SDL.1.2.15.16\build\native\SDL.targets')" />
   </ImportGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -78,7 +96,18 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
+      <EmbedManagedResourceFile>$(projectDir)data/test_song.mp3;$(projectDir)data/test_song2.mp3;%(EmbedManagedResourceFile)</EmbedManagedResourceFile>
+      <AdditionalLibraryDirectories>$(projectDir)../SDL2-devel-2.0.8-VC/SDL2-2.0.8/lib/x86;$(projectDir)../SDL2_Mixer/lib/x86/;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;glut32.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>LinkVerboseLib</ShowProgress>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <CustomBuildStep>
+      <Inputs>SDL2_mixer.lib;glut32.lib;SDL2.lib;SDL2main.lib;%(Inputs)</Inputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -133,5 +162,7 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.0\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.0\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets'))" />
+    <Error Condition="!Exists('packages\SDL.redist.1.2.15.16\build\native\SDL.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SDL.redist.1.2.15.16\build\native\SDL.redist.targets'))" />
+    <Error Condition="!Exists('packages\SDL.1.2.15.16\build\native\SDL.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SDL.1.2.15.16\build\native\SDL.targets'))" />
   </Target>
 </Project>

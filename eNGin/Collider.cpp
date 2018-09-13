@@ -77,6 +77,7 @@ Vector3 Collider::ProjectionNormal()
 // multiplied by the cosine angle of the two
 // this is suspect 
 // this should gives us the min and max scalar projection on the normal
+/*
 Projection Collider::VectorProjection()
 {
 	Vector3 resultNormal;
@@ -92,8 +93,8 @@ Projection Collider::VectorProjection()
 
 	return resultProjection;
 }
-
-GLdouble Collider::VectorProjection001()
+*/
+GLdouble Collider::VectorProjection()
 {
 	Vector3 resultNormal;
 	Vector3 edgeVector;
@@ -103,17 +104,18 @@ GLdouble Collider::VectorProjection001()
 	edgeVector = maxPoint.SubtractVector(minPoint);
 
 	scalarProjection = resultNormal.DotProduct(edgeVector);
+
 	std::cout << "Scalar projection: " << scalarProjection << std::endl;
 	return scalarProjection;
 }
 
 
-GLdouble Collider::ProjectionOverlap001(GLdouble targetProjection)
+GLdouble Collider::ProjectionOverlap(GLdouble targetProjection)
 {
 	GLdouble theProjection;
 	GLdouble theOverlap;
 
-	theProjection = VectorProjection001();
+	theProjection = VectorProjection();
 	std::cout << "===The Projection===" << theProjection << std::endl;
 	theOverlap = theProjection - targetProjection;
 
@@ -121,6 +123,8 @@ GLdouble Collider::ProjectionOverlap001(GLdouble targetProjection)
 }
 
 //float intersectionDepth = (mina < minb)? (maxa - minb) : (mina - maxb);
+// This is correct need more vertices current data structure is not suited to this collision resolution
+/*
 GLdouble Collider::ProjectionOverlap(Projection targetProjection)
 {
 	Projection theProjection;
@@ -140,13 +144,15 @@ GLdouble Collider::ProjectionOverlap(Projection targetProjection)
 	return theOverlap;
 
 }
+*/
 
 // https://gamedev.stackexchange.com/questions/32545/what-is-the-mtv-minimum-translation-vector-in-sat-seperation-of-axis
 // https://stackoverflow.com/questions/40255953/finding-the-mtv-minimal-translation-vector-using-separating-axis-theorem
 // calculating depth penetration using SAT to find the minimum translation vector
 Vector3 Collider::MinimumTranslationVector(Collider &projectTarget)
 {
-	Projection targetObject;
+	//Projection targetObject;
+	GLdouble targetObject;
 	GLdouble overlapDepth = 0.0;
 	Vector3 theMTV;
 

@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "occulus_the_rift_gtest", "occulus_the_rift_gtest.vcxproj", "{16CA46E4-4038-42BA-9DF3-07612C76F98D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "eNGin", "..\eNGin.vcxproj", "{CACD260C-5F98-4740-8222-0189C66EF915}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{16CA46E4-4038-42BA-9DF3-07612C76F98D}.Release|x64.Build.0 = Release|x64
 		{16CA46E4-4038-42BA-9DF3-07612C76F98D}.Release|x86.ActiveCfg = Release|Win32
 		{16CA46E4-4038-42BA-9DF3-07612C76F98D}.Release|x86.Build.0 = Release|Win32
+		{CACD260C-5F98-4740-8222-0189C66EF915}.Debug|x64.ActiveCfg = Debug|x64
+		{CACD260C-5F98-4740-8222-0189C66EF915}.Debug|x64.Build.0 = Debug|x64
+		{CACD260C-5F98-4740-8222-0189C66EF915}.Debug|x86.ActiveCfg = Debug|Win32
+		{CACD260C-5F98-4740-8222-0189C66EF915}.Debug|x86.Build.0 = Debug|Win32
+		{CACD260C-5F98-4740-8222-0189C66EF915}.Release|x64.ActiveCfg = Release|x64
+		{CACD260C-5F98-4740-8222-0189C66EF915}.Release|x64.Build.0 = Release|x64
+		{CACD260C-5F98-4740-8222-0189C66EF915}.Release|x86.ActiveCfg = Release|Win32
+		{CACD260C-5F98-4740-8222-0189C66EF915}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

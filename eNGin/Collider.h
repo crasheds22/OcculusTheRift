@@ -109,7 +109,9 @@ public:
 	*	@pre
 	*	@post
 	*/
-	Projection VectorProjection();
+
+	//Projection VectorProjection();
+	GLdouble VectorProjection();
 
 	/**
 	*	@brief to find the depth of intersection
@@ -118,7 +120,9 @@ public:
 	*	@pre minimum and maximum points must exist
 	*	@post
 	*/
-	GLdouble ProjectionOverlap(Projection targetProjection);
+
+	//GLdouble ProjectionOverlap(Projection targetProjection); // This is correct not usable at the moment
+	GLdouble ProjectionOverlap(GLdouble targetProjection);
 
 	/**
 	*	@brief finds the Minimum Translation Vector from the collision
@@ -129,8 +133,6 @@ public:
 	*/
 	Vector3 MinimumTranslationVector(Collider &projectTarget);
 
-	GLdouble VectorProjection001();
-	GLdouble ProjectionOverlap001(GLdouble targetProjection);
 
 private:
 	Vector3 minPoint,	/*<! The minimum point of the bounding box */
