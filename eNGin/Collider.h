@@ -70,12 +70,12 @@ public:
 	//============================================================
 
 	/**
-		*	@brief collision detection function
-		*	@param objectOther target object for comparison
-		*	@return a boolean of intersection is returned
-		*	@pre minimum and maximum points must exist
-		*	@post
-		*/
+	*	@brief collision detection function
+	*	@param objectOther target object for comparison
+	*	@return a boolean of intersection is returned
+	*	@pre minimum and maximum points must exist
+	*	@post
+	*/
 	bool AABBtoAABB(Collider &objectOther);
 
 	/**
@@ -121,13 +121,16 @@ public:
 	GLdouble ProjectionOverlap(Projection targetProjection);
 
 	/**
-	*	@brief to find the depth of intersection
-	*	@param objectOther target object for comparison
-	*	@return a depth of intersection is returned
-	*	@pre minimum and maximum points must exist
+	*	@brief finds the Minimum Translation Vector from the collision
+	*	@param projectTarget colliding object 
+	*	@return a vector encapsulating the magnitude and direction to reflect off 
+	*	@pre the comparison target must exist
 	*	@post
 	*/
 	Vector3 MinimumTranslationVector(Collider &projectTarget);
+
+	GLdouble VectorProjection001();
+	GLdouble ProjectionOverlap001(GLdouble targetProjection);
 
 private:
 	Vector3 minPoint,	/*<! The minimum point of the bounding box */

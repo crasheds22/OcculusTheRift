@@ -52,9 +52,9 @@ GLdouble Vector3::DotProduct(Vector3 &in) {
 }
 
 Vector3 Vector3::CrossProduct(Vector3 &in) {
-	Vector3 tempVec(y * in.z - z * in.y,
-					x * in.z - z * in.x,
-					x * in.y - y * in.x);
+	Vector3 tempVec(y * in.GetPointZ() - z * in.GetPointY(),
+					x * in.GetPointZ() - z * in.GetPointX(),
+					x * in.GetPointY() - y * in.GetPointX());
 
 	return tempVec;
 }
@@ -67,13 +67,17 @@ Vector3 Vector3::MultiplyByScalar(GLdouble scalar) {
 	return tempVec;
 }
 
-Vector3 Vector3::UnitNormal() {
+Vector3 Vector3::UnitNormal(Vector3 &inputVector) {
 	GLdouble mag = VectorMagnitude();
-	Vector3 tempVec(x / mag,
-					y / mag,
-					z / mag);
+	Vector3 normalVector;
+	Vector3 resultVector;
 
-	return tempVec;
+	normalVector = CrossProduct(inputVector);
+	resultVector.SetPointX(normalVector.GetPointX() / mag);
+	resultVector.SetPointY(normalVector.GetPointY() / mag);
+	resultVector.SetPointZ(normalVector.GetPointZ() / mag);
+
+	return resultVector;
 }
 
 GLdouble Vector3::VectorAngle(Vector3 targetVector)
