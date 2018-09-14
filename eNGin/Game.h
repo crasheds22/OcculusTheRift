@@ -14,7 +14,7 @@
 #include "Model.h"
 #include "Texture.h"
 #include "Shay.h"
-#include <MusicPlayer.h>
+#include "MusicPlayer.h"
 
 #define SHAY_STATE 0
 #define MENU_STATE 1

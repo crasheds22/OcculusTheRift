@@ -35,7 +35,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(projectDir).;$(projectDir)..;$(projectDir)../Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(projectDir)../Library;$(LibraryPath)</LibraryPath>
-    <SourcePath>$(projectDir)/..;$(projectDir)/.;$(projectDir)/./data;$(SourcePath)</SourcePath>
+    <SourcePath>$(projectDir)/..;$(projectDir)/.;$(projectDir)/../data;$(SourcePath)</SourcePath>
     <ReferencePath>$(projectDir)..;$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -96,21 +96,23 @@
     <ClCompile Include="..\Shay\texturedPolygons.cpp" />
     <ClCompile Include="..\Texture.cpp" />
     <ClCompile Include="..\Vector3.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Test003Game.cpp" />
     <ClCompile Include="Test002Music.cpp" />
     <ClCompile Include="Test000Vector3.cpp" />
     <ClCompile Include="Test001AABB.cpp" />
+    <ClCompile Include="Test003Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="bitmap1.bmp" />
     <Image Include="data\hb_full_left.png" />
   </ItemGroup>
   <ItemGroup>
@@ -147,7 +149,7 @@
       <SubSystem>Console</SubSystem>
       <EmbedManagedResourceFile>$(projectDir)data/test_song.mp3;$(projectDir)data/test_song2.mp3;%(EmbedManagedResourceFile)</EmbedManagedResourceFile>
       <AdditionalLibraryDirectories>$(projectDir)../Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2_mixer.lib;glut32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;SDL2_mixer.lib;glut32.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>LinkVerbose</ShowProgress>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>

@@ -1,9 +1,13 @@
 #ifndef MusicPlayer_h
 #define MusicPlayer_h
 
-#include "SDL_mixer.h"
-#include <SDL.h>
+
 #include <vector>
+
+#include "SDL.h"
+#include "SDL_mixer.h"
+
+
 
 class MusicPlayer
 {
