@@ -60,13 +60,15 @@ bool Collider::operator > (Collider &other)
 }
 
 
-// Need to double check this
+
 Vector3 Collider::ProjectionNormal()
 {
 	Vector3 theNormalVector;
 
-
 	theNormalVector = maxPoint.UnitNormal(minPoint);
+	std::cout << "Normal X:" << theNormalVector.GetPointX() << std::endl;
+	std::cout << "Normal Y:" << theNormalVector.GetPointY() << std::endl;
+	std::cout << "Normal Z:" << theNormalVector.GetPointZ() << std::endl;
 	
 	return theNormalVector;
 }
@@ -94,30 +96,46 @@ Projection Collider::VectorProjection()
 	return resultProjection;
 }
 */
-GLdouble Collider::VectorProjection()
+
+//https://www.maplesoft.com/support/help/maple/view.aspx?path=MathApps%2FProjectionOfVectorOntoPlane
+Vector3 Collider::VectorProjection()
 {
 	Vector3 resultNormal;
 	Vector3 edgeVector;
 	GLdouble scalarProjection;
-	
+	Vector3 theProjection;
+	Vector3 projectionOntoPlane;
+
+
 	resultNormal = ProjectionNormal();
+	
 	edgeVector = maxPoint.SubtractVector(minPoint);
 
 	scalarProjection = resultNormal.DotProduct(edgeVector);
 
-	std::cout << "Scalar projection: " << scalarProjection << std::endl;
-	return scalarProjection;
+	theProjection = resultNormal.MultiplyByScalar(scalarProjection);
+
+	projectionOntoPlane = edgeVector.SubtractVector(theProjection);
+
+	std::cout << "@@@the Vector Projection X @@@: " << projectionOntoPlane.GetPointX() << std::endl;
+	std::cout << "@@@the Vector Projection Y @@@: " << projectionOntoPlane.GetPointY() << std::endl;
+	std::cout << "@@@the Vector Projection Z @@@: " << projectionOntoPlane.GetPointZ() << std::endl;
+
+	return projectionOntoPlane;
 }
 
 
-GLdouble Collider::ProjectionOverlap(GLdouble targetProjection)
+Vector3 Collider::ProjectionOverlap(Vector3 targetProjection)
 {
-	GLdouble theProjection;
-	GLdouble theOverlap;
+	Vector3 theProjection;
+	Vector3 theOverlap;
 
 	theProjection = VectorProjection();
-	std::cout << "===The Projection===" << theProjection << std::endl;
-	theOverlap = theProjection - targetProjection;
+	
+	theOverlap = theProjection.SubtractVector(targetProjection);
+	std::cout << "===The overlap X===" << theOverlap.GetPointX() << std::endl;
+	std::cout << "===The overlap Y===" << theOverlap.GetPointY() << std::endl;
+	std::cout << "===The overlap Z===" << theOverlap.GetPointZ() << std::endl;
 
 	return theOverlap;
 }
@@ -146,27 +164,35 @@ GLdouble Collider::ProjectionOverlap(Projection targetProjection)
 }
 */
 
+
 // https://gamedev.stackexchange.com/questions/32545/what-is-the-mtv-minimum-translation-vector-in-sat-seperation-of-axis
 // https://stackoverflow.com/questions/40255953/finding-the-mtv-minimal-translation-vector-using-separating-axis-theorem
 // calculating depth penetration using SAT to find the minimum translation vector
 Vector3 Collider::MinimumTranslationVector(Collider &projectTarget)
 {
 	//Projection targetObject;
-	GLdouble targetObject;
-	GLdouble overlapDepth = 0.0;
+	Vector3 targetObject;
+	
+	Vector3 overlapDepth;
 	Vector3 theMTV;
 
+
 	targetObject = projectTarget.VectorProjection();
+	overlapDepth = ProjectionOverlap(targetObject);
 
-	if (AABBtoAABB(projectTarget))
+	if (overlapDepth.GetPointX() < 0 || overlapDepth.GetPointY() < 0 || overlapDepth.GetPointZ() < 0)
 	{
-		overlapDepth = ProjectionOverlap(targetObject);
+		std::cout << "Collision True" << std::endl;
+		theMTV = ProjectionNormal().CrossProduct(overlapDepth);
 	}
-
+	else
+	{
+		theMTV = Vector3(0.0, 0.0, 0.0);
+	}
 	// MTV is usually the normal of the vector times the overlapdepth
 	// projection normal is analogous to axis
 	
-	theMTV = ProjectionNormal().MultiplyByScalar(overlapDepth);
+	
 
 	return theMTV;
 }

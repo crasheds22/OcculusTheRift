@@ -33,7 +33,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(projectDir)/.;$(projectDir)/..;$(projectDir)/../Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(projectDir).;$(projectDir)..;$(projectDir)../Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(projectDir)../Library;$(LibraryPath)</LibraryPath>
     <SourcePath>$(projectDir)/..;$(projectDir)/.;$(projectDir)/./data;$(SourcePath)</SourcePath>
     <ReferencePath>$(projectDir)..;$(ReferencePath)</ReferencePath>
@@ -42,16 +42,59 @@
     <IncludePath>$(projectDir)..;$(projectDir)../Include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemGroup>
+    <ClInclude Include="..\Actor.h" />
     <ClInclude Include="..\Collider.h" />
+    <ClInclude Include="..\Cube.h" />
+    <ClInclude Include="..\Game.h" />
+    <ClInclude Include="..\lodepng.h" />
+    <ClInclude Include="..\Model.h" />
     <ClInclude Include="..\MusicPlayer.h" />
+    <ClInclude Include="..\Player.h" />
     <ClInclude Include="..\Projection.h" />
+    <ClInclude Include="..\Shay.h" />
+    <ClInclude Include="..\Shay\AABB.h" />
+    <ClInclude Include="..\Shay\AABBLinkedList.h" />
+    <ClInclude Include="..\Shay\AABBNode.h" />
+    <ClInclude Include="..\Shay\camera.h" />
+    <ClInclude Include="..\Shay\cameraMap.h" />
+    <ClInclude Include="..\Shay\collision.h" />
+    <ClInclude Include="..\Shay\EasySound.h" />
+    <ClInclude Include="..\Shay\Game.h" />
+    <ClInclude Include="..\Shay\Model_Shay.h" />
+    <ClInclude Include="..\Shay\PlainLinkedList.h" />
+    <ClInclude Include="..\Shay\PlainNode.h" />
+    <ClInclude Include="..\Shay\Sound.h" />
+    <ClInclude Include="..\Shay\SoundTime.h" />
+    <ClInclude Include="..\Shay\texturedPolygons.h" />
+    <ClInclude Include="..\Texture.h" />
     <ClInclude Include="..\Vector3.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Actor.cpp" />
     <ClCompile Include="..\Collider.cpp" />
+    <ClCompile Include="..\Cube.cpp" />
+    <ClCompile Include="..\Game.cpp" />
+    <ClCompile Include="..\lodepng.cpp" />
+    <ClCompile Include="..\Model.cpp" />
     <ClCompile Include="..\MusicPlayer.cpp" />
+    <ClCompile Include="..\Player.cpp" />
     <ClCompile Include="..\Projection.cpp" />
+    <ClCompile Include="..\Shay.cpp" />
+    <ClCompile Include="..\Shay\AABB.CPP" />
+    <ClCompile Include="..\Shay\AABBLinkedList.cpp" />
+    <ClCompile Include="..\Shay\AABBNode.cpp" />
+    <ClCompile Include="..\Shay\camera.cpp" />
+    <ClCompile Include="..\Shay\cameraMap.cpp" />
+    <ClCompile Include="..\Shay\collision.cpp" />
+    <ClCompile Include="..\Shay\EasySound.cpp" />
+    <ClCompile Include="..\Shay\Model_Shay.cpp" />
+    <ClCompile Include="..\Shay\PlainLinkedList.cpp" />
+    <ClCompile Include="..\Shay\PlainNode.cpp" />
+    <ClCompile Include="..\Shay\Sound.cpp" />
+    <ClCompile Include="..\Shay\SoundTime.cpp" />
+    <ClCompile Include="..\Shay\texturedPolygons.cpp" />
+    <ClCompile Include="..\Texture.cpp" />
     <ClCompile Include="..\Vector3.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -59,9 +102,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="TestMusic.cpp" />
-    <ClCompile Include="TestVector3.cpp" />
-    <ClCompile Include="TestAABB.cpp" />
+    <ClCompile Include="Test003Game.cpp" />
+    <ClCompile Include="Test002Music.cpp" />
+    <ClCompile Include="Test000Vector3.cpp" />
+    <ClCompile Include="Test001AABB.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -93,6 +137,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>$(projectDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -100,7 +145,8 @@
       <EmbedManagedResourceFile>$(projectDir)data/test_song.mp3;$(projectDir)data/test_song2.mp3;%(EmbedManagedResourceFile)</EmbedManagedResourceFile>
       <AdditionalLibraryDirectories>$(projectDir)../Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2_mixer.lib;glut32.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ShowProgress>NotSet</ShowProgress>
+      <ShowProgress>LinkVerbose</ShowProgress>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
       <Command>

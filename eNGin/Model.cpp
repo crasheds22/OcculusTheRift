@@ -1,3 +1,4 @@
+#include <pch.h>
 #include "Model.h"
 
 Model::Model(std::string filePath) : nPositions(0),

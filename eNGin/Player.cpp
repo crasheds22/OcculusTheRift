@@ -1,3 +1,5 @@
+#include <pch.h>
+
 #include "Player.h"
 
 Player::Player() : moveSpeed(0.0),

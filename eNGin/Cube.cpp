@@ -1,3 +1,4 @@
+#include <pch.h>
 #include "Cube.h"
 
 Cube::Cube() {

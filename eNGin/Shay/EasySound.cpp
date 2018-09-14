@@ -1,6 +1,7 @@
 // EasySound.cpp: implementation of the CEasySound class.
 //
 //////////////////////////////////////////////////////////////////////
+#include <pch.h>
 #include "EasySound.h"
 
 extern void mixaudio(void *unused, Uint8 *stream, int len){

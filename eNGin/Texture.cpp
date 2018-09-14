@@ -1,3 +1,4 @@
+#include <pch.h>
 #include "Texture.h"
 
 std::vector<unsigned char>& Texture::GetTexture() {

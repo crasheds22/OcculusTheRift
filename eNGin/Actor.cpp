@@ -1,3 +1,5 @@
+#include <pch.h>
+
 #include "Actor.h"
 
 Actor::Actor() : position{ 0.0, 0.0, 0.0 },

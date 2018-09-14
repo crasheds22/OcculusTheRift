@@ -3,7 +3,6 @@
 
 #include <gl/glut.h>
 
-
 #include "Vector3.h"
 #include "Projection.h"
 
@@ -111,7 +110,7 @@ public:
 	*/
 
 	//Projection VectorProjection();
-	GLdouble VectorProjection();
+	Vector3 VectorProjection();
 
 	/**
 	*	@brief to find the depth of intersection
@@ -122,7 +121,7 @@ public:
 	*/
 
 	//GLdouble ProjectionOverlap(Projection targetProjection); // This is correct not usable at the moment
-	GLdouble ProjectionOverlap(GLdouble targetProjection);
+	Vector3 ProjectionOverlap(Vector3 targetProjection);
 
 	/**
 	*	@brief finds the Minimum Translation Vector from the collision

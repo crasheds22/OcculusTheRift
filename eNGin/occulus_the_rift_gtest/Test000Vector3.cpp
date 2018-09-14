@@ -26,4 +26,3 @@ TEST(TestSuite000_Vector3Testing, VectorTest001_VectorMagnitude)
 
 	SUCCEED();
 }
-
