@@ -3,7 +3,7 @@
 
 #include "SDL_mixer.h"
 #include <SDL.h>
-#include<vector>
+#include <vector>
 
 class MusicPlayer
 {
