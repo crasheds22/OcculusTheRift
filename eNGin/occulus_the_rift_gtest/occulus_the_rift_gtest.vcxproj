@@ -33,9 +33,9 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(projectDir).;$(projectDir)..;$(projectDir)../Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(projectDir).;$(projectDir)..;$(projectDir)../Include;$(projectDir)../data;$(IncludePath)</IncludePath>
     <LibraryPath>$(projectDir)../Library;$(LibraryPath)</LibraryPath>
-    <SourcePath>$(projectDir)/..;$(projectDir)/.;$(projectDir)/../data;$(SourcePath)</SourcePath>
+    <SourcePath>$(projectDir)/..;$(projectDir)../data;$(SourcePath)</SourcePath>
     <ReferencePath>$(projectDir)..;$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -106,23 +106,47 @@
     <ClCompile Include="Test002Music.cpp" />
     <ClCompile Include="Test000Vector3.cpp" />
     <ClCompile Include="Test001AABB.cpp" />
-    <ClCompile Include="Test003Game.cpp" />
+    <ClCompile Include="Test004Texture.cpp" />
+    <ClCompile Include="Test005Model.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\data\440window.raw" />
+    <None Include="..\data\abovechanctext.raw" />
+    <None Include="..\data\abovechanctext2.raw" />
+    <None Include="..\data\abovechanctext3.raw" />
+    <None Include="..\data\aboveLibraryText.raw" />
+    <None Include="..\data\aboveLibraryText2.raw" />
+    <None Include="..\data\aboveLibText.raw" />
+    <None Include="..\data\abovephysscitext.raw" />
+    <None Include="..\data\aboveTicketsText.raw" />
+    <None Include="..\data\aboveUnder4B.raw" />
+    <None Include="..\data\aboveWindowEdge.raw" />
+    <None Include="..\data\aboveWindowEdgeLib.raw" />
+    <None Include="..\data\aboveWindows.raw" />
+    <None Include="..\data\aboveWindows2.raw" />
+    <None Include="obj1.bin" />
     <None Include="packages.config" />
+    <None Include="wave2.bin" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="bitmap1.bmp" />
+    <Image Include="..\data\handgun.png" />
+    <Image Include="..\data\hb_empty_left.png" />
+    <Image Include="..\data\hb_empty_middle.png" />
+    <Image Include="..\data\hb_empty_right.png" />
+    <Image Include="..\data\hb_full_left.png" />
+    <Image Include="..\data\hb_full_middle.png" />
+    <Image Include="..\data\hb_full_right.png" />
+    <Image Include="..\data\Ring.png" />
+    <Image Include="..\data\spr_healthbar.png" />
+    <Image Include="..\data\spr_healthbar_32.png" />
+    <Image Include="..\data\spr_health_pellet.png" />
+    <Image Include="..\data\Statue.png" />
     <Image Include="data\hb_full_left.png" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="..\data\step.wav" />
     <Media Include="data\test_song.mp3" />
     <Media Include="data\test_song2.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\eNGin.vcxproj">
-      <Project>{cacd260c-5f98-4740-8222-0189c66ef915}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="occulus_the_rift_gtest.rc" />
@@ -160,6 +184,9 @@
     <CustomBuildStep>
       <Inputs>SDL2_mixer.lib;glut32.lib;SDL2.lib;SDL2main.lib;%(Inputs)</Inputs>
     </CustomBuildStep>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(projectDir)..;$(projectDir)../data;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

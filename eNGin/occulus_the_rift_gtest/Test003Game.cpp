@@ -5,6 +5,7 @@
 TEST(TestSuite003_Vector3Testing, GameTest001_GameCreation)
 {
 	Game theGame;
+	
 
 	SUCCEED();
 }
