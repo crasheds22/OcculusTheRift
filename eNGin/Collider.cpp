@@ -97,7 +97,9 @@ Projection Collider::VectorProjection()
 }
 */
 
-//https://www.maplesoft.com/support/help/maple/view.aspx?path=MathApps%2FProjectionOfVectorOntoPlane
+
+// https://math.stackexchange.com/questions/633181/formula-to-project-a-vector-onto-a-plane
+// https://www.maplesoft.com/support/help/maple/view.aspx?path=MathApps%2FProjectionOfVectorOntoPlane
 Vector3 Collider::VectorProjection()
 {
 	Vector3 resultNormal;
@@ -109,7 +111,8 @@ Vector3 Collider::VectorProjection()
 
 	resultNormal = ProjectionNormal();
 	
-	edgeVector = maxPoint.SubtractVector(minPoint);
+	
+	edgeVector = maxPoint.SubtractVector(minPoint); // this is suspect
 
 	scalarProjection = resultNormal.DotProduct(edgeVector);
 

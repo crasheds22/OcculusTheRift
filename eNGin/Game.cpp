@@ -30,10 +30,10 @@ void Game::Initialise()
 {
 	shaysWorld->Init();
 	
-	//centreX = 400;
-	//centreY = 250;
-	centreX = glutGet(GLUT_WINDOW_WIDTH) / 2;
-	centreY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
+	centreX = 400;
+	centreY = 250;
+	//centreX = glutGet(GLUT_WINDOW_WIDTH) / 2;
+	//centreY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
 
 	deltaTime = clock();
 

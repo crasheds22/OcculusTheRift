@@ -60,33 +60,37 @@ ModelShay::ModelShay(string filePath)
 
 ModelShay::~ModelShay()
 {
-	for (int i = 0; i < nPositions; i++)
+	if (this != NULL)
 	{
-		delete[] positions[i];
+		for (int i = 0; i < nPositions; i++)
+		{
+			delete[] positions[i];
+		}
+
+		delete[] positions;
+
+		for (int i = 0; i < nTexels; i++)
+		{
+			delete[] texels[i];
+		}
+
+		delete[] texels;
+
+		for (int i = 0; i < nNormals; i++)
+		{
+			delete[] normals[i];
+		}
+
+		delete[] normals;
+
+		for (int i = 0; i < nFaces; i++)
+		{
+			delete[] faces[i];
+		}
+
+		delete[] faces;
 	}
-
-	delete[] positions;
-
-	for (int i = 0; i < nTexels; i++)
-	{
-		delete[] texels[i];
-	}
-
-	delete[] texels;
-
-	for (int i = 0; i < nNormals; i++)
-	{
-		delete[] normals[i];
-	}
-
-	delete[] normals;
-
-	for (int i = 0; i < nFaces; i++)
-	{
-		delete[] faces[i];
-	}
-
-	delete[] faces;
+	
 }
 
 void ModelShay::CountPoints(string filePath)
