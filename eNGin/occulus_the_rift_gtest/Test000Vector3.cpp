@@ -97,8 +97,27 @@ TEST(TestSuite000_Vector3Testing, VectorTest005_VectorScalarProduct)
 	std::cout << "Cross Y: " << resultTest.GetPointY() << std::endl;
 	std::cout << "Cross Z: " << resultTest.GetPointZ() << std::endl;
 
+	EXPECT_EQ(resultComp.GetPointX(), resultTest.GetPointX());
+}
 
+TEST(TestSuite000_Vector3Testing, VectorTest006_VectorUnitNormal)
+{
+	Vector3 objectOne;
+	Vector3 objectTwo;
+	Vector3 resultComp;
+	Vector3 resultTest;
+
+	objectOne = Vector3(3, 3, 4);
+	objectTwo = Vector3(1, 2, 3);
+
+	resultTest = objectOne.UnitNormal(objectTwo);
+
+	std::cout << "Cross X: " << resultTest.GetPointX() << std::endl;
+	std::cout << "Cross Y: " << resultTest.GetPointY() << std::endl;
+	std::cout << "Cross Z: " << resultTest.GetPointZ() << std::endl;
 
 	EXPECT_EQ(resultComp.GetPointX(), resultTest.GetPointX());
 }
+
+
 

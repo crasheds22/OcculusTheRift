@@ -83,7 +83,6 @@
     </ClCompile>
     <ClCompile Include="Test004Texture.cpp" />
     <ClCompile Include="Test005Model.cpp" />
-    <ClCompile Include="Test003Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
