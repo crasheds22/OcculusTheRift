@@ -2,7 +2,7 @@
 
 #include "Texture.h"
 #include "Model.h"
-
+/*
 
 TEST(TestSuite005_ModelTesting, ModelTest000_TestObjectCreationandDestruction)
 {
@@ -30,3 +30,5 @@ TEST(TestSuite005_ModelTesting, ModelTest001_DrawModel)
 
 	SUCCEED();
 }
+
+*/

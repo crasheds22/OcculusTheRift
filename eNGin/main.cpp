@@ -73,7 +73,7 @@ void myinit()
 	GLdouble fov = 60;
 	GLdouble aspect = 1 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT);
 	GLdouble nearVal = 0.5;
-	GLdouble farVal = 1000;
+	GLdouble farVal = 100;
 
 	gluPerspective(fov, aspect, nearVal, farVal);
 
@@ -119,7 +119,7 @@ void reshape(int w, int h)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glViewport(0, 0, w, h);
-	gluPerspective(60, ratio, 0.5, 1000);
+	gluPerspective(60, ratio, 0.5, 250000);
 	glMatrixMode(GL_MODELVIEW);
 }
 
