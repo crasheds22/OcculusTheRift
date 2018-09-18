@@ -9,6 +9,8 @@ Game::Game()
 	shaysWorld = new Shay(this);
 	state = SHAY_STATE;
 	textures.resize(10);
+
+	exitScreen = false;
 }
 
 Game::~Game()
@@ -30,16 +32,18 @@ void Game::Initialise()
 {
 	shaysWorld->Init();
 	
-	centreX = 400;
-	centreY = 250;
-	//centreX = glutGet(GLUT_WINDOW_WIDTH) / 2;
-	//centreY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
+	//centreX = 400;
+	//centreY = 250;
+	centreX = glutGet(GLUT_WINDOW_WIDTH) / 2;
+	centreY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
 
 	deltaTime = clock();
 
 	playerCharacter->SetMoveSpeed(0.05);
 	playerCharacter->SetRotateSpeed(0.009);
-	
+
+	textures[0].LoadTexture("data/Group.png", 768, 768);
+	/*
 	textures[0].LoadTexture("data/hb_empty_left.png", 32, 32);
 	textures[1].LoadTexture("data/hb_empty_middle.png", 32, 32);
 	textures[2].LoadTexture("data/hb_empty_right.png", 32, 32);
@@ -47,16 +51,12 @@ void Game::Initialise()
 	textures[3].LoadTexture("data/hb_full_left.png", 32, 32);
 	textures[4].LoadTexture("data/hb_full_middle.png", 32, 32);
 	textures[5].LoadTexture("data/hb_full_right.png", 32, 32);
+	*/
 }
 
 void Game::Update()
 {
 	bgmControl.PlaySong();
-
-	if (state != SHAY_STATE)
-	{
-		DrawGUI();
-	}
 
 	switch (state)
 	{
@@ -74,7 +74,6 @@ void Game::Draw()
 	switch (state)
 	{
 		case MENU_STATE:
-			DrawGUI();
 			break;
 
 		case SHAY_STATE:
@@ -111,7 +110,11 @@ void Game::Draw()
 			glTranslatef(0.0, 0.0, -5.0);
 			delta.Draw();
 			glPopMatrix();
-			DrawGUI();
+
+			glPushMatrix();
+				if (exitScreen)
+					DrawGUI();
+			glPopMatrix();
 
 			glFlush();
 
@@ -140,7 +143,7 @@ void Game::InputDown(unsigned char key, int x, int y)
 		break;
 	case 't':
 	case 'T':
-
+		exitScreen = !exitScreen;
 		break;
 	}
 }
@@ -174,6 +177,12 @@ void Game::MouseLook(int x, int y)
 
 		playerCharacter->DirectionLookLR(deltaX);
 		playerCharacter->DirectionLookUD(deltaY);
+	}
+}
+
+void Game::MouseClick(int button, int state, int x, int y) {
+	if (exitScreen && button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+		exit(0);
 	}
 }
 
@@ -213,65 +222,30 @@ void Game::DrawGUI()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	float x1 = -7.5;
-	float x2 = -6.5;
+	//Assign Texture
+	std::vector<unsigned char> temp = textures[0].GetTexture();
+	glEnable(GL_TEXTURE_2D);
+	glDisable(GL_DEPTH_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //GL_NEAREST = no smoothing
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textures[0].GetWidth(), textures[0].GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, &temp[0]);
 
-	float y1 = 4.5;
-	float y2 = 3.5;
-	int maxHealth = 5;
-	int currentHealth = 3;
-	int hbSlot = 0;
-
-	for (int i = 0; i < maxHealth; i++)
-	{
-
-		//Choose Texture
-		if (i == 0)
-		{
-			hbSlot = 3;
-		}
-		else
-		{
-			if (i == maxHealth - 1)
-			{
-				hbSlot = 5;
-			}
-			else
-			{
-				hbSlot = 4;
-			}
-		}
-
-		if (i + 1 > currentHealth)
-		{
-			hbSlot -= 3;
-		}
-
-		//Assign Texture
-		std::vector<unsigned char> temp = textures[hbSlot].GetTexture();
-		glEnable(GL_TEXTURE_2D);
-		glDisable(GL_DEPTH_TEST);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_BLEND);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //GL_NEAREST = no smoothing
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textures[hbSlot].GetWidth(), textures[hbSlot].GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, &temp[0]);
-
-		//Draw Healthbar
-		glPushMatrix();
-		glBegin(GL_QUADS);
-			glTexCoord2f(0.0, -1);
-			glVertex3f(x1 + i, y1, -1);
-			glTexCoord2f(1.0, -1);
-			glVertex3f(x2 + i, y1, -1);
-			glTexCoord2f(1.0, 0.0);
-			glVertex3f(x2 + i, y2, -1);
-			glTexCoord2f(0.0, 0.0);
-			glVertex3f(x1 + i, y2, -1);
-		glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-	}
+	//Draw Healthbar
+	glPushMatrix();
+	glBegin(GL_QUADS);
+		glTexCoord2f(-1.0, 1.0);
+		glVertex3f(-4, -4, -1);
+		glTexCoord2f(-1.0, 0.0);
+		glVertex3f(-4, 4, -1);
+		glTexCoord2f(0.0, 0.0);
+		glVertex3f(4, 4, -1);
+		glTexCoord2f(0.0, 1.0);
+		glVertex3f(4, -4, -1);
+	glEnd();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
 
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_PROJECTION);
@@ -280,7 +254,6 @@ void Game::DrawGUI()
 	gluPerspective(60.0, 1, 1.0, 30.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
 }
 
 void Game::SetCentreX(int x) {

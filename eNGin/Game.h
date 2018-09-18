@@ -91,6 +91,8 @@ public:
 	 */
 	void MouseLook(int x, int y);
 
+	void MouseClick(int button, int state, int x, int y);
+
 	/**
 	*	A normal member returning a pointer to a Shay object
 	*	Returns a pointer to ShaysWorld
@@ -148,7 +150,7 @@ private:
 	int centreX,		/*<! The x value of the centre of the screen */
 		centreY;		/*<! The y value of the centre of the screen */
 
-	//Texture * tex;
+	bool exitScreen;
 
 	/**
 	 *	A normal member taking no arguments
