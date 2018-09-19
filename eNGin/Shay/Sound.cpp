@@ -1,7 +1,7 @@
 // Sound.cpp: implementation of the CSound class.
 //
 //////////////////////////////////////////////////////////////////////
-
+#include <pch.h>
 #include <memory.h>
 #include <malloc.h>
 

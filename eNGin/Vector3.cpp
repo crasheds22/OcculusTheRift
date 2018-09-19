@@ -1,3 +1,5 @@
+
+#include <pch.h>
 #include <math.h>
 
 #include "Vector3.h"
@@ -40,7 +42,8 @@ GLdouble Vector3::GetPointZ() {
 	return z;
 }
 
-GLdouble Vector3::MagnitudeOfVector() {
+GLdouble Vector3::VectorMagnitude() 
+{
 	return sqrt((x * x + y * y + z * z));
 }
 
@@ -49,9 +52,9 @@ GLdouble Vector3::DotProduct(Vector3 &in) {
 }
 
 Vector3 Vector3::CrossProduct(Vector3 &in) {
-	Vector3 tempVec(y * in.z - z * in.y,
-					x * in.z - z * in.x,
-					x * in.y - y * in.x);
+	Vector3 tempVec(y * in.GetPointZ() - z * in.GetPointY(),
+					x * in.GetPointZ() - z * in.GetPointX(),
+					x * in.GetPointY() - y * in.GetPointX());
 
 	return tempVec;
 }
@@ -64,11 +67,43 @@ Vector3 Vector3::MultiplyByScalar(GLdouble scalar) {
 	return tempVec;
 }
 
-Vector3 Vector3::UnitNormal() {
-	GLdouble mag = MagnitudeOfVector();
-	Vector3 tempVec(x / mag,
-					y / mag,
-					z / mag);
+Vector3 Vector3::UnitNormal(Vector3 &inputVector) {
+	GLdouble mag = VectorMagnitude();
+	Vector3 normalVector;
+	Vector3 resultVector;
 
-	return tempVec;
+	normalVector = CrossProduct(inputVector);
+	resultVector.SetPointX(normalVector.GetPointX() / mag);
+	resultVector.SetPointY(normalVector.GetPointY() / mag);
+	resultVector.SetPointZ(normalVector.GetPointZ() / mag);
+
+	return resultVector;
+}
+
+GLdouble Vector3::VectorAngle(Vector3 targetVector)
+{
+	GLdouble tempDotResult;
+	GLdouble magnitudeOne;
+	GLdouble magnitudeTwo;
+	GLdouble magnitudeProduct;
+	GLdouble resultAngle;
+
+	tempDotResult = DotProduct(targetVector);
+	magnitudeOne = VectorMagnitude();
+	magnitudeTwo = targetVector.VectorMagnitude();
+	magnitudeProduct = magnitudeOne * magnitudeTwo;
+	resultAngle = acos(tempDotResult / magnitudeProduct);
+
+	return resultAngle;
+}
+
+Vector3 Vector3::SubtractVector(Vector3 theInputVector)
+{
+	Vector3 resultVector;
+
+	resultVector.x = x - theInputVector.x;
+	resultVector.y = y - theInputVector.y;
+	resultVector.z = z - theInputVector.z;
+
+	return resultVector;
 }

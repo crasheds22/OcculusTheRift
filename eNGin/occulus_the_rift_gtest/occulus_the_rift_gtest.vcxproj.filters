@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Test002Music.cpp" />
+    <ClCompile Include="Test000Vector3.cpp" />
+    <ClCompile Include="Test001AABB.cpp" />
+    <ClCompile Include="..\Shay\AABB.CPP">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shay\AABBLinkedList.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shay\AABBNode.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Actor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shay\camera.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shay\cameraMap.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Collider.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shay\collision.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Cube.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shay\EasySound.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\lodepng.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Model.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shay\Model_Shay.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicPlayer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shay\PlainLinkedList.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shay\PlainNode.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Player.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Projection.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shay\Sound.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shay.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shay\SoundTime.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Texture.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shay\texturedPolygons.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Vector3.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Test004Texture.cpp" />
+    <ClCompile Include="Test005Model.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="..\Shay\AABB.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shay\AABBLinkedList.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shay\AABBNode.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Actor.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shay\camera.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shay\cameraMap.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Collider.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shay\collision.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Cube.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shay\EasySound.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\lodepng.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Model.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shay\Model_Shay.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicPlayer.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shay\PlainLinkedList.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shay\PlainNode.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Player.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Projection.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shay.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shay\Sound.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shay\SoundTime.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Texture.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shay\texturedPolygons.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Vector3.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="occulus_the_rift_gtest.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\data\step.wav">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="data\test_song.mp3">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="data\test_song2.mp3">
+      <Filter>Resources</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\data\handgun.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\data\hb_empty_left.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\data\hb_empty_middle.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\data\hb_empty_right.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\hb_full_left.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\data\hb_full_left.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\data\hb_full_middle.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\data\hb_full_right.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\data\Ring.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\data\spr_health_pellet.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\data\spr_healthbar_32.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\data\spr_healthbar.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="..\data\Statue.png">
+      <Filter>Resources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obj1.bin" />
+    <None Include="packages.config" />
+    <None Include="..\data\440window.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\data\abovechanctext.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\data\abovechanctext2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\data\abovechanctext3.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\data\aboveLibraryText.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\data\aboveLibraryText2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\data\abovephysscitext.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\data\aboveLibText.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\data\aboveTicketsText.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\data\aboveUnder4B.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\data\aboveWindowEdge.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\data\aboveWindowEdgeLib.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\data\aboveWindows.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\data\aboveWindows2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="wave2.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{782e7c7d-5c2b-44aa-8c8b-742e1f0dbe54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{d3c95216-5bf5-4698-a6dc-fd767d727ed0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{7c4c3482-2fce-45ea-9322-119ee8f68d48}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

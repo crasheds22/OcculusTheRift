@@ -1,0 +1,92 @@
+﻿'eNGin.exe' (Win32): Loaded 'Z:\_Uni Stuff\ICT290\Occulus\Debug\eNGin.exe'. Symbols loaded.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\ntdll.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\kernel32.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\KernelBase.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'Z:\_Uni Stuff\ICT290\Occulus\Debug\SDL2_mixer.dll'. Module was built without symbols.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\msvcrt.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\glut32.dll'. Module was built without symbols.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\user32.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\win32u.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\gdi32.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\gdi32full.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\msvcp_win.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\ucrtbase.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\SDL2.dll'. Module was built without symbols.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\advapi32.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\opengl32.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\msvcp140d.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\sechost.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\rpcrt4.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\glu32.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\sspicli.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\vcruntime140d.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\cryptbase.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\bcryptprimitives.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\ucrtbased.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\winmm.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\imm32.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\ole32.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\combase.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\oleaut32.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\shell32.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\cfgmgr32.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\SHCore.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\windows.storage.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\winmmbase.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\shlwapi.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\winmmbase.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Unloaded 'C:\Windows\SysWOW64\winmmbase.dll'
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\kernel.appcore.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\profapi.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\powrprof.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\fltLib.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\version.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\winmmbase.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Unloaded 'C:\Windows\SysWOW64\winmmbase.dll'
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\uxtheme.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\clbcatq.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\MMDevAPI.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\propsys.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\devobj.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\avrt.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\AudioSes.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\WinTypes.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\msctf.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\dwmapi.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_485c1c3102021986\nvoglv32.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Unloaded 'C:\Windows\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_485c1c3102021986\nvoglv32.dll'
+'eNGin.exe' (Win32): Loaded 'C:\Windows\System32\DriverStore\FileRepository\nv_dispi.inf_amd64_485c1c3102021986\nvoglv32.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\setupapi.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\wtsapi32.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\wintrust.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\msasn1.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\crypt32.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\ntmarta.dll'. Cannot find or open the PDB file.
+The thread 0x3e0 has exited with code 0 (0x0).
+The thread 0x2ba4 has exited with code 0 (0x0).
+The thread 0x294 has exited with code 0 (0x0).
+The thread 0x2c0c has exited with code 0 (0x0).
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\winsta.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'Z:\_Uni Stuff\ICT290\Occulus\Debug\libFLAC-8.dll'. Module was built without symbols.
+'eNGin.exe' (Win32): Loaded 'Z:\_Uni Stuff\ICT290\Occulus\Debug\libogg-0.dll'. Module was built without symbols.
+'eNGin.exe' (Win32): Loaded 'Z:\_Uni Stuff\ICT290\Occulus\Debug\libvorbisfile-3.dll'. Module was built without symbols.
+'eNGin.exe' (Win32): Loaded 'Z:\_Uni Stuff\ICT290\Occulus\Debug\libvorbis-0.dll'. Module was built without symbols.
+'eNGin.exe' (Win32): Loaded 'Z:\_Uni Stuff\ICT290\Occulus\Debug\libmpg123-0.dll'. Module was built without symbols.
+'eNGin.exe' (Win32): Loaded 'Z:\_Uni Stuff\ICT290\Occulus\Debug\libmodplug-1.dll'. Module was built without symbols.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\TextInputFramework.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\CoreMessaging.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\CoreUIComponents.dll'. Cannot find or open the PDB file.
+'eNGin.exe' (Win32): Unloaded 'C:\Windows\SysWOW64\CoreUIComponents.dll'
+'eNGin.exe' (Win32): Loaded 'C:\Windows\SysWOW64\CoreUIComponents.dll'. Cannot find or open the PDB file.
+The thread 0x37d0 has exited with code 0 (0x0).
+The thread 0x36ac has exited with code 0 (0x0).
+The thread 0x2cb0 has exited with code 0 (0x0).
+The thread 0x1eb4 has exited with code 0 (0x0).
+The thread 0x25ac has exited with code 0 (0x0).
+The thread 0xd04 has exited with code 0 (0x0).
+The thread 0x331c has exited with code 0 (0x0).
+The thread 0x3818 has exited with code 0 (0x0).
+The thread 0x24e8 has exited with code 0 (0x0).
+The thread 0x3428 has exited with code 0 (0x0).
+The thread 0x1afc has exited with code 0 (0x0).
+The program '[8784] eNGin.exe' has exited with code 0 (0x0).

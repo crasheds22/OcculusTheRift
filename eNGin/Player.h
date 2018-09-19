@@ -16,14 +16,14 @@
  *	@author Aaron Thomson
  *	@version 1.1 Modified functions to integrate with Vector3
  *	@date 05-09-2018
+ *
+ *	@author Aaron Thomson
+ *	@version 2.0 Change class to singleton design
+ *	@date 10-09-2018
  */
-class Player : public Actor{
+class Player : public Actor {
 public:
-	/**
-	 *	Default constructor
-	 *	Initialises all values
-	 */
-	Player();
+	static Player* GetInstance();
 
 	//========================================
 	/**
@@ -31,12 +31,6 @@ public:
 	 *	Updates the Player's location in the world
 	 */
 	void Update();
-
-	/**
-	 *	An overridden member taking no arguments
-	 *	Draws the Player model and applies the Player texture
-	 */
-	void Draw();
 	//========================================
 
 	//========================================
@@ -125,6 +119,20 @@ public:
 	//========================================
 
 private:
+	//========================================
+	//Singleton design
+	//static Player* instance;
+
+	/**
+	 *	Default constructor
+	 *	Initialises all values
+	 */
+	Player();
+
+	Player(Player const&);
+	void operator=(Player const&);
+	//========================================
+
 	//========================================
 	//Speeds
 	GLdouble moveSpeed,		/*<! The Player's movement speed */

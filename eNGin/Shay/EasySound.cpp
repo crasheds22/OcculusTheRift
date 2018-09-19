@@ -1,6 +1,7 @@
 // EasySound.cpp: implementation of the CEasySound class.
 //
 //////////////////////////////////////////////////////////////////////
+#include <pch.h>
 #include "EasySound.h"
 
 extern void mixaudio(void *unused, Uint8 *stream, int len){
@@ -132,7 +133,7 @@ void CEasySound::Unload(CSound *sound)
 	for (cs = m_listSound.begin(); cs != m_listSound.end(); ++cs) {
 		if ((*cs)->GetSoundID() == sound->GetSoundID()) {
 			m_listSound.erase(cs);
-			delete (*cs);
+			//delete (*cs);
 			return;
 		}
 	}

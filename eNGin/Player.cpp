@@ -1,3 +1,5 @@
+#include <pch.h>
+
 #include "Player.h"
 
 Player::Player() : moveSpeed(0.0),
@@ -15,6 +17,12 @@ Player::Player() : moveSpeed(0.0),
 
 }
 
+Player* Player::GetInstance() {
+	static Player instance;
+
+	return &instance;
+}
+
 void Player::Update() {
 	Move();
 
@@ -22,11 +30,6 @@ void Player::Update() {
 	gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),
 		position.GetPointX() + lookFB.x, position.GetPointY() + lookFB.y + 1.8, position.GetPointZ() + lookFB.z,
 		0.0, 1.0, 0.0);
-}
-
-void Player::Draw() {
-	//model->DrawModel(position.GetPointX(), position.GetPointY(), position.GetPointZ(),
-	//				 texture->GetTexture(), texture->GetWidth(), texture->GetHeight());
 }
 
 void Player::SetMoveSpeed(GLdouble spd) {
@@ -109,7 +112,7 @@ void Player::MoveUD() {
 void Player::LookLR() {
 	rotLR += deltaRotLR;
 
-
+	float PI = 3.141592654;
 
 	lookFB.x = sin(rotLR);
 	lookFB.z = -cos(rotLR);
@@ -121,7 +124,7 @@ void Player::LookLR() {
 void Player::LookUD() {
 	rotUD += deltaRotUD;
 
-	
+	float PI = 3.141592654;
 	lookFB.y = sin(rotUD);
 
 	lookLR.y = sin(rotUD + (float)PI / 2.0);

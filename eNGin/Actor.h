@@ -4,12 +4,12 @@
 #include <math.h>
 #include <gl\glut.h>
 
-#include "AABB.h"
+#include "Collider.h"
 #include "Vector3.h"
 #include "Model.h"
 #include "Texture.h"
 
-const float PI = 3.141592654;
+//const float PI = 3.141592654;
 
 /**
  *	@struct Point
@@ -47,16 +47,22 @@ public:
 	Actor();
 
 	/**
-	 *	A pure virtual member taking no arguments
-	 *	Every Actor needs to override the Update function for their own unique reasons
+	 *	Constructor with parameters
+	 *	Assigns a model and a texture to the actor
 	 */
-	virtual void Update() = 0;
+	Actor(Model* mod, Texture* tex);
 
 	/**
-	 *	A pure virtual member taking no arguments
-	 *	Every Actor need to override te Draw function tor their own unique models and textures
+	 *	A virtual member taking no arguments
+	 *	Every Actor can override the Update function for their own unique reasons
 	 */
-	virtual void Draw() = 0;
+	virtual void Update();
+
+	/**
+	 *	A virtual member taking no arguments
+	 *	Every Actor can override the Draw function for their own unique models and textures
+	 */
+	virtual void Draw();
 
 	//================================================================================
 	// Set methods
@@ -138,10 +144,10 @@ protected:
 	Point rotations,	/*<! The rotation of the Actor */
 		  scale;		/*<! The scale of the Actor */
 
-	AABB collisionBox;	/*<! The collider box associated with the Actor */
+	Collider collisionBox;	/*<! The collider box associated with the Actor */
 
-	Model *model;		/*<! The model owned by this instance of Actor */
-	Texture *texture;	/*<! The texture to be used for this Actor's Model */
+	Model *model = NULL;		/*<! The model owned by this instance of Actor */
+	Texture *texture = NULL;	/*<! The texture to be used for this Actor's Model */
 };
 
 #endif

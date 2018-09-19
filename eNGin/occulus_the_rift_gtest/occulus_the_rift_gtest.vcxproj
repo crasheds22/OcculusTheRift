@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{16ca46e4-4038-42ba-9df3-07612c76f98d}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(projectDir).;$(projectDir)..;$(projectDir)../Include;$(projectDir)../data;$(IncludePath)</IncludePath>
+    <LibraryPath>$(projectDir)../Library;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(projectDir)/..;$(projectDir)../data;$(SourcePath)</SourcePath>
+    <ReferencePath>$(projectDir)..;$(ReferencePath)</ReferencePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(projectDir)..;$(projectDir)../Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(projectDir)../Library;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(projectDir)..;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(projectDir)..;$(projectDir)../Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(projectDir)../Library;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(projectDir)..;$(SourcePath)</SourcePath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Actor.h" />
+    <ClInclude Include="..\Collider.h" />
+    <ClInclude Include="..\Cube.h" />
+    <ClInclude Include="..\Game.h" />
+    <ClInclude Include="..\lodepng.h" />
+    <ClInclude Include="..\Model.h" />
+    <ClInclude Include="..\MusicPlayer.h" />
+    <ClInclude Include="..\Player.h" />
+    <ClInclude Include="..\Projection.h" />
+    <ClInclude Include="..\Shay.h" />
+    <ClInclude Include="..\Shay\AABB.h" />
+    <ClInclude Include="..\Shay\AABBLinkedList.h" />
+    <ClInclude Include="..\Shay\AABBNode.h" />
+    <ClInclude Include="..\Shay\camera.h" />
+    <ClInclude Include="..\Shay\cameraMap.h" />
+    <ClInclude Include="..\Shay\collision.h" />
+    <ClInclude Include="..\Shay\EasySound.h" />
+    <ClInclude Include="..\Shay\Model_Shay.h" />
+    <ClInclude Include="..\Shay\PlainLinkedList.h" />
+    <ClInclude Include="..\Shay\PlainNode.h" />
+    <ClInclude Include="..\Shay\Sound.h" />
+    <ClInclude Include="..\Shay\SoundTime.h" />
+    <ClInclude Include="..\Shay\texturedPolygons.h" />
+    <ClInclude Include="..\Texture.h" />
+    <ClInclude Include="..\Vector3.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Actor.cpp" />
+    <ClCompile Include="..\Collider.cpp" />
+    <ClCompile Include="..\Cube.cpp" />
+    <ClCompile Include="..\Game.cpp" />
+    <ClCompile Include="..\lodepng.cpp" />
+    <ClCompile Include="..\Model.cpp" />
+    <ClCompile Include="..\MusicPlayer.cpp" />
+    <ClCompile Include="..\Player.cpp" />
+    <ClCompile Include="..\Projection.cpp" />
+    <ClCompile Include="..\Shay.cpp" />
+    <ClCompile Include="..\Shay\AABB.CPP" />
+    <ClCompile Include="..\Shay\AABBLinkedList.cpp" />
+    <ClCompile Include="..\Shay\AABBNode.cpp" />
+    <ClCompile Include="..\Shay\camera.cpp" />
+    <ClCompile Include="..\Shay\cameraMap.cpp" />
+    <ClCompile Include="..\Shay\collision.cpp" />
+    <ClCompile Include="..\Shay\EasySound.cpp" />
+    <ClCompile Include="..\Shay\Model_Shay.cpp" />
+    <ClCompile Include="..\Shay\PlainLinkedList.cpp" />
+    <ClCompile Include="..\Shay\PlainNode.cpp" />
+    <ClCompile Include="..\Shay\Sound.cpp" />
+    <ClCompile Include="..\Shay\SoundTime.cpp" />
+    <ClCompile Include="..\Shay\texturedPolygons.cpp" />
+    <ClCompile Include="..\Texture.cpp" />
+    <ClCompile Include="..\Vector3.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Test002Music.cpp" />
+    <ClCompile Include="Test000Vector3.cpp" />
+    <ClCompile Include="Test001AABB.cpp" />
+    <ClCompile Include="Test004Texture.cpp" />
+    <ClCompile Include="Test005Model.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\data\440window.raw" />
+    <None Include="..\data\abovechanctext.raw" />
+    <None Include="..\data\abovechanctext2.raw" />
+    <None Include="..\data\abovechanctext3.raw" />
+    <None Include="..\data\aboveLibraryText.raw" />
+    <None Include="..\data\aboveLibraryText2.raw" />
+    <None Include="..\data\aboveLibText.raw" />
+    <None Include="..\data\abovephysscitext.raw" />
+    <None Include="..\data\aboveTicketsText.raw" />
+    <None Include="..\data\aboveUnder4B.raw" />
+    <None Include="..\data\aboveWindowEdge.raw" />
+    <None Include="..\data\aboveWindowEdgeLib.raw" />
+    <None Include="..\data\aboveWindows.raw" />
+    <None Include="..\data\aboveWindows2.raw" />
+    <None Include="obj1.bin" />
+    <None Include="packages.config" />
+    <None Include="wave2.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\data\handgun.png" />
+    <Image Include="..\data\hb_empty_left.png" />
+    <Image Include="..\data\hb_empty_middle.png" />
+    <Image Include="..\data\hb_empty_right.png" />
+    <Image Include="..\data\hb_full_left.png" />
+    <Image Include="..\data\hb_full_middle.png" />
+    <Image Include="..\data\hb_full_right.png" />
+    <Image Include="..\data\Ring.png" />
+    <Image Include="..\data\spr_healthbar.png" />
+    <Image Include="..\data\spr_healthbar_32.png" />
+    <Image Include="..\data\spr_health_pellet.png" />
+    <Image Include="..\data\Statue.png" />
+    <Image Include="data\hb_full_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\data\step.wav" />
+    <Media Include="data\test_song.mp3" />
+    <Media Include="data\test_song2.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="occulus_the_rift_gtest.rc" />
+  </ItemGroup>
+  <ItemDefinitionGroup />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.0\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets" Condition="Exists('packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.0\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets')" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>$(projectDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <EmbedManagedResourceFile>$(projectDir)data/test_song.mp3;$(projectDir)data/test_song2.mp3;%(EmbedManagedResourceFile)</EmbedManagedResourceFile>
+      <AdditionalLibraryDirectories>$(projectDir)../Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2main.lib;SDL2_mixer.lib;glut32.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>LinkVerbose</ShowProgress>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <CustomBuildStep>
+      <Inputs>SDL2_mixer.lib;glut32.lib;SDL2.lib;SDL2main.lib;%(Inputs)</Inputs>
+    </CustomBuildStep>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(projectDir)..;$(projectDir)../data;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>X64;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>$(projectDir)../Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>$(projectDir)../Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;SDL2.lib;SDL2_mixer.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>$(projectDir)../Library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <AdditionalLibraryDirectories>$(projectDir)../Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2main.lib;SDL2_mixer.lib;freeglut.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>X64;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+    </Link>
+  </ItemDefinitionGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.0\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.0\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets'))" />
+  </Target>
+</Project>
