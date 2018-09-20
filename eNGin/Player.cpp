@@ -1,6 +1,7 @@
 #include <pch.h>
 
 #include "Player.h"
+#include "Cube.h"
 
 Player::Player() : moveSpeed(0.0),
 				   rotateSpeed(0.0),
@@ -23,13 +24,23 @@ Player* Player::GetInstance() {
 	return &instance;
 }
 
-void Player::Update() {
-	Move();
+void Player::Update(Cube tempCube) {
+	
+	
 
-	glLoadIdentity();
-	gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),
-		position.GetPointX() + lookFB.x, position.GetPointY() + lookFB.y + 1.8, position.GetPointZ() + lookFB.z,
-		0.0, 1.0, 0.0);
+	collisionBox.SetMaxPoint(position.GetPointX()+2, position.GetPointY()+2, position.GetPointZ()+2);
+	collisionBox.SetMinPoint(position.GetPointX() -2, position.GetPointY() -2, position.GetPointZ() -2);
+
+	
+	if (!collisionBox.AABBtoAABB(tempCube.GetCollider()))
+	{
+		Move();
+
+		glLoadIdentity();
+		gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),
+			position.GetPointX() + lookFB.x, position.GetPointY() + lookFB.y + 1.8, position.GetPointZ() + lookFB.z,
+			0.0, 1.0, 0.0);
+	}
 }
 
 void Player::SetMoveSpeed(GLdouble spd) {

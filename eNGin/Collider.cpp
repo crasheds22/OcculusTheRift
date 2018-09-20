@@ -9,8 +9,6 @@
 #include "Projection.h"
 
 
-using namespace std;
-
 Collider::Collider() 
 {
 	minPoint = Vector3(0.0, 0.0, 0.0);
@@ -37,7 +35,7 @@ Vector3 Collider::GetMaxPoint()
 	return maxPoint;
 }
 
-bool Collider::AABBtoAABB(Collider &objectOther)
+bool Collider::AABBtoAABB(Collider objectOther)
 {
 
 

@@ -2,14 +2,14 @@
 #include "Cube.h"
 
 Cube::Cube() {
-	vertices[0] = { -1, -1, -1 };
-	vertices[1] = { 1, -1, -1 };
-	vertices[2] = { 1, 1, -1 };
-	vertices[3] = { -1, 1, -1 };
-	vertices[4] = { -1, -1, 1 };
-	vertices[5] = { 1, -1, 1 };
-	vertices[6] = { 1, 1, 1 };
-	vertices[7] = { -1, 1, 1 };
+	vertices[0] = Vector3( -1, -1, -1 );
+	vertices[1] = Vector3( 1, -1, -1 );
+	vertices[2] = Vector3( 1, 1, -1 );
+	vertices[3] = Vector3( -1, 1, -1 );
+	vertices[4] = Vector3( -1, -1, 1 );
+	vertices[5] = Vector3( 1, -1, 1 );
+	vertices[6] = Vector3( 1, 1, 1 );
+	vertices[7] = Vector3( -1, 1, 1 );
 
 	colours[0] = { 0, 0, 0 };
 	colours[1] = { 1, 0, 0 };
@@ -26,6 +26,8 @@ void Cube::Update() {
 		vertices[i].x += 0.0001;
 		vertices[i].z += 0.0001;
 	}*/
+
+
 }
 
 void Cube::Draw() {
@@ -41,15 +43,22 @@ void Cube::Draw() {
 void Cube::Polygons(int a, int b, int c, int d) {
 	glBegin(GL_POLYGON);
 		glColor3f(colours[a].r, colours[a].g, colours[a].b);
-		glVertex3f(vertices[a].x, vertices[a].y, vertices[a].z);
+		std::cout << "cube a vertex X: " <<vertices[a].GetPointX() << std::endl;
+		glVertex3f(vertices[a].GetPointX(), vertices[a].GetPointY(), vertices[a].GetPointZ());
 
 		glColor3f(colours[b].r, colours[b].g, colours[b].b);
-		glVertex3f(vertices[b].x, vertices[b].y, vertices[b].z);
+		glVertex3f(vertices[b].GetPointX(), vertices[b].GetPointY(), vertices[b].GetPointZ());
 
 		glColor3f(colours[c].r, colours[c].g, colours[c].b);
-		glVertex3f(vertices[c].x, vertices[c].y, vertices[c].z);
+		glVertex3f(vertices[c].GetPointX(), vertices[c].GetPointY(), vertices[c].GetPointZ());
 
 		glColor3f(colours[d].r, colours[d].g, colours[d].b);
-		glVertex3f(vertices[d].x, vertices[d].y, vertices[d].z);
+		glVertex3f(vertices[d].GetPointX(), vertices[d].GetPointY(), vertices[d].GetPointZ());
 	glEnd();
+}
+
+void Cube::SetAABB()
+{
+	collisionBox.SetMaxPoint(1, 1, 1);
+	collisionBox.SetMinPoint(-1, -1, -1);
 }

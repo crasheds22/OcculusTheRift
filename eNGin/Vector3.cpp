@@ -15,7 +15,9 @@ Vector3::Vector3(GLdouble posX, GLdouble posY, GLdouble posZ) : x(posX),
 																y(posY),
 																z(posZ)
 {
-
+	x = posX;
+	y = posY;
+	z = posZ;
 }
 
 void Vector3::SetPointX(GLdouble posX) {
@@ -30,15 +32,15 @@ void Vector3::SetPointZ(GLdouble posZ) {
 	z = posZ;
 }
 
-GLdouble Vector3::GetPointX() {
+GLdouble Vector3::GetPointX() const {
 	return x;
 }
 
-GLdouble Vector3::GetPointY() {
+GLdouble Vector3::GetPointY() const {
 	return y;
 }
 
-GLdouble Vector3::GetPointZ() {
+GLdouble Vector3::GetPointZ() const {
 	return z;
 }
 

@@ -61,19 +61,19 @@ public:
 	 *	A normal member returning a GLdouble
 	 *	@return The x point value
 	 */
-	GLdouble GetPointX();
+	GLdouble GetPointX() const;
 
 	/**
 	 *	A normal member returning a GLdouble
 	 *	@return The y point value
 	 */
-	GLdouble GetPointY();
+	GLdouble GetPointY() const;
 
 	/**
 	 *	A normal member returning a GLdouble
 	 *	@return The z point value
 	 */
-	GLdouble GetPointZ();
+	GLdouble GetPointZ() const;
 	//========================================
 
 	//========================================

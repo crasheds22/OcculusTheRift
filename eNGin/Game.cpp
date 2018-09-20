@@ -61,7 +61,7 @@ void Game::Update()
 	switch (state)
 	{
 		case GAME_STATE:
-			playerCharacter->Update();
+			playerCharacter->Update(alpha);
 			break;
 
 		case MENU_STATE:
@@ -208,7 +208,8 @@ void Game::SwitchState()
 		state = GAME_STATE;
 		delete shaysWorld;
 		shaysWorld = NULL;
-		bgmControl.SetSong(1);
+		// temporary the need to work in silence
+		//bgmControl.SetSong(1);
 	}
 
 }

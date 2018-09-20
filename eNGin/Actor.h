@@ -139,6 +139,14 @@ public:
 	Point GetScale();
 	//================================================================================
 
+	/**
+	 *	A collider getter
+	 *	Returns the values relating to the Actor's collision coords
+	 *	@return The collider values
+	 */
+	Collider GetCollider();
+
+
 protected:
 	Vector3 position;	/*<! The position of the Actor */
 	Point rotations,	/*<! The rotation of the Actor */

@@ -4,6 +4,7 @@
 #include <gl\glut.h>
 
 #include "Actor.h"
+#include "Cube.h"
 
 /**
  *	@class Player
@@ -30,7 +31,7 @@ public:
 	 *	An overridden member taking no arguments
 	 *	Updates the Player's location in the world
 	 */
-	void Update();
+	void Update(Cube tempCube);
 	//========================================
 
 	//========================================

@@ -113,6 +113,7 @@
     <ClCompile Include="Test002Music.cpp" />
     <ClCompile Include="Test000Vector3.cpp" />
     <ClCompile Include="Test001AABB.cpp" />
+    <ClCompile Include="Test003Game.cpp" />
     <ClCompile Include="Test004Texture.cpp" />
     <ClCompile Include="Test005Model.cpp" />
   </ItemGroup>

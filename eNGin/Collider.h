@@ -75,7 +75,7 @@ public:
 	*	@pre minimum and maximum points must exist
 	*	@post
 	*/
-	bool AABBtoAABB(Collider &objectOther);
+	bool AABBtoAABB(Collider objectOther);
 
 	/**
 	 *	An overloaded operator function returning a boolean

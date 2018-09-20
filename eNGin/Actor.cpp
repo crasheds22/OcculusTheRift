@@ -73,3 +73,8 @@ Point Actor::GetRot() {
 Point Actor::GetScale() {
 	return scale;
 }
+
+Collider Actor::GetCollider()
+{
+	return collisionBox;
+}

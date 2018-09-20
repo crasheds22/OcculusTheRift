@@ -3,29 +3,35 @@
 
 #include <gl/glut.h>
 
-class Cube{
-public:
-	Cube();
+#include "Actor.h"
 
-	void Update();
+class Cube : public Actor
+{
+	public:
+		Cube();
 
-	void Draw();
-private:
-	struct Point {
-		float x, y, z;
-	};
+		void Update();
 
-	Point vertices[8];
+		void Draw();
 
-	struct RGB {
-		float r, g, b;
-	};
 
-	RGB colours[8];
+	private:
+		struct Point {
+			float x, y, z;
+		};
 
-	//-----------------------------------------------------
+		Vector3 vertices[8];
 
-	void Polygons(int a, int b, int c, int d);
+		struct RGB {
+			float r, g, b;
+		};
+
+		RGB colours[8];
+
+		//-----------------------------------------------------
+
+		void Polygons(int a, int b, int c, int d);
+		void SetAABB();
 };
 
 #endif
