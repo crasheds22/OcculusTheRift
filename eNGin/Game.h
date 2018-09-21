@@ -140,7 +140,7 @@ private:
 
 	Player *playerCharacter;		/*<! The player in a scene */
 
-	Cube alpha, beta, gamma, delta;
+	Cube * cubist;
 
 	MusicPlayer bgmControl;		/*<! Handles the BGM for the Game> */
 

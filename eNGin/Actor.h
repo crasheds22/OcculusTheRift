@@ -144,7 +144,7 @@ public:
 	 *	Returns the values relating to the Actor's collision coords
 	 *	@return The collider values
 	 */
-	Collider GetCollider();
+	const Collider GetCollider();
 
 
 protected:

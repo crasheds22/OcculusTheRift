@@ -5,6 +5,13 @@
 Game::Game() 
 {
 	playerCharacter = Player::GetInstance();
+	cubist = new Cube[4];
+
+	for (int ii = 0; ii < 4; ii++)
+	{
+		Cube omega;
+		cubist[ii] = omega;
+	}
 
 	shaysWorld = new Shay(this);
 	state = SHAY_STATE;
@@ -19,6 +26,8 @@ Game::~Game()
 	{
 		delete shaysWorld;
 	}
+
+	delete[] cubist;
 }
 
 void Game::Run() 
@@ -61,7 +70,7 @@ void Game::Update()
 	switch (state)
 	{
 		case GAME_STATE:
-			playerCharacter->Update(alpha);
+			playerCharacter->Update(cubist);
 			break;
 
 		case MENU_STATE:
@@ -91,24 +100,24 @@ void Game::Draw()
 			glPushMatrix();
 			glTranslatef(5.0, 0.0, 0.0);
 			glScalef(1.0, 2.0, 1.0);
-			alpha.Draw();
+			cubist[0].Draw();
 			glPopMatrix();
 
 			glPushMatrix();
 			glTranslatef(-5.0, 0.0, 0.0);
 			glScalef(2.0, 1.0, 1.0);
-			beta.Draw();
+			cubist[1].Draw();
 			glPopMatrix();
 
 			glPushMatrix();
 			glTranslatef(0.0, 0.0, 5.0);
 			glScalef(1.0, 1.0, 2.0);
-			gamma.Draw();
+			cubist[2].Draw();
 			glPopMatrix();
 
 			glPushMatrix();
 			glTranslatef(0.0, 0.0, -5.0);
-			delta.Draw();
+			cubist[3].Draw();
 			glPopMatrix();
 
 			glPushMatrix();

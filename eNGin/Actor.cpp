@@ -74,7 +74,7 @@ Point Actor::GetScale() {
 	return scale;
 }
 
-Collider Actor::GetCollider()
+const Collider Actor::GetCollider()
 {
 	return collisionBox;
 }

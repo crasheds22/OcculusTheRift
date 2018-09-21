@@ -31,7 +31,7 @@ public:
 	 *	An overridden member taking no arguments
 	 *	Updates the Player's location in the world
 	 */
-	void Update(Cube tempCube);
+	void Update(Cube* tempCube);
 	//========================================
 
 	//========================================

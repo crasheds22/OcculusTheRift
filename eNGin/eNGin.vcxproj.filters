@@ -96,6 +96,9 @@
     <ClCompile Include="Shay\Model_Shay.cpp">
       <Filter>Source Files\ShaysWorld</Filter>
     </ClCompile>
+    <ClCompile Include="TestObjects.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -168,6 +171,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MusicPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestObjects.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

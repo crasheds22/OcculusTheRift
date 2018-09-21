@@ -12,7 +12,7 @@ class Cube : public Actor
 
 		void Update();
 
-		void Draw();
+		void Draw() override;
 
 
 	private:

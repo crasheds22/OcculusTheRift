@@ -1,15 +1,19 @@
 #include <pch.h>
+
+#include <algorithm>
+#include <math.h>
+
 #include "Cube.h"
 
 Cube::Cube() {
-	vertices[0] = Vector3( -1, -1, -1 );
-	vertices[1] = Vector3( 1, -1, -1 );
-	vertices[2] = Vector3( 1, 1, -1 );
-	vertices[3] = Vector3( -1, 1, -1 );
-	vertices[4] = Vector3( -1, -1, 1 );
-	vertices[5] = Vector3( 1, -1, 1 );
-	vertices[6] = Vector3( 1, 1, 1 );
-	vertices[7] = Vector3( -1, 1, 1 );
+	vertices[0] = Vector3( -1.0, -1.0, -1.0 );
+	vertices[1] = Vector3( 1.0, -1.0, -1.0 );
+	vertices[2] = Vector3( 1.0, 1.0, -1.0 );
+	vertices[3] = Vector3( -1.0, 1.0, -1.0 );
+	vertices[4] = Vector3( -1.0, -1.0, 1.0 );
+	vertices[5] = Vector3( 1.0, -1.0, 1.0 );
+	vertices[6] = Vector3( 1.0, 1.0, 1.0 );
+	vertices[7] = Vector3( -1.0, 1.0, 1.0 );
 
 	colours[0] = { 0, 0, 0 };
 	colours[1] = { 1, 0, 0 };
@@ -28,9 +32,11 @@ void Cube::Update() {
 	}*/
 
 
+
 }
 
-void Cube::Draw() {
+void Cube::Draw()  
+{
 	Polygons(0, 3, 2, 1);
 	Polygons(2, 3, 7, 6);
 	Polygons(0, 4, 7, 3);
@@ -38,12 +44,13 @@ void Cube::Draw() {
 	Polygons(4, 5, 6, 7);
 	Polygons(0, 1, 5, 4);
 
+	SetAABB();
+
 }
 
 void Cube::Polygons(int a, int b, int c, int d) {
 	glBegin(GL_POLYGON);
 		glColor3f(colours[a].r, colours[a].g, colours[a].b);
-		std::cout << "cube a vertex X: " <<vertices[a].GetPointX() << std::endl;
 		glVertex3f(vertices[a].GetPointX(), vertices[a].GetPointY(), vertices[a].GetPointZ());
 
 		glColor3f(colours[b].r, colours[b].g, colours[b].b);
@@ -57,8 +64,21 @@ void Cube::Polygons(int a, int b, int c, int d) {
 	glEnd();
 }
 
+
 void Cube::SetAABB()
 {
+	Vector3 theMin;
+	Vector3 theMax;
+
+	for (int ii = 0; ii < 4; ii++)
+	{
+
+
+		theMin.SetPointX((vertices[ii].GetPointX()));
+	}
+	
 	collisionBox.SetMaxPoint(1, 1, 1);
 	collisionBox.SetMinPoint(-1, -1, -1);
 }
+
+

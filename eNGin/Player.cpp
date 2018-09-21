@@ -24,23 +24,26 @@ Player* Player::GetInstance() {
 	return &instance;
 }
 
-void Player::Update(Cube tempCube) {
+void Player::Update(Cube * tempCube) {
 	
-	
+	Move();
 
-	collisionBox.SetMaxPoint(position.GetPointX()+2, position.GetPointY()+2, position.GetPointZ()+2);
-	collisionBox.SetMinPoint(position.GetPointX() -2, position.GetPointY() -2, position.GetPointZ() -2);
+	collisionBox.SetMaxPoint(position.GetPointX() + 0.5, position.GetPointY() + 0.5, position.GetPointZ() + 0.5);
+	collisionBox.SetMinPoint(position.GetPointX() - 0.5, position.GetPointY() - 0.5, position.GetPointZ() - 0.5);
 
-	
-	if (!collisionBox.AABBtoAABB(tempCube.GetCollider()))
+	glLoadIdentity();
+	gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),
+	position.GetPointX() + lookFB.x, position.GetPointY() + lookFB.y + 1.8, position.GetPointZ() + lookFB.z,
+	0.0, 1.0, 0.0);
+	for (int ii = 0; ii < 4; ii++)
 	{
-		Move();
-
-		glLoadIdentity();
-		gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),
-			position.GetPointX() + lookFB.x, position.GetPointY() + lookFB.y + 1.8, position.GetPointZ() + lookFB.z,
-			0.0, 1.0, 0.0);
+		if (collisionBox.AABBtoAABB(tempCube[ii].GetCollider()))
+		{
+			std::cout << "Collide" << std::endl;
+		}
 	}
+	
+	
 }
 
 void Player::SetMoveSpeed(GLdouble spd) {
