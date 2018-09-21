@@ -25,11 +25,15 @@ Cube::Cube() {
 	colours[7] = { 0, 1, 1 };
 }
 
+
+
+
 void Cube::Update() {
 	/*for (int i = 0; i < 8; i++) {
 		vertices[i].x += 0.0001;
 		vertices[i].z += 0.0001;
 	}*/
+
 
 
 
@@ -43,6 +47,8 @@ void Cube::Draw()
 	Polygons(1, 2, 6, 5);
 	Polygons(4, 5, 6, 7);
 	Polygons(0, 1, 5, 4);
+
+
 
 	SetAABB();
 
@@ -69,16 +75,57 @@ void Cube::SetAABB()
 {
 	Vector3 theMin;
 	Vector3 theMax;
+	Vector3 * AABBVertices;
 
-	for (int ii = 0; ii < 4; ii++)
+	AABBVertices = new Vector3[8];
+
+	theMin = vertices[0];
+	theMax = vertices[0];
+
+	for (int ii = 0; ii < 8; ii++)
 	{
-
-
-		theMin.SetPointX((vertices[ii].GetPointX()));
+		AABBVertices[ii].SetPointX(vertices[ii].GetPointX() + GetPos().GetPointX());
+		AABBVertices[ii].SetPointY(vertices[ii].GetPointY() + GetPos().GetPointY());
+		AABBVertices[ii].SetPointZ(vertices[ii].GetPointZ() + GetPos().GetPointZ());
 	}
 	
-	collisionBox.SetMaxPoint(1, 1, 1);
-	collisionBox.SetMinPoint(-1, -1, -1);
+	for (int ii = 0; ii < 8; ii++)
+	{
+		if (vertices[ii].GetPointX() < theMin.GetPointX())
+		{
+			theMin.SetPointX(vertices[ii].GetPointX());
+		}
+
+		if (vertices[ii].GetPointY() < theMin.GetPointY())
+		{
+			theMin.SetPointY(vertices[ii].GetPointY());
+		}
+
+		if (vertices[ii].GetPointZ() < theMin.GetPointZ())
+		{
+			theMin.SetPointZ(vertices[ii].GetPointZ());
+		}
+
+		if (vertices[ii].GetPointX() > theMax.GetPointX())
+		{
+			theMax.SetPointX(vertices[ii].GetPointX());
+		}
+
+		if (vertices[ii].GetPointY() > theMax.GetPointY())
+		{
+			theMax.SetPointY(vertices[ii].GetPointY());
+		}
+
+		if (vertices[ii].GetPointZ() > theMax.GetPointZ())
+		{
+			theMax.SetPointZ(vertices[ii].GetPointZ());
+		}
+
+	}
+
+
+	collisionBox.SetMaxPoint(theMax.GetPointX(), theMax.GetPointY(), theMax.GetPointZ());
+	collisionBox.SetMinPoint(theMin.GetPointX(), theMin.GetPointY(), theMin.GetPointZ());
 }
 
 

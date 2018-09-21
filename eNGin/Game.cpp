@@ -6,12 +6,21 @@ Game::Game()
 {
 	playerCharacter = Player::GetInstance();
 	cubist = new Cube[4];
+	Vector3 cubeOnePos;
+	Vector3 cubeTwoPos;
+	Vector3 cubeThreePos;
+	Vector3 cubeFourPos;
 
-	for (int ii = 0; ii < 4; ii++)
-	{
-		Cube omega;
-		cubist[ii] = omega;
-	}
+	cubeOnePos = Vector3(5, 0, 0);
+	cubeTwoPos = Vector3(-5, 0, 0);
+	cubeThreePos = Vector3(0, 0, -5);
+	cubeFourPos = Vector3(0, 0, 5);
+
+	cubist[0].SetPos(cubeOnePos);
+	cubist[1].SetPos(cubeTwoPos);
+	cubist[2].SetPos(cubeThreePos);
+	cubist[3].SetPos(cubeFourPos);
+	
 
 	shaysWorld = new Shay(this);
 	state = SHAY_STATE;
@@ -98,25 +107,25 @@ void Game::Draw()
 			playerCharacter->Draw();
 			
 			glPushMatrix();
-			glTranslatef(5.0, 0.0, 0.0);
+			glTranslatef(cubist[0].GetPos().GetPointX(), cubist[0].GetPos().GetPointY(), cubist[0].GetPos().GetPointZ());
 			glScalef(1.0, 2.0, 1.0);
 			cubist[0].Draw();
 			glPopMatrix();
 
 			glPushMatrix();
-			glTranslatef(-5.0, 0.0, 0.0);
+			glTranslatef(cubist[1].GetPos().GetPointX(), cubist[1].GetPos().GetPointY(), cubist[1].GetPos().GetPointZ());
 			glScalef(2.0, 1.0, 1.0);
 			cubist[1].Draw();
 			glPopMatrix();
 
 			glPushMatrix();
-			glTranslatef(0.0, 0.0, 5.0);
+			glTranslatef(cubist[2].GetPos().GetPointX(), cubist[2].GetPos().GetPointY(), cubist[2].GetPos().GetPointZ());
 			glScalef(1.0, 1.0, 2.0);
 			cubist[2].Draw();
 			glPopMatrix();
 
 			glPushMatrix();
-			glTranslatef(0.0, 0.0, -5.0);
+			glTranslatef(cubist[3].GetPos().GetPointX(), cubist[3].GetPos().GetPointY(), cubist[3].GetPos().GetPointZ());
 			cubist[3].Draw();
 			glPopMatrix();
 
