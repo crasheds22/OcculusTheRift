@@ -20,6 +20,11 @@ Game::Game()
 	cubist[1].SetPos(cubeTwoPos);
 	cubist[2].SetPos(cubeThreePos);
 	cubist[3].SetPos(cubeFourPos);
+
+	cubist[0].SetScale(1.0, 2.0, 1.0);
+	cubist[1].SetScale(2.0, 1.0, 1.0);
+	cubist[2].SetScale(1.0, 1.0, 2.0);
+	cubist[3].SetScale(1.0, 1.0, 1.0);
 	
 
 	shaysWorld = new Shay(this);

@@ -39,11 +39,7 @@ void Player::Update(Cube * tempCube) {
 	{
 		if (collisionBox.AABBtoAABB(tempCube[ii].GetCollider()))
 		{
-			std::cout << "Collided" << std::endl;
-		}
-		else
-		{
-			std::cout << "MOOOO" << std::endl;
+			std::cout << ii << "Collided" << std::endl;
 		}
 	}
 	

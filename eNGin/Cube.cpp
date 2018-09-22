@@ -23,24 +23,23 @@ Cube::Cube() {
 	colours[5] = { 1, 0, 1 };
 	colours[6] = { 1, 1, 1 };
 	colours[7] = { 0, 1, 1 };
+
 }
 
 
 
 
 void Cube::Update() {
-	/*for (int i = 0; i < 8; i++) {
-		vertices[i].x += 0.0001;
-		vertices[i].z += 0.0001;
-	}*/
-
-
-
-
+	x = GetPos().GetPointX();
+	y = GetPos().GetPointY();
+	z = GetPos().GetPointZ();
+	x += 0.0001;
+	SetPos(x, y, z);
 }
 
 void Cube::Draw()  
 {
+	Update();
 	Polygons(0, 3, 2, 1);
 	Polygons(2, 3, 7, 6);
 	Polygons(0, 4, 7, 3);
@@ -123,9 +122,8 @@ void Cube::SetAABB()
 
 	}
 
-
-	collisionBox.SetMaxPoint(theMax.GetPointX(), theMax.GetPointY(), theMax.GetPointZ());
-	collisionBox.SetMinPoint(theMin.GetPointX(), theMin.GetPointY(), theMin.GetPointZ());
+	collisionBox.SetMaxPoint(x + GetScale().x, y + GetScale().y, z + GetScale().z);
+	collisionBox.SetMinPoint(x + -GetScale().x, y + -GetScale().y, z + -GetScale().z);
 }
 
 
