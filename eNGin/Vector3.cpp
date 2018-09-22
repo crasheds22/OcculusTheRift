@@ -109,3 +109,14 @@ Vector3 Vector3::SubtractVector(Vector3 theInputVector)
 
 	return resultVector;
 }
+
+Vector3 Vector3::AddVector(Vector3 theInputVector)
+{
+	Vector3 resultVector;
+
+	resultVector.x = x + theInputVector.x;
+	resultVector.y = y + theInputVector.y;
+	resultVector.z = z + theInputVector.z;
+
+	return resultVector;
+}

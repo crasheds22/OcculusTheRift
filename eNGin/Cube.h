@@ -14,6 +14,10 @@ class Cube : public Actor
 
 		void Draw() override;
 
+		void SetRot(Vector3 rot) override;
+		
+		void SetRot(GLdouble rotX, GLdouble rotY, GLdouble rotZ) override;
+
 		void SetAABB();
 
 

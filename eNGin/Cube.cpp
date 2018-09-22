@@ -67,6 +67,23 @@ void Cube::Polygons(int a, int b, int c, int d) {
 	glEnd();
 }
 
+void Cube::SetRot(Vector3 rot)
+{
+	rotations.SetPointX(rot.GetPointX());
+	rotations.SetPointY(rot.GetPointY());
+	rotations.SetPointZ(rot.GetPointZ());
+
+	SetAABB();
+}
+
+void Cube::SetRot(GLdouble rotX, GLdouble rotY, GLdouble rotZ)
+{
+	rotations.SetPointX(rotX);
+	rotations.SetPointY(rotY);
+	rotations.SetPointZ(rotZ);
+
+	SetAABB();
+}
 
 void Cube::SetAABB()
 {
@@ -82,9 +99,11 @@ void Cube::SetAABB()
 	for (int ii = 0; ii < 8; ii++)
 	{
 		//this is a hack should use dot product, but scale type is point
-		AABBVertices[ii].SetPointX((vertices[ii].GetPointX() * scale.x) + GetPos().GetPointX());
-		AABBVertices[ii].SetPointY((vertices[ii].GetPointY() * scale.y) + GetPos().GetPointY());
-		AABBVertices[ii].SetPointZ((vertices[ii].GetPointZ() * scale.z) + GetPos().GetPointZ());
+
+
+		AABBVertices[ii].SetPointX((vertices[ii].GetPointX() * scale.GetPointX()) + GetPos().GetPointX());
+		AABBVertices[ii].SetPointY((vertices[ii].GetPointY() * scale.GetPointY()) + GetPos().GetPointY());
+		AABBVertices[ii].SetPointZ((vertices[ii].GetPointZ() * scale.GetPointZ()) + GetPos().GetPointZ());
 
 		std::cout << "index: " << ii << " AABB vertex X:" << AABBVertices[ii].GetPointX() << std::endl;
 		std::cout << "index: " << ii << " AABB vertex Y:" << AABBVertices[ii].GetPointY() << std::endl;
