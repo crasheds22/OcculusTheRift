@@ -5,6 +5,10 @@
 
 #include "Cube.h"
 
+float x;
+float y;
+float z;
+
 Cube::Cube() {
 	vertices[0] = Vector3( -1.0, -1.0, -1.0 );
 	vertices[1] = Vector3( 1.0, -1.0, -1.0 );
