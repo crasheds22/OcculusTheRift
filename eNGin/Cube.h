@@ -14,6 +14,8 @@ class Cube : public Actor
 
 		void Draw() override;
 
+		void SetAABB();
+
 
 	private:
 		struct Point {
@@ -31,7 +33,7 @@ class Cube : public Actor
 		//-----------------------------------------------------
 
 		void Polygons(int a, int b, int c, int d);
-		void SetAABB();
+		
 };
 
 #endif

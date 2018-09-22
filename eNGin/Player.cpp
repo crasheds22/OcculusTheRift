@@ -40,6 +40,9 @@ void Player::Update(Cube * tempCube) {
 		if (collisionBox.AABBtoAABB(tempCube[ii].GetCollider()))
 		{
 			std::cout << "Collided" << std::endl;
+			std::cout << "camera position x: " << position.GetPointX() << std::endl;
+			std::cout << "camera position y: " << position.GetPointY() << std::endl;
+			std::cout << "camera position z: " << position.GetPointZ() << std::endl;
 		}
 		else
 		{

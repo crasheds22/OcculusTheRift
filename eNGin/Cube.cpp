@@ -49,9 +49,6 @@ void Cube::Draw()
 	Polygons(0, 1, 5, 4);
 
 
-
-	SetAABB();
-
 }
 
 void Cube::Polygons(int a, int b, int c, int d) {
@@ -84,41 +81,47 @@ void Cube::SetAABB()
 
 	for (int ii = 0; ii < 8; ii++)
 	{
-		AABBVertices[ii].SetPointX(vertices[ii].GetPointX() + GetPos().GetPointX());
-		AABBVertices[ii].SetPointY(vertices[ii].GetPointY() + GetPos().GetPointY());
-		AABBVertices[ii].SetPointZ(vertices[ii].GetPointZ() + GetPos().GetPointZ());
+		//this is a hack should use dot product, but scale type is point
+		AABBVertices[ii].SetPointX((vertices[ii].GetPointX() * scale.x) + GetPos().GetPointX());
+		AABBVertices[ii].SetPointY((vertices[ii].GetPointY() * scale.y) + GetPos().GetPointY());
+		AABBVertices[ii].SetPointZ((vertices[ii].GetPointZ() * scale.z) + GetPos().GetPointZ());
+
+		std::cout << "index: " << ii << " AABB vertex X:" << AABBVertices[ii].GetPointX() << std::endl;
+		std::cout << "index: " << ii << " AABB vertex Y:" << AABBVertices[ii].GetPointY() << std::endl;
+		std::cout << "index: " << ii << " AABB vertex Z:" << AABBVertices[ii].GetPointZ() << std::endl;
+
 	}
 	
 	for (int ii = 0; ii < 8; ii++)
 	{
-		if (vertices[ii].GetPointX() < theMin.GetPointX())
+		if (AABBVertices[ii].GetPointX() < theMin.GetPointX())
 		{
-			theMin.SetPointX(vertices[ii].GetPointX());
+			theMin.SetPointX(AABBVertices[ii].GetPointX());
 		}
 
-		if (vertices[ii].GetPointY() < theMin.GetPointY())
+		if (AABBVertices[ii].GetPointY() < theMin.GetPointY())
 		{
-			theMin.SetPointY(vertices[ii].GetPointY());
+			theMin.SetPointY(AABBVertices[ii].GetPointY());
 		}
 
-		if (vertices[ii].GetPointZ() < theMin.GetPointZ())
+		if (AABBVertices[ii].GetPointZ() < theMin.GetPointZ())
 		{
-			theMin.SetPointZ(vertices[ii].GetPointZ());
+			theMin.SetPointZ(AABBVertices[ii].GetPointZ());
 		}
 
-		if (vertices[ii].GetPointX() > theMax.GetPointX())
+		if (AABBVertices[ii].GetPointX() > theMax.GetPointX())
 		{
-			theMax.SetPointX(vertices[ii].GetPointX());
+			theMax.SetPointX(AABBVertices[ii].GetPointX());
 		}
 
-		if (vertices[ii].GetPointY() > theMax.GetPointY())
+		if (AABBVertices[ii].GetPointY() > theMax.GetPointY())
 		{
-			theMax.SetPointY(vertices[ii].GetPointY());
+			theMax.SetPointY(AABBVertices[ii].GetPointY());
 		}
 
-		if (vertices[ii].GetPointZ() > theMax.GetPointZ())
+		if (AABBVertices[ii].GetPointZ() > theMax.GetPointZ())
 		{
-			theMax.SetPointZ(vertices[ii].GetPointZ());
+			theMax.SetPointZ(AABBVertices[ii].GetPointZ());
 		}
 
 	}
@@ -126,6 +129,16 @@ void Cube::SetAABB()
 
 	collisionBox.SetMaxPoint(theMax.GetPointX(), theMax.GetPointY(), theMax.GetPointZ());
 	collisionBox.SetMinPoint(theMin.GetPointX(), theMin.GetPointY(), theMin.GetPointZ());
+	
+	
+	std::cout << "minPoint x: " << collisionBox.GetMinPoint().GetPointX() << std::endl;
+	std::cout << "minPoint y: " << collisionBox.GetMinPoint().GetPointY() << std::endl;
+	std::cout << "minPoint Z: " << collisionBox.GetMinPoint().GetPointZ() << std::endl;
+
+	std::cout << "maxPoint x: " << collisionBox.GetMaxPoint().GetPointX() << std::endl;
+	std::cout << "maxPoint y: " << collisionBox.GetMaxPoint().GetPointY() << std::endl;
+	std::cout << "maxPoint Z: " << collisionBox.GetMaxPoint().GetPointZ() << std::endl;
+	
 }
 
 
