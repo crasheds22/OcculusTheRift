@@ -93,9 +93,6 @@ void Cube::SetAABB()
 
 	AABBVertices = new Vector3[8];
 
-	theMin = vertices[0];
-	theMax = vertices[0];
-
 	for (int ii = 0; ii < 8; ii++)
 	{
 		//this is a hack should use dot product, but scale type is point
@@ -110,6 +107,15 @@ void Cube::SetAABB()
 		std::cout << "index: " << ii << " AABB vertex Z:" << AABBVertices[ii].GetPointZ() << std::endl;
 
 	}
+
+	//Set the points for theMin and theMax so that it's values are specific to the cube
+	theMin.SetPointX(AABBVertices[0].GetPointX());
+	theMin.SetPointY(AABBVertices[0].GetPointY());
+	theMin.SetPointZ(AABBVertices[0].GetPointZ());
+
+	theMax.SetPointX(AABBVertices[0].GetPointX());
+	theMax.SetPointY(AABBVertices[0].GetPointY());
+	theMax.SetPointZ(AABBVertices[0].GetPointZ());
 	
 	for (int ii = 0; ii < 8; ii++)
 	{
