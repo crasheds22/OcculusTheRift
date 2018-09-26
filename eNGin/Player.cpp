@@ -26,10 +26,15 @@ Player* Player::GetInstance() {
 
 void Player::Update(Cube * tempCube) {
 	
+	std::vector <Vector3> SATBox;
+	GLdouble SATBoxOffset = 0.5;
+
 	Move();
 
-	collisionBox.SetMaxPoint(position.GetPointX() + 0.5, position.GetPointY() + 0.5, position.GetPointZ() + 0.5);
-	collisionBox.SetMinPoint(position.GetPointX() - 0.5, position.GetPointY() - 0.5, position.GetPointZ() - 0.5);
+	collisionBox.SetMaxPoint(position.GetPointX() + SATBoxOffset, position.GetPointY() + SATBoxOffset, position.GetPointZ() + SATBoxOffset);
+	collisionBox.SetMinPoint(position.GetPointX() - SATBoxOffset, position.GetPointY() - SATBoxOffset, position.GetPointZ() - SATBoxOffset);
+
+	
 
 	glLoadIdentity();
 	gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),
@@ -43,10 +48,23 @@ void Player::Update(Cube * tempCube) {
 			std::cout << "camera position x: " << position.GetPointX() << std::endl;
 			std::cout << "camera position y: " << position.GetPointY() << std::endl;
 			std::cout << "camera position z: " << position.GetPointZ() << std::endl;
+
+			SATBox.push_back(Vector3(position.GetPointX() - SATBoxOffset, position.GetPointY() - SATBoxOffset, position.GetPointZ() - SATBoxOffset));
+			SATBox.push_back(Vector3(position.GetPointX() + SATBoxOffset, position.GetPointY() - SATBoxOffset, position.GetPointZ() - SATBoxOffset));
+			SATBox.push_back(Vector3(position.GetPointX() + SATBoxOffset, position.GetPointY() + SATBoxOffset, position.GetPointZ() - SATBoxOffset));
+			SATBox.push_back(Vector3(position.GetPointX() - SATBoxOffset, position.GetPointY() + SATBoxOffset, position.GetPointZ() - SATBoxOffset));
+			SATBox.push_back(Vector3(position.GetPointX() - SATBoxOffset, position.GetPointY() - SATBoxOffset, position.GetPointZ() + SATBoxOffset));
+			SATBox.push_back(Vector3(position.GetPointX() + SATBoxOffset, position.GetPointY() - SATBoxOffset, position.GetPointZ() + SATBoxOffset));
+			SATBox.push_back(Vector3(position.GetPointX() + SATBoxOffset, position.GetPointY() + SATBoxOffset, position.GetPointZ() + SATBoxOffset));
+			SATBox.push_back(Vector3(position.GetPointX() - SATBoxOffset, position.GetPointY() + SATBoxOffset, position.GetPointZ() + SATBoxOffset));
+			
+			position = collisionBox.MinimumTranslationVector(tempCube[ii].GetEdgePoints(), SATBox);
+
+			
 		}
 		else
 		{
-			std::cout << "MOOOO" << std::endl;
+			//std::cout << "MOOOO" << std::endl;
 		}
 	}
 	

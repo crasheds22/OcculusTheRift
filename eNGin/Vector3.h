@@ -99,7 +99,7 @@ public:
 	*	@param in The vector to multiply by
 	*	@return Vector3 The resultant vector
 	*/
-	Vector3 CrossProduct(Vector3 &in);
+	Vector3 CrossProduct(Vector3 in);
 
 	/**
 	*	A utility function taking one argument and returning a Vector3
@@ -143,6 +143,24 @@ public:
 	*	@post
 	*/
 	Vector3 AddVector(Vector3 theInputVector);
+
+	/**
+	*	@brief to calculate the difference between two vectors
+	*	@param theInputVector target vector
+	*	@return a vector
+	*	@pre
+	*	@post
+	*/
+	Vector3 operator - (Vector3 theInputVector);
+
+	/**
+	*	@brief eqality comparison
+	*	@param theInputVector target vector
+	*	@return boolean
+	*	@pre
+	*	@post
+	*/
+	bool operator == (Vector3 theInputVector);
 
 private:
 	GLdouble x;	/*<! The x point value */

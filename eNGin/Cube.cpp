@@ -6,14 +6,14 @@
 #include "Cube.h"
 
 Cube::Cube() {
-	vertices[0] = Vector3( -1.0, -1.0, -1.0 );
-	vertices[1] = Vector3( 1.0, -1.0, -1.0 );
-	vertices[2] = Vector3( 1.0, 1.0, -1.0 );
-	vertices[3] = Vector3( -1.0, 1.0, -1.0 );
-	vertices[4] = Vector3( -1.0, -1.0, 1.0 );
-	vertices[5] = Vector3( 1.0, -1.0, 1.0 );
-	vertices[6] = Vector3( 1.0, 1.0, 1.0 );
-	vertices[7] = Vector3( -1.0, 1.0, 1.0 );
+	vertices[0] = Vector3(-1.0, -1.0, -1.0);
+	vertices[1] = Vector3( 1.0, -1.0, -1.0);
+	vertices[2] = Vector3( 1.0,  1.0, -1.0);
+	vertices[3] = Vector3(-1.0,  1.0, -1.0);
+	vertices[4] = Vector3(-1.0, -1.0,  1.0);
+	vertices[5] = Vector3( 1.0, -1.0,  1.0);
+	vertices[6] = Vector3( 1.0,  1.0,  1.0);
+	vertices[7] = Vector3(-1.0,  1.0,  1.0);
 
 	colours[0] = { 0, 0, 0 };
 	colours[1] = { 1, 0, 0 };
@@ -25,28 +25,22 @@ Cube::Cube() {
 	colours[7] = { 0, 1, 1 };
 }
 
-
-
-
 void Cube::Update() {
 	/*for (int i = 0; i < 8; i++) {
 		vertices[i].x += 0.0001;
 		vertices[i].z += 0.0001;
 	}*/
 
-
-
-
 }
 
 void Cube::Draw()  
 {
-	Polygons(0, 3, 2, 1);
-	Polygons(2, 3, 7, 6);
+	Polygons(0, 1, 2, 3);
 	Polygons(0, 4, 7, 3);
-	Polygons(1, 2, 6, 5);
-	Polygons(4, 5, 6, 7);
-	Polygons(0, 1, 5, 4);
+	Polygons(5, 1, 2, 6);
+	Polygons(4, 0, 3, 7);
+	Polygons(3, 7, 6, 2);
+	Polygons(0, 4, 5, 1);
 
 
 }
@@ -89,7 +83,6 @@ void Cube::SetAABB()
 {
 	Vector3 theMin;
 	Vector3 theMax;
-	Vector3 * AABBVertices;
 
 	AABBVertices = new Vector3[8];
 
@@ -98,9 +91,7 @@ void Cube::SetAABB()
 
 	for (int ii = 0; ii < 8; ii++)
 	{
-		//this is a hack should use dot product, but scale type is point
-
-
+		
 		AABBVertices[ii].SetPointX((vertices[ii].GetPointX() * scale.GetPointX()) + GetPos().GetPointX());
 		AABBVertices[ii].SetPointY((vertices[ii].GetPointY() * scale.GetPointY()) + GetPos().GetPointY());
 		AABBVertices[ii].SetPointZ((vertices[ii].GetPointZ() * scale.GetPointZ()) + GetPos().GetPointZ());
@@ -110,6 +101,9 @@ void Cube::SetAABB()
 		std::cout << "index: " << ii << " AABB vertex Z:" << AABBVertices[ii].GetPointZ() << std::endl;
 
 	}
+
+	theMin = AABBVertices[0];
+	theMax = AABBVertices[0];
 	
 	for (int ii = 0; ii < 8; ii++)
 	{
@@ -145,11 +139,9 @@ void Cube::SetAABB()
 
 	}
 
-
 	collisionBox.SetMaxPoint(theMax.GetPointX(), theMax.GetPointY(), theMax.GetPointZ());
 	collisionBox.SetMinPoint(theMin.GetPointX(), theMin.GetPointY(), theMin.GetPointZ());
-	
-	
+	/*
 	std::cout << "minPoint x: " << collisionBox.GetMinPoint().GetPointX() << std::endl;
 	std::cout << "minPoint y: " << collisionBox.GetMinPoint().GetPointY() << std::endl;
 	std::cout << "minPoint Z: " << collisionBox.GetMinPoint().GetPointZ() << std::endl;
@@ -157,7 +149,25 @@ void Cube::SetAABB()
 	std::cout << "maxPoint x: " << collisionBox.GetMaxPoint().GetPointX() << std::endl;
 	std::cout << "maxPoint y: " << collisionBox.GetMaxPoint().GetPointY() << std::endl;
 	std::cout << "maxPoint Z: " << collisionBox.GetMaxPoint().GetPointZ() << std::endl;
-	
+	*/
+
+	for (int ii = 0; ii < 8; ii++)
+	{
+		std::cout << "AABB Vertex: " << ii << "AABB X: " << AABBVertices[ii].GetPointX() << std::endl;
+		std::cout << "AABB Vertex: " << ii << "AABB Y: " << AABBVertices[ii].GetPointY() << std::endl;
+		std::cout << "AABB Vertex: " << ii << "AABB Z: " << AABBVertices[ii].GetPointZ() << std::endl;
+	}
 }
 
+std::vector<Vector3> Cube::GetEdgePoints()
+{
+	std::vector <Vector3> edgePoints;
 
+	for (int ii = 0; ii < 8; ii++)
+	{
+		edgePoints.push_back(AABBVertices[ii]);
+	}
+
+
+	return edgePoints;
+}

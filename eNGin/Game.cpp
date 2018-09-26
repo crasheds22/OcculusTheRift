@@ -15,10 +15,10 @@ Game::Game()
 	Vector3 cubeThreeScale;
 	Vector3 cubeFourScale;
 
-	cubeOnePos = Vector3(5, 0, 0);
-	cubeTwoPos = Vector3(-5, 0, 0);
-	cubeThreePos = Vector3(0, 0, -5);
-	cubeFourPos = Vector3(0, 0, 5);
+	cubeOnePos = Vector3(10, 0, 0);
+	cubeTwoPos = Vector3(-10, 0, 0);
+	cubeThreePos = Vector3(0, 0, -10);
+	cubeFourPos = Vector3(0, 0, 10);
 
 	cubist[0].SetPos(cubeOnePos);
 	cubist[1].SetPos(cubeTwoPos);

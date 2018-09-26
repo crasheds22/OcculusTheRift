@@ -4,6 +4,7 @@
 #include <math.h>
 #include <algorithm>
 #include <gl/glut.h>
+#include <vector>
 
 #include "Collider.h"
 #include "Projection.h"
@@ -59,139 +60,197 @@ bool Collider::operator > (Collider &other)
 
 
 
-Vector3 Collider::ProjectionNormal()
+std::vector <Vector3> Collider::ProjectionNormal(std::vector <Vector3> targetVertices, std::vector <Vector3> playerVertices)
 {
-	Vector3 theNormalVector;
-
-	theNormalVector = maxPoint.UnitNormal(minPoint);
-	std::cout << "Normal X:" << theNormalVector.GetPointX() << std::endl;
-	std::cout << "Normal Y:" << theNormalVector.GetPointY() << std::endl;
-	std::cout << "Normal Z:" << theNormalVector.GetPointZ() << std::endl;
+	std::vector <Vector3> theNormalVectors;
 	
-	return theNormalVector;
+
+	for (int ii = 0; ii < targetVertices.size(); ii++)
+	{
+		for (int jj = 0; jj < playerVertices.size(); jj++)
+		{
+			theNormalVectors.push_back(targetVertices[ii].CrossProduct(playerVertices[jj]));
+			/*
+			std::cout << "index: " << ii << " Normal X:" << theNormalVectors[ii].GetPointX() << std::endl;
+			std::cout << "index: " << ii << " Normal Y:" << theNormalVectors[ii].GetPointY() << std::endl;
+			std::cout << "index: " << ii << " Normal Z:" << theNormalVectors[ii].GetPointZ() << std::endl;
+			*/
+		}
+		
+	}
+	
+
+
+
+	return theNormalVectors;
 }
-
-
-// ProjectionAB should equal the scalar multiplication magnitude of source times cosine theta and the projection normal 
-// the dot product can be decomposed to magnitude of source times the magnitude of target 
-// multiplied by the cosine angle of the two
-// this is suspect 
-// this should gives us the min and max scalar projection on the normal
-/*
-Projection Collider::VectorProjection()
-{
-	Vector3 resultNormal;
-	GLdouble projectionOne;
-	GLdouble projectionTwo;
-	Projection resultProjection;
-
-	resultNormal = ProjectionNormal();
-	projectionOne = minPoint.DotProduct(resultNormal);
-	projectionTwo = maxPoint.DotProduct(resultNormal);
-
-	resultProjection = Projection(std::min(projectionOne, projectionTwo), std::max(projectionOne, projectionTwo));
-
-	return resultProjection;
-}
-*/
-
 
 // https://math.stackexchange.com/questions/633181/formula-to-project-a-vector-onto-a-plane
 // https://www.maplesoft.com/support/help/maple/view.aspx?path=MathApps%2FProjectionOfVectorOntoPlane
-Vector3 Collider::VectorProjection()
+// https://math.oregonstate.edu/home/programs/undergrad/CalculusQuestStudyGuides/vcalc/dotprod/dotprod.html
+std::vector <Vector3> Collider::VectorProjection(std::vector <Vector3> targetVectors, std::vector <Vector3> playerVectors)
 {
-	Vector3 resultNormal;
-	Vector3 edgeVector;
-	GLdouble scalarProjection;
-	Vector3 theProjection;
-	Vector3 projectionOntoPlane;
+	std::vector <Vector3> axisNormals;
+	Vector3 minNormal;
+	std::vector <GLdouble> theScalar;
+	std::vector <GLdouble> theMagnitude;
+	std::vector <GLdouble> theUnitScalar;
+	std::vector <Vector3> theProjection;
+
+	axisNormals = ProjectionNormal(targetVectors, playerVectors);
+
+	minNormal = axisNormals[0];
+	for (int ii = 0; ii < axisNormals.size(); ii++)
+	{
+		if (axisNormals[ii].VectorMagnitude() < minNormal.VectorMagnitude())
+		{
+			minNormal = axisNormals[ii];
+		}
+	}
 
 
-	resultNormal = ProjectionNormal();
+	for (int ii = 0; ii < playerVectors.size(); ii++)
+	{
+		
+		GLdouble tempScalar;
+		tempScalar = minNormal.DotProduct(playerVectors[ii]);
+		theScalar.push_back(tempScalar);
+		
+	}
+
+	for (int ii = 0; ii < playerVectors.size(); ii++)
+	{
+		GLdouble squareX;
+		GLdouble squareY;
+		GLdouble squareZ;
+
+		squareX = playerVectors[ii].GetPointX() * playerVectors[ii].GetPointX();
+		squareY = playerVectors[ii].GetPointY() * playerVectors[ii].GetPointY();
+		squareZ = playerVectors[ii].GetPointZ() * playerVectors[ii].GetPointZ();
+
+		theMagnitude.push_back( squareX + squareY + squareZ);
+	}
+
+	for (int ii = 0; ii < theScalar.size(); ii++)
+	{
+		for (int jj = 0; jj < theMagnitude.size(); jj++)
+		{
+			GLdouble tempUnitScalar;
+
+			tempUnitScalar = theScalar[ii] / theMagnitude[jj];
+			theUnitScalar.push_back(tempUnitScalar);
+		}
+	}
+
+	for (int ii = 0; ii < axisNormals.size(); ii++)
+	{
+		for (int jj = 0; jj < theUnitScalar.size(); jj++)
+		{
+			Vector3 tempProjection;
+			tempProjection = axisNormals[ii].MultiplyByScalar(theUnitScalar[jj]);
+			theProjection.push_back(tempProjection);
+		}
+	}
+
+	std::cout << "Projection Size: " << theProjection.size() << std::endl;
+
+	/*
+	for (int ii = 0; ii < theProjection.size(); ii++)
+	{
+		std::cout << "@@@the Vector Projection X @@@: " << theProjection[ii].GetPointX() << std::endl;
+		std::cout << "@@@the Vector Projection Y @@@: " << theProjection[ii].GetPointY() << std::endl;
+		std::cout << "@@@the Vector Projection Z @@@: " << theProjection[ii].GetPointZ() << std::endl;
+	}
+	*/
 	
-	
-	edgeVector = maxPoint.SubtractVector(minPoint); // this is suspect
-
-	scalarProjection = resultNormal.DotProduct(edgeVector);
-
-	theProjection = resultNormal.MultiplyByScalar(scalarProjection);
-
-	projectionOntoPlane = edgeVector.SubtractVector(theProjection);
-
-	std::cout << "@@@the Vector Projection X @@@: " << projectionOntoPlane.GetPointX() << std::endl;
-	std::cout << "@@@the Vector Projection Y @@@: " << projectionOntoPlane.GetPointY() << std::endl;
-	std::cout << "@@@the Vector Projection Z @@@: " << projectionOntoPlane.GetPointZ() << std::endl;
-
-	return projectionOntoPlane;
-}
-
-
-Vector3 Collider::ProjectionOverlap(Vector3 targetProjection)
-{
-	Vector3 theProjection;
-	Vector3 theOverlap;
-
-	theProjection = VectorProjection();
-	
-	theOverlap = theProjection.SubtractVector(targetProjection);
-	std::cout << "===The overlap X===" << theOverlap.GetPointX() << std::endl;
-	std::cout << "===The overlap Y===" << theOverlap.GetPointY() << std::endl;
-	std::cout << "===The overlap Z===" << theOverlap.GetPointZ() << std::endl;
-
-	return theOverlap;
+	return theProjection;
 }
 
 //float intersectionDepth = (mina < minb)? (maxa - minb) : (mina - maxb);
-// This is correct need more vertices current data structure is not suited to this collision resolution
-/*
-GLdouble Collider::ProjectionOverlap(Projection targetProjection)
+std::vector <Vector3> Collider::ProjectionOverlap(std::vector <Vector3> targetVectors, std::vector <Vector3> playerVectors)
 {
-	Projection theProjection;
-	GLdouble theOverlap;
+	std::vector <Vector3> targetNormals;
+	std::vector <Vector3> playerNormals;
+	std::vector <Vector3> checkParallel;
+	std::vector <Vector3> targetProjection;
+	std::vector <Vector3> playerProjection;
+	std::vector <Vector3> theOverlap;
+	
+	std::cout << "target projection start" << std::endl;
+	targetProjection = VectorProjection(targetVectors, playerVectors);
+	std::cout << "target projection end" << std::endl;
 
-	theProjection = VectorProjection();
+	std::cout << "player projection start" << std::endl;
+	playerProjection = VectorProjection(playerVectors, targetVectors);
+	std::cout << "player projection end" << std::endl;
 
-	if (theProjection.GetMinProjection() < targetProjection.GetMinProjection())
+	for (int ii = 0; ii < targetProjection.size(); ii++)
 	{
-		theOverlap = theProjection.GetMaxProjection() - targetProjection.GetMinProjection();
+		for (int jj = 0; jj < playerProjection.size(); jj++)
+		{
+			Vector3 tempOverlap;
+			tempOverlap = targetProjection[ii] - playerProjection[jj];
+			
+			//std::cout << "the overlap: " << tempOverlap.VectorMagnitude() << std::endl;
+			
+			theOverlap.push_back(tempOverlap);
+		}
 	}
-	else
+	
+	/*
+	for (int kk = 0; kk < theOverlap.size(); kk++)
 	{
-		theOverlap = theProjection.GetMinProjection() - targetProjection.GetMaxProjection();
+		std::cout << "===The overlap X===" << theOverlap[kk].GetPointX() << std::endl;
+		std::cout << "===The overlap Y===" << theOverlap[kk].GetPointY() << std::endl;
+		std::cout << "===The overlap Z===" << theOverlap[kk].GetPointZ() << std::endl;
 	}
-
+	*/
+	
 	return theOverlap;
-
 }
-*/
 
 
 // https://gamedev.stackexchange.com/questions/32545/what-is-the-mtv-minimum-translation-vector-in-sat-seperation-of-axis
 // https://stackoverflow.com/questions/40255953/finding-the-mtv-minimal-translation-vector-using-separating-axis-theorem
 // calculating depth penetration using SAT to find the minimum translation vector
-Vector3 Collider::MinimumTranslationVector(Collider &projectTarget)
+Vector3 Collider::MinimumTranslationVector(std::vector <Vector3> AABBVectors, std::vector <Vector3> playerVectors )
 {
-	//Projection targetObject;
-	Vector3 targetObject;
-	
-	Vector3 overlapDepth;
+	std::vector <Vector3> axisNormal;
+	std::vector <Vector3> theOverlap;
+	GLdouble overlapDepth;
+	Vector3 closestNormal;
 	Vector3 theMTV;
 
-
-	targetObject = projectTarget.VectorProjection();
-	overlapDepth = ProjectionOverlap(targetObject);
-
-	if (overlapDepth.GetPointX() < 0 || overlapDepth.GetPointY() < 0 || overlapDepth.GetPointZ() < 0)
+	axisNormal = ProjectionNormal(AABBVectors, playerVectors);
+	theOverlap = ProjectionOverlap(AABBVectors, playerVectors);
+	
+	closestNormal = axisNormal[0];
+	for (int ii = 0; ii < axisNormal.size(); ii++)
 	{
-		std::cout << "Collision True" << std::endl;
-		theMTV = ProjectionNormal().CrossProduct(overlapDepth);
+		if (axisNormal[ii].VectorMagnitude() < closestNormal.VectorMagnitude())
+		{
+			closestNormal = axisNormal[ii];
+		}
 	}
-	else
+
+	overlapDepth = theOverlap[0].VectorMagnitude();
+	for (int ii = 0; ii < theOverlap.size(); ii++)
 	{
-		theMTV = Vector3(0.0, 0.0, 0.0);
+		if (theOverlap[ii].VectorMagnitude() > overlapDepth)
+		{
+			overlapDepth = theOverlap[ii].VectorMagnitude();
+		}
 	}
+	
+	std::cout << "overlap depth: " << overlapDepth << std::endl;
+	
 	// MTV is usually the normal of the vector times the overlapdepth
 	// projection normal is analogous to axis
+	theMTV = closestNormal.MultiplyByScalar(overlapDepth);
+	
+	std::cout << " MTV X:" << theMTV.GetPointX() << std::endl;
+	std::cout << " MTV Y:" << theMTV.GetPointY() << std::endl;
+	std::cout << " MTV Z:" << theMTV.GetPointZ() << std::endl;
 	
 	
 

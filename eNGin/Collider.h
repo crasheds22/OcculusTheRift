@@ -2,6 +2,7 @@
 #define Collider_H
 
 #include <gl/glut.h>
+#include <vector>
 
 #include "Vector3.h"
 #include "Projection.h"
@@ -98,7 +99,7 @@ public:
 	*	@pre
 	*	@post
 	*/
-	Vector3 ProjectionNormal();
+	std::vector <Vector3> ProjectionNormal(std::vector <Vector3> targetVertices, std::vector <Vector3> playerVertices);
 
 
 	/**
@@ -110,7 +111,7 @@ public:
 	*/
 
 	//Projection VectorProjection();
-	Vector3 VectorProjection();
+	std::vector <Vector3> VectorProjection(std::vector <Vector3> targetEdgeVectors, std::vector <Vector3> playerVectors);
 
 	/**
 	*	@brief to find the depth of intersection
@@ -121,7 +122,7 @@ public:
 	*/
 
 	//GLdouble ProjectionOverlap(Projection targetProjection); // This is correct not usable at the moment
-	Vector3 ProjectionOverlap(Vector3 targetProjection);
+	std::vector <Vector3> ProjectionOverlap(std::vector <Vector3> targetVectors, std::vector <Vector3> playerVectors);
 
 	/**
 	*	@brief finds the Minimum Translation Vector from the collision
@@ -130,7 +131,7 @@ public:
 	*	@pre the comparison target must exist
 	*	@post
 	*/
-	Vector3 MinimumTranslationVector(Collider &projectTarget);
+	Vector3 MinimumTranslationVector(std::vector <Vector3> AABBVectors, std::vector <Vector3> playerVectors);
 
 
 private:

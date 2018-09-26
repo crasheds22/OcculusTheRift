@@ -53,7 +53,7 @@ GLdouble Vector3::DotProduct(Vector3 &in) {
 	return x * in.x + y * in.y + z * in.z;
 }
 
-Vector3 Vector3::CrossProduct(Vector3 &in) {
+Vector3 Vector3::CrossProduct(Vector3 in) {
 	Vector3 tempVec(y * in.GetPointZ() - z * in.GetPointY(),
 					x * in.GetPointZ() - z * in.GetPointX(),
 					x * in.GetPointY() - y * in.GetPointX());
@@ -119,4 +119,37 @@ Vector3 Vector3::AddVector(Vector3 theInputVector)
 	resultVector.z = z + theInputVector.z;
 
 	return resultVector;
+}
+
+Vector3 Vector3::operator-(Vector3 theInputVector)
+{
+	Vector3 resultVector;
+
+	resultVector.SetPointX(x - theInputVector.GetPointX());
+	resultVector.SetPointY(y - theInputVector.GetPointY());
+	resultVector.SetPointZ(z - theInputVector.GetPointZ());
+
+	return resultVector;
+}
+
+bool Vector3::operator==(Vector3 theInputVector)
+{
+	
+	
+	if (x == theInputVector.GetPointX())
+	{
+		if (y == theInputVector.GetPointY())
+		{
+			if (z == theInputVector.GetPointZ())
+			{
+				return true;
+			}
+		}
+		
+	}
+	else
+	{
+		return false;
+	}
+
 }

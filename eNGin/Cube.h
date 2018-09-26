@@ -20,13 +20,13 @@ class Cube : public Actor
 
 		void SetAABB();
 
+		std::vector <Vector3> GetEdgePoints();
+
 
 	private:
 		struct Point {
 			float x, y, z;
 		};
-
-		Vector3 vertices[8];
 
 		struct RGB {
 			float r, g, b;
@@ -34,7 +34,8 @@ class Cube : public Actor
 
 		RGB colours[8];
 
-		//-----------------------------------------------------
+		Vector3 vertices[8];
+		Vector3 * AABBVertices;
 
 		void Polygons(int a, int b, int c, int d);
 		
