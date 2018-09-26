@@ -86,9 +86,6 @@ void Cube::SetAABB()
 
 	AABBVertices = new Vector3[8];
 
-	theMin = vertices[0];
-	theMax = vertices[0];
-
 	for (int ii = 0; ii < 8; ii++)
 	{
 		
@@ -104,6 +101,15 @@ void Cube::SetAABB()
 
 	theMin = AABBVertices[0];
 	theMax = AABBVertices[0];
+
+	//Set the points for theMin and theMax so that it's values are specific to the cube
+	theMin.SetPointX(AABBVertices[0].GetPointX());
+	theMin.SetPointY(AABBVertices[0].GetPointY());
+	theMin.SetPointZ(AABBVertices[0].GetPointZ());
+
+	theMax.SetPointX(AABBVertices[0].GetPointX());
+	theMax.SetPointY(AABBVertices[0].GetPointY());
+	theMax.SetPointZ(AABBVertices[0].GetPointZ());
 	
 	for (int ii = 0; ii < 8; ii++)
 	{
