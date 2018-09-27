@@ -55,7 +55,7 @@ GLdouble Vector3::DotProduct(Vector3 &in) {
 
 Vector3 Vector3::CrossProduct(Vector3 &in) {
 	Vector3 tempVec(y * in.GetPointZ() - z * in.GetPointY(),
-					x * in.GetPointZ() - z * in.GetPointX(),
+					z * in.GetPointX() - x * in.GetPointZ(),
 					x * in.GetPointY() - y * in.GetPointX());
 
 	return tempVec;
@@ -106,6 +106,17 @@ Vector3 Vector3::SubtractVector(Vector3 theInputVector)
 	resultVector.x = x - theInputVector.x;
 	resultVector.y = y - theInputVector.y;
 	resultVector.z = z - theInputVector.z;
+
+	return resultVector;
+}
+
+Vector3 Vector3::AddVector(Vector3 theInputVector)
+{
+	Vector3 resultVector;
+
+	resultVector.x = x + theInputVector.x;
+	resultVector.y = y + theInputVector.y;
+	resultVector.z = z + theInputVector.z;
 
 	return resultVector;
 }

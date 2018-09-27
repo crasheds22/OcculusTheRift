@@ -14,6 +14,15 @@ class Cube : public Actor
 
 		void Draw() override;
 
+		void SetRot(Vector3 rot) override;
+		
+		void SetRot(GLdouble rotX, GLdouble rotY, GLdouble rotZ) override;
+
+		void CalculateFaceNormal(Vector3 *AABBVertices);
+
+		void SetAABB();
+
+
 
 	private:
 		struct Point {
@@ -28,10 +37,12 @@ class Cube : public Actor
 
 		RGB colours[8];
 
+		Vector3 normals[6];
+
 		//-----------------------------------------------------
 
 		void Polygons(int a, int b, int c, int d);
-		void SetAABB();
+		
 };
 
 #endif

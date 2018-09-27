@@ -5,9 +5,8 @@
 
 #include "Cube.h"
 
-float x;
-float y;
-float z;
+Vector3 theMin;
+Vector3 theMax;
 
 Cube::Cube() {
 	vertices[0] = Vector3( -1.0, -1.0, -1.0 );
@@ -27,34 +26,27 @@ Cube::Cube() {
 	colours[5] = { 1, 0, 1 };
 	colours[6] = { 1, 1, 1 };
 	colours[7] = { 0, 1, 1 };
-
 }
 
 
 
 
 void Cube::Update() {
-	x = GetPos().GetPointX();
-	y = GetPos().GetPointY();
-	z = GetPos().GetPointZ();
-	x += 0.0001;
-	SetPos(x, y, z);
+	/*for (int i = 0; i < 8; i++) {
+		vertices[i].x += 0.0001;
+		vertices[i].z += 0.0001;
+	}*/
+
 }
 
 void Cube::Draw()  
 {
-	Update();
 	Polygons(0, 3, 2, 1);
 	Polygons(2, 3, 7, 6);
 	Polygons(0, 4, 7, 3);
 	Polygons(1, 2, 6, 5);
 	Polygons(4, 5, 6, 7);
 	Polygons(0, 1, 5, 4);
-
-
-
-	SetAABB();
-
 }
 
 void Cube::Polygons(int a, int b, int c, int d) {
@@ -73,61 +65,138 @@ void Cube::Polygons(int a, int b, int c, int d) {
 	glEnd();
 }
 
+void Cube::SetRot(Vector3 rot)
+{
+	rotations.SetPointX(rot.GetPointX());
+	rotations.SetPointY(rot.GetPointY());
+	rotations.SetPointZ(rot.GetPointZ());
+
+	SetAABB();
+}
+
+void Cube::SetRot(GLdouble rotX, GLdouble rotY, GLdouble rotZ)
+{
+	rotations.SetPointX(rotX);
+	rotations.SetPointY(rotY);
+	rotations.SetPointZ(rotZ);
+
+	SetAABB();
+}
+
+void Cube::CalculateFaceNormal(Vector3 *AABBVertices)
+{
+	//forwards & backwards
+	Vector3 A = AABBVertices[0];
+	Vector3 B = AABBVertices[1];
+	Vector3 C = AABBVertices[2];
+	Vector3 X = A.SubtractVector(B);
+	Vector3 Y = C.SubtractVector(B);
+
+	normals[0] = X.CrossProduct(Y);
+	normals[1] = normals[0];
+
+	//left & right
+	A = AABBVertices[5];
+	B = AABBVertices[1];
+	C = AABBVertices[2];
+	X = A.SubtractVector(B);
+	Y = C.SubtractVector(B);
+
+	normals[2] = X.CrossProduct(Y);
+	normals[3] = normals[2];
+
+	//top & bottom
+	A = AABBVertices[3];
+	B = AABBVertices[2];
+	C = AABBVertices[6];
+	X = A.SubtractVector(B);
+	Y = C.SubtractVector(B);
+
+	normals[4] = X.CrossProduct(Y);
+	normals[5] = normals[4];
+	normals[5].SetPointY(-normals[5].GetPointY());
+}
 
 void Cube::SetAABB()
 {
-	Vector3 theMin;
-	Vector3 theMax;
 	Vector3 * AABBVertices;
 
 	AABBVertices = new Vector3[8];
 
-	theMin = vertices[0];
-	theMax = vertices[0];
-
 	for (int ii = 0; ii < 8; ii++)
 	{
-		AABBVertices[ii].SetPointX(vertices[ii].GetPointX() + GetPos().GetPointX());
-		AABBVertices[ii].SetPointY(vertices[ii].GetPointY() + GetPos().GetPointY());
-		AABBVertices[ii].SetPointZ(vertices[ii].GetPointZ() + GetPos().GetPointZ());
+		//this is a hack should use dot product, but scale type is point
+
+
+		AABBVertices[ii].SetPointX((vertices[ii].GetPointX() * scale.GetPointX()) + GetPos().GetPointX());
+		AABBVertices[ii].SetPointY((vertices[ii].GetPointY() * scale.GetPointY()) + GetPos().GetPointY());
+		AABBVertices[ii].SetPointZ((vertices[ii].GetPointZ() * scale.GetPointZ()) + GetPos().GetPointZ());
+
+		std::cout << "index: " << ii << " AABB vertex X:" << AABBVertices[ii].GetPointX() << std::endl;
+		std::cout << "index: " << ii << " AABB vertex Y:" << AABBVertices[ii].GetPointY() << std::endl;
+		std::cout << "index: " << ii << " AABB vertex Z:" << AABBVertices[ii].GetPointZ() << std::endl;
+
 	}
+
+	CalculateFaceNormal(AABBVertices);
+
+	//Set the points for theMin and theMax so that it's values are specific to the cube
+	theMin.SetPointX(AABBVertices[0].GetPointX());
+	theMin.SetPointY(AABBVertices[0].GetPointY());
+	theMin.SetPointZ(AABBVertices[0].GetPointZ());
+
+	theMax.SetPointX(AABBVertices[0].GetPointX());
+	theMax.SetPointY(AABBVertices[0].GetPointY());
+	theMax.SetPointZ(AABBVertices[0].GetPointZ());
 	
 	for (int ii = 0; ii < 8; ii++)
 	{
-		if (vertices[ii].GetPointX() < theMin.GetPointX())
+		if (AABBVertices[ii].GetPointX() < theMin.GetPointX())
 		{
-			theMin.SetPointX(vertices[ii].GetPointX());
+			theMin.SetPointX(AABBVertices[ii].GetPointX());
 		}
 
-		if (vertices[ii].GetPointY() < theMin.GetPointY())
+		if (AABBVertices[ii].GetPointY() < theMin.GetPointY())
 		{
-			theMin.SetPointY(vertices[ii].GetPointY());
+			theMin.SetPointY(AABBVertices[ii].GetPointY());
 		}
 
-		if (vertices[ii].GetPointZ() < theMin.GetPointZ())
+		if (AABBVertices[ii].GetPointZ() < theMin.GetPointZ())
 		{
-			theMin.SetPointZ(vertices[ii].GetPointZ());
+			theMin.SetPointZ(AABBVertices[ii].GetPointZ());
 		}
 
-		if (vertices[ii].GetPointX() > theMax.GetPointX())
+		if (AABBVertices[ii].GetPointX() > theMax.GetPointX())
 		{
-			theMax.SetPointX(vertices[ii].GetPointX());
+			theMax.SetPointX(AABBVertices[ii].GetPointX());
 		}
 
-		if (vertices[ii].GetPointY() > theMax.GetPointY())
+		if (AABBVertices[ii].GetPointY() > theMax.GetPointY())
 		{
-			theMax.SetPointY(vertices[ii].GetPointY());
+			theMax.SetPointY(AABBVertices[ii].GetPointY());
 		}
 
-		if (vertices[ii].GetPointZ() > theMax.GetPointZ())
+		if (AABBVertices[ii].GetPointZ() > theMax.GetPointZ())
 		{
-			theMax.SetPointZ(vertices[ii].GetPointZ());
+			theMax.SetPointZ(AABBVertices[ii].GetPointZ());
 		}
 
 	}
 
-	collisionBox.SetMaxPoint(x + GetScale().x, y + GetScale().y, z + GetScale().z);
-	collisionBox.SetMinPoint(x + -GetScale().x, y + -GetScale().y, z + -GetScale().z);
+
+	collisionBox.SetMaxPoint(theMax.GetPointX(), theMax.GetPointY(), theMax.GetPointZ());
+	collisionBox.SetMinPoint(theMin.GetPointX(), theMin.GetPointY(), theMin.GetPointZ());
+	
+	
+	std::cout << "minPoint x: " << collisionBox.GetMinPoint().GetPointX() << std::endl;
+	std::cout << "minPoint y: " << collisionBox.GetMinPoint().GetPointY() << std::endl;
+	std::cout << "minPoint Z: " << collisionBox.GetMinPoint().GetPointZ() << std::endl;
+
+	std::cout << "maxPoint x: " << collisionBox.GetMaxPoint().GetPointX() << std::endl;
+	std::cout << "maxPoint y: " << collisionBox.GetMaxPoint().GetPointY() << std::endl;
+	std::cout << "maxPoint Z: " << collisionBox.GetMaxPoint().GetPointZ() << std::endl;
+	
 }
+
 
 

@@ -39,8 +39,41 @@ void Player::Update(Cube * tempCube) {
 	{
 		if (collisionBox.AABBtoAABB(tempCube[ii].GetCollider()))
 		{
-			std::cout << ii << "Collided" << std::endl;
+			float intersectX = position.GetPointX() - tempCube[ii].GetPos().GetPointX();
+			float intersectY = position.GetPointY() - tempCube[ii].GetPos().GetPointY();
+			float intersectZ = position.GetPointZ() - tempCube[ii].GetPos().GetPointZ();
+
+			if (abs(intersectX) > abs(intersectZ))
+			{
+				if (intersectX > 0)
+				{
+					position.SetPointX(tempCube[ii].GetPos().GetPointX() + tempCube[ii].GetScale().GetPointX() + 0.5);
+				}
+				else
+				{
+					position.SetPointX(tempCube[ii].GetPos().GetPointX() - tempCube[ii].GetScale().GetPointX() - 0.5);
+				}
+			}
+			else
+			{
+				if (intersectZ > 0)
+				{
+					position.SetPointZ(tempCube[ii].GetPos().GetPointZ() + tempCube[ii].GetScale().GetPointZ() + 0.5);
+				}
+				else
+				{
+					position.SetPointZ(tempCube[ii].GetPos().GetPointZ() - tempCube[ii].GetScale().GetPointZ() - 0.5);
+				}
+			}
+			std::cout << "Collided" << std::endl;
+			//std::cout << "camera position x: " << position.GetPointX() << std::endl;
+			//std::cout << "camera position y: " << position.GetPointY() << std::endl;
+			//std::cout << "camera position z: " << position.GetPointZ() << std::endl;
 		}
+		/*else
+		{
+			std::cout << "MOOOO" << std::endl;
+		}*/
 	}
 	
 	
