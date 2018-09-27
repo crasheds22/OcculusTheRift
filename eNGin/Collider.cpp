@@ -223,6 +223,7 @@ Vector3 Collider::MinimumTranslationVector(std::vector <Vector3> AABBVectors, st
 	Vector3 theMTV;
 
 	axisNormal = ProjectionNormal(AABBVectors, playerVectors);
+	
 	theOverlap = ProjectionOverlap(AABBVectors, playerVectors);
 	
 	overlapDepth = theOverlap[0].VectorMagnitude();
@@ -230,7 +231,7 @@ Vector3 Collider::MinimumTranslationVector(std::vector <Vector3> AABBVectors, st
 	{
 		if ((theOverlap[ii].VectorMagnitude() < overlapDepth))
 		{
-			if (overlapDepth > 0)
+			if (overlapDepth != 0)
 			{
 				overlapDepth = theOverlap[ii].VectorMagnitude();
 			}
@@ -238,6 +239,16 @@ Vector3 Collider::MinimumTranslationVector(std::vector <Vector3> AABBVectors, st
 		}
 	}
 	
+	if (overlapDepth < 0)
+	{
+		overlapDepth = overlapDepth - 0.06;
+	}
+	else
+	{
+		overlapDepth = overlapDepth + 0.06;
+	}
+	
+
 	std::cout << "overlap depth: " << overlapDepth << std::endl;
 	
 	// MTV is usually the normal of the vector times the overlapdepth

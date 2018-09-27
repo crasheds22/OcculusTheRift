@@ -27,15 +27,14 @@ Player* Player::GetInstance() {
 void Player::Update(Cube * tempCube) {
 	
 	std::vector <Vector3> SATBox;
-	GLdouble SATBoxOffset = 0.5;
+	GLdouble SATBoxOffset = 1.0;
+	GLdouble coordY;
 	Vector3 theMTV;
 
 	Move();
 
 	collisionBox.SetMaxPoint(position.GetPointX() + SATBoxOffset, position.GetPointY() + SATBoxOffset, position.GetPointZ() + SATBoxOffset);
 	collisionBox.SetMinPoint(position.GetPointX() - SATBoxOffset, position.GetPointY() - SATBoxOffset, position.GetPointZ() - SATBoxOffset);
-
-	
 
 	glLoadIdentity();
 	gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),
@@ -67,8 +66,9 @@ void Player::Update(Cube * tempCube) {
 		}
 	}
 	
+	coordY = position.GetPointY();
 	position = position - theMTV;
-	
+	position.SetPointY(coordY);
 }
 
 void Player::SetMoveSpeed(GLdouble spd) {
