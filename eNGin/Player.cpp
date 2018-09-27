@@ -28,6 +28,7 @@ void Player::Update(Cube * tempCube) {
 	
 	std::vector <Vector3> SATBox;
 	GLdouble SATBoxOffset = 0.5;
+	Vector3 theMTV;
 
 	Move();
 
@@ -58,9 +59,7 @@ void Player::Update(Cube * tempCube) {
 			SATBox.push_back(Vector3(position.GetPointX() + SATBoxOffset, position.GetPointY() + SATBoxOffset, position.GetPointZ() + SATBoxOffset));
 			SATBox.push_back(Vector3(position.GetPointX() - SATBoxOffset, position.GetPointY() + SATBoxOffset, position.GetPointZ() + SATBoxOffset));
 			
-			position = collisionBox.MinimumTranslationVector(tempCube[ii].GetEdgePoints(), SATBox);
-
-			
+			theMTV = collisionBox.MinimumTranslationVector(tempCube[ii].GetEdgePoints(), SATBox);
 		}
 		else
 		{
@@ -68,6 +67,7 @@ void Player::Update(Cube * tempCube) {
 		}
 	}
 	
+	position = position - theMTV;
 	
 }
 

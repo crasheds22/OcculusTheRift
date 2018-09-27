@@ -99,7 +99,7 @@ public:
 	*	@pre
 	*	@post
 	*/
-	std::vector <Vector3> ProjectionNormal(std::vector <Vector3> targetVertices, std::vector <Vector3> playerVertices);
+	Vector3 ProjectionNormal(std::vector <Vector3> targetVertices, std::vector <Vector3> playerVertices);
 
 
 	/**

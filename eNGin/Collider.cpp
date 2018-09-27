@@ -60,27 +60,38 @@ bool Collider::operator > (Collider &other)
 
 
 
-std::vector <Vector3> Collider::ProjectionNormal(std::vector <Vector3> targetVertices, std::vector <Vector3> playerVertices)
+Vector3 Collider::ProjectionNormal(std::vector <Vector3> targetVertices, std::vector <Vector3> playerVertices)
 {
-	std::vector <Vector3> theNormalVectors;
-	
+	Vector3 theNormalVectors;
+	Vector3 magnitudeCheck;
+	Vector3 magnitudeComparison;
+	int targetIndex;
+	int playerIndex;
 
+	magnitudeCheck = targetVertices[0].SubtractVector(playerVertices[0]);
 	for (int ii = 0; ii < targetVertices.size(); ii++)
 	{
 		for (int jj = 0; jj < playerVertices.size(); jj++)
 		{
-			theNormalVectors.push_back(targetVertices[ii].CrossProduct(playerVertices[jj]));
-			/*
-			std::cout << "index: " << ii << " Normal X:" << theNormalVectors[ii].GetPointX() << std::endl;
-			std::cout << "index: " << ii << " Normal Y:" << theNormalVectors[ii].GetPointY() << std::endl;
-			std::cout << "index: " << ii << " Normal Z:" << theNormalVectors[ii].GetPointZ() << std::endl;
-			*/
+			
+			magnitudeComparison = targetVertices[ii] - playerVertices[jj];
+			if (magnitudeComparison.VectorMagnitude() < magnitudeCheck.VectorMagnitude())
+			{
+				magnitudeCheck = magnitudeComparison;
+				targetIndex = ii;
+				playerIndex = jj;
+			}
 		}
 		
 	}
 	
+	theNormalVectors = targetVertices[targetIndex].CrossProduct(playerVertices[playerIndex]);
 
-
+	
+	std::cout << " Normal X:" << theNormalVectors.GetPointX() << std::endl;
+	std::cout << " Normal Y:" << theNormalVectors.GetPointY() << std::endl;
+	std::cout << " Normal Z:" << theNormalVectors.GetPointZ() << std::endl;
+			
 
 	return theNormalVectors;
 }
@@ -90,7 +101,7 @@ std::vector <Vector3> Collider::ProjectionNormal(std::vector <Vector3> targetVer
 // https://math.oregonstate.edu/home/programs/undergrad/CalculusQuestStudyGuides/vcalc/dotprod/dotprod.html
 std::vector <Vector3> Collider::VectorProjection(std::vector <Vector3> targetVectors, std::vector <Vector3> playerVectors)
 {
-	std::vector <Vector3> axisNormals;
+	Vector3 axisNormals;
 	Vector3 minNormal;
 	std::vector <GLdouble> theScalar;
 	std::vector <GLdouble> theMagnitude;
@@ -99,21 +110,12 @@ std::vector <Vector3> Collider::VectorProjection(std::vector <Vector3> targetVec
 
 	axisNormals = ProjectionNormal(targetVectors, playerVectors);
 
-	minNormal = axisNormals[0];
-	for (int ii = 0; ii < axisNormals.size(); ii++)
-	{
-		if (axisNormals[ii].VectorMagnitude() < minNormal.VectorMagnitude())
-		{
-			minNormal = axisNormals[ii];
-		}
-	}
-
 
 	for (int ii = 0; ii < playerVectors.size(); ii++)
 	{
 		
 		GLdouble tempScalar;
-		tempScalar = minNormal.DotProduct(playerVectors[ii]);
+		tempScalar = axisNormals.DotProduct(playerVectors[ii]);
 		theScalar.push_back(tempScalar);
 		
 	}
@@ -142,15 +144,14 @@ std::vector <Vector3> Collider::VectorProjection(std::vector <Vector3> targetVec
 		}
 	}
 
-	for (int ii = 0; ii < axisNormals.size(); ii++)
+	
+	for (int jj = 0; jj < theUnitScalar.size(); jj++)
 	{
-		for (int jj = 0; jj < theUnitScalar.size(); jj++)
-		{
-			Vector3 tempProjection;
-			tempProjection = axisNormals[ii].MultiplyByScalar(theUnitScalar[jj]);
-			theProjection.push_back(tempProjection);
-		}
+		Vector3 tempProjection;
+		tempProjection = axisNormals.MultiplyByScalar(theUnitScalar[jj]);
+		theProjection.push_back(tempProjection);
 	}
+	
 
 	std::cout << "Projection Size: " << theProjection.size() << std::endl;
 
@@ -215,7 +216,7 @@ std::vector <Vector3> Collider::ProjectionOverlap(std::vector <Vector3> targetVe
 // calculating depth penetration using SAT to find the minimum translation vector
 Vector3 Collider::MinimumTranslationVector(std::vector <Vector3> AABBVectors, std::vector <Vector3> playerVectors )
 {
-	std::vector <Vector3> axisNormal;
+	Vector3 axisNormal;
 	std::vector <Vector3> theOverlap;
 	GLdouble overlapDepth;
 	Vector3 closestNormal;
@@ -224,21 +225,16 @@ Vector3 Collider::MinimumTranslationVector(std::vector <Vector3> AABBVectors, st
 	axisNormal = ProjectionNormal(AABBVectors, playerVectors);
 	theOverlap = ProjectionOverlap(AABBVectors, playerVectors);
 	
-	closestNormal = axisNormal[0];
-	for (int ii = 0; ii < axisNormal.size(); ii++)
-	{
-		if (axisNormal[ii].VectorMagnitude() < closestNormal.VectorMagnitude())
-		{
-			closestNormal = axisNormal[ii];
-		}
-	}
-
 	overlapDepth = theOverlap[0].VectorMagnitude();
 	for (int ii = 0; ii < theOverlap.size(); ii++)
 	{
-		if (theOverlap[ii].VectorMagnitude() > overlapDepth)
+		if ((theOverlap[ii].VectorMagnitude() < overlapDepth))
 		{
-			overlapDepth = theOverlap[ii].VectorMagnitude();
+			if (overlapDepth > 0)
+			{
+				overlapDepth = theOverlap[ii].VectorMagnitude();
+			}
+			
 		}
 	}
 	
@@ -246,8 +242,9 @@ Vector3 Collider::MinimumTranslationVector(std::vector <Vector3> AABBVectors, st
 	
 	// MTV is usually the normal of the vector times the overlapdepth
 	// projection normal is analogous to axis
-	theMTV = closestNormal.MultiplyByScalar(overlapDepth);
 	
+	theMTV = axisNormal.MultiplyByScalar(overlapDepth);
+
 	std::cout << " MTV X:" << theMTV.GetPointX() << std::endl;
 	std::cout << " MTV Y:" << theMTV.GetPointY() << std::endl;
 	std::cout << " MTV Z:" << theMTV.GetPointZ() << std::endl;
