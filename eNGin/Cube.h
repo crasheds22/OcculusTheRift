@@ -18,10 +18,9 @@ class Cube : public Actor
 		
 		void SetRot(GLdouble rotX, GLdouble rotY, GLdouble rotZ) override;
 
-		void CalculateFaceNormal(Vector3 *AABBVertices);
-
 		void SetAABB();
 
+		std::vector <Vector3> GetEdgePoints();
 
 
 	private:
@@ -29,17 +28,14 @@ class Cube : public Actor
 			float x, y, z;
 		};
 
-		Vector3 vertices[8];
-
 		struct RGB {
 			float r, g, b;
 		};
 
 		RGB colours[8];
 
-		Vector3 normals[6];
-
-		//-----------------------------------------------------
+		Vector3 vertices[8];
+		Vector3 * AABBVertices;
 
 		void Polygons(int a, int b, int c, int d);
 		

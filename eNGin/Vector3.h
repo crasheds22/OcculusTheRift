@@ -135,6 +135,15 @@ public:
 	*/
 	Vector3 SubtractVector(Vector3 theInputVector);
 
+	/**
+	*	@brief to calculate the sum of two vectors
+	*	@param theInputVector target vector
+	*	@return a vector
+	*	@pre minimum and maximum points must exist
+	*	@post
+	*/
+	Vector3 AddVector(Vector3 theInputVector);
+
 private:
 	GLdouble x;	/*<! The x point value */
 	GLdouble y; /*<! The y point value */

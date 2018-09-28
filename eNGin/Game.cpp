@@ -10,22 +10,31 @@ Game::Game()
 	Vector3 cubeTwoPos;
 	Vector3 cubeThreePos;
 	Vector3 cubeFourPos;
+	Vector3 cubeOneScale;
+	Vector3 cubeTwoScale;
+	Vector3 cubeThreeScale;
+	Vector3 cubeFourScale;
 
-	cubeOnePos = Vector3(5, 0, 0);
-	cubeTwoPos = Vector3(-5, 0, 0);
-	cubeThreePos = Vector3(0, 0, -5);
-	cubeFourPos = Vector3(0, 0, 5);
+	cubeOnePos = Vector3(10, 0, 0);
+	cubeTwoPos = Vector3(-10, 0, 0);
+	cubeThreePos = Vector3(0, 0, -10);
+	cubeFourPos = Vector3(0, 0, 10);
 
 	cubist[0].SetPos(cubeOnePos);
 	cubist[1].SetPos(cubeTwoPos);
 	cubist[2].SetPos(cubeThreePos);
 	cubist[3].SetPos(cubeFourPos);
 
-	cubist[0].SetScale(1.0, 2.0, 1.0);
-	cubist[1].SetScale(2.0, 1.0, 1.0);
-	cubist[2].SetScale(1.0, 1.0, 2.0);
-	cubist[3].SetScale(1.0, 1.0, 1.0);
-	
+	cubeOneScale = Vector3(1, 2, 1);
+	cubeTwoScale = Vector3(2, 1, 1);
+	cubeThreeScale = Vector3(1, 1, 2);
+	cubeFourScale = Vector3(1, 1, 1);
+
+	cubist[0].SetScale(cubeOneScale);
+	cubist[1].SetScale(cubeTwoScale);
+	cubist[2].SetScale(cubeThreeScale);
+	cubist[3].SetScale(cubeFourScale);
+
 
 	shaysWorld = new Shay(this);
 	state = SHAY_STATE;
@@ -66,6 +75,12 @@ void Game::Initialise()
 	playerCharacter->SetRotateSpeed(0.009);
 
 	textures[0].LoadTexture("data/Group.png", 768, 768);
+
+	for (int ii = 0; ii < 4; ii++)
+	{
+		cubist[ii].SetAABB();
+	}
+
 	/*
 	textures[0].LoadTexture("data/hb_empty_left.png", 32, 32);
 	textures[1].LoadTexture("data/hb_empty_middle.png", 32, 32);
@@ -80,7 +95,7 @@ void Game::Initialise()
 void Game::Update()
 {
 	bgmControl.PlaySong();
-
+	
 	switch (state)
 	{
 		case GAME_STATE:
@@ -113,24 +128,27 @@ void Game::Draw()
 			
 			glPushMatrix();
 			glTranslatef(cubist[0].GetPos().GetPointX(), cubist[0].GetPos().GetPointY(), cubist[0].GetPos().GetPointZ());
-			glScalef(1.0, 2.0, 1.0);
+			glScalef(cubist[0].GetScale().GetPointX(), cubist[0].GetScale().GetPointY(), cubist[0].GetScale().GetPointZ());
 			cubist[0].Draw();
 			glPopMatrix();
 
+
+
 			glPushMatrix();
 			glTranslatef(cubist[1].GetPos().GetPointX(), cubist[1].GetPos().GetPointY(), cubist[1].GetPos().GetPointZ());
-			glScalef(2.0, 1.0, 1.0);
+			glScalef(cubist[1].GetScale().GetPointX(), cubist[1].GetScale().GetPointY(), cubist[1].GetScale().GetPointZ());
 			cubist[1].Draw();
 			glPopMatrix();
 
 			glPushMatrix();
 			glTranslatef(cubist[2].GetPos().GetPointX(), cubist[2].GetPos().GetPointY(), cubist[2].GetPos().GetPointZ());
-			glScalef(1.0, 1.0, 2.0);
+			glScalef(cubist[2].GetScale().GetPointX(), cubist[2].GetScale().GetPointY(), cubist[2].GetScale().GetPointZ());
 			cubist[2].Draw();
 			glPopMatrix();
 
 			glPushMatrix();
 			glTranslatef(cubist[3].GetPos().GetPointX(), cubist[3].GetPos().GetPointY(), cubist[3].GetPos().GetPointZ());
+			glScalef(cubist[3].GetScale().GetPointX(), cubist[3].GetScale().GetPointY(), cubist[3].GetScale().GetPointZ());
 			cubist[3].Draw();
 			glPopMatrix();
 
@@ -140,6 +158,8 @@ void Game::Draw()
 			glPopMatrix();
 
 			glFlush();
+
+			
 
 			break;
 	}

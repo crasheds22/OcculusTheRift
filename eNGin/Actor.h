@@ -87,7 +87,7 @@ public:
 	 *	Sets the Actor's rotation in the world
 	 *	@param rot The desired rotations around each axis
 	 */
-	void SetRot(Point rot);
+	virtual void SetRot(Vector3 rot);
 
 	/**
 	 *	A normal member taking 3 arguments
@@ -96,14 +96,14 @@ public:
 	 *	@param rotY The rotation about the y axis
 	 *	@param rotZ The rotation about the z axis
 	 */
-	void SetRot(GLdouble rotX, GLdouble rotY, GLdouble rotZ);
+	virtual void SetRot(GLdouble rotX, GLdouble rotY, GLdouble rotZ);
 
 	/**
 	 *	A normal member taking one argument
 	 *	Sets the Actor's scale in the world
 	 *	@param sca The desired scale values on each axis
 	 */
-	void SetScale(Point sca);
+	void SetScale(Vector3 sca);
 
 	/**
 	 *	A normal member taking 3 arguments
@@ -129,14 +129,20 @@ public:
 	 *	Returns the values relating to the Actor's rotation
 	 *	@return The rotation values
 	 */
-	Point GetRot();
+	Vector3 GetRot();
 
 	/**
 	 *	A normal member returning a Point value
 	 *	Returns the values relating to the Actor's scale
 	 *	@return The scale values
 	 */
-	Point GetScale();
+	Vector3 GetScale();
+
+	/**
+	 *	A void function
+	 *	Prevents an object from intersecting with another object during collision
+	 */
+	void CollideWith(Actor otherObject);
 	//================================================================================
 
 	/**
@@ -149,8 +155,8 @@ public:
 
 protected:
 	Vector3 position;	/*<! The position of the Actor */
-	Point rotations,	/*<! The rotation of the Actor */
-		  scale;		/*<! The scale of the Actor */
+	Vector3 rotations;	/*<! The rotation of the Actor */
+	Vector3	scale;		/*<! The scale of the Actor */
 
 	Collider collisionBox;	/*<! The collider box associated with the Actor */
 
