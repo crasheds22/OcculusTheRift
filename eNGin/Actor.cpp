@@ -77,7 +77,6 @@ Vector3 Actor::GetScale() {
 void Actor::CollideWith(Actor otherObject)
 {
 	float intersectX = position.GetPointX() - otherObject.GetPos().GetPointX();
-	float intersectY = position.GetPointY() - otherObject.GetPos().GetPointY();
 	float intersectZ = position.GetPointZ() - otherObject.GetPos().GetPointZ();
 
 	if (abs(intersectX) > abs(intersectZ))

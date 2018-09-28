@@ -71,7 +71,7 @@ void Game::Initialise()
 
 	deltaTime = clock();
 
-	playerCharacter->SetMoveSpeed(0.05);
+	playerCharacter->SetMoveSpeed(0.01);
 	playerCharacter->SetRotateSpeed(0.009);
 
 	textures[0].LoadTexture("data/Group.png", 768, 768);
