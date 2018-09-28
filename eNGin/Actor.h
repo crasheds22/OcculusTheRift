@@ -137,12 +137,6 @@ public:
 	 *	@return The scale values
 	 */
 	Vector3 GetScale();
-
-	/**
-	 *	A void function
-	 *	Prevents an object from intersecting with another object during collision
-	 */
-	void CollideWith(Actor otherObject);
 	//================================================================================
 
 	/**

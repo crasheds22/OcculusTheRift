@@ -7,6 +7,7 @@
 
 #include "Collider.h"
 #include "Projection.h"
+#include "Actor.h"
 
 
 Collider::Collider() 
@@ -196,4 +197,33 @@ Vector3 Collider::MinimumTranslationVector(Collider &projectTarget)
 	
 
 	return theMTV;
+}
+
+void Collider::CollideWith(Actor otherObject)
+{
+	float intersectX = position.GetPointX() - otherObject.GetPos().GetPointX();
+	float intersectZ = position.GetPointZ() - otherObject.GetPos().GetPointZ();
+
+	if (abs(intersectX) > abs(intersectZ))
+	{
+		if (intersectX > 0)
+		{
+			position.SetPointX(otherObject.GetPos().GetPointX() + otherObject.GetScale().GetPointX() + 0.5);
+		}
+		else
+		{
+			position.SetPointX(otherObject.GetPos().GetPointX() - otherObject.GetScale().GetPointX() - 0.5);
+		}
+	}
+	else
+	{
+		if (intersectZ > 0)
+		{
+			position.SetPointZ(otherObject.GetPos().GetPointZ() + otherObject.GetScale().GetPointZ() + 0.5);
+		}
+		else
+		{
+			position.SetPointZ(otherObject.GetPos().GetPointZ() - otherObject.GetScale().GetPointZ() - 0.5);
+		}
+	}
 }

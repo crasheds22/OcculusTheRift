@@ -132,6 +132,12 @@ public:
 	*/
 	Vector3 MinimumTranslationVector(Collider &projectTarget);
 
+	/**
+	*	A void function
+	*	Prevents an object from intersecting with another object during collision
+	*/
+	void CollideWith(Actor otherObject);
+
 
 private:
 	Vector3 minPoint,	/*<! The minimum point of the bounding box */
