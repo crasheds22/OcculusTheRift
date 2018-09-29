@@ -30,6 +30,7 @@ void Player::Update(Cube * tempCube) {
 	GLdouble SATBoxOffset = 1.0;
 	GLdouble coordY;
 	Vector3 theMTV;
+	Vector3 tempPosition;
 
 	Move();
 
@@ -40,11 +41,15 @@ void Player::Update(Cube * tempCube) {
 	gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),
 	position.GetPointX() + lookFB.x, position.GetPointY() + lookFB.y + 1.8, position.GetPointZ() + lookFB.z,
 	0.0, 1.0, 0.0);
+
+	tempPosition = position;
+	
 	for (int ii = 0; ii < 4; ii++)
 	{
 		if (collisionBox.AABBtoAABB(tempCube[ii].GetCollider()))
 		{
 			std::cout << "Collided" << std::endl;
+			
 			std::cout << "camera position x: " << position.GetPointX() << std::endl;
 			std::cout << "camera position y: " << position.GetPointY() << std::endl;
 			std::cout << "camera position z: " << position.GetPointZ() << std::endl;
@@ -59,6 +64,20 @@ void Player::Update(Cube * tempCube) {
 			SATBox.push_back(Vector3(position.GetPointX() - SATBoxOffset, position.GetPointY() + SATBoxOffset, position.GetPointZ() + SATBoxOffset));
 			
 			theMTV = collisionBox.MinimumTranslationVector(tempCube[ii].GetEdgePoints(), SATBox);
+			if (theMTV.VectorMagnitude() != 0)
+			{
+				coordY = position.GetPointY();
+				if (theMTV.VectorMagnitude() < 0)
+				{
+					position = position.SubtractVector(theMTV);
+				}
+				else
+				{
+					position = position.AddVector(theMTV);
+				}
+
+				position.SetPointY(coordY);
+			}
 		}
 		else
 		{
@@ -66,9 +85,8 @@ void Player::Update(Cube * tempCube) {
 		}
 	}
 	
-	coordY = position.GetPointY();
-	position = position - theMTV;
-	position.SetPointY(coordY);
+
+	
 }
 
 void Player::SetMoveSpeed(GLdouble spd) {

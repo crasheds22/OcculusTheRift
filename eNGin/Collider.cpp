@@ -62,19 +62,60 @@ bool Collider::operator > (Collider &other)
 
 Vector3 Collider::ProjectionNormal(std::vector <Vector3> targetVertices, std::vector <Vector3> playerVertices)
 {
-	Vector3 theNormalVectors;
+	std::vector <Vector3> theNormalVectors;
+	std::vector <Vector3> tempEdges;
+	std::vector <Vector3> edgeVectors;
 	Vector3 magnitudeCheck;
 	Vector3 magnitudeComparison;
 	int targetIndex;
 	int playerIndex;
+	Vector3 resultNormal;
 
-	magnitudeCheck = targetVertices[0].SubtractVector(playerVertices[0]);
+	
 	for (int ii = 0; ii < targetVertices.size(); ii++)
+	{
+		for (int jj = 0; jj < targetVertices.size(); jj++)
+		{
+			Vector3 tempVector;
+			tempVector = targetVertices[ii] - targetVertices[jj];
+			if (tempVector.VectorMagnitude() != 0)
+			{
+				tempEdges.push_back(tempVector);
+			}
+				
+		}
+	}
+
+	std::cout << "temp edges size: " << tempEdges.size() << std::endl;
+
+	for (int ii = 0; ii < tempEdges.size(); ii++)
+	{
+		for (int jj = 0; jj < tempEdges.size(); jj++)
+		{
+			Vector3 tempVector;
+			tempVector = tempEdges[ii] - tempEdges[jj];
+			if (tempVector.VectorMagnitude() != 0)
+			{
+				edgeVectors.push_back(tempVector);
+			}
+		}
+	}
+
+	std::cout << "edge vector size: " << edgeVectors.size() << std::endl;
+	
+	for (int ii = 0; ii < targetVertices.size(); ii++)
+	{
+		edgeVectors.push_back(targetVertices[ii]);
+	}
+
+	
+	magnitudeCheck = edgeVectors[0] - playerVertices[0];
+	for (int ii = 0; ii < edgeVectors.size(); ii++)
 	{
 		for (int jj = 0; jj < playerVertices.size(); jj++)
 		{
 			
-			magnitudeComparison = targetVertices[ii] - playerVertices[jj];
+			magnitudeComparison = edgeVectors[ii] - playerVertices[jj];
 			if (magnitudeComparison.VectorMagnitude() < magnitudeCheck.VectorMagnitude())
 			{
 				magnitudeCheck = magnitudeComparison;
@@ -84,16 +125,37 @@ Vector3 Collider::ProjectionNormal(std::vector <Vector3> targetVertices, std::ve
 		}
 		
 	}
-	
-	theNormalVectors = targetVertices[targetIndex].CrossProduct(playerVertices[playerIndex]);
 
+	//theNormalVectors.push_back(edgeVectors[targetIndex].CrossProduct(playerVertices[playerIndex]));
+	resultNormal = edgeVectors[targetIndex].CrossProduct(playerVertices[playerIndex]);
+	/*
+	for (int ii = 0; ii < edgeVectors.size(); ii++)
+	{
+		for (int jj = 0; jj < playerVertices.size(); jj++)
+		{
+			theNormalVectors.push_back(edgeVectors[ii].CrossProduct(playerVertices[jj]));
+		}
+
+	}
+
+
+	resultNormal = theNormalVectors[0];
+	for (int ii = 0; ii < theNormalVectors.size(); ii++)
+	{
+		if (theNormalVectors[ii].VectorMagnitude() < resultNormal.VectorMagnitude())
+		{
+			resultNormal = theNormalVectors[ii];
+		}
+
+	}
+	*/
 	
-	std::cout << " Normal X:" << theNormalVectors.GetPointX() << std::endl;
-	std::cout << " Normal Y:" << theNormalVectors.GetPointY() << std::endl;
-	std::cout << " Normal Z:" << theNormalVectors.GetPointZ() << std::endl;
+	std::cout << " Normal X:" << resultNormal.GetPointX() << std::endl;
+	std::cout << " Normal Y:" << resultNormal.GetPointY() << std::endl;
+	std::cout << " Normal Z:" << resultNormal.GetPointZ() << std::endl;
 			
 
-	return theNormalVectors;
+	return resultNormal;
 }
 
 // https://math.stackexchange.com/questions/633181/formula-to-project-a-vector-onto-a-plane
@@ -102,7 +164,12 @@ Vector3 Collider::ProjectionNormal(std::vector <Vector3> targetVertices, std::ve
 std::vector <Vector3> Collider::VectorProjection(std::vector <Vector3> targetVectors, std::vector <Vector3> playerVectors)
 {
 	Vector3 axisNormals;
+	std::vector <Vector3> edgeVectors;
 	Vector3 minNormal;
+	Vector3 magnitudeCheck;
+	Vector3 magnitudeComparison;
+	int targetIndex;
+	int playerIndex;
 	std::vector <GLdouble> theScalar;
 	std::vector <GLdouble> theMagnitude;
 	std::vector <GLdouble> theUnitScalar;
@@ -110,16 +177,60 @@ std::vector <Vector3> Collider::VectorProjection(std::vector <Vector3> targetVec
 
 	axisNormals = ProjectionNormal(targetVectors, playerVectors);
 
-
-	for (int ii = 0; ii < playerVectors.size(); ii++)
+	for (int ii = 0; ii < targetVectors.size() - 2; ii++)
 	{
-		
-		GLdouble tempScalar;
-		tempScalar = axisNormals.DotProduct(playerVectors[ii]);
-		theScalar.push_back(tempScalar);
-		
+		Vector3 tempEdgeOne;
+		Vector3 tempEdgeTwo;
+		Vector3 tempEdgeClosest;
+
+		tempEdgeOne = targetVectors[ii] - targetVectors[ii + 1];
+		tempEdgeTwo = targetVectors[ii + 1] - targetVectors[ii + 2];
+		tempEdgeClosest = tempEdgeOne - tempEdgeTwo;
+		edgeVectors.push_back(tempEdgeClosest);
 	}
 
+	for (int ii = 0; ii < targetVectors.size(); ii++)
+	{
+		edgeVectors.push_back(targetVectors[ii]);
+	}
+
+
+	magnitudeCheck = edgeVectors[0] - playerVectors[0];
+	for (int ii = 0; ii < edgeVectors.size(); ii++)
+	{
+		for (int jj = 0; jj < playerVectors.size(); jj++)
+		{
+
+			magnitudeComparison = edgeVectors[ii] - playerVectors[jj];
+			if (magnitudeComparison.VectorMagnitude() < magnitudeCheck.VectorMagnitude())
+			{
+				magnitudeCheck = magnitudeComparison;
+				targetIndex = ii;
+				playerIndex = jj;
+			}
+		}
+
+	}
+
+	/*
+	for (int hh = 0; hh < axisNormals.size(); hh++)
+	{
+		for (int ii = 0; ii < playerVectors.size(); ii++)
+		{
+
+			GLdouble tempScalar;
+			tempScalar = axisNormals[hh].DotProduct(playerVectors[ii]);
+			theScalar.push_back(tempScalar);
+		}
+	}
+	*/
+	
+	
+	GLdouble tempScalar;
+	tempScalar = axisNormals.DotProduct(playerVectors[playerIndex]);
+	theScalar.push_back(tempScalar);
+	
+	/*
 	for (int ii = 0; ii < playerVectors.size(); ii++)
 	{
 		GLdouble squareX;
@@ -132,6 +243,18 @@ std::vector <Vector3> Collider::VectorProjection(std::vector <Vector3> targetVec
 
 		theMagnitude.push_back( squareX + squareY + squareZ);
 	}
+	*/
+	
+	GLdouble squareX;
+	GLdouble squareY;
+	GLdouble squareZ;
+
+	squareX = playerVectors[playerIndex].GetPointX() * playerVectors[playerIndex].GetPointX();
+	squareY = playerVectors[playerIndex].GetPointY() * playerVectors[playerIndex].GetPointY();
+	squareZ = playerVectors[playerIndex].GetPointZ() * playerVectors[playerIndex].GetPointZ();
+	
+	theMagnitude.push_back(squareX + squareY + squareZ);
+	
 
 	for (int ii = 0; ii < theScalar.size(); ii++)
 	{
@@ -143,7 +266,7 @@ std::vector <Vector3> Collider::VectorProjection(std::vector <Vector3> targetVec
 			theUnitScalar.push_back(tempUnitScalar);
 		}
 	}
-
+	
 	
 	for (int jj = 0; jj < theUnitScalar.size(); jj++)
 	{
@@ -151,6 +274,7 @@ std::vector <Vector3> Collider::VectorProjection(std::vector <Vector3> targetVec
 		tempProjection = axisNormals.MultiplyByScalar(theUnitScalar[jj]);
 		theProjection.push_back(tempProjection);
 	}
+	
 	
 
 	std::cout << "Projection Size: " << theProjection.size() << std::endl;
@@ -170,21 +294,13 @@ std::vector <Vector3> Collider::VectorProjection(std::vector <Vector3> targetVec
 //float intersectionDepth = (mina < minb)? (maxa - minb) : (mina - maxb);
 std::vector <Vector3> Collider::ProjectionOverlap(std::vector <Vector3> targetVectors, std::vector <Vector3> playerVectors)
 {
-	std::vector <Vector3> targetNormals;
-	std::vector <Vector3> playerNormals;
-	std::vector <Vector3> checkParallel;
 	std::vector <Vector3> targetProjection;
 	std::vector <Vector3> playerProjection;
 	std::vector <Vector3> theOverlap;
 	
-	std::cout << "target projection start" << std::endl;
 	targetProjection = VectorProjection(targetVectors, playerVectors);
-	std::cout << "target projection end" << std::endl;
-
-	std::cout << "player projection start" << std::endl;
 	playerProjection = VectorProjection(playerVectors, targetVectors);
-	std::cout << "player projection end" << std::endl;
-
+	
 	for (int ii = 0; ii < targetProjection.size(); ii++)
 	{
 		for (int jj = 0; jj < playerProjection.size(); jj++)
@@ -192,20 +308,22 @@ std::vector <Vector3> Collider::ProjectionOverlap(std::vector <Vector3> targetVe
 			Vector3 tempOverlap;
 			tempOverlap = targetProjection[ii] - playerProjection[jj];
 			
-			//std::cout << "the overlap: " << tempOverlap.VectorMagnitude() << std::endl;
+			std::cout << "the overlap: " << tempOverlap.VectorMagnitude() << std::endl;
 			
 			theOverlap.push_back(tempOverlap);
 		}
 	}
 	
-	/*
+	std::cout << "the overlap size: " << theOverlap.size() << std::endl;
+
+	
 	for (int kk = 0; kk < theOverlap.size(); kk++)
 	{
 		std::cout << "===The overlap X===" << theOverlap[kk].GetPointX() << std::endl;
 		std::cout << "===The overlap Y===" << theOverlap[kk].GetPointY() << std::endl;
 		std::cout << "===The overlap Z===" << theOverlap[kk].GetPointZ() << std::endl;
 	}
-	*/
+	
 	
 	return theOverlap;
 }
@@ -220,9 +338,11 @@ Vector3 Collider::MinimumTranslationVector(std::vector <Vector3> AABBVectors, st
 	std::vector <Vector3> theOverlap;
 	GLdouble overlapDepth;
 	Vector3 closestNormal;
+	int closestIndex;
 	Vector3 theMTV;
 
 	axisNormal = ProjectionNormal(AABBVectors, playerVectors);
+	
 	
 	theOverlap = ProjectionOverlap(AABBVectors, playerVectors);
 	
@@ -234,27 +354,31 @@ Vector3 Collider::MinimumTranslationVector(std::vector <Vector3> AABBVectors, st
 			if (overlapDepth != 0)
 			{
 				overlapDepth = theOverlap[ii].VectorMagnitude();
+				closestIndex = ii;
 			}
-			
 		}
 	}
-	
+
+	/*
 	if (overlapDepth < 0)
 	{
-		overlapDepth = overlapDepth - 0.06;
+		overlapDepth = overlapDepth - 0.01;
 	}
 	else
 	{
-		overlapDepth = overlapDepth + 0.06;
+		overlapDepth = overlapDepth + 0.01;
 	}
-	
+	*/
 
+	overlapDepth = overlapDepth + 0.01;
+	
 	std::cout << "overlap depth: " << overlapDepth << std::endl;
 	
 	// MTV is usually the normal of the vector times the overlapdepth
 	// projection normal is analogous to axis
 	
 	theMTV = axisNormal.MultiplyByScalar(overlapDepth);
+	//theMTV = axisNormal.MultiplyByScalar(0.05);
 
 	std::cout << " MTV X:" << theMTV.GetPointX() << std::endl;
 	std::cout << " MTV Y:" << theMTV.GetPointY() << std::endl;

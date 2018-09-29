@@ -93,9 +93,10 @@ public:
 	bool operator > (Collider &other);
 
 	/**
-	*	@brief to find the orthognoal vector to the projection
-	*	@param 
-	*	@return vector perpendicular to the projection is returned
+	*	@brief to find the orthognoal vector between the player and other object
+	*	@param targetVertices vertices from the colliding object
+	*	@param playerVertices vertices from the camera
+	*	@return vector perpendicular between the vectors is returned
 	*	@pre
 	*	@post
 	*/
@@ -103,9 +104,10 @@ public:
 
 
 	/**
-	*	@brief to find the projection between two bounding boxes
-	*	@param 
-	*	@return projected projection is returned
+	*	@brief to find the projection between two objects
+	*	@param targetVertices vertices from the colliding object
+	*	@param playerVertices vertices from the camera
+	*	@return projection on the normal is returned
 	*	@pre
 	*	@post
 	*/
@@ -115,9 +117,10 @@ public:
 
 	/**
 	*	@brief to find the depth of intersection
-	*	@param objectOther target object for comparison
+	*	@param targetVertices vertices from the colliding object
+	*	@param playerVertices vertices from the camera
 	*	@return a depth of intersection is returned
-	*	@pre minimum and maximum points must exist
+	*	@pre 
 	*	@post
 	*/
 
