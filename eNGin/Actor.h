@@ -68,6 +68,20 @@ public:
 	// Set methods
 	/**
 	 *	A normal member taking one argument
+	 *	Sets the move speed for the Player
+	 *	@param spd The desired speed of the Player
+	 */
+	void SetMoveSpeed(GLdouble spd);
+
+	/**
+	 *	A normal member taking one argument
+	 *	Sets the rotate speed of the Player
+	 *	@param spd The desired rotation speed of the Player
+	 */
+	void SetRotateSpeed(GLdouble spd);
+
+	/**
+	 *	A normal member taking one argument
 	 *	Sets the Actor's position in the 3D world
 	 *	@param pos The desired Point to place the Actor
 	 */
@@ -156,6 +170,12 @@ protected:
 
 	Model *model = NULL;		/*<! The model owned by this instance of Actor */
 	Texture *texture = NULL;	/*<! The texture to be used for this Actor's Model */
+
+	//========================================
+	//Speeds
+	GLdouble moveSpeed,		/*<! The Actor's movement speed */
+		rotateSpeed;	/*<! The Actor's rotation speed */
+	//========================================
 };
 
 #endif

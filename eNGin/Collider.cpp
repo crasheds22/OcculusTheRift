@@ -199,31 +199,31 @@ Vector3 Collider::MinimumTranslationVector(Collider &projectTarget)
 	return theMTV;
 }
 
-void Collider::CollideWith(Actor otherObject)
+void Collider::CollideWith(Actor *thisObject, Actor &otherObject)
 {
-	float intersectX = position.GetPointX() - otherObject.GetPos().GetPointX();
-	float intersectZ = position.GetPointZ() - otherObject.GetPos().GetPointZ();
+	float intersectX = thisObject->GetPos().GetPointX() - otherObject.GetPos().GetPointX();
+	float intersectZ = thisObject->GetPos().GetPointZ() - otherObject.GetPos().GetPointZ();
 
 	if (abs(intersectX) > abs(intersectZ))
 	{
 		if (intersectX > 0)
 		{
-			position.SetPointX(otherObject.GetPos().GetPointX() + otherObject.GetScale().GetPointX() + 0.5);
+			thisObject->GetPos().SetPointX(otherObject.GetPos().GetPointX() + otherObject.GetScale().GetPointX() + 0.5);
 		}
 		else
 		{
-			position.SetPointX(otherObject.GetPos().GetPointX() - otherObject.GetScale().GetPointX() - 0.5);
+			thisObject->GetPos().SetPointX(otherObject.GetPos().GetPointX() - otherObject.GetScale().GetPointX() - 0.5);
 		}
 	}
 	else
 	{
 		if (intersectZ > 0)
 		{
-			position.SetPointZ(otherObject.GetPos().GetPointZ() + otherObject.GetScale().GetPointZ() + 0.5);
+			thisObject->GetPos().SetPointZ(otherObject.GetPos().GetPointZ() + otherObject.GetScale().GetPointZ() + 0.5);
 		}
 		else
 		{
-			position.SetPointZ(otherObject.GetPos().GetPointZ() - otherObject.GetScale().GetPointZ() - 0.5);
+			thisObject->GetPos().SetPointZ(otherObject.GetPos().GetPointZ() - otherObject.GetScale().GetPointZ() - 0.5);
 		}
 	}
 }

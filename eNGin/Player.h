@@ -36,19 +36,6 @@ public:
 
 	//========================================
 	// Set functions
-	/**
-	 *	A normal member taking one argument
-	 *	Sets the move speed for the Player
-	 *	@param spd The desired speed of the Player
-	 */
-	void SetMoveSpeed(GLdouble spd);
-	
-	/**
-	 *	A normal member taking one argument
-	 *	Sets the rotate speed of the Player
-	 *	@param spd The desired rotation speed of the Player
-	 */
-	void SetRotateSpeed(GLdouble spd);
 
 	/**
 	 *	A normal member taking one argument
@@ -132,12 +119,6 @@ private:
 
 	Player(Player const&);
 	void operator=(Player const&);
-	//========================================
-
-	//========================================
-	//Speeds
-	GLdouble moveSpeed,		/*<! The Player's movement speed */
-			 rotateSpeed;	/*<! The Player's rotation speed */
 	//========================================
 
 	//========================================

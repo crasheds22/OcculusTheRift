@@ -2,14 +2,18 @@
 
 #include "Actor.h"
 
-Actor::Actor() : position{ 0.0, 0.0, 0.0 },
+Actor::Actor() : moveSpeed(0.0),
+			 	 rotateSpeed(0.0),
+				 position{ 0.0, 0.0, 0.0 },
 				 rotations{ 0.0, 0.0, 0.0 },
 				 scale{ 1.0, 1.0, 1.0 }
 {
 
 }
 
-Actor::Actor(Model* mod, Texture* tex) : position{ 0.0, 0.0, 0.0 },
+Actor::Actor(Model* mod, Texture* tex) : moveSpeed(0.0),
+										 rotateSpeed(0.0),
+										 position{ 0.0, 0.0, 0.0 },
 										 rotations{ 0.0, 0.0, 0.0 },
 										 scale{ 1.0, 1.0, 1.0 },
 										 model(mod),
@@ -77,4 +81,12 @@ Vector3 Actor::GetScale() {
 const Collider Actor::GetCollider()
 {
 	return collisionBox;
+}
+
+void Actor::SetMoveSpeed(GLdouble spd) {
+	moveSpeed = spd;
+}
+
+void Actor::SetRotateSpeed(GLdouble spd) {
+	rotateSpeed = spd;
 }

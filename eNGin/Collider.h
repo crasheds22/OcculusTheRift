@@ -1,3 +1,5 @@
+class Actor;
+
 #ifndef Collider_H
 #define Collider_H
 
@@ -136,7 +138,7 @@ public:
 	*	A void function
 	*	Prevents an object from intersecting with another object during collision
 	*/
-	void CollideWith(Actor otherObject);
+	void CollideWith(Actor *thisObject, Actor &otherObject);
 
 
 private:

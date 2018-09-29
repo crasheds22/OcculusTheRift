@@ -3,9 +3,7 @@
 #include "Player.h"
 #include "Cube.h"
 
-Player::Player() : moveSpeed(0.0),
-				   rotateSpeed(0.0),
-				   lookFB{ 0.0, 0.0, -1.0 },
+Player::Player() : lookFB{ 0.0, 0.0, -1.0 },
 				   lookLR{ 1.0, 1.0, 0.0 },
   				   deltaMoveFB(0.0),
 				   deltaMoveLR(0.0),
@@ -39,7 +37,7 @@ void Player::Update(Cube * tempCube) {
 	{
 		if (collisionBox.AABBtoAABB(tempCube[ii].GetCollider()))
 		{
-			CollideWith(tempCube[ii]);
+			collisionBox.CollideWith(this, tempCube[ii]);
 			std::cout << "Collided" << std::endl;
 			//std::cout << "camera position x: " << position.GetPointX() << std::endl;
 			//std::cout << "camera position y: " << position.GetPointY() << std::endl;
@@ -48,14 +46,6 @@ void Player::Update(Cube * tempCube) {
 	}
 	
 	
-}
-
-void Player::SetMoveSpeed(GLdouble spd) {
-	moveSpeed = spd;
-}
-
-void Player::SetRotateSpeed(GLdouble spd) {
-	rotateSpeed = spd;
 }
 
 void Player::DirectionFB(const GLdouble tempMove) {
