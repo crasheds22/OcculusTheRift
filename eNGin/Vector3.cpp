@@ -15,7 +15,9 @@ Vector3::Vector3(GLdouble posX, GLdouble posY, GLdouble posZ) : x(posX),
 																y(posY),
 																z(posZ)
 {
-
+	x = posX;
+	y = posY;
+	z = posZ;
 }
 
 void Vector3::SetPointX(GLdouble posX) {
@@ -30,15 +32,15 @@ void Vector3::SetPointZ(GLdouble posZ) {
 	z = posZ;
 }
 
-GLdouble Vector3::GetPointX() {
+GLdouble Vector3::GetPointX() const {
 	return x;
 }
 
-GLdouble Vector3::GetPointY() {
+GLdouble Vector3::GetPointY() const {
 	return y;
 }
 
-GLdouble Vector3::GetPointZ() {
+GLdouble Vector3::GetPointZ() const {
 	return z;
 }
 
@@ -53,7 +55,7 @@ GLdouble Vector3::DotProduct(Vector3 &in) {
 
 Vector3 Vector3::CrossProduct(Vector3 &in) {
 	Vector3 tempVec(y * in.GetPointZ() - z * in.GetPointY(),
-					x * in.GetPointZ() - z * in.GetPointX(),
+					z * in.GetPointX() - x * in.GetPointZ(),
 					x * in.GetPointY() - y * in.GetPointX());
 
 	return tempVec;
@@ -104,6 +106,17 @@ Vector3 Vector3::SubtractVector(Vector3 theInputVector)
 	resultVector.x = x - theInputVector.x;
 	resultVector.y = y - theInputVector.y;
 	resultVector.z = z - theInputVector.z;
+
+	return resultVector;
+}
+
+Vector3 Vector3::AddVector(Vector3 theInputVector)
+{
+	Vector3 resultVector;
+
+	resultVector.x = x + theInputVector.x;
+	resultVector.y = y + theInputVector.y;
+	resultVector.z = z + theInputVector.z;
 
 	return resultVector;
 }

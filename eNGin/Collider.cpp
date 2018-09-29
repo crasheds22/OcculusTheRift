@@ -7,9 +7,8 @@
 
 #include "Collider.h"
 #include "Projection.h"
+#include "Actor.h"
 
-
-using namespace std;
 
 Collider::Collider() 
 {
@@ -37,7 +36,7 @@ Vector3 Collider::GetMaxPoint()
 	return maxPoint;
 }
 
-bool Collider::AABBtoAABB(Collider &objectOther)
+bool Collider::AABBtoAABB(Collider objectOther)
 {
 
 
@@ -198,4 +197,33 @@ Vector3 Collider::MinimumTranslationVector(Collider &projectTarget)
 	
 
 	return theMTV;
+}
+
+void Collider::CollideWith(Actor *thisObject, Actor &otherObject)
+{
+	float intersectX = thisObject->GetPos().GetPointX() - otherObject.GetPos().GetPointX();
+	float intersectZ = thisObject->GetPos().GetPointZ() - otherObject.GetPos().GetPointZ();
+
+	if (abs(intersectX) > abs(intersectZ))
+	{
+		if (intersectX > 0)
+		{
+			thisObject->SetPos(otherObject.GetPos().GetPointX() + otherObject.GetScale().GetPointX() + 0.5, thisObject->GetPos().GetPointY(), thisObject->GetPos().GetPointZ());
+		}
+		else
+		{
+			thisObject->SetPos(otherObject.GetPos().GetPointX() - otherObject.GetScale().GetPointX() - 0.5, thisObject->GetPos().GetPointY(), thisObject->GetPos().GetPointZ());
+		}
+	}
+	else
+	{
+		if (intersectZ > 0)
+		{
+			thisObject->SetPos(thisObject->GetPos().GetPointX(), thisObject->GetPos().GetPointY(), otherObject.GetPos().GetPointZ() + otherObject.GetScale().GetPointZ() + 0.5);
+		}
+		else
+		{
+			thisObject->SetPos(thisObject->GetPos().GetPointX(), thisObject->GetPos().GetPointY(), otherObject.GetPos().GetPointZ() - otherObject.GetScale().GetPointZ() - 0.5);
+		}
+	}
 }

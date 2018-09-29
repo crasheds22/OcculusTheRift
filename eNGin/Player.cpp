@@ -1,10 +1,9 @@
 #include <pch.h>
 
 #include "Player.h"
+#include "Cube.h"
 
-Player::Player() : moveSpeed(0.0),
-				   rotateSpeed(0.0),
-				   lookFB{ 0.0, 0.0, -1.0 },
+Player::Player() : lookFB{ 0.0, 0.0, -1.0 },
 				   lookLR{ 1.0, 1.0, 0.0 },
   				   deltaMoveFB(0.0),
 				   deltaMoveLR(0.0),
@@ -23,21 +22,30 @@ Player* Player::GetInstance() {
 	return &instance;
 }
 
-void Player::Update() {
+void Player::Update(Cube * tempCube) {
+	
 	Move();
+
+	collisionBox.SetMaxPoint(position.GetPointX() + 0.5, position.GetPointY() + 0.5, position.GetPointZ() + 0.5);
+	collisionBox.SetMinPoint(position.GetPointX() - 0.5, position.GetPointY() - 0.5, position.GetPointZ() - 0.5);
 
 	glLoadIdentity();
 	gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),
-		position.GetPointX() + lookFB.x, position.GetPointY() + lookFB.y + 1.8, position.GetPointZ() + lookFB.z,
-		0.0, 1.0, 0.0);
-}
-
-void Player::SetMoveSpeed(GLdouble spd) {
-	moveSpeed = spd;
-}
-
-void Player::SetRotateSpeed(GLdouble spd) {
-	rotateSpeed = spd;
+	position.GetPointX() + lookFB.x, position.GetPointY() + lookFB.y + 1.8, position.GetPointZ() + lookFB.z,
+	0.0, 1.0, 0.0);
+	for (int ii = 0; ii < 4; ii++)
+	{
+		if (collisionBox.AABBtoAABB(tempCube[ii].GetCollider()))
+		{
+			collisionBox.CollideWith(this, tempCube[ii]);
+			std::cout << "Collided" << std::endl;
+			//std::cout << "camera position x: " << position.GetPointX() << std::endl;
+			//std::cout << "camera position y: " << position.GetPointY() << std::endl;
+			//std::cout << "camera position z: " << position.GetPointZ() << std::endl;
+		}
+	}
+	
+	
 }
 
 void Player::DirectionFB(const GLdouble tempMove) {

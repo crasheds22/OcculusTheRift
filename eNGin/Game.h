@@ -20,6 +20,13 @@
 #define MENU_STATE 1
 #define GAME_STATE 2
 
+enum Tag {
+	PLAYER,
+	ENEMY,
+	WALL,
+	POWERUP
+};
+
 /**
  *	@class Game
  *	@brief The 'task manager'
@@ -140,12 +147,14 @@ private:
 
 	Player *playerCharacter;		/*<! The player in a scene */
 
-	Cube alpha, beta, gamma, delta;
+	Cube * cubist;
 
 	MusicPlayer bgmControl;		/*<! Handles the BGM for the Game> */
 
 	std::vector<Model> models;		/*<! All possible models to be used in the running of the game */
 	std::vector<Texture> textures;	/*<! All possible textures to be used in the running of the game */
+
+	//std::map<Tag, std::vector<Actor>> Entities; /*<! All entities in the current level */
 
 	int centreX,		/*<! The x value of the centre of the screen */
 		centreY;		/*<! The y value of the centre of the screen */

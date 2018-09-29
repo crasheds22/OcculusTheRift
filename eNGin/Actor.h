@@ -68,6 +68,20 @@ public:
 	// Set methods
 	/**
 	 *	A normal member taking one argument
+	 *	Sets the move speed for the Player
+	 *	@param spd The desired speed of the Player
+	 */
+	void SetMoveSpeed(GLdouble spd);
+
+	/**
+	 *	A normal member taking one argument
+	 *	Sets the rotate speed of the Player
+	 *	@param spd The desired rotation speed of the Player
+	 */
+	void SetRotateSpeed(GLdouble spd);
+
+	/**
+	 *	A normal member taking one argument
 	 *	Sets the Actor's position in the 3D world
 	 *	@param pos The desired Point to place the Actor
 	 */
@@ -87,7 +101,7 @@ public:
 	 *	Sets the Actor's rotation in the world
 	 *	@param rot The desired rotations around each axis
 	 */
-	void SetRot(Point rot);
+	virtual void SetRot(Vector3 rot);
 
 	/**
 	 *	A normal member taking 3 arguments
@@ -96,14 +110,14 @@ public:
 	 *	@param rotY The rotation about the y axis
 	 *	@param rotZ The rotation about the z axis
 	 */
-	void SetRot(GLdouble rotX, GLdouble rotY, GLdouble rotZ);
+	virtual void SetRot(GLdouble rotX, GLdouble rotY, GLdouble rotZ);
 
 	/**
 	 *	A normal member taking one argument
 	 *	Sets the Actor's scale in the world
 	 *	@param sca The desired scale values on each axis
 	 */
-	void SetScale(Point sca);
+	void SetScale(Vector3 sca);
 
 	/**
 	 *	A normal member taking 3 arguments
@@ -129,25 +143,39 @@ public:
 	 *	Returns the values relating to the Actor's rotation
 	 *	@return The rotation values
 	 */
-	Point GetRot();
+	Vector3 GetRot();
 
 	/**
 	 *	A normal member returning a Point value
 	 *	Returns the values relating to the Actor's scale
 	 *	@return The scale values
 	 */
-	Point GetScale();
+	Vector3 GetScale();
 	//================================================================================
+
+	/**
+	 *	A collider getter
+	 *	Returns the values relating to the Actor's collision coords
+	 *	@return The collider values
+	 */
+	const Collider GetCollider();
+
 
 protected:
 	Vector3 position;	/*<! The position of the Actor */
-	Point rotations,	/*<! The rotation of the Actor */
-		  scale;		/*<! The scale of the Actor */
+	Vector3 rotations;	/*<! The rotation of the Actor */
+	Vector3	scale;		/*<! The scale of the Actor */
 
 	Collider collisionBox;	/*<! The collider box associated with the Actor */
 
 	Model *model = NULL;		/*<! The model owned by this instance of Actor */
 	Texture *texture = NULL;	/*<! The texture to be used for this Actor's Model */
+
+	//========================================
+	//Speeds
+	GLdouble moveSpeed,		/*<! The Actor's movement speed */
+		rotateSpeed;	/*<! The Actor's rotation speed */
+	//========================================
 };
 
 #endif

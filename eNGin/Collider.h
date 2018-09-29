@@ -1,3 +1,5 @@
+class Actor;
+
 #ifndef Collider_H
 #define Collider_H
 
@@ -75,7 +77,7 @@ public:
 	*	@pre minimum and maximum points must exist
 	*	@post
 	*/
-	bool AABBtoAABB(Collider &objectOther);
+	bool AABBtoAABB(Collider objectOther);
 
 	/**
 	 *	An overloaded operator function returning a boolean
@@ -131,6 +133,12 @@ public:
 	*	@post
 	*/
 	Vector3 MinimumTranslationVector(Collider &projectTarget);
+
+	/**
+	*	A void function
+	*	Prevents an object from intersecting with another object during collision
+	*/
+	void CollideWith(Actor *thisObject, Actor &otherObject);
 
 
 private:

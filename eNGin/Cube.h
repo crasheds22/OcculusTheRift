@@ -3,29 +3,42 @@
 
 #include <gl/glut.h>
 
-class Cube{
-public:
-	Cube();
+#include "Actor.h"
 
-	void Update();
+class Cube : public Actor
+{
+	public:
+		Cube();
 
-	void Draw();
-private:
-	struct Point {
-		float x, y, z;
-	};
+		void Update();
 
-	Point vertices[8];
+		void Draw() override;
 
-	struct RGB {
-		float r, g, b;
-	};
+		void SetRot(Vector3 rot) override;
+		
+		void SetRot(GLdouble rotX, GLdouble rotY, GLdouble rotZ) override;
 
-	RGB colours[8];
+		void SetAABB();
 
-	//-----------------------------------------------------
+		std::vector <Vector3> GetEdgePoints();
 
-	void Polygons(int a, int b, int c, int d);
+
+	private:
+		struct Point {
+			float x, y, z;
+		};
+
+		struct RGB {
+			float r, g, b;
+		};
+
+		RGB colours[8];
+
+		Vector3 vertices[8];
+		Vector3 * AABBVertices;
+
+		void Polygons(int a, int b, int c, int d);
+		
 };
 
 #endif

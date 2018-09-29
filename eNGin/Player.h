@@ -4,6 +4,7 @@
 #include <gl\glut.h>
 
 #include "Actor.h"
+#include "Cube.h"
 
 /**
  *	@class Player
@@ -30,24 +31,11 @@ public:
 	 *	An overridden member taking no arguments
 	 *	Updates the Player's location in the world
 	 */
-	void Update();
+	void Update(Cube* tempCube);
 	//========================================
 
 	//========================================
 	// Set functions
-	/**
-	 *	A normal member taking one argument
-	 *	Sets the move speed for the Player
-	 *	@param spd The desired speed of the Player
-	 */
-	void SetMoveSpeed(GLdouble spd);
-	
-	/**
-	 *	A normal member taking one argument
-	 *	Sets the rotate speed of the Player
-	 *	@param spd The desired rotation speed of the Player
-	 */
-	void SetRotateSpeed(GLdouble spd);
 
 	/**
 	 *	A normal member taking one argument
@@ -131,12 +119,6 @@ private:
 
 	Player(Player const&);
 	void operator=(Player const&);
-	//========================================
-
-	//========================================
-	//Speeds
-	GLdouble moveSpeed,		/*<! The Player's movement speed */
-			 rotateSpeed;	/*<! The Player's rotation speed */
 	//========================================
 
 	//========================================
