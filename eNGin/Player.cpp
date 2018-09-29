@@ -64,7 +64,7 @@ void Player::Update(Cube * tempCube) {
 			SATBox.push_back(Vector3(position.GetPointX() - SATBoxOffset, position.GetPointY() + SATBoxOffset, position.GetPointZ() + SATBoxOffset));
 			
 			theMTV = collisionBox.MinimumTranslationVector(tempCube[ii].GetEdgePoints(), SATBox);
-			if (theMTV.VectorMagnitude() != 0)
+			if (theMTV.VectorMagnitude() > 0)
 			{
 				coordY = position.GetPointY();
 				if (theMTV.VectorMagnitude() < 0)
