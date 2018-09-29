@@ -208,22 +208,22 @@ void Collider::CollideWith(Actor *thisObject, Actor &otherObject)
 	{
 		if (intersectX > 0)
 		{
-			thisObject->GetPos().SetPointX(otherObject.GetPos().GetPointX() + otherObject.GetScale().GetPointX() + 0.5);
+			thisObject->SetPos(otherObject.GetPos().GetPointX() + otherObject.GetScale().GetPointX() + 0.5, thisObject->GetPos().GetPointY(), thisObject->GetPos().GetPointZ());
 		}
 		else
 		{
-			thisObject->GetPos().SetPointX(otherObject.GetPos().GetPointX() - otherObject.GetScale().GetPointX() - 0.5);
+			thisObject->SetPos(otherObject.GetPos().GetPointX() - otherObject.GetScale().GetPointX() - 0.5, thisObject->GetPos().GetPointY(), thisObject->GetPos().GetPointZ());
 		}
 	}
 	else
 	{
 		if (intersectZ > 0)
 		{
-			thisObject->GetPos().SetPointZ(otherObject.GetPos().GetPointZ() + otherObject.GetScale().GetPointZ() + 0.5);
+			thisObject->SetPos(thisObject->GetPos().GetPointX(), thisObject->GetPos().GetPointY(), otherObject.GetPos().GetPointZ() + otherObject.GetScale().GetPointZ() + 0.5);
 		}
 		else
 		{
-			thisObject->GetPos().SetPointZ(otherObject.GetPos().GetPointZ() - otherObject.GetScale().GetPointZ() - 0.5);
+			thisObject->SetPos(thisObject->GetPos().GetPointX(), thisObject->GetPos().GetPointY(), otherObject.GetPos().GetPointZ() - otherObject.GetScale().GetPointZ() - 0.5);
 		}
 	}
 }
