@@ -15,6 +15,7 @@
 #include "Texture.h"
 #include "Shay.h"
 #include "MusicPlayer.h"
+#include "Wall.h"
 
 #define SHAY_STATE 0
 #define MENU_STATE 1
@@ -152,11 +153,13 @@ private:
 
 	Cube * cubist;
 
+	Wall testWall;
+
 	std::map <Actor::ActorClass, std::vector <Actor>> theEntities;
 
 	MusicPlayer bgmControl;		/*<! Handles the BGM for the Game> */
 
-	std::vector<Model> models;		/*<! All possible models to be used in the running of the game */
+	std::vector<Model*> models;		/*<! All possible models to be used in the running of the game */
 	std::vector<Texture> textures;	/*<! All possible textures to be used in the running of the game */
 
 	//std::map<Tag, std::vector<Actor>> Entities; /*<! All entities in the current level */

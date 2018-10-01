@@ -13,6 +13,7 @@ Player::Player() : lookFB{ 0.0, 0.0, -1.0 },
 				   deltaRotLR(0.0),
 				   deltaRotUD(0.0)
 {
+
 }
 
 Player* Player::GetInstance() {
@@ -25,10 +26,10 @@ void Player::Update(std::map <ActorClass, std::vector <Actor>> & objectList) {
 	
 	std::vector <Actor> resultObjectList;
 
-	Move();
-
 	collisionBox.SetMaxPoint(position.GetPointX() + 0.5, position.GetPointY() + 0.5, position.GetPointZ() + 0.5);
 	collisionBox.SetMinPoint(position.GetPointX() - 0.5, position.GetPointY() - 0.5, position.GetPointZ() - 0.5);
+
+	Move();
 
 	glLoadIdentity();
 	gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),

@@ -2,6 +2,8 @@
 
 #include "Game.h"
 
+std::vector <Actor> tempObjectVector;
+
 Game::Game() 
 {
 	playerCharacter = Player::GetInstance();
@@ -15,7 +17,7 @@ Game::Game()
 	for (int ii = 0; ii < 50; ii++)
 	{
 		int jj = ii + 1;
-		jj = jj * 10;
+		jj = jj * 5;
 		cubePos[ii] = Vector3(jj, 1, 0);
 	
 	}
@@ -27,7 +29,6 @@ Game::Game()
 	
 
 
-	std::vector <Actor> tempObjectVector;
 	for (int ii = 0; ii < 50; ii++)
 	{
 		cubist[ii].SetPos(cubePos[ii]);
@@ -35,16 +36,11 @@ Game::Game()
 		cubist[ii].SetAABB();
 		tempObjectVector.push_back(cubist[ii]);
 	}
-
-	std::pair <Actor::ActorClass, std::vector <Actor>> enumActor;
-	enumActor.first = Actor::ActorClass::Object;
-	enumActor.second = tempObjectVector;
-
-	theEntities.insert(enumActor);
 	
 	shaysWorld = new Shay(this);
 	state = SHAY_STATE;
 	textures.resize(10);
+	models.resize(10);
 
 	exitScreen = false;
 }
@@ -55,7 +51,7 @@ Game::~Game()
 	{
 		delete shaysWorld;
 	}
-
+	delete models[0];
 	delete[] cubist;
 }
 
@@ -81,6 +77,19 @@ void Game::Initialise()
 	playerCharacter->SetRotateSpeed(0.009);
 
 	textures[0].LoadTexture("data/Group.png", 768, 768);
+	textures[1].LoadTexture("data/wall1.png", 64, 64);
+
+	models[0] = new Model("data/wall1.obj");
+
+	testWall = Wall(4, 0, 4, models[0], &textures[1]);
+	tempObjectVector.push_back(testWall);
+
+
+	std::pair <Actor::ActorClass, std::vector <Actor>> enumActor;
+	enumActor.first = Actor::ActorClass::Object;
+	enumActor.second = tempObjectVector;
+
+	theEntities.insert(enumActor);
 
 	/*
 	textures[0].LoadTexture("data/hb_empty_left.png", 32, 32);
@@ -128,6 +137,8 @@ void Game::Draw()
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
 			playerCharacter->Draw();
+
+			testWall.Draw();
 			
 
 			for (int ii = 0; ii < 50; ii++)

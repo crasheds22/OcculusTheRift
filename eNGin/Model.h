@@ -60,6 +60,7 @@ private:
 	int nFaces;			/*<! Number of faces in .obj */
 	int** faces;		/*<! 2D array of faces */
 
+
 	/**
 	 *	A normal member taking one argument
 	 *	Places information about .obj file into specific 2D arrays

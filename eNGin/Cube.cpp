@@ -42,6 +42,7 @@ void Cube::Draw()
 	Polygons(3, 7, 6, 2);
 	Polygons(0, 4, 5, 1);
 
+
 }
 
 void Cube::Polygons(int a, int b, int c, int d) {
@@ -146,7 +147,6 @@ void Cube::SetAABB()
 
 	collisionBox.SetMaxPoint(theMax.GetPointX(), theMax.GetPointY(), theMax.GetPointZ());
 	collisionBox.SetMinPoint(theMin.GetPointX(), theMin.GetPointY(), theMin.GetPointZ());
-	
 	/*
 	std::cout << "minPoint x: " << collisionBox.GetMinPoint().GetPointX() << std::endl;
 	std::cout << "minPoint y: " << collisionBox.GetMinPoint().GetPointY() << std::endl;
@@ -156,8 +156,6 @@ void Cube::SetAABB()
 	std::cout << "maxPoint y: " << collisionBox.GetMaxPoint().GetPointY() << std::endl;
 	std::cout << "maxPoint Z: " << collisionBox.GetMaxPoint().GetPointZ() << std::endl;
 	*/
-	
-	
 
 	for (int ii = 0; ii < 8; ii++)
 	{
