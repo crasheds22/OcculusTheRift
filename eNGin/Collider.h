@@ -94,45 +94,14 @@ public:
 	bool operator > (Collider &other);
 
 	/**
-	*	@brief to find the orthognoal vector to the projection
+	*	@brief to cull the number of objects within the player's vicinity
 	*	@param 
-	*	@return vector perpendicular to the projection is returned
+	*	@return Actor 
 	*	@pre
 	*	@post
 	*/
-	Vector3 ProjectionNormal();
+	bool ProximityCull(Vector3 actorPosition, Actor &inputObject);
 
-
-	/**
-	*	@brief to find the projection between two bounding boxes
-	*	@param 
-	*	@return projected projection is returned
-	*	@pre
-	*	@post
-	*/
-
-	//Projection VectorProjection();
-	Vector3 VectorProjection();
-
-	/**
-	*	@brief to find the depth of intersection
-	*	@param objectOther target object for comparison
-	*	@return a depth of intersection is returned
-	*	@pre minimum and maximum points must exist
-	*	@post
-	*/
-
-	//GLdouble ProjectionOverlap(Projection targetProjection); // This is correct not usable at the moment
-	Vector3 ProjectionOverlap(Vector3 targetProjection);
-
-	/**
-	*	@brief finds the Minimum Translation Vector from the collision
-	*	@param projectTarget colliding object 
-	*	@return a vector encapsulating the magnitude and direction to reflect off 
-	*	@pre the comparison target must exist
-	*	@post
-	*/
-	Vector3 MinimumTranslationVector(Collider &projectTarget);
 
 	/**
 	*	A void function

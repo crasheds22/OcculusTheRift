@@ -5,37 +5,48 @@
 Game::Game() 
 {
 	playerCharacter = Player::GetInstance();
-	cubist = new Cube[4];
-	Vector3 cubeOnePos;
-	Vector3 cubeTwoPos;
-	Vector3 cubeThreePos;
-	Vector3 cubeFourPos;
-	Vector3 cubeOneScale;
-	Vector3 cubeTwoScale;
-	Vector3 cubeThreeScale;
-	Vector3 cubeFourScale;
+	cubist = new Cube[50];
+	Vector3 * cubePos;
+	cubePos = new Vector3[50];
+	
+	Vector3 * cubeScale;
+	cubeScale = new Vector3[50];
 
-	cubeOnePos = Vector3(10, 0, 0);
-	cubeTwoPos = Vector3(-10, 0, 0);
-	cubeThreePos = Vector3(0, 0, -10);
-	cubeFourPos = Vector3(0, 0, 10);
-
-	cubist[0].SetPos(cubeOnePos);
-	cubist[1].SetPos(cubeTwoPos);
-	cubist[2].SetPos(cubeThreePos);
-	cubist[3].SetPos(cubeFourPos);
-
-	cubeOneScale = Vector3(1, 2, 1);
-	cubeTwoScale = Vector3(2, 1, 1);
-	cubeThreeScale = Vector3(1, 1, 2);
-	cubeFourScale = Vector3(1, 1, 1);
-
-	cubist[0].SetScale(cubeOneScale);
-	cubist[1].SetScale(cubeTwoScale);
-	cubist[2].SetScale(cubeThreeScale);
-	cubist[3].SetScale(cubeFourScale);
+	for (int ii = 0; ii < 50; ii++)
+	{
+		int jj;
+		jj = ii + 10;
+		cubePos[ii] = Vector3(jj, 1, 0);
+	
+	}
+	
+	for (int ii = 0; ii < 50; ii++)
+	{
+		cubeScale[ii] = Vector3(1, 1, 1);
+	}
+	
 
 
+	std::vector <Actor> tempObjectVector;
+	for (int ii = 0; ii < 50; ii++)
+	{
+		cubist[ii].SetPos(cubePos[ii]);
+		cubist[ii].SetScale(cubeScale[ii]);
+		tempObjectVector.push_back(cubist[ii]);
+		
+	}
+
+	for (int ii = 0; ii < 50; ii++)
+	{
+		cubist[ii].SetAABB();
+	}
+
+	std::pair <Actor::ActorClass, std::vector <Actor>> enumActor;
+	enumActor.first = Actor::ActorClass::Object;
+	enumActor.second = tempObjectVector;
+
+	theEntities.insert(enumActor);
+	
 	shaysWorld = new Shay(this);
 	state = SHAY_STATE;
 	textures.resize(10);
@@ -76,11 +87,6 @@ void Game::Initialise()
 
 	textures[0].LoadTexture("data/Group.png", 768, 768);
 
-	for (int ii = 0; ii < 4; ii++)
-	{
-		cubist[ii].SetAABB();
-	}
-
 	/*
 	textures[0].LoadTexture("data/hb_empty_left.png", 32, 32);
 	textures[1].LoadTexture("data/hb_empty_middle.png", 32, 32);
@@ -99,12 +105,14 @@ void Game::Update()
 	switch (state)
 	{
 		case GAME_STATE:
-			playerCharacter->Update(cubist);
+			playerCharacter->Update(theEntities);
 			break;
 
 		case MENU_STATE:
 			break;
 	}	
+	
+	
 }
 
 void Game::Draw()
@@ -127,29 +135,14 @@ void Game::Draw()
 			playerCharacter->Draw();
 			
 			glPushMatrix();
-			glTranslatef(cubist[0].GetPos().GetPointX(), cubist[0].GetPos().GetPointY(), cubist[0].GetPos().GetPointZ());
-			glScalef(cubist[0].GetScale().GetPointX(), cubist[0].GetScale().GetPointY(), cubist[0].GetScale().GetPointZ());
-			cubist[0].Draw();
-			glPopMatrix();
 
+			for (int ii = 0; ii < 50; ii++)
+			{
+				glTranslatef(cubist[ii].GetPos().GetPointX(), cubist[ii].GetPos().GetPointY(), cubist[ii].GetPos().GetPointZ());
+				glScalef(cubist[ii].GetScale().GetPointX(), cubist[ii].GetScale().GetPointY(), cubist[ii].GetScale().GetPointZ());
+				cubist[ii].Draw();
+			}
 
-
-			glPushMatrix();
-			glTranslatef(cubist[1].GetPos().GetPointX(), cubist[1].GetPos().GetPointY(), cubist[1].GetPos().GetPointZ());
-			glScalef(cubist[1].GetScale().GetPointX(), cubist[1].GetScale().GetPointY(), cubist[1].GetScale().GetPointZ());
-			cubist[1].Draw();
-			glPopMatrix();
-
-			glPushMatrix();
-			glTranslatef(cubist[2].GetPos().GetPointX(), cubist[2].GetPos().GetPointY(), cubist[2].GetPos().GetPointZ());
-			glScalef(cubist[2].GetScale().GetPointX(), cubist[2].GetScale().GetPointY(), cubist[2].GetScale().GetPointZ());
-			cubist[2].Draw();
-			glPopMatrix();
-
-			glPushMatrix();
-			glTranslatef(cubist[3].GetPos().GetPointX(), cubist[3].GetPos().GetPointY(), cubist[3].GetPos().GetPointZ());
-			glScalef(cubist[3].GetScale().GetPointX(), cubist[3].GetScale().GetPointY(), cubist[3].GetScale().GetPointZ());
-			cubist[3].Draw();
 			glPopMatrix();
 
 			glPushMatrix();
