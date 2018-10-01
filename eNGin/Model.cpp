@@ -43,25 +43,27 @@ Model::Model(std::string filePath) : nPositions(0),
 }
 
 Model::~Model() {
-	for (i = 0; i < nPositions; i++)
-		delete[] positions[i];
 
-	delete[] positions;
+		for (i = 0; i < nPositions; i++)
+			delete[] positions[i];
 
-	for (i = 0; i < nTexels; i++)
-		delete[] texels[i];
+		delete[] positions;
 
-	delete[] texels;
+		for (i = 0; i < nTexels; i++)
+			delete[] texels[i];
 
-	for (i = 0; i < nNormals; i++)
-		delete[] normals[i];
+		delete[] texels;
 
-	delete[] normals;
+		for (i = 0; i < nNormals; i++)
+			delete[] normals[i];
 
-	for (i = 0; i < nFaces; i++)
-		delete[] faces[i];
+		delete[] normals;
 
-	delete[] faces;
+		for (i = 0; i < nFaces; i++)
+			delete[] faces[i];
+
+		delete[] faces;
+
 }
 
 void Model::CountPoints(std::string filePath) {

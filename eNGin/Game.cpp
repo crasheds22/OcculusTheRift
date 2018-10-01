@@ -50,6 +50,7 @@ Game::Game()
 	shaysWorld = new Shay(this);
 	state = SHAY_STATE;
 	textures.resize(10);
+	models.resize(10);
 
 	exitScreen = false;
 }
@@ -60,7 +61,7 @@ Game::~Game()
 	{
 		delete shaysWorld;
 	}
-
+	delete models[0];
 	delete[] cubist;
 }
 
@@ -86,6 +87,11 @@ void Game::Initialise()
 	playerCharacter->SetRotateSpeed(0.009);
 
 	textures[0].LoadTexture("data/Group.png", 768, 768);
+	textures[1].LoadTexture("data/wall1.png", 64, 64);
+
+	models[0] = new Model("data/wall1.obj");
+
+	testWall = Wall(4, 0, 4, models[0], &textures[1]);
 
 	/*
 	textures[0].LoadTexture("data/hb_empty_left.png", 32, 32);
@@ -133,6 +139,8 @@ void Game::Draw()
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			
 			playerCharacter->Draw();
+
+			testWall.Draw();
 			
 			glPushMatrix();
 
