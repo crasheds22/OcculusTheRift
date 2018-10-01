@@ -140,6 +140,9 @@ public:
 	void SetCentreY(int y);
 
 private:
+
+	
+
 	float deltaTime;			/*<! A change in time variable> */
 	int state;					/*<! an int representing current game state>*/
 
@@ -148,6 +151,8 @@ private:
 	Player *playerCharacter;		/*<! The player in a scene */
 
 	Cube * cubist;
+
+	std::map <Actor::ActorClass, std::vector <Actor>> theEntities;
 
 	MusicPlayer bgmControl;		/*<! Handles the BGM for the Game> */
 

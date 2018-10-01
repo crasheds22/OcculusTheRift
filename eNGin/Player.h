@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <gl\glut.h>
+#include <map>
 
 #include "Actor.h"
 #include "Cube.h"
@@ -31,7 +32,7 @@ public:
 	 *	An overridden member taking no arguments
 	 *	Updates the Player's location in the world
 	 */
-	void Update(Cube* tempCube);
+	void Update(std::map <ActorClass, std::vector <Actor>> & objectList);
 	//========================================
 
 	//========================================
@@ -141,6 +142,10 @@ private:
 			 deltaRotLR,/*<! The change in rotation angle left/right */
 			 deltaRotUD;/*<! The change in rotation angle up/down */
 	//========================================
+
+	std::vector <Actor> closestList;
+
+	//std::vector <Actor> proximityCull(std::map <ActorClass, std::vector <Actor>> objectList);
 
 	//========================================
 	// Move functions

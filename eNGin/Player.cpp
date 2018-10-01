@@ -13,7 +13,6 @@ Player::Player() : lookFB{ 0.0, 0.0, -1.0 },
 				   deltaRotLR(0.0),
 				   deltaRotUD(0.0)
 {
-
 }
 
 Player* Player::GetInstance() {
@@ -22,8 +21,10 @@ Player* Player::GetInstance() {
 	return &instance;
 }
 
-void Player::Update(Cube * tempCube) {
+void Player::Update(std::map <ActorClass, std::vector <Actor>> & objectList) {
 	
+	std::vector <Actor> resultObjectList;
+
 	Move();
 
 	collisionBox.SetMaxPoint(position.GetPointX() + 0.5, position.GetPointY() + 0.5, position.GetPointZ() + 0.5);
@@ -33,17 +34,31 @@ void Player::Update(Cube * tempCube) {
 	gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),
 	position.GetPointX() + lookFB.x, position.GetPointY() + lookFB.y + 1.8, position.GetPointZ() + lookFB.z,
 	0.0, 1.0, 0.0);
-	for (int ii = 0; ii < 4; ii++)
+
+	for (std::map <ActorClass, std::vector<Actor>>::iterator object = objectList.begin(); object != objectList.end(); ++object)
 	{
-		if (collisionBox.AABBtoAABB(tempCube[ii].GetCollider()))
+		std::vector <Actor> tempObjectList;
+		
+		tempObjectList = object->second;
+
+		for (int ii = 0; ii < tempObjectList.size(); ii++)
 		{
-			collisionBox.CollideWith(this, tempCube[ii]);
-			std::cout << "Collided" << std::endl;
-			//std::cout << "camera position x: " << position.GetPointX() << std::endl;
-			//std::cout << "camera position y: " << position.GetPointY() << std::endl;
-			//std::cout << "camera position z: " << position.GetPointZ() << std::endl;
+			if (collisionBox.ProximityCull(position, tempObjectList[ii]))
+			{
+				resultObjectList.push_back(tempObjectList[ii]);
+			}
 		}
 	}
+
+	for (int ii = 0; ii < resultObjectList.size(); ii++)
+	{
+		if (collisionBox.AABBtoAABB(resultObjectList[ii].GetCollider()))
+		{
+			collisionBox.CollideWith(this, resultObjectList[ii]);
+			std::cout << "Collided" << std::endl;
+		}
+	}
+	
 	
 	
 }
