@@ -113,6 +113,8 @@ void reshape(int w, int h)
 	game.SetCentreX(w / 2);
 	game.SetCentreY(h / 2);
 	
+	
+
 	ratio = 1.0f * w / h;
 
 	// Reset the coordinate system before modifying
@@ -176,6 +178,6 @@ void MouseMove(int x, int y)
 	if (game.GetState() == GAME_STATE)
 	{
 		game.MouseLook(x, y);
-		glutWarpPointer(400, 250);
+		glutWarpPointer(game.GetCentreX(), game.GetCentreY());
 	}
 }

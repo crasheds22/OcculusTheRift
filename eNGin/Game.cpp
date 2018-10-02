@@ -8,7 +8,6 @@ Game::Game()
 	
 
 	/*
->>>>>>> c75725072639369e080f45b716d523d190e91ae8
 	cubist = new Cube[50];
 	Vector3 * cubePos;
 	cubePos = new Vector3[50];
@@ -86,7 +85,7 @@ void Game::Initialise()
 	deltaTime = clock();
 
 	playerCharacter->SetMoveSpeed(0.05);
-	playerCharacter->SetRotateSpeed(0.009);
+	playerCharacter->SetRotateSpeed(0.05);
 
 	textures[0].LoadTexture("data/Group.png", 768, 768);
 	textures[1].LoadTexture("data/wall1.png", 64, 64);
@@ -243,7 +242,7 @@ void Game::InputUp(unsigned char key, int x, int y)
 
 void Game::MouseLook(int x, int y)
 {
-	int deadzone = 100;
+	int deadzone = 15;
 
 	//If the mouse pointer has moved far enough, rotate camera
 	if ((abs((long double)x) > deadzone) || (abs((long double)y) > deadzone)) {
@@ -338,4 +337,14 @@ void Game::SetCentreX(int x) {
 
 void Game::SetCentreY(int y) {
 	centreY = y;
+}
+
+int Game::GetCentreX()
+{
+	return centreX;
+}
+
+int Game::GetCentreY()
+{
+	return centreY;
 }

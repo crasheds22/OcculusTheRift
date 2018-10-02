@@ -140,6 +140,27 @@ public:
 	 */
 	void SetCentreY(int y);
 
+	/**
+	*	@brief to get the centre of the screen
+	*	@param
+	*	@return integer representing the centre x value
+	*	@pre
+	*	@post
+	*/
+	int GetCentreX();
+
+
+	/**
+	*	@brief to get the centre of the screen
+	*	@param
+	*	@return integer representing the centre y value
+	*	@pre
+	*	@post
+	*/
+	int GetCentreY();
+
+
+
 private:
 	float deltaTime;			/*<! A change in time variable> */
 	int state;					/*<! an int representing current game state>*/
