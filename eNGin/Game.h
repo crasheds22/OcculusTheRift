@@ -141,9 +141,6 @@ public:
 	void SetCentreY(int y);
 
 private:
-
-	
-
 	float deltaTime;			/*<! A change in time variable> */
 	int state;					/*<! an int representing current game state>*/
 

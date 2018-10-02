@@ -5,6 +5,7 @@
 Game::Game() 
 {
 	playerCharacter = Player::GetInstance();
+	
 	cubist = new Cube[50];
 	Vector3 * cubePos;
 	cubePos = new Vector3[50];
@@ -68,6 +69,8 @@ Game::~Game()
 void Game::Run() 
 {
 	Draw();
+
+
 
 	Update();
 }

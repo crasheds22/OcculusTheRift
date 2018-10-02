@@ -58,7 +58,7 @@ bool Collider::operator > (Collider &other)
 	return !operator<(other);
 }
 
-bool Collider::ProximityCull(Vector3 actorPosition, Actor &inputObject)
+bool Collider::ProximityCull(Vector3 actorPosition, Vector3 &inputObject)
 {
 	Vector3 positionOffset;
 	Vector3 minCullBox;
@@ -68,12 +68,12 @@ bool Collider::ProximityCull(Vector3 actorPosition, Actor &inputObject)
 	minCullBox = actorPosition.SubtractVector(positionOffset);
 	maxCullBox = actorPosition.AddVector(positionOffset);
 
-	return (maxCullBox.GetPointX() > inputObject.GetPos().GetPointX() &&
-			minCullBox.GetPointX() < inputObject.GetPos().GetPointX() &&
-			maxCullBox.GetPointY() > inputObject.GetPos().GetPointY() &&
-			minCullBox.GetPointY() < inputObject.GetPos().GetPointY() &&
-			maxCullBox.GetPointZ() > inputObject.GetPos().GetPointZ() &&
-			minCullBox.GetPointZ() < inputObject.GetPos().GetPointZ());
+	return (maxCullBox.GetPointX() > inputObject.GetPointX() &&
+			minCullBox.GetPointX() < inputObject.GetPointX() &&
+			maxCullBox.GetPointY() > inputObject.GetPointY() &&
+			minCullBox.GetPointY() < inputObject.GetPointY() &&
+			maxCullBox.GetPointZ() > inputObject.GetPointZ() &&
+			minCullBox.GetPointZ() < inputObject.GetPointZ());
 		
 }
 

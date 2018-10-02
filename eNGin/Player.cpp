@@ -32,20 +32,16 @@ void Player::Update(std::map <ActorClass, std::vector <Actor>> & objectList) {
 
 	glLoadIdentity();
 	gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),
-	position.GetPointX() + lookFB.x, position.GetPointY() + lookFB.y + 1.8, position.GetPointZ() + lookFB.z,
-	0.0, 1.0, 0.0);
+			  position.GetPointX() + lookFB.x, position.GetPointY() + lookFB.y + 1.8, position.GetPointZ() + lookFB.z,
+			  0.0, 1.0, 0.0);
 
 	for (std::map <ActorClass, std::vector<Actor>>::iterator object = objectList.begin(); object != objectList.end(); ++object)
 	{
-		std::vector <Actor> tempObjectList;
-		
-		tempObjectList = object->second;
-
-		for (int ii = 0; ii < tempObjectList.size(); ii++)
+		for (std::vector<Actor>::iterator col = object->second.begin(); col != object->second.end(); col++)
 		{
-			if (collisionBox.ProximityCull(position, tempObjectList[ii]))
+			if (collisionBox.ProximityCull(position, col->GetPos))
 			{
-				resultObjectList.push_back(tempObjectList[ii]);
+				resultObjectList.push_back()
 			}
 		}
 	}
@@ -58,9 +54,6 @@ void Player::Update(std::map <ActorClass, std::vector <Actor>> & objectList) {
 			std::cout << "Collided" << std::endl;
 		}
 	}
-	
-	
-	
 }
 
 void Player::DirectionFB(const GLdouble tempMove) {

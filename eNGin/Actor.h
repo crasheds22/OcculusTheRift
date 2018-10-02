@@ -165,8 +165,6 @@ public:
 
 
 protected:
-
-	
 	Vector3 position;	/*<! The position of the Actor */
 	Vector3 rotations;	/*<! The rotation of the Actor */
 	Vector3	scale;		/*<! The scale of the Actor */
@@ -175,8 +173,6 @@ protected:
 
 	Model *model = NULL;		/*<! The model owned by this instance of Actor */
 	Texture *texture = NULL;	/*<! The texture to be used for this Actor's Model */
-
-	
 
 	//========================================
 	//Speeds

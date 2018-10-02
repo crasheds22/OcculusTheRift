@@ -100,7 +100,7 @@ public:
 	*	@pre
 	*	@post
 	*/
-	bool ProximityCull(Vector3 actorPosition, Actor &inputObject);
+	bool ProximityCull(Vector3 actorPosition, Vector3 &inputObject);
 
 
 	/**
