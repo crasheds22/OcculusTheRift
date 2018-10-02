@@ -22,7 +22,7 @@ Actor::Actor(Model* mod, Texture* tex) : moveSpeed(0.0),
 
 }
 
-void Actor::Update() {
+void Actor::Update(float deltaTime) {
 
 }
 

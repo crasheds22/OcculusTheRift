@@ -6,6 +6,7 @@
 #include <cmath>
 #include <gl/glut.h>
 #include <vector>
+#include <map>
 #include <cstdlib>
 #include <iostream>
 
@@ -169,20 +170,14 @@ private:
 
 	Player *playerCharacter;		/*<! The player in a scene */
 
-	Cube * cubist;
-
 	Wall * testWall;
-
-	
-
-	std::map <Actor::ActorTag, std::vector <Actor>> theEntities;
 
 	MusicPlayer bgmControl;		/*<! Handles the BGM for the Game> */
 
 	std::vector<Model*> models;		/*<! All possible models to be used in the running of the game */
 	std::vector<Texture> textures;	/*<! All possible textures to be used in the running of the game */
 
-	//std::map<Tag, std::vector<Actor>> Entities; /*<! All entities in the current level */
+	std::map<Tag, std::vector<Actor>> Entities; /*<! All entities in the current level */
 
 	int centreX,		/*<! The x value of the centre of the screen */
 		centreY;		/*<! The y value of the centre of the screen */
@@ -193,7 +188,7 @@ private:
 	 *	A normal member taking no arguments
 	 *	Updates and reolves interactions between game entities
 	 */
-	void Update();
+	void Update(float deltaTime);
 
 	/**
 	 *	A normal member taking no arguments

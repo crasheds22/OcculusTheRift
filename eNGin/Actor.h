@@ -40,9 +40,6 @@ struct Point {
  */
 class Actor {
 public:
-
-	enum ActorTag { Walls, Object, Camera };
-
 	/**
 	 *	Default constructor
 	 *	Initialises member variables
@@ -59,7 +56,7 @@ public:
 	 *	A virtual member taking no arguments
 	 *	Every Actor can override the Update function for their own unique reasons
 	 */
-	virtual void Update();
+	virtual void Update(float deltaTime);
 
 	/**
 	 *	A virtual member taking no arguments

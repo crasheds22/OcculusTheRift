@@ -2,50 +2,10 @@
 
 #include "Game.h"
 
-Game::Game() 
+Game::Game()
 {
 	playerCharacter = Player::GetInstance();
 	
-
-	/*
-	cubist = new Cube[50];
-	Vector3 * cubePos;
-	cubePos = new Vector3[50];
-	
-	Vector3 * cubeScale;
-	cubeScale = new Vector3[50];
-
-	for (int ii = 0; ii < 50; ii++)
-	{
-		int jj;
-		jj = ii + 10;
-		cubePos[ii] = Vector3(jj, 0, 0);
-	
-	}
-	
-	for (int ii = 0; ii < 50; ii++)
-	{
-		cubeScale[ii] = Vector3(1, 1, 1);
-	}
-	
-
-	std::vector <Actor> tempObjectVector;
-	
-	for (int ii = 0; ii < 50; ii++)
-	{
-		cubist[ii].SetPos(cubePos[ii]);
-		cubist[ii].SetScale(cubeScale[ii]);
-		cubist[ii].SetAABB();
-		tempObjectVector.push_back(cubist[ii]);
-		
-	}
-
-	std::pair <Actor::ActorClass, std::vector <Actor>> enumActor;
-	enumActor.first = Actor::ActorClass::Object;
-	enumActor.second = tempObjectVector;
-
-	theEntities.insert(enumActor);
-	*/
 	shaysWorld = new Shay(this);
 	state = SHAY_STATE;
 	textures.resize(10);
@@ -61,24 +21,26 @@ Game::~Game()
 		delete shaysWorld;
 	}
 	delete models[0];
-	delete[] cubist;
 }
 
 void Game::Run() 
 {
-	Draw();
+	if (deltaTime / clock() < 1000 / 60) {
+		Draw();
 
+		Update(deltaTime);
 
-
-	Update();
+		deltaTime = clock();
+	}
+	else {
+		deltaTime += clock();
+	}
 }
 
 void Game::Initialise() 
 {
 	shaysWorld->Init();
 	
-	//centreX = 400;
-	//centreY = 250;
 	centreX = glutGet(GLUT_WINDOW_WIDTH) / 2;
 	centreY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
 
@@ -107,40 +69,43 @@ void Game::Initialise()
 	{
 		tempObjectVectorOne.push_back(testWall[ii]);
 	}
-	
-
-	std::pair <Actor::ActorTag, std::vector <Actor>> enumActorOne;
-	enumActorOne.first = Actor::ActorTag::Object;
-	enumActorOne.second = tempObjectVectorOne;
-
-	theEntities.insert(enumActorOne);
-
-	/*
-	textures[0].LoadTexture("data/hb_empty_left.png", 32, 32);
-	textures[1].LoadTexture("data/hb_empty_middle.png", 32, 32);
-	textures[2].LoadTexture("data/hb_empty_right.png", 32, 32);
-
-	textures[3].LoadTexture("data/hb_full_left.png", 32, 32);
-	textures[4].LoadTexture("data/hb_full_middle.png", 32, 32);
-	textures[5].LoadTexture("data/hb_full_right.png", 32, 32);
-	*/
 }
 
-void Game::Update()
+void Game::Update(float deltaTime)
 {
+	std::vector <Actor> resultObjectList;
+
 	bgmControl.PlaySong();
 	
 	switch (state)
 	{
-		case GAME_STATE:
-			playerCharacter->Update(theEntities);
+		case GAME_STATE:			
+			for (std::map <Tag, std::vector<Actor>>::iterator object = Entities.begin(); object != Entities.end(); ++object)
+			{
+				for (std::vector<Actor>::iterator col = object->second.begin(); col != object->second.end(); col++)
+				{
+					Vector3 temp = col->GetPos();
+					if (playerCharacter->GetCollider().ProximityCull(playerCharacter->GetPos(), temp))
+					{
+						resultObjectList.push_back(*col);
+					}
+				}
+			}
+			playerCharacter->Update(deltaTime, resultObjectList);
+
+			for (std::map <Tag, std::vector<Actor>>::iterator object = Entities.begin(); object != Entities.end(); ++object)
+			{
+				for (std::vector<Actor>::iterator col = object->second.begin(); col != object->second.end(); col++)
+				{
+					col->Update(deltaTime);
+				}
+			}
+			
 			break;
 
 		case MENU_STATE:
 			break;
-	}	
-	
-	
+	}
 }
 
 void Game::Draw()
@@ -162,25 +127,11 @@ void Game::Draw()
 			
 			playerCharacter->Draw();
 
-			
 			glPushMatrix();
 			for (int ii = 0; ii < 50; ii++)
 			{
 				testWall[ii].Draw();
 			}
-			glPopMatrix();
-			
-			glPushMatrix();
-			
-			
-			/*
-			for (int ii = 0; ii < 50; ii++)
-			{
-				glTranslatef(cubist[ii].GetPos().GetPointX(), cubist[ii].GetPos().GetPointY(), cubist[ii].GetPos().GetPointZ());
-				glScalef(cubist[ii].GetScale().GetPointX(), cubist[ii].GetScale().GetPointY(), cubist[ii].GetScale().GetPointZ());
-				cubist[ii].Draw();
-			}
-			*/
 			glPopMatrix();
 
 			glPushMatrix();
@@ -189,9 +140,7 @@ void Game::Draw()
 			glPopMatrix();
 
 			glFlush();
-
 			
-
 			break;
 	}
 }

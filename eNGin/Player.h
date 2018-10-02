@@ -2,7 +2,6 @@
 #define PLAYER_H
 
 #include <gl\glut.h>
-#include <map>
 
 #include "Actor.h"
 #include "Cube.h"
@@ -32,7 +31,7 @@ public:
 	 *	An overridden member taking no arguments
 	 *	Updates the Player's location in the world
 	 */
-	void Update(std::map <ActorTag, std::vector <Actor>> & objectList);
+	void Update(float deltaTime, std::vector<Actor> resultObjectList);
 	//========================================
 
 	//========================================
@@ -118,8 +117,8 @@ private:
 	 */
 	Player();
 
-	Player(Player const&);
-	void operator=(Player const&);
+	Player(Player const&) {};
+	void operator=(Player const&) {};
 	//========================================
 
 	//========================================
@@ -142,10 +141,6 @@ private:
 			 deltaRotLR,/*<! The change in rotation angle left/right */
 			 deltaRotUD;/*<! The change in rotation angle up/down */
 	//========================================
-
-	std::vector <Actor> closestList;
-
-	//std::vector <Actor> proximityCull(std::map <ActorClass, std::vector <Actor>> objectList);
 
 	//========================================
 	// Move functions
