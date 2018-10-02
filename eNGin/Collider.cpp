@@ -64,7 +64,7 @@ bool Collider::ProximityCull(Vector3 actorPosition, Actor &inputObject)
 	Vector3 minCullBox;
 	Vector3 maxCullBox;
 
-	positionOffset = Vector3(2.0, 2.0, 2.0);
+	positionOffset = Vector3(4.0, 10.0, 4.0);
 	minCullBox = actorPosition.SubtractVector(positionOffset);
 	maxCullBox = actorPosition.AddVector(positionOffset);
 
@@ -88,22 +88,22 @@ void Collider::CollideWith(Actor *thisObject, Actor &otherObject)
 	{
 		if (intersectX > 0)
 		{
-			thisObject->SetPos(otherObject.GetPos().GetPointX() + otherObject.GetScale().GetPointX() + 0.5, thisObject->GetPos().GetPointY(), thisObject->GetPos().GetPointZ());
+			thisObject->SetPos(otherObject.GetCollider().GetMaxPoint().GetPointX() + 0.5, thisObject->GetPos().GetPointY(), thisObject->GetPos().GetPointZ());
 		}
 		else
 		{
-			thisObject->SetPos(otherObject.GetPos().GetPointX() - otherObject.GetScale().GetPointX() - 0.5, thisObject->GetPos().GetPointY(), thisObject->GetPos().GetPointZ());
+			thisObject->SetPos(otherObject.GetCollider().GetMinPoint().GetPointX() - 0.5, thisObject->GetPos().GetPointY(), thisObject->GetPos().GetPointZ());
 		}
 	}
 	else
 	{
 		if (intersectZ > 0)
 		{
-			thisObject->SetPos(thisObject->GetPos().GetPointX(), thisObject->GetPos().GetPointY(), otherObject.GetPos().GetPointZ() + otherObject.GetScale().GetPointZ() + 0.5);
+			thisObject->SetPos(thisObject->GetPos().GetPointX(), thisObject->GetPos().GetPointY(), otherObject.GetCollider().GetMaxPoint().GetPointZ() + 0.5);
 		}
 		else
 		{
-			thisObject->SetPos(thisObject->GetPos().GetPointX(), thisObject->GetPos().GetPointY(), otherObject.GetPos().GetPointZ() - otherObject.GetScale().GetPointZ() - 0.5);
+			thisObject->SetPos(thisObject->GetPos().GetPointX(), thisObject->GetPos().GetPointY(), otherObject.GetCollider().GetMinPoint().GetPointZ() - 0.5);
 		}
 	}
 }

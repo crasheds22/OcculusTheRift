@@ -16,7 +16,7 @@ public:
 
 
 protected:
-	float size = 2;
+	float size = 4;
 };
 
 
