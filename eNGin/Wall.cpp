@@ -17,7 +17,7 @@ Wall::Wall(float x, float y, float z, Model * mod, Texture * tex)
 
 	SetPos(temp);
 
-	SetScale(Vector3(size, size, size));
+	//SetScale(Vector3(size, size, size));
 
 	model = mod;
 

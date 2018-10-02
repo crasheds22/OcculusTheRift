@@ -72,7 +72,7 @@ void myinit()
 	//Create Camera
 	GLdouble fov = 60;
 	GLdouble aspect = 1 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT);
-	GLdouble nearVal = 0.5;
+	GLdouble nearVal = -1;
 	GLdouble farVal = 100;
 
 	gluPerspective(fov, aspect, nearVal, farVal);
