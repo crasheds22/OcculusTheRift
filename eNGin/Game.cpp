@@ -69,6 +69,13 @@ void Game::Initialise()
 	{
 		tempObjectVectorOne.push_back(testWall[ii]);
 	}
+
+	std::pair <Tag, std::vector <Actor>> enumActor;
+	enumActor.first = Tag::WALL;
+	enumActor.second = tempObjectVectorOne;
+
+	Entities.insert(enumActor);
+
 }
 
 void Game::Update(float deltaTime)
@@ -91,6 +98,7 @@ void Game::Update(float deltaTime)
 					}
 				}
 			}
+
 			playerCharacter->Update(deltaTime, resultObjectList);
 
 			for (std::map <Tag, std::vector<Actor>>::iterator object = Entities.begin(); object != Entities.end(); ++object)

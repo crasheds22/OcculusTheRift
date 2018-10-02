@@ -36,6 +36,11 @@ void Player::Update(float deltaTime, std::vector<Actor> resultObjectList) {
 
 	for (int ii = 0; ii < resultObjectList.size(); ii++)
 	{
+		
+		std::cout << "Object List position X: " << resultObjectList[ii].GetPos().GetPointX() << std::endl;
+		std::cout << "Object List position Y: " << resultObjectList[ii].GetPos().GetPointY() << std::endl;
+		std::cout << "Object List position Z: " << resultObjectList[ii].GetPos().GetPointZ() << std::endl;
+
 		if (collisionBox.AABBtoAABB(resultObjectList[ii].GetCollider()))
 		{
 			std::cout << "Collided" << std::endl;
