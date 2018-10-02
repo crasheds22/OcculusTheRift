@@ -92,7 +92,6 @@ void Game::Update(float deltaTime)
 				for (std::vector<Actor>::iterator col = object->second.begin(); col != object->second.end(); col++)
 				{
 					Vector3 temp = col->GetPos();
-					Vector3 pc = ;
 					
 					if (ProximityCull(playerCharacter->GetPos(), temp))
 					{
