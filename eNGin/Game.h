@@ -196,6 +196,8 @@ private:
 	 */
 	void Draw();
 
+	bool ProximityCull(Vector3 actorPosition, Vector3 &inputObject);
+
 };
 
 #endif

@@ -85,8 +85,11 @@ void Game::Update(float deltaTime)
 				for (std::vector<Actor>::iterator col = object->second.begin(); col != object->second.end(); col++)
 				{
 					Vector3 temp = col->GetPos();
-					if (playerCharacter->GetCollider().ProximityCull(playerCharacter->GetPos(), temp))
+					Vector3 pc = ;
+					
+					if (ProximityCull(playerCharacter->GetPos(), temp))
 					{
+						std::cout << "Object added" << std::endl;
 						resultObjectList.push_back(*col);
 					}
 				}
@@ -296,4 +299,24 @@ int Game::GetCentreX()
 int Game::GetCentreY()
 {
 	return centreY;
+}
+
+
+bool Game::ProximityCull(Vector3 actorPosition, Vector3 &inputObject)
+{
+	Vector3 positionOffset;
+	Vector3 minCullBox;
+	Vector3 maxCullBox;
+
+	positionOffset = Vector3(4.0, 10.0, 4.0);
+	minCullBox = actorPosition.SubtractVector(positionOffset);
+	maxCullBox = actorPosition.AddVector(positionOffset);
+
+	return (maxCullBox.GetPointX() > inputObject.GetPointX() &&
+		minCullBox.GetPointX() < inputObject.GetPointX() &&
+		maxCullBox.GetPointY() > inputObject.GetPointY() &&
+		minCullBox.GetPointY() < inputObject.GetPointY() &&
+		maxCullBox.GetPointZ() > inputObject.GetPointZ() &&
+		minCullBox.GetPointZ() < inputObject.GetPointZ());
+
 }

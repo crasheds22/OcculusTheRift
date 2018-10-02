@@ -34,6 +34,7 @@ void Player::Update(float deltaTime, std::vector<Actor> resultObjectList) {
 	collisionBox.SetMaxPoint(position.GetPointX() + 0.5, position.GetPointY() + 0.5, position.GetPointZ() + 0.5);
 	collisionBox.SetMinPoint(position.GetPointX() - 0.5, position.GetPointY() - 0.5, position.GetPointZ() - 0.5);
 
+
 	for (int ii = 0; ii < resultObjectList.size(); ii++)
 	{
 		if (collisionBox.AABBtoAABB(resultObjectList[ii].GetCollider()))
