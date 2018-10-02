@@ -32,7 +32,7 @@ public:
 	 *	An overridden member taking no arguments
 	 *	Updates the Player's location in the world
 	 */
-	void Update(std::map <ActorClass, std::vector <Actor>> & objectList);
+	void Update(std::map <ActorTag, std::vector <Actor>> & objectList);
 	//========================================
 
 	//========================================

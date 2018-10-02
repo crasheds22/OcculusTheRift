@@ -15,13 +15,14 @@ Wall::Wall(float x, float y, float z, Model * mod, Texture * tex)
 
 	temp.SetPointZ(z);
 
-	position = temp;
+	SetPos(temp);
 
 	model = mod;
 
 	texture = tex;
 
-	collisionBox.SetMinPoint(x - size, y - (size*2), z - size);
-	collisionBox.SetMaxPoint(x + size, y + (size * 2), z + size);
+	
+	collisionBox.SetMinPoint(x - size, y, z - size);
+	collisionBox.SetMaxPoint(x + size, y + size, z + size);
 
 }

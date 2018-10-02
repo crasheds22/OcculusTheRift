@@ -39,6 +39,7 @@ Vector3 Collider::GetMaxPoint()
 bool Collider::AABBtoAABB(Collider objectOther)
 {
 
+
 	return (	maxPoint.GetPointX() > objectOther.minPoint.GetPointX() &&
 				minPoint.GetPointX() < objectOther.maxPoint.GetPointX() &&
 				maxPoint.GetPointY() > objectOther.minPoint.GetPointY() &&
@@ -63,7 +64,7 @@ bool Collider::ProximityCull(Vector3 actorPosition, Actor &inputObject)
 	Vector3 minCullBox;
 	Vector3 maxCullBox;
 
-	positionOffset = Vector3(2.0, 2.0, 2.0);
+	positionOffset = Vector3(4.0, 10.0, 4.0);
 	minCullBox = actorPosition.SubtractVector(positionOffset);
 	maxCullBox = actorPosition.AddVector(positionOffset);
 
@@ -82,28 +83,27 @@ void Collider::CollideWith(Actor *thisObject, Actor &otherObject)
 {
 	float intersectX = thisObject->GetPos().GetPointX() - otherObject.GetPos().GetPointX();
 	float intersectZ = thisObject->GetPos().GetPointZ() - otherObject.GetPos().GetPointZ();
-	Collider otherObjectCollider = otherObject.GetCollider();
 
 	if (abs(intersectX) > abs(intersectZ))
 	{
 		if (intersectX > 0)
 		{
-			thisObject->SetPos(otherObjectCollider.GetMaxPoint().GetPointX() + 0.5, thisObject->GetPos().GetPointY(), thisObject->GetPos().GetPointZ());
+			thisObject->SetPos(otherObject.GetCollider().GetMaxPoint().GetPointX() + 0.5, thisObject->GetPos().GetPointY(), thisObject->GetPos().GetPointZ());
 		}
 		else
 		{
-			thisObject->SetPos(otherObjectCollider.GetMinPoint().GetPointX() - 0.5, thisObject->GetPos().GetPointY(), thisObject->GetPos().GetPointZ());
+			thisObject->SetPos(otherObject.GetCollider().GetMinPoint().GetPointX() - 0.5, thisObject->GetPos().GetPointY(), thisObject->GetPos().GetPointZ());
 		}
 	}
 	else
 	{
 		if (intersectZ > 0)
 		{
-			thisObject->SetPos(thisObject->GetPos().GetPointX(), thisObject->GetPos().GetPointY(), otherObjectCollider.GetMaxPoint().GetPointZ() + 0.5);
+			thisObject->SetPos(thisObject->GetPos().GetPointX(), thisObject->GetPos().GetPointY(), otherObject.GetCollider().GetMaxPoint().GetPointZ() + 0.5);
 		}
 		else
 		{
-			thisObject->SetPos(thisObject->GetPos().GetPointX(), thisObject->GetPos().GetPointY(), otherObjectCollider.GetMinPoint().GetPointZ() - 0.5);
+			thisObject->SetPos(thisObject->GetPos().GetPointX(), thisObject->GetPos().GetPointY(), otherObject.GetCollider().GetMinPoint().GetPointZ() - 0.5);
 		}
 	}
 }
