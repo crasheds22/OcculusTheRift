@@ -6,6 +6,10 @@ Game::Game()
 {
 	playerCharacter = Player::GetInstance();
 	
+<<<<<<< HEAD
+=======
+	/*
+>>>>>>> c75725072639369e080f45b716d523d190e91ae8
 	cubist = new Cube[50];
 	Vector3 * cubePos;
 	cubePos = new Vector3[50];
@@ -17,7 +21,7 @@ Game::Game()
 	{
 		int jj;
 		jj = ii + 10;
-		cubePos[ii] = Vector3(jj, 1, 0);
+		cubePos[ii] = Vector3(jj, 0, 0);
 	
 	}
 	
@@ -27,19 +31,15 @@ Game::Game()
 	}
 	
 
-
 	std::vector <Actor> tempObjectVector;
+	
 	for (int ii = 0; ii < 50; ii++)
 	{
 		cubist[ii].SetPos(cubePos[ii]);
 		cubist[ii].SetScale(cubeScale[ii]);
+		cubist[ii].SetAABB();
 		tempObjectVector.push_back(cubist[ii]);
 		
-	}
-
-	for (int ii = 0; ii < 50; ii++)
-	{
-		cubist[ii].SetAABB();
 	}
 
 	std::pair <Actor::ActorClass, std::vector <Actor>> enumActor;
@@ -47,7 +47,7 @@ Game::Game()
 	enumActor.second = tempObjectVector;
 
 	theEntities.insert(enumActor);
-	
+	*/
 	shaysWorld = new Shay(this);
 	state = SHAY_STATE;
 	textures.resize(10);
@@ -86,7 +86,7 @@ void Game::Initialise()
 
 	deltaTime = clock();
 
-	playerCharacter->SetMoveSpeed(0.01);
+	playerCharacter->SetMoveSpeed(0.05);
 	playerCharacter->SetRotateSpeed(0.009);
 
 	textures[0].LoadTexture("data/Group.png", 768, 768);
@@ -94,7 +94,28 @@ void Game::Initialise()
 
 	models[0] = new Model("data/wall1.obj");
 
-	testWall = Wall(4, 0, 4, models[0], &textures[1]);
+	testWall = new Wall[50];
+
+	for (int ii = 0; ii < 50; ii++)
+	{
+		int jj;
+		jj = ii + 1;
+		testWall[ii] = Wall(5 * jj, 0, 5 * jj, models[0], &textures[1]);
+	}
+	
+	
+	std::vector <Actor> tempObjectVectorOne;
+	for (int ii = 0; ii < 50; ii++)
+	{
+		tempObjectVectorOne.push_back(testWall[ii]);
+	}
+	
+
+	std::pair <Actor::ActorTag, std::vector <Actor>> enumActorOne;
+	enumActorOne.first = Actor::ActorTag::Object;
+	enumActorOne.second = tempObjectVectorOne;
+
+	theEntities.insert(enumActorOne);
 
 	/*
 	textures[0].LoadTexture("data/hb_empty_left.png", 32, 32);
@@ -143,17 +164,25 @@ void Game::Draw()
 			
 			playerCharacter->Draw();
 
-			testWall.Draw();
 			
 			glPushMatrix();
-
+			for (int ii = 0; ii < 50; ii++)
+			{
+				testWall[ii].Draw();
+			}
+			glPopMatrix();
+			
+			glPushMatrix();
+			
+			
+			/*
 			for (int ii = 0; ii < 50; ii++)
 			{
 				glTranslatef(cubist[ii].GetPos().GetPointX(), cubist[ii].GetPos().GetPointY(), cubist[ii].GetPos().GetPointZ());
 				glScalef(cubist[ii].GetScale().GetPointX(), cubist[ii].GetScale().GetPointY(), cubist[ii].GetScale().GetPointZ());
 				cubist[ii].Draw();
 			}
-
+			*/
 			glPopMatrix();
 
 			glPushMatrix();

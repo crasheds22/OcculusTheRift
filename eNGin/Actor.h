@@ -41,7 +41,7 @@ struct Point {
 class Actor {
 public:
 
-	enum ActorClass { Walls, Object, Camera };
+	enum ActorTag { Walls, Object, Camera };
 
 	/**
 	 *	Default constructor
@@ -161,7 +161,7 @@ public:
 	 *	Returns the values relating to the Actor's collision coords
 	 *	@return The collider values
 	 */
-	const Collider GetCollider();
+	Collider GetCollider();
 
 
 protected:

@@ -150,9 +150,11 @@ private:
 
 	Cube * cubist;
 
-	Wall testWall;
+	Wall * testWall;
 
-	std::map <Actor::ActorClass, std::vector <Actor>> theEntities;
+	
+
+	std::map <Actor::ActorTag, std::vector <Actor>> theEntities;
 
 	MusicPlayer bgmControl;		/*<! Handles the BGM for the Game> */
 
