@@ -6,8 +6,7 @@ Game::Game()
 {
 	playerCharacter = Player::GetInstance();
 	
-<<<<<<< HEAD
-=======
+
 	/*
 >>>>>>> c75725072639369e080f45b716d523d190e91ae8
 	cubist = new Cube[50];

@@ -39,24 +39,13 @@ void Player::Update(std::map <ActorTag, std::vector <Actor>> & objectList) {
 
 	for (std::map <ActorTag, std::vector<Actor>>::iterator object = objectList.begin(); object != objectList.end(); ++object)
 	{
-<<<<<<< HEAD
+
 		for (std::vector<Actor>::iterator col = object->second.begin(); col != object->second.end(); col++)
-=======
-		std::vector <Actor> tempObjectList;
-		
-		//std::cout << "object enum: " << object->first << std::endl;
-
-		for (int ii = 0; ii < object->second.size(); ii++)
 		{
-			tempObjectList.push_back(object->second[ii]);
-		}
-
-		for (int ii = 0; ii < tempObjectList.size(); ii++)
->>>>>>> c75725072639369e080f45b716d523d190e91ae8
-		{
-			if (collisionBox.ProximityCull(position, col->GetPos))
+			Vector3 temp = col->GetPos();
+			if (collisionBox.ProximityCull(position, temp))
 			{
-				resultObjectList.push_back()
+				resultObjectList.push_back(*col);
 			}
 		}
 	}
