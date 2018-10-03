@@ -17,10 +17,12 @@
 #include "Shay.h"
 #include "MusicPlayer.h"
 #include "Wall.h"
+#include "Dungeon.h"
 
 #define SHAY_STATE 0
 #define MENU_STATE 1
 #define GAME_STATE 2
+#define LOAD_STATE 3
 
 enum Tag {
 	PLAYER,
@@ -160,19 +162,44 @@ public:
 	*/
 	int GetCentreY();
 
+	/**
+	*	A normal member taking no arguments
+	*	Used to add clear the entities from the level
+	*/
+	void ClearLevel();
 
+	/**
+	*	A normal member taking 3 arguments
+	*	Used to add a wall to the list of game entities
+	*	@param x The x position of the wall
+	*	@param y The y position of the wall
+	*	@param z The z position of the wall
+	*/
+	void AddWall(float x, float y, float z);
+
+	/**
+	*	@brief to get the pointer to the player object
+	*	@param
+	*	@return memory address of the player
+	*	@pre
+	*	@post
+	*/
+	Player* GetPlayer() const;
 
 private:
 	float deltaTime;			/*<! A change in time variable> */
 	int state;					/*<! an int representing current game state>*/
 
+	int wallCount = 0;			/*<! used to place walls in the Entities map>*/
+
 	Shay * shaysWorld;			/*<! shaysWorld black box>*/
 
 	Player *playerCharacter;		/*<! The player in a scene */
 
-	Wall * testWall;
 
 	MusicPlayer bgmControl;		/*<! Handles the BGM for the Game> */
+
+	Dungeon* dungeon;	/*<!The level generator>*/
 
 	std::vector<Model*> models;		/*<! All possible models to be used in the running of the game */
 	std::vector<Texture> textures;	/*<! All possible textures to be used in the running of the game */

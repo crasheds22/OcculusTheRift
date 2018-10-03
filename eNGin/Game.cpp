@@ -21,6 +21,11 @@ Game::~Game()
 		delete shaysWorld;
 	}
 	delete models[0];
+
+	if (dungeon != NULL)
+	{
+		delete dungeon;
+	}
 }
 
 void Game::Run() 
@@ -46,35 +51,25 @@ void Game::Initialise()
 
 	deltaTime = clock();
 
-	playerCharacter->SetMoveSpeed(0.05);
+	playerCharacter->SetMoveSpeed(0.2);
 	playerCharacter->SetRotateSpeed(0.05);
 
 	textures[0].LoadTexture("data/Group.png", 768, 768);
 	textures[1].LoadTexture("data/wall1.png", 64, 64);
+	textures[2].LoadTexture("data/roof.png", 32, 32);
+	textures[3].LoadTexture("data/floor.png", 32, 32);
 
 	models[0] = new Model("data/wall1.obj");
 
-	testWall = new Wall[50];
-
-	for (int ii = 0; ii < 50; ii++)
-	{
-		int jj;
-		jj = ii + 1;
-		testWall[ii] = Wall(5 * jj, 0, 5 * jj, models[0], &textures[1]);
-	}
-	
-	
 	std::vector <Actor> tempObjectVectorOne;
-	for (int ii = 0; ii < 50; ii++)
-	{
-		tempObjectVectorOne.push_back(testWall[ii]);
-	}
 
 	std::pair <Tag, std::vector <Actor>> enumActor;
 	enumActor.first = Tag::WALL;
 	enumActor.second = tempObjectVectorOne;
 
 	Entities.insert(enumActor);
+
+	
 
 }
 
@@ -115,6 +110,13 @@ void Game::Update(float deltaTime)
 
 		case MENU_STATE:
 			break;
+
+		case LOAD_STATE:
+			if (dungeon == NULL)
+			{
+				dungeon = new Dungeon(this);
+			}
+			break;
 	}
 }
 
@@ -138,11 +140,14 @@ void Game::Draw()
 			playerCharacter->Draw();
 
 			glPushMatrix();
-			for (int ii = 0; ii < 50; ii++)
+			for (int ii = 0; ii < Entities[Tag::WALL].size(); ii++)
 			{
-				testWall[ii].Draw();
+				Entities[Tag::WALL][ii].Draw();
 			}
 			glPopMatrix();
+
+			dungeon->DrawRoof(textures[2]);
+			dungeon->DrawFloor(textures[3]);
 
 			glPushMatrix();
 				if (exitScreen)
@@ -151,6 +156,12 @@ void Game::Draw()
 
 			glFlush();
 			
+			break;
+
+		case LOAD_STATE:
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glClearColor(0, 0, 0, 1);
+			glFlush();
 			break;
 	}
 }
@@ -176,7 +187,11 @@ void Game::InputDown(unsigned char key, int x, int y)
 		break;
 	case 't':
 	case 'T':
-		exitScreen = !exitScreen;
+		if (state == GAME_STATE)
+		{
+			ClearLevel();
+		}
+		//exitScreen = !exitScreen;
 		break;
 	}
 }
@@ -238,13 +253,15 @@ void Game::SwitchState()
 {
 	if (state == SHAY_STATE)
 	{
-		state = GAME_STATE;
+		state = LOAD_STATE;
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0, 0, 0, 1);
+		glFlush();
 		delete shaysWorld;
 		shaysWorld = NULL;
 		// temporary the need to work in silence
 		//bgmControl.SetSong(1);
 	}
-
 }
 
 void Game::DrawGUI()
@@ -308,6 +325,18 @@ int Game::GetCentreY()
 	return centreY;
 }
 
+void Game::AddWall(float x, float y, float z)
+{
+	
+	Entities[Tag::WALL].push_back(Wall(x, y, z, models[0], &textures[1]));
+	wallCount++;
+}
+
+Player * Game::GetPlayer() const
+{
+	return playerCharacter;
+}
+
 
 bool Game::ProximityCull(Vector3 actorPosition, Vector3 &inputObject)
 {
@@ -326,4 +355,12 @@ bool Game::ProximityCull(Vector3 actorPosition, Vector3 &inputObject)
 		maxCullBox.GetPointZ() > inputObject.GetPointZ() &&
 		minCullBox.GetPointZ() < inputObject.GetPointZ());
 
+}
+
+void Game::ClearLevel()
+{
+	Entities[Tag::WALL].clear();
+	delete dungeon;
+	dungeon = NULL;
+	state = LOAD_STATE;
 }

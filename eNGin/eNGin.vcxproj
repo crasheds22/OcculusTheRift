@@ -142,6 +142,7 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="Dungeon.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="Model.h" />
