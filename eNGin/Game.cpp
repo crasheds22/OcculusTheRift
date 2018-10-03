@@ -181,19 +181,19 @@ void Game::InputDown(unsigned char key, int x, int y)
 	switch (key) {
 	case 'a':
 	case 'A':
-		playerCharacter->DirectionLR(-1);
+		playerCharacter->DirectionL(1);
 		break;
 	case 's':
 	case 'S':
-		playerCharacter->DirectionFB(-1);
+		playerCharacter->DirectionB(1);
 		break;
 	case 'd':
 	case 'D':
-		playerCharacter->DirectionLR(1);
+		playerCharacter->DirectionR(1);
 		break;
 	case 'w':
 	case 'W':
-		playerCharacter->DirectionFB(1);
+		playerCharacter->DirectionF(1);
 		break;
 	case 't':
 	case 'T':
@@ -211,15 +211,19 @@ void Game::InputUp(unsigned char key, int x, int y)
 	switch (key) {
 	case 'a':
 	case 'A':
+		playerCharacter->DirectionL(0);
+		break;
 	case 'd':
 	case 'D':
-		playerCharacter->DirectionLR(0);
+		playerCharacter->DirectionR(0);
 		break;
 	case 'w':
 	case 'W':
+		playerCharacter->DirectionF(0);
+		break;
 	case 's':
 	case 'S':
-		playerCharacter->DirectionFB(0);
+		playerCharacter->DirectionB(0);
 		break;
 	}
 }

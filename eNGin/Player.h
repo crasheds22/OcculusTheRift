@@ -42,7 +42,14 @@ public:
 	 *	Used to determine if the player is moving forward (1), backward (-1) or not at all (0)
 	 *	@param tempMove Which way the Player is moving
 	 */
-	void DirectionFB(const GLdouble tempMove);
+	void DirectionB(const GLdouble tempMove);
+
+	/**
+	*	A normal member taking one argument
+	*	Used to determine if the player is moving forward (1), backward (-1) or not at all (0)
+	*	@param tempMove Which way the Player is moving
+	*/
+	void DirectionF(const GLdouble tempMove);
 	
 	/**
 	 *	A normal member taking one argument
@@ -56,7 +63,14 @@ public:
 	 *	Used to determine if the player is moving right (1), left (-1) or not at all (0)
 	 *	@param tempMove Which way the Player is moving
 	 */
-	void DirectionLR(const GLdouble tempMove);
+	void DirectionL(const GLdouble tempMove);
+
+	/**
+	*	A normal member taking one argument
+	*	Used to determine if the player is moving right (1), left (-1) or not at all (0)
+	*	@param tempMove Which way the Player is moving
+	*/
+	void DirectionR(const GLdouble tempMove);
 
 	/**
 	 *	A normal member taking one argument
@@ -132,6 +146,11 @@ private:
 	GLdouble deltaMoveFB,	/*<! The change in direction forward/backward */
 			 deltaMoveLR,	/*<! The change in direction left/right */
 			 deltaMoveUD;	/*<! The change in direction up/down */
+
+	GLdouble deltaMoveF,
+		deltaMoveB,
+		deltaMoveL,
+		deltaMoveR;
 	//========================================
 
 	//========================================

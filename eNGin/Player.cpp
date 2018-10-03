@@ -54,20 +54,30 @@ void Player::Update(float deltaTime, std::vector<Actor> resultObjectList) {
 	}
 }
 
-void Player::DirectionFB(const GLdouble tempMove) {
-	deltaMoveFB = tempMove;
+void Player::DirectionB(const GLdouble tempMove) {
+	deltaMoveB = tempMove;
 }
+
+
+
+void Player::DirectionR(const GLdouble tempMove) {
+	deltaMoveR = tempMove;
+}
+
+void Player::DirectionF(const GLdouble tempMove) {
+	deltaMoveF = tempMove;
+}
+
+
+
+void Player::DirectionL(const GLdouble tempMove) {
+	deltaMoveL = tempMove;
+}
+
+
 
 void Player::DirectionUD(const GLdouble tempMove) {
 	deltaMoveUD = tempMove;
-}
-
-void Player::DirectionLR(const GLdouble tempMove) {
-	deltaMoveLR = tempMove;
-}
-
-void Player::DirectionLookUD(const GLdouble tempRot) {
-	deltaRotUD = tempRot * rotateSpeed;
 }
 
 void Player::DirectionLookLR(const GLdouble tempRot) {
@@ -76,6 +86,10 @@ void Player::DirectionLookLR(const GLdouble tempRot) {
 
 GLdouble Player::GetFB() {
 	return position.GetPointZ();
+}
+
+void Player::DirectionLookUD(const GLdouble tempRot) {
+	deltaRotUD = tempRot * rotateSpeed;
 }
 
 GLdouble Player::GetLR() {
@@ -87,6 +101,9 @@ GLdouble Player::GetUD() {
 }
 
 void Player::Move() {
+
+	deltaMoveFB = deltaMoveF - deltaMoveB;
+	deltaMoveLR = deltaMoveR - deltaMoveL;
 	if (deltaMoveFB != 0)
 		MoveFB();
 
