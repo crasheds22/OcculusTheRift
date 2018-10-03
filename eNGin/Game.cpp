@@ -30,6 +30,15 @@ Game::~Game()
 
 void Game::Run() 
 {
+	
+	endTime = glutGet(GLUT_ELAPSED_TIME);
+	deltaTime = (endTime - startTime)/10;
+	Draw();
+	Update(deltaTime);
+
+	startTime = endTime;
+
+	/*
 	if (deltaTime / clock() < 1000 / 60) {
 		Draw();
 
@@ -40,6 +49,7 @@ void Game::Run()
 	else {
 		deltaTime += clock();
 	}
+	*/
 }
 
 void Game::Initialise() 
@@ -49,7 +59,7 @@ void Game::Initialise()
 	centreX = glutGet(GLUT_WINDOW_WIDTH) / 2;
 	centreY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
 
-	deltaTime = clock();
+	startTime = glutGet(GLUT_ELAPSED_TIME);
 
 	playerCharacter->SetMoveSpeed(0.2);
 	playerCharacter->SetRotateSpeed(0.05);
@@ -216,15 +226,16 @@ void Game::InputUp(unsigned char key, int x, int y)
 
 void Game::MouseLook(int x, int y)
 {
-	int deadzone = 15;
+	int deadzone = PI * 1.59;
 
 	//If the mouse pointer has moved far enough, rotate camera
 	if ((abs((long double)x) > deadzone) || (abs((long double)y) > deadzone)) {
 		int deltaX = ((centreX - x) < 0) - (0 < (centreX - x));
 		int deltaY = -(((centreY - y) < 0) - (0 < (centreY - y)));
 
-		playerCharacter->DirectionLookLR(deltaX);
-		playerCharacter->DirectionLookUD(deltaY);
+		std::cout << "Delta Time: " << deltaTime << std::endl;
+		playerCharacter->DirectionLookLR(deltaX * deltaTime);
+		playerCharacter->DirectionLookUD(deltaY * deltaTime);
 	}
 }
 
