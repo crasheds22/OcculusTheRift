@@ -39,10 +39,17 @@ public:
 
 	/**
 	 *	A normal member taking one argument
-	 *	Used to determine if the player is moving forward (1), backward (-1) or not at all (0)
+	 *	Used to determine if the player is moving backward (1) or not backward (0)
 	 *	@param tempMove Which way the Player is moving
 	 */
-	void DirectionFB(const GLdouble tempMove);
+	void DirectionB(const GLdouble tempMove);
+
+	/**
+	*	A normal member taking one argument
+	*	Used to determine if the player is moving forward (1) or not forward (0)
+	*	@param tempMove Which way the Player is moving
+	*/
+	void DirectionF(const GLdouble tempMove);
 	
 	/**
 	 *	A normal member taking one argument
@@ -52,11 +59,18 @@ public:
 	void DirectionUD(const GLdouble tempMove);
 	
 	/**
-	 *	A normal member taking one argument
-	 *	Used to determine if the player is moving right (1), left (-1) or not at all (0)
-	 *	@param tempMove Which way the Player is moving
-	 */
-	void DirectionLR(const GLdouble tempMove);
+	*	A normal member taking one argument
+	*	Used to determine if the player is moving left (1) or not left (0)
+	*	@param tempMove Which way the Player is moving
+	*/
+	void DirectionL(const GLdouble tempMove);
+
+	/**
+	*	A normal member taking one argument
+	*	Used to determine if the player is moving right (1) or not right (0)
+	*	@param tempMove Which way the Player is moving
+	*/
+	void DirectionR(const GLdouble tempMove);
 
 	/**
 	 *	A normal member taking one argument
@@ -129,9 +143,14 @@ private:
 
 	//========================================
 	//Movement
-	GLdouble deltaMoveFB,	/*<! The change in direction forward/backward */
-			 deltaMoveLR,	/*<! The change in direction left/right */
-			 deltaMoveUD;	/*<! The change in direction up/down */
+	GLdouble deltaMoveFB,	/*<! The total change in direction forward/backward */
+			 deltaMoveLR,	/*<! The total change in direction left/right */
+			 deltaMoveUD;	/*<! The total change in direction up/down */
+
+	GLdouble deltaMoveF,/*<! The change in direction forward */
+		deltaMoveB, /*<! The change in direction backward */
+		deltaMoveL, /*<! The change in direction left */
+		deltaMoveR; /*<! The change in direction right */
 	//========================================
 
 	//========================================

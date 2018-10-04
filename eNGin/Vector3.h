@@ -144,6 +144,44 @@ public:
 	*/
 	Vector3 AddVector(Vector3 theInputVector);
 
+	/**
+	*	@brief operator to calculate the difference between two vectors
+	*	@param theInputVector target vector
+	*	@return a vector
+	*	@pre minimum and maximum points must exist
+	*	@post
+	*/
+	Vector3 operator-(Vector3 theInputVector);
+
+	/**
+	*	@brief operator to calculate the difference between two vectors
+	*	@param theInputVector target vector
+	*	@return a vector
+	*	@pre minimum and maximum points must exist
+	*	@post
+	*/
+	Vector3 operator+(Vector3 theInputVector);
+
+	/**
+	*	@brief operator to calculate the cross product of two vectors
+	*	@param theInputVector target vector
+	*	@return a vector
+	*	@pre 
+	*	@post
+	*/
+	Vector3 operator*(Vector3 &theInputVector);
+
+	/**
+	*	@brief operator that calculates the multiplication of vector with a scalar
+	*	@param theInputVector target vector
+	*	@return a vector scaled
+	*	@pre
+	*	@post
+	*/
+	Vector3 operator*(GLdouble &scalar);
+
+	
+
 private:
 	GLdouble x;	/*<! The x point value */
 	GLdouble y; /*<! The y point value */

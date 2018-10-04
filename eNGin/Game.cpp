@@ -37,19 +37,6 @@ void Game::Run()
 	Update(deltaTime);
 
 	startTime = endTime;
-
-	/*
-	if (deltaTime / clock() < 1000 / 60) {
-		Draw();
-
-		Update(deltaTime);
-
-		deltaTime = clock();
-	}
-	else {
-		deltaTime += clock();
-	}
-	*/
 }
 
 void Game::Initialise() 
@@ -61,8 +48,8 @@ void Game::Initialise()
 
 	startTime = glutGet(GLUT_ELAPSED_TIME);
 
-	playerCharacter->SetMoveSpeed(0.3);
-	playerCharacter->SetRotateSpeed(0.03);
+	playerCharacter->SetMoveSpeed(0.1);
+	playerCharacter->SetRotateSpeed(0.08);
 
 	textures[0].LoadTexture("data/Group.png", 768, 768);
 	textures[1].LoadTexture("data/wall1.png", 64, 64);
@@ -78,9 +65,6 @@ void Game::Initialise()
 	enumActor.second = tempObjectVectorOne;
 
 	Entities.insert(enumActor);
-
-	
-
 }
 
 void Game::Update(float deltaTime)
@@ -181,19 +165,19 @@ void Game::InputDown(unsigned char key, int x, int y)
 	switch (key) {
 	case 'a':
 	case 'A':
-		playerCharacter->DirectionLR(-1 * deltaTime * 60);
+		playerCharacter->DirectionL(1 * deltaTime * 60);
 		break;
 	case 's':
 	case 'S':
-		playerCharacter->DirectionFB(-1 * deltaTime * 60);
+		playerCharacter->DirectionB(1 * deltaTime * 60);
 		break;
 	case 'd':
 	case 'D':
-		playerCharacter->DirectionLR(1 * deltaTime * 60);
+		playerCharacter->DirectionR(1 * deltaTime * 60);
 		break;
 	case 'w':
 	case 'W':
-		playerCharacter->DirectionFB(1 * deltaTime * 60);
+		playerCharacter->DirectionF(1 * deltaTime * 60);
 		break;
 	case 't':
 	case 'T':
@@ -211,22 +195,26 @@ void Game::InputUp(unsigned char key, int x, int y)
 	switch (key) {
 	case 'a':
 	case 'A':
+		playerCharacter->DirectionL(0);
+		break;
 	case 'd':
 	case 'D':
-		playerCharacter->DirectionLR(0);
+		playerCharacter->DirectionR(0);
 		break;
 	case 'w':
 	case 'W':
+		playerCharacter->DirectionF(0);
+		break;
 	case 's':
 	case 'S':
-		playerCharacter->DirectionFB(0);
+		playerCharacter->DirectionB(0);
 		break;
 	}
 }
 
 void Game::MouseLook(int x, int y)
 {
-	int deadzone = PI * 0.31830;
+	int deadzone = PI * 0.15915494309;
 
 	//If the mouse pointer has moved far enough, rotate camera
 	if ((abs((long double)x) > deadzone) || (abs((long double)y) > deadzone)) {

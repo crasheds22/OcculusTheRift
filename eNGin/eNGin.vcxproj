@@ -143,6 +143,8 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Dungeon.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyOwnedStates.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
@@ -173,6 +175,8 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Dungeon.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyOwnedStates.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="Model.h" />
@@ -192,6 +196,7 @@
     <ClInclude Include="Shay\Sound.h" />
     <ClInclude Include="Shay\SoundTime.h" />
     <ClInclude Include="Shay\texturedPolygons.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Wall.h" />

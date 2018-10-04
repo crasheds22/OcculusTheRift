@@ -15,9 +15,7 @@ Vector3::Vector3(GLdouble posX, GLdouble posY, GLdouble posZ) : x(posX),
 																y(posY),
 																z(posZ)
 {
-	x = posX;
-	y = posY;
-	z = posZ;
+
 }
 
 void Vector3::SetPointX(GLdouble posX) {
@@ -120,3 +118,48 @@ Vector3 Vector3::AddVector(Vector3 theInputVector)
 
 	return resultVector;
 }
+
+Vector3 Vector3::operator-(Vector3 theInputVector)
+{
+	Vector3 resultVector;
+
+	resultVector.x = x - theInputVector.x;
+	resultVector.y = y - theInputVector.y;
+	resultVector.z = z - theInputVector.z;
+
+	return resultVector;
+}
+
+Vector3 Vector3::operator+(Vector3 theInputVector)
+{
+	Vector3 resultVector;
+
+	resultVector.x = x + theInputVector.x;
+	resultVector.y = y + theInputVector.y;
+	resultVector.z = z + theInputVector.z;
+
+	return resultVector;
+}
+
+Vector3 Vector3::operator*(Vector3 &theInputVector)
+{
+	Vector3 tempVector;
+
+	tempVector.x = y * theInputVector.GetPointZ() - z * theInputVector.GetPointY();
+	tempVector.y = x * theInputVector.GetPointZ() - z * theInputVector.GetPointX();
+	tempVector.z = x * theInputVector.GetPointY() - z * theInputVector.GetPointY();
+
+	return tempVector;
+}
+
+Vector3 Vector3::operator*(GLdouble &scalar)
+{
+	Vector3 tempVector;
+
+	tempVector.x = x * scalar;
+	tempVector.y = y * scalar;
+	tempVector.z = z * scalar;
+
+	return tempVector;
+}
+
