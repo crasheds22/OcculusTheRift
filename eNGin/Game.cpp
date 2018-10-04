@@ -32,7 +32,7 @@ void Game::Run()
 {
 	
 	endTime = glutGet(GLUT_ELAPSED_TIME);
-	deltaTime = (endTime - startTime)/10;
+	deltaTime = (endTime - startTime)/1000;
 	Draw();
 	Update(deltaTime);
 
@@ -61,8 +61,8 @@ void Game::Initialise()
 
 	startTime = glutGet(GLUT_ELAPSED_TIME);
 
-	playerCharacter->SetMoveSpeed(0.2);
-	playerCharacter->SetRotateSpeed(0.05);
+	playerCharacter->SetMoveSpeed(0.3);
+	playerCharacter->SetRotateSpeed(0.03);
 
 	textures[0].LoadTexture("data/Group.png", 768, 768);
 	textures[1].LoadTexture("data/wall1.png", 64, 64);
@@ -181,19 +181,19 @@ void Game::InputDown(unsigned char key, int x, int y)
 	switch (key) {
 	case 'a':
 	case 'A':
-		playerCharacter->DirectionLR(-1);
+		playerCharacter->DirectionLR(-1 * deltaTime * 60);
 		break;
 	case 's':
 	case 'S':
-		playerCharacter->DirectionFB(-1);
+		playerCharacter->DirectionFB(-1 * deltaTime * 60);
 		break;
 	case 'd':
 	case 'D':
-		playerCharacter->DirectionLR(1);
+		playerCharacter->DirectionLR(1 * deltaTime * 60);
 		break;
 	case 'w':
 	case 'W':
-		playerCharacter->DirectionFB(1);
+		playerCharacter->DirectionFB(1 * deltaTime * 60);
 		break;
 	case 't':
 	case 'T':
@@ -234,8 +234,8 @@ void Game::MouseLook(int x, int y)
 		int deltaY = -(((centreY - y) < 0) - (0 < (centreY - y)));
 
 		std::cout << "Delta Time: " << deltaTime << std::endl;
-		playerCharacter->DirectionLookLR(deltaX * deltaTime);
-		playerCharacter->DirectionLookUD(deltaY * deltaTime);
+		playerCharacter->DirectionLookLR(deltaX * deltaTime * 60);
+		playerCharacter->DirectionLookUD(deltaY * deltaTime * 60);
 	}
 }
 
