@@ -23,7 +23,7 @@ Player* Player::GetInstance() {
 	return &instance;
 }
 
-void Player::Update(float deltaTime, std::vector<Actor> resultObjectList) {
+void Player::Update(float deltaTime, std::map<int, std::vector<Actor>> entityMap) {
 	Move(deltaTime);
 	glLoadIdentity();
 	gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),
@@ -34,23 +34,24 @@ void Player::Update(float deltaTime, std::vector<Actor> resultObjectList) {
 	collisionBox.SetMinPoint(position.GetPointX() - 0.5, position.GetPointY() - 0.5, position.GetPointZ() - 0.5);
 
 
-	for (int ii = 0; ii < resultObjectList.size(); ii++)
-	{
-		
-		std::cout << "Object List position X: " << resultObjectList[ii].GetPos().GetPointX() << std::endl;
-		std::cout << "Object List position Y: " << resultObjectList[ii].GetPos().GetPointY() << std::endl;
-		std::cout << "Object List position Z: " << resultObjectList[ii].GetPos().GetPointZ() << std::endl;
+		//Check for Wall Collisions
+		for (int ii = 0; ii < entityMap[2].size(); ii++)
+		{
 
-		if (collisionBox.AABBtoAABB(resultObjectList[ii].GetCollider()))
-		{
-			std::cout << "Collided" << std::endl;
-			collisionBox.CollideWith(this, resultObjectList[ii]);
+			std::cout << "Object List position X: " << entityMap[2][ii].GetPos().GetPointX() << std::endl;
+			std::cout << "Object List position Y: " << entityMap[2][ii].GetPos().GetPointY() << std::endl;
+			std::cout << "Object List position Z: " << entityMap[2][ii].GetPos().GetPointZ() << std::endl;
+
+			if (collisionBox.AABBtoAABB(entityMap[2][ii].GetCollider()))
+			{
+				std::cout << "Collided" << std::endl;
+				collisionBox.CollideWith(this, entityMap[2][ii]);
+			}
+			else
+			{
+				std::cout << "No Collision" << std::endl;
+			}
 		}
-		else
-		{
-			std::cout << "No Collision" << std::endl;
-		}
-	}
 }
 
 void Player::DirectionB(const GLdouble tempMove) {

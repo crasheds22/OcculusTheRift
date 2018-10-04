@@ -146,6 +146,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyOwnedStates.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="LevelExit.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyOwnedStates.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="LevelExit.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="MusicPlayer.h" />

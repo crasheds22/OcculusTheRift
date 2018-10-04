@@ -172,6 +172,7 @@ Dungeon::Dungeon(Game* gameIn)
 		std::cout << "Movement Taken" << std::endl;
 		std::cout << "Step: " << i << std::endl;
 	}
+	owner->AddExit(xPos * 4, -1, yPos * 4);
 
 	for (xx = 0; xx < gridWidth; xx++)
 	{

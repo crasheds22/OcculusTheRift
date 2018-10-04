@@ -55,29 +55,51 @@ void Game::Initialise()
 	textures[1].LoadTexture("data/wall1.png", 64, 64);
 	textures[2].LoadTexture("data/roof.png", 32, 32);
 	textures[3].LoadTexture("data/floor.png", 32, 32);
+	textures[4].LoadTexture("data/Statue.png", 1024, 1024);
 
 	models[0] = new Model("data/wall1.obj");
+	models[1] = new Model("data/statue_base.obj");
 
 	std::vector <Actor> tempObjectVectorOne;
+	std::vector <Actor> tempObjectVectorTwo;
 
-	std::pair <Tag, std::vector <Actor>> enumActor;
-	enumActor.first = Tag::WALL;
+
+	std::pair <int, std::vector <Actor>> enumActor;
+	enumActor.first = tWALL;
 	enumActor.second = tempObjectVectorOne;
 
 	Entities.insert(enumActor);
+
+	std::pair <int, std::vector <Actor>> enumActorTwo;
+	enumActor.first = tEXIT;
+	enumActor.second = tempObjectVectorTwo;
+
+	Entities.insert(enumActorTwo);
 }
 
 void Game::Update(float deltaTime)
 {
-	std::vector <Actor> resultObjectList;
+	std::map<int, std::vector<Actor>> tempMap;
+
+	
 
 	bgmControl.PlaySong();
 	
 	switch (state)
 	{
-		case GAME_STATE:			
-			for (std::map <Tag, std::vector<Actor>>::iterator object = Entities.begin(); object != Entities.end(); ++object)
+		case GAME_STATE:
+
+			if (Entities[tEXIT][0].GetCollider().AABBtoAABB(playerCharacter->GetCollider()))
 			{
+				ClearLevel();
+			}
+
+			for (std::map <int, std::vector<Actor>>::iterator object = Entities.begin(); object != Entities.end(); ++object)
+			{
+				std::vector <Actor> resultObjectList;
+				std::pair <int, std::vector <Actor>> enumActor;
+
+
 				for (std::vector<Actor>::iterator col = object->second.begin(); col != object->second.end(); col++)
 				{
 					Vector3 temp = col->GetPos();
@@ -88,11 +110,15 @@ void Game::Update(float deltaTime)
 						resultObjectList.push_back(*col);
 					}
 				}
+
+				enumActor.first = object->first;
+				enumActor.second = resultObjectList;
+				tempMap.insert(enumActor);
 			}
 
-			playerCharacter->Update(deltaTime, resultObjectList);
+			playerCharacter->Update(deltaTime, tempMap);
 
-			for (std::map <Tag, std::vector<Actor>>::iterator object = Entities.begin(); object != Entities.end(); ++object)
+			for (std::map <int, std::vector<Actor>>::iterator object = Entities.begin(); object != Entities.end(); ++object)
 			{
 				for (std::vector<Actor>::iterator col = object->second.begin(); col != object->second.end(); col++)
 				{
@@ -134,10 +160,16 @@ void Game::Draw()
 			playerCharacter->Draw();
 
 			glPushMatrix();
-			for (int ii = 0; ii < Entities[Tag::WALL].size(); ii++)
+			for (int ii = 0; ii < Entities[tWALL].size(); ii++)
 			{
-				Entities[Tag::WALL][ii].Draw();
+				Entities[tWALL][ii].Draw();
 			}
+
+			for (int ii = 0; ii < Entities[tEXIT].size(); ii++)
+			{
+				Entities[tEXIT][ii].Draw();
+			}
+
 			glPopMatrix();
 
 			dungeon->DrawRoof(textures[2]);
@@ -324,11 +356,17 @@ int Game::GetCentreY()
 	return centreY;
 }
 
+
 void Game::AddWall(float x, float y, float z)
 {
 	
-	Entities[Tag::WALL].push_back(Wall(x, y, z, models[0], &textures[1]));
-	wallCount++;
+	Entities[tWALL].push_back(Wall(x, y, z, models[0], &textures[1]));
+}
+
+void Game::AddExit(float x, float y, float z)
+{
+
+	Entities[tEXIT].push_back(LevelExit(x, y, z, models[0], &textures[4]));
 }
 
 Player * Game::GetPlayer() const
@@ -358,7 +396,8 @@ bool Game::ProximityCull(Vector3 actorPosition, Vector3 &inputObject)
 
 void Game::ClearLevel()
 {
-	Entities[Tag::WALL].clear();
+	Entities[tWALL].clear();
+	Entities[tEXIT].clear();
 	delete dungeon;
 	dungeon = NULL;
 	state = LOAD_STATE;
