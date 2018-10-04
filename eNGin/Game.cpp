@@ -37,19 +37,6 @@ void Game::Run()
 	Update(deltaTime);
 
 	startTime = endTime;
-
-	/*
-	if (deltaTime / clock() < 1000 / 60) {
-		Draw();
-
-		Update(deltaTime);
-
-		deltaTime = clock();
-	}
-	else {
-		deltaTime += clock();
-	}
-	*/
 }
 
 void Game::Initialise() 
@@ -78,9 +65,6 @@ void Game::Initialise()
 	enumActor.second = tempObjectVectorOne;
 
 	Entities.insert(enumActor);
-
-	
-
 }
 
 void Game::Update(float deltaTime)

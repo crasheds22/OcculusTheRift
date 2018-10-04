@@ -127,6 +127,19 @@ public:
 	 *	@param scaZ The scaling along the z axis
 	 */
 	void SetScale(GLdouble scaX, GLdouble scaY, GLdouble scaZ);
+
+	void SetMaxHealth(double max);
+	double GetMaxHealth();
+	void SetCurrentHealth(double cur);
+	double GetCurrentHealth();
+
+	void SetMaxStamina(double max);
+	double GetMaxStamina();
+	void SetCurrentStamina(double cur);
+	double GetCurrentStamina();
+
+	void SwitchHandsEmtpy();
+	bool isHandsEmpty();
 	//================================================================================
 
 	//================================================================================
@@ -176,6 +189,9 @@ protected:
 	GLdouble moveSpeed,		/*<! The Actor's movement speed */
 		rotateSpeed;	/*<! The Actor's rotation speed */
 	//========================================
+	
+	double maxHealth, health,
+		maxStamina, stamina;
 };
 
 #endif

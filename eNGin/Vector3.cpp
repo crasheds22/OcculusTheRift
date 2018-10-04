@@ -15,9 +15,7 @@ Vector3::Vector3(GLdouble posX, GLdouble posY, GLdouble posZ) : x(posX),
 																y(posY),
 																z(posZ)
 {
-	x = posX;
-	y = posY;
-	z = posZ;
+
 }
 
 void Vector3::SetPointX(GLdouble posX) {
