@@ -24,8 +24,7 @@ Player* Player::GetInstance() {
 }
 
 void Player::Update(float deltaTime, std::vector<Actor> resultObjectList) {
-	Move();
-
+	Move(deltaTime);
 	glLoadIdentity();
 	gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),
 			  position.GetPointX() + lookFB.x, position.GetPointY() + lookFB.y + 1.8, position.GetPointZ() + lookFB.z,
@@ -100,48 +99,48 @@ GLdouble Player::GetUD() {
 	return position.GetPointY();
 }
 
-void Player::Move() {
+void Player::Move(float deltaTime) {
 
 	deltaMoveFB = deltaMoveF - deltaMoveB;
 	deltaMoveLR = deltaMoveR - deltaMoveL;
 	if (deltaMoveFB != 0)
-		MoveFB();
+		MoveFB(deltaTime);
 
 	if (deltaMoveLR != 0)
-		MoveLR();
+		MoveLR(deltaTime);
 
 	if (deltaMoveUD != 0)
-		MoveUD();
+		MoveUD(deltaTime);
 
 	if (deltaRotLR / rotateSpeed != 0)
-		LookLR();
+		LookLR(deltaTime);
 
 	if (deltaRotUD / rotateSpeed != 0)
-		LookUD();
+		LookUD(deltaTime);
 }
 
-void Player::MoveFB() {
-	GLdouble moveX = deltaMoveFB * lookFB.x * moveSpeed;
-	GLdouble moveZ = deltaMoveFB * lookFB.z * moveSpeed;
+void Player::MoveFB(float deltaTime) {
+	GLdouble moveX = deltaMoveFB * lookFB.x * moveSpeed * deltaTime;
+	GLdouble moveZ = deltaMoveFB * lookFB.z * moveSpeed * deltaTime;
 
 	position.SetPointX(moveX + position.GetPointX());
 	position.SetPointZ(moveZ + position.GetPointZ());
 }
 
-void Player::MoveLR() {
-	GLdouble moveX = deltaMoveLR * lookLR.x * moveSpeed;
-	GLdouble moveZ = deltaMoveLR * lookLR.z * moveSpeed;
+void Player::MoveLR(float deltaTime) {
+	GLdouble moveX = deltaMoveLR * lookLR.x * moveSpeed * deltaTime;
+	GLdouble moveZ = deltaMoveLR * lookLR.z * moveSpeed * deltaTime;
 
 	position.SetPointX(moveX + position.GetPointX());
 	position.SetPointZ(moveZ + position.GetPointZ());
 }
 
-void Player::MoveUD() {
+void Player::MoveUD(float deltaTime) {
 
 }
 
-void Player::LookLR() {
-	rotLR += deltaRotLR;
+void Player::LookLR(float deltaTime) {
+	rotLR += deltaRotLR * deltaTime;
 
 	float PI = 3.141592654;
 
@@ -152,8 +151,8 @@ void Player::LookLR() {
 	lookLR.z = -cos(rotLR  + (float)PI / 2.0);
 }
 
-void Player::LookUD() {
-	rotUD += deltaRotUD;
+void Player::LookUD(float deltaTime) {
+	rotUD += deltaRotUD * deltaTime;
 
 	float PI = 3.141592654;
 	lookFB.y = sin(rotUD);

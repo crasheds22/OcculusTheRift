@@ -117,7 +117,7 @@ public:
 	 *	A normal member taking no arguments
 	 *	Used to check if the player has moved, and then update the location
 	 */
-	void Move();
+	void Move(float deltaTime);
 	//========================================
 
 private:
@@ -167,31 +167,31 @@ private:
 	 *	A private member taking no arguments
 	 *	Moves the player forward/backward
 	 */
-	void MoveFB();
+	void MoveFB(float deltaTime);
 	
 	/**
 	 *	A private member taking no arguments
 	 *	Moves the player left/right
 	 */
-	void MoveLR();
+	void MoveLR(float deltaTime);
 
 	/**
 	 *	A private member taking no arguments
 	 *	Moves the player up/down
 	 */
-	void MoveUD();
+	void MoveUD(float deltaTime);
 
 	/**
 	 *	A private member taking no arguments
 	 *	Rotates the camera up/down
 	 */
-	void LookUD();
+	void LookUD(float deltaTime);
 
 	/**
 	 *	A private member taking no arguments
 	 *	Rotates the camera left/right
 	 */
-	void LookLR();
+	void LookLR(float deltaTime);
 	//========================================
 };
 
