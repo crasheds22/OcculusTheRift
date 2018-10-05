@@ -7,11 +7,13 @@ Game::Game()
 	playerCharacter = Player::GetInstance();
 	
 	shaysWorld = new Shay(this);
-	state = SHAY_STATE;
+	menuScreens = new Menu(this);
+	state = MENU_STATE;
 	textures.resize(10);
 	models.resize(10);
 
 	exitScreen = false;
+	menuScreen = true;
 }
 
 Game::~Game()
@@ -42,6 +44,7 @@ void Game::Run()
 void Game::Initialise() 
 {
 	shaysWorld->Init();
+	menuScreens->Init();
 	
 	centreX = glutGet(GLUT_WINDOW_WIDTH) / 2;
 	centreY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
@@ -56,6 +59,7 @@ void Game::Initialise()
 	textures[2].LoadTexture("data/roof.png", 32, 32);
 	textures[3].LoadTexture("data/floor.png", 32, 32);
 	textures[4].LoadTexture("data/Statue.png", 1024, 1024);
+	textures[5].LoadTexture("data/Menu.png", 768, 768);
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
@@ -145,6 +149,10 @@ void Game::Draw()
 	switch (state)
 	{
 		case MENU_STATE:
+			if (menuScreens != NULL)
+			{
+				menuScreens->Draw(textures[5]);
+			}
 			break;
 
 		case SHAY_STATE:
@@ -219,6 +227,14 @@ void Game::InputDown(unsigned char key, int x, int y)
 		}
 		//exitScreen = !exitScreen;
 		break;
+	case 'p':
+	case 'P':
+		menuScreen = !menuScreen;
+		if (!menuScreen)
+			SetState(MENU_STATE);
+		else
+			SetState(GAME_STATE);
+		break;
 	}
 }
 
@@ -268,6 +284,11 @@ void Game::MouseClick(int button, int state, int x, int y) {
 Shay * Game::GetShaysWorld() const
 {
 	return shaysWorld;
+}
+
+Menu * Game::GetMenu() const
+{
+	return menuScreens;
 }
 
 int Game::GetState() const

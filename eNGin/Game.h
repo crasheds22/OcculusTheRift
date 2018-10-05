@@ -12,6 +12,7 @@
 
 #include "Player.h"
 #include "Cube.h"
+#include "Menu.h"
 #include "Model.h"
 #include "Texture.h"
 #include "Shay.h"
@@ -120,6 +121,13 @@ public:
 	Shay * GetShaysWorld() const;
 
 	/**
+	*	A normal member returning a pointer to a Menu object
+	*	Returns a pointer to Menu
+	*	@return Menu pointer
+	*/
+	Menu * GetMenu() const;
+
+	/**
 	*	A normal member returning the state value
 	*	Returns the value representing the current state of the game
 	*	@return the game state
@@ -215,6 +223,7 @@ private:
 
 	Player *playerCharacter;		/*<! The player in a scene */
 
+	Menu * menuScreens;			/*<! The menu screens */
 
 	MusicPlayer bgmControl;		/*<! Handles the BGM for the Game> */
 
@@ -229,6 +238,8 @@ private:
 		centreY;		/*<! The y value of the centre of the screen */
 
 	bool exitScreen;
+
+	bool menuScreen;
 
 	/**
 	 *	A normal member taking no arguments

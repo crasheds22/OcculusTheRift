@@ -3,7 +3,7 @@
 class Game;
 
 #include "gl/glut.h"
-#include "Texture.h";
+#include "Texture.h"
 
 #define GO_LEFT 0
 #define GO_RIGHT 1
