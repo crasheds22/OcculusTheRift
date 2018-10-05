@@ -5,42 +5,54 @@
 Game::Game() 
 {
 	playerCharacter = Player::GetInstance();
-	cubist = new Cube[4];
-	Vector3 cubeOnePos;
-	Vector3 cubeTwoPos;
-	Vector3 cubeThreePos;
-	Vector3 cubeFourPos;
-	Vector3 cubeOneScale;
-	Vector3 cubeTwoScale;
-	Vector3 cubeThreeScale;
-	Vector3 cubeFourScale;
+	
+	/*
+	cubist = new Cube[50];
+	Vector3 * cubePos;
+	cubePos = new Vector3[50];
+	
+	Vector3 * cubeScale;
+	cubeScale = new Vector3[50];
 
-	cubeOnePos = Vector3(10, 0, 0);
-	cubeTwoPos = Vector3(-10, 0, 0);
-	cubeThreePos = Vector3(0, 0, -10);
-	cubeFourPos = Vector3(0, 0, 10);
+	for (int ii = 0; ii < 50; ii++)
+	{
+		int jj;
+		jj = ii + 10;
+		cubePos[ii] = Vector3(jj, 0, 0);
+	
+	}
+	
+	for (int ii = 0; ii < 50; ii++)
+	{
+		cubeScale[ii] = Vector3(1, 1, 1);
+	}
+	
 
-	cubist[0].SetPos(cubeOnePos);
-	cubist[1].SetPos(cubeTwoPos);
-	cubist[2].SetPos(cubeThreePos);
-	cubist[3].SetPos(cubeFourPos);
+	std::vector <Actor> tempObjectVector;
+	
+	for (int ii = 0; ii < 50; ii++)
+	{
+		cubist[ii].SetPos(cubePos[ii]);
+		cubist[ii].SetScale(cubeScale[ii]);
+		cubist[ii].SetAABB();
+		tempObjectVector.push_back(cubist[ii]);
+		
+	}
 
-	cubeOneScale = Vector3(1, 2, 1);
-	cubeTwoScale = Vector3(2, 1, 1);
-	cubeThreeScale = Vector3(1, 1, 2);
-	cubeFourScale = Vector3(1, 1, 1);
+	std::pair <Actor::ActorClass, std::vector <Actor>> enumActor;
+	enumActor.first = Actor::ActorClass::Object;
+	enumActor.second = tempObjectVector;
 
-	cubist[0].SetScale(cubeOneScale);
-	cubist[1].SetScale(cubeTwoScale);
-	cubist[2].SetScale(cubeThreeScale);
-	cubist[3].SetScale(cubeFourScale);
-
-
+	theEntities.insert(enumActor);
+	*/
 	shaysWorld = new Shay(this);
-	state = SHAY_STATE;
+	menuScreens = new Menu(this);
+	state = MENU_STATE;
 	textures.resize(10);
+	models.resize(10);
 
 	exitScreen = false;
+	menuScreen = true;
 }
 
 Game::~Game()
@@ -49,8 +61,7 @@ Game::~Game()
 	{
 		delete shaysWorld;
 	}
-
-	delete[] cubist;
+	delete models[0];
 }
 
 void Game::Run() 
@@ -63,6 +74,7 @@ void Game::Run()
 void Game::Initialise() 
 {
 	shaysWorld->Init();
+	menuScreens->Init();
 	
 	//centreX = 400;
 	//centreY = 250;
@@ -71,15 +83,37 @@ void Game::Initialise()
 
 	deltaTime = clock();
 
-	playerCharacter->SetMoveSpeed(0.01);
+	playerCharacter->SetMoveSpeed(0.05);
 	playerCharacter->SetRotateSpeed(0.009);
 
 	textures[0].LoadTexture("data/Group.png", 768, 768);
+	textures[1].LoadTexture("data/wall1.png", 64, 64);
+	textures[2].LoadTexture("data/Menu.png", 768, 768);
 
-	for (int ii = 0; ii < 4; ii++)
+	models[0] = new Model("data/wall1.obj");
+
+	testWall = new Wall[50];
+
+	for (int ii = 0; ii < 50; ii++)
 	{
-		cubist[ii].SetAABB();
+		int jj;
+		jj = ii + 1;
+		testWall[ii] = Wall(5 * jj, 0, 5 * jj, models[0], &textures[1]);
 	}
+	
+	
+	std::vector <Actor> tempObjectVectorOne;
+	for (int ii = 0; ii < 50; ii++)
+	{
+		tempObjectVectorOne.push_back(testWall[ii]);
+	}
+	
+
+	std::pair <Actor::ActorTag, std::vector <Actor>> enumActorOne;
+	enumActorOne.first = Actor::ActorTag::Object;
+	enumActorOne.second = tempObjectVectorOne;
+
+	theEntities.insert(enumActorOne);
 
 	/*
 	textures[0].LoadTexture("data/hb_empty_left.png", 32, 32);
@@ -99,12 +133,13 @@ void Game::Update()
 	switch (state)
 	{
 		case GAME_STATE:
-			playerCharacter->Update(cubist);
+			playerCharacter->Update(theEntities);
 			break;
 
 		case MENU_STATE:
 			break;
 	}	
+	
 }
 
 void Game::Draw()
@@ -112,6 +147,10 @@ void Game::Draw()
 	switch (state)
 	{
 		case MENU_STATE:
+			if (menuScreens != NULL)
+			{
+				menuScreens->Draw(textures[2]);
+			}
 			break;
 
 		case SHAY_STATE:
@@ -123,33 +162,28 @@ void Game::Draw()
 
 		case GAME_STATE:
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			
+
 			playerCharacter->Draw();
+
 			
 			glPushMatrix();
-			glTranslatef(cubist[0].GetPos().GetPointX(), cubist[0].GetPos().GetPointY(), cubist[0].GetPos().GetPointZ());
-			glScalef(cubist[0].GetScale().GetPointX(), cubist[0].GetScale().GetPointY(), cubist[0].GetScale().GetPointZ());
-			cubist[0].Draw();
+			for (int ii = 0; ii < 50; ii++)
+			{
+				testWall[ii].Draw();
+			}
 			glPopMatrix();
-
-
-
+			
 			glPushMatrix();
-			glTranslatef(cubist[1].GetPos().GetPointX(), cubist[1].GetPos().GetPointY(), cubist[1].GetPos().GetPointZ());
-			glScalef(cubist[1].GetScale().GetPointX(), cubist[1].GetScale().GetPointY(), cubist[1].GetScale().GetPointZ());
-			cubist[1].Draw();
-			glPopMatrix();
-
-			glPushMatrix();
-			glTranslatef(cubist[2].GetPos().GetPointX(), cubist[2].GetPos().GetPointY(), cubist[2].GetPos().GetPointZ());
-			glScalef(cubist[2].GetScale().GetPointX(), cubist[2].GetScale().GetPointY(), cubist[2].GetScale().GetPointZ());
-			cubist[2].Draw();
-			glPopMatrix();
-
-			glPushMatrix();
-			glTranslatef(cubist[3].GetPos().GetPointX(), cubist[3].GetPos().GetPointY(), cubist[3].GetPos().GetPointZ());
-			glScalef(cubist[3].GetScale().GetPointX(), cubist[3].GetScale().GetPointY(), cubist[3].GetScale().GetPointZ());
-			cubist[3].Draw();
+			
+			
+			/*
+			for (int ii = 0; ii < 50; ii++)
+			{
+				glTranslatef(cubist[ii].GetPos().GetPointX(), cubist[ii].GetPos().GetPointY(), cubist[ii].GetPos().GetPointZ());
+				glScalef(cubist[ii].GetScale().GetPointX(), cubist[ii].GetScale().GetPointY(), cubist[ii].GetScale().GetPointZ());
+				cubist[ii].Draw();
+			}
+			*/
 			glPopMatrix();
 
 			glPushMatrix();
@@ -187,6 +221,14 @@ void Game::InputDown(unsigned char key, int x, int y)
 	case 't':
 	case 'T':
 		exitScreen = !exitScreen;
+		break;
+	case 'p':
+	case 'P':
+		menuScreen = !menuScreen;
+		if (!menuScreen)
+			SetState(MENU_STATE);
+		else
+			SetState(GAME_STATE);
 		break;
 	}
 }
@@ -234,6 +276,11 @@ Shay * Game::GetShaysWorld() const
 	return shaysWorld;
 }
 
+Menu * Game::GetMenu() const
+{
+	return menuScreens;
+}
+
 int Game::GetState() const
 {
 	return state;
@@ -254,7 +301,6 @@ void Game::SwitchState()
 		// temporary the need to work in silence
 		//bgmControl.SetSong(1);
 	}
-
 }
 
 void Game::DrawGUI()
@@ -275,6 +321,8 @@ void Game::DrawGUI()
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //GL_NEAREST = no smoothing
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textures[0].GetWidth(), textures[0].GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, &temp[0]);
+
+	glutPassiveMotionFunc(NULL);
 
 	//Draw Healthbar
 	glPushMatrix();

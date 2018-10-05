@@ -1,7 +1,6 @@
 #include <pch.h>
 
 #include "Player.h"
-#include "Cube.h"
 
 Player::Player() : lookFB{ 0.0, 0.0, -1.0 },
 				   lookLR{ 1.0, 1.0, 0.0 },
@@ -13,6 +12,7 @@ Player::Player() : lookFB{ 0.0, 0.0, -1.0 },
 				   deltaRotLR(0.0),
 				   deltaRotUD(0.0)
 {
+	
 
 }
 
@@ -22,30 +22,66 @@ Player* Player::GetInstance() {
 	return &instance;
 }
 
-void Player::Update(Cube * tempCube) {
+void Player::Update(std::map <ActorTag, std::vector <Actor>> & objectList) {
 	
-	Move();
+	std::vector <Actor> resultObjectList;
 
-	collisionBox.SetMaxPoint(position.GetPointX() + 0.5, position.GetPointY() + 0.5, position.GetPointZ() + 0.5);
-	collisionBox.SetMinPoint(position.GetPointX() - 0.5, position.GetPointY() - 0.5, position.GetPointZ() - 0.5);
+	Move();
 
 	glLoadIdentity();
 	gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),
 	position.GetPointX() + lookFB.x, position.GetPointY() + lookFB.y + 1.8, position.GetPointZ() + lookFB.z,
 	0.0, 1.0, 0.0);
-	for (int ii = 0; ii < 4; ii++)
+
+	collisionBox.SetMaxPoint(position.GetPointX() + 0.5, position.GetPointY() + 0.5, position.GetPointZ() + 0.5);
+	collisionBox.SetMinPoint(position.GetPointX() - 0.5, position.GetPointY() - 0.5, position.GetPointZ() - 0.5);
+
+	for (std::map <ActorTag, std::vector<Actor>>::iterator object = objectList.begin(); object != objectList.end(); ++object)
 	{
-		if (collisionBox.AABBtoAABB(tempCube[ii].GetCollider()))
+		std::vector <Actor> tempObjectList;
+		
+		//std::cout << "object enum: " << object->first << std::endl;
+
+		for (int ii = 0; ii < object->second.size(); ii++)
 		{
-			collisionBox.CollideWith(this, tempCube[ii]);
-			std::cout << "Collided" << std::endl;
-			//std::cout << "camera position x: " << position.GetPointX() << std::endl;
-			//std::cout << "camera position y: " << position.GetPointY() << std::endl;
-			//std::cout << "camera position z: " << position.GetPointZ() << std::endl;
+			tempObjectList.push_back(object->second[ii]);
+		}
+
+		for (int ii = 0; ii < tempObjectList.size(); ii++)
+		{
+			if (collisionBox.ProximityCull(position, tempObjectList[ii]))
+			{
+				resultObjectList.push_back(tempObjectList[ii]);
+			}
 		}
 	}
-	
-	
+
+	for (int ii = 0; ii < resultObjectList.size(); ii++)
+	{
+		/*
+		std::cout << "Player max X: " << collisionBox.GetMaxPoint().GetPointX() << std::endl;
+		std::cout << "Player max Y: " << collisionBox.GetMaxPoint().GetPointY() << std::endl;
+		std::cout << "Player max Z: " << collisionBox.GetMaxPoint().GetPointZ() << std::endl;
+
+		std::cout << "Result ObjectList max X: " << resultObjectList[ii].GetCollider().GetMaxPoint().GetPointX() << std::endl;
+		std::cout << "Result ObjectList max Y: " << resultObjectList[ii].GetCollider().GetMaxPoint().GetPointY() << std::endl;
+		std::cout << "Result ObjectList max Z: " << resultObjectList[ii].GetCollider().GetMaxPoint().GetPointZ() << std::endl;
+
+		std::cout << "Player min X: " << collisionBox.GetMinPoint().GetPointX() << std::endl;
+		std::cout << "Player min Y: " << collisionBox.GetMinPoint().GetPointY() << std::endl;
+		std::cout << "Player min Z: " << collisionBox.GetMinPoint().GetPointZ() << std::endl;
+
+		std::cout << "Result ObjectList min X: " << resultObjectList[ii].GetCollider().GetMinPoint().GetPointX() << std::endl;
+		std::cout << "Result ObjectList min Y: " << resultObjectList[ii].GetCollider().GetMinPoint().GetPointY() << std::endl;
+		std::cout << "Result ObjectList min Z: " << resultObjectList[ii].GetCollider().GetMinPoint().GetPointZ() << std::endl;
+		*/
+
+		if (collisionBox.AABBtoAABB(resultObjectList[ii].GetCollider()))
+		{
+			std::cout << "Collided" << std::endl;
+			collisionBox.CollideWith(this, resultObjectList[ii]);
+		}
+	}
 }
 
 void Player::DirectionFB(const GLdouble tempMove) {

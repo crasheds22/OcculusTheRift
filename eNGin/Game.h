@@ -10,11 +10,12 @@
 #include <iostream>
 
 #include "Player.h"
-#include "Cube.h"
+#include "Menu.h"
 #include "Model.h"
 #include "Texture.h"
 #include "Shay.h"
 #include "MusicPlayer.h"
+#include "Wall.h"
 
 #define SHAY_STATE 0
 #define MENU_STATE 1
@@ -107,6 +108,8 @@ public:
 	*/
 	Shay * GetShaysWorld() const;
 
+	Menu * GetMenu() const;
+
 	/**
 	*	A normal member returning the state value
 	*	Returns the value representing the current state of the game
@@ -140,6 +143,9 @@ public:
 	void SetCentreY(int y);
 
 private:
+
+	
+
 	float deltaTime;			/*<! A change in time variable> */
 	int state;					/*<! an int representing current game state>*/
 
@@ -147,11 +153,15 @@ private:
 
 	Player *playerCharacter;		/*<! The player in a scene */
 
-	Cube * cubist;
+	Wall * testWall;
+
+	Menu * menuScreens;
+
+	std::map <Actor::ActorTag, std::vector <Actor>> theEntities;
 
 	MusicPlayer bgmControl;		/*<! Handles the BGM for the Game> */
 
-	std::vector<Model> models;		/*<! All possible models to be used in the running of the game */
+	std::vector<Model*> models;		/*<! All possible models to be used in the running of the game */
 	std::vector<Texture> textures;	/*<! All possible textures to be used in the running of the game */
 
 	//std::map<Tag, std::vector<Actor>> Entities; /*<! All entities in the current level */
@@ -160,6 +170,8 @@ private:
 		centreY;		/*<! The y value of the centre of the screen */
 
 	bool exitScreen;
+
+	bool menuScreen;
 
 	/**
 	 *	A normal member taking no arguments

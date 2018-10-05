@@ -78,7 +78,7 @@ Vector3 Actor::GetScale() {
 	return scale;
 }
 
-const Collider Actor::GetCollider()
+Collider Actor::GetCollider()
 {
 	return collisionBox;
 }
