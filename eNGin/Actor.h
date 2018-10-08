@@ -192,6 +192,8 @@ protected:
 	
 	double maxHealth, health,
 		maxStamina, stamina;
+
+	bool emptyHands = true;
 };
 
 #endif

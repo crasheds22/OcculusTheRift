@@ -1,43 +1,38 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
+#include <vector>
+
 #include "Actor.h"
 #include "State.h"
 #include "EnemyOwnedStates.h"
 
 class Enemy : public Actor {
 public:
-	Enemy(Model* mod, Texture* tex);
+	Enemy(Model* mod, Texture* tex, std::vector<Vector3> f);
 
 	void Update(float deltaTime);
 
 	void ChangeState(State* newState);
 
-	void Wander();
-	void Chase(Vector3 targetPos);
-	void Attack();
-	void Search(Vector3 targetPos);
-
-	void FindTarget(Actor &target);
-
-	//Movement functions
-	void DirectionFB(const double tempMove);
-	void DirectionUD(const double tempMove);
-	void DirectionLR(const double tempMove);
-	void DirectionLookUD(const double tempRot);
-	void DirectionLookLR(const double tempRot);
-
 	double GetFB();
 	double GetLR();
 	double GetUD();
 
-	void Move();
+	void MoveX(double moveX);
+	void MoveY(double moveY);
+	void MoveZ(double moveZ);
+	void RotateXZ();
+	void RotateXY();
+
 private:
 	State* currentState;
 
-	Vector3 target;
-
 	double decelVal = 2;
+
+	float dT;
+
+	//===============================================================
 
 	Vector3 lookFB,
 		    lookLR;
@@ -51,13 +46,6 @@ private:
 		   deltaRotLR,
 		   deltaRotUD;
 
-	bool firstWanderEntry = true;
-
-	void MoveFB();
-	void MoveLR();
-	void MoveUD();
-	void LookUD();
-	void LookLR();
 };
 
 #endif

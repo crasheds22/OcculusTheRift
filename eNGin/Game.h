@@ -11,7 +11,6 @@
 #include <iostream>
 
 #include "Player.h"
-#include "Cube.h"
 #include "Menu.h"
 #include "Model.h"
 #include "Texture.h"
@@ -32,13 +31,6 @@
 #define tWALL 2
 #define tPOWERUP 3
 #define tEXIT 4
-
-enum Tag {
-	PLAYER,
-	ENEMY,
-	WALL,
-	POWERUP
-};
 
 /**
  *	@class Game

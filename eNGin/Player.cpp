@@ -25,6 +25,7 @@ Player* Player::GetInstance() {
 
 void Player::Update(float deltaTime, std::map<int, std::vector<Actor>> entityMap) {
 	Move(deltaTime);
+
 	glLoadIdentity();
 	gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),
 			  position.GetPointX() + lookFB.x, position.GetPointY() + lookFB.y + 1.8, position.GetPointZ() + lookFB.z,
@@ -33,32 +34,19 @@ void Player::Update(float deltaTime, std::map<int, std::vector<Actor>> entityMap
 	collisionBox.SetMaxPoint(position.GetPointX() + 0.5, position.GetPointY() + 0.5, position.GetPointZ() + 0.5);
 	collisionBox.SetMinPoint(position.GetPointX() - 0.5, position.GetPointY() - 0.5, position.GetPointZ() - 0.5);
 
-
-		//Check for Wall Collisions
-		for (int ii = 0; ii < entityMap[2].size(); ii++)
+	//Check for Wall Collisions
+	for (int ii = 0; ii < entityMap[2].size(); ii++)
+	{
+		if (collisionBox.AABBtoAABB(entityMap[2][ii].GetCollider()))
 		{
-
-			std::cout << "Object List position X: " << entityMap[2][ii].GetPos().GetPointX() << std::endl;
-			std::cout << "Object List position Y: " << entityMap[2][ii].GetPos().GetPointY() << std::endl;
-			std::cout << "Object List position Z: " << entityMap[2][ii].GetPos().GetPointZ() << std::endl;
-
-			if (collisionBox.AABBtoAABB(entityMap[2][ii].GetCollider()))
-			{
-				std::cout << "Collided" << std::endl;
-				collisionBox.CollideWith(this, entityMap[2][ii]);
-			}
-			else
-			{
-				std::cout << "No Collision" << std::endl;
-			}
+			collisionBox.CollideWith(this, entityMap[2][ii]);
 		}
+	}
 }
 
 void Player::DirectionB(const GLdouble tempMove) {
 	deltaMoveB = tempMove;
 }
-
-
 
 void Player::DirectionR(const GLdouble tempMove) {
 	deltaMoveR = tempMove;
@@ -68,13 +56,9 @@ void Player::DirectionF(const GLdouble tempMove) {
 	deltaMoveF = tempMove;
 }
 
-
-
 void Player::DirectionL(const GLdouble tempMove) {
 	deltaMoveL = tempMove;
 }
-
-
 
 void Player::DirectionUD(const GLdouble tempMove) {
 	deltaMoveUD = tempMove;
@@ -84,12 +68,12 @@ void Player::DirectionLookLR(const GLdouble tempRot) {
 	deltaRotLR = tempRot * rotateSpeed;
 }
 
-GLdouble Player::GetFB() {
-	return position.GetPointZ();
-}
-
 void Player::DirectionLookUD(const GLdouble tempRot) {
 	deltaRotUD = tempRot * rotateSpeed;
+}
+
+GLdouble Player::GetFB() {
+	return position.GetPointZ();
 }
 
 GLdouble Player::GetLR() {
@@ -101,9 +85,9 @@ GLdouble Player::GetUD() {
 }
 
 void Player::Move(float deltaTime) {
-
 	deltaMoveFB = deltaMoveF - deltaMoveB;
 	deltaMoveLR = deltaMoveR - deltaMoveL;
+
 	if (deltaMoveFB != 0)
 		MoveFB(deltaTime);
 

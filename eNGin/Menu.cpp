@@ -95,7 +95,7 @@ void Menu::MouseClick(int button, int state, int x, int y)
 		}
 		else if ((x >= xLeft && x <= xRight) && (y >= yUp + 90 && y <= yDown + 90))
 		{
-			owner->SetState(GAME_STATE);
+			owner->SetState(LOAD_STATE);
 		}
 		else if ((x >= xLeft && x <= xRight) && (y >= yUp + 180 && y <= yDown + 180))
 		{

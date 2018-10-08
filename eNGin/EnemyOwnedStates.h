@@ -1,6 +1,9 @@
 #ifndef ENEMYOWNEDSTATES_H
 #define ENEMYOWNEDSTATES_H
 
+#include <vector>
+#include "Vector3.h"
+
 #include "State.h"
 
 /**
@@ -16,11 +19,16 @@ public:
 
 	virtual void Exit(Enemy* entity);
 
+	void SetFlags(std::vector<Vector3> tempFlags);
+
 private:
 	WanderState() {};
 
 	WanderState(const WanderState&) {};
 	WanderState& operator= (const WanderState&) {};
+
+	std::vector<Vector3> flags;
+	std::vector<Vector3>::iterator fIter;
 };
 
 /**
@@ -58,23 +66,6 @@ private:
 
 	AttackState(const AttackState&) {};
 	AttackState& operator= (const AttackState&) {};
-};
-
-class SearchState : public State {
-public:
-	static SearchState* Instance();
-
-	virtual void Enter(Enemy* entity);
-
-	virtual void Execute(Enemy* entity);
-
-	virtual void Exit(Enemy* entity);
-
-private:
-	SearchState() {};
-
-	SearchState(const SearchState&) {};
-	SearchState& operator= (const SearchState&) {};
 };
 
 #endif
