@@ -99,7 +99,7 @@ public:
 	*	@param in The vector to multiply by
 	*	@return Vector3 The resultant vector
 	*/
-	Vector3 CrossProduct(Vector3 &in);
+	Vector3 CrossProduct(Vector3 in);
 
 	/**
 	*	A utility function taking one argument and returning a Vector3

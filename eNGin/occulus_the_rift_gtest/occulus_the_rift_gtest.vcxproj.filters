@@ -83,7 +83,13 @@
     </ClCompile>
     <ClCompile Include="Test004Texture.cpp" />
     <ClCompile Include="Test005Model.cpp" />
-    <ClCompile Include="Test003Game.cpp" />
+    <ClCompile Include="..\Quarternion.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Test006Quarternion.cpp" />
+    <ClCompile Include="..\Dungeon.cpp" />
+    <ClCompile Include="..\Wall.cpp" />
+    <ClCompile Include="Test007Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -165,6 +171,11 @@
     <ClInclude Include="..\Vector3.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="..\Quarternion.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dungeon.h" />
+    <ClInclude Include="..\Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="occulus_the_rift_gtest.rc" />

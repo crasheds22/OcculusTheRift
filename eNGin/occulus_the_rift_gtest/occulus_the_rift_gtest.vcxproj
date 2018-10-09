@@ -39,7 +39,7 @@
     <ReferencePath>$(projectDir)..;$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(projectDir)..;$(projectDir)../Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(projectDir)..;$(projectDir)../Include;$(projectDir).;$(IncludePath)</IncludePath>
     <LibraryPath>$(projectDir)../Library;$(LibraryPath)</LibraryPath>
     <SourcePath>$(projectDir)..;$(SourcePath)</SourcePath>
   </PropertyGroup>
@@ -52,12 +52,14 @@
     <ClInclude Include="..\Actor.h" />
     <ClInclude Include="..\Collider.h" />
     <ClInclude Include="..\Cube.h" />
+    <ClInclude Include="..\Dungeon.h" />
     <ClInclude Include="..\Game.h" />
     <ClInclude Include="..\lodepng.h" />
     <ClInclude Include="..\Model.h" />
     <ClInclude Include="..\MusicPlayer.h" />
     <ClInclude Include="..\Player.h" />
     <ClInclude Include="..\Projection.h" />
+    <ClInclude Include="..\Quarternion.h" />
     <ClInclude Include="..\Shay.h" />
     <ClInclude Include="..\Shay\AABB.h" />
     <ClInclude Include="..\Shay\AABBLinkedList.h" />
@@ -74,6 +76,7 @@
     <ClInclude Include="..\Shay\texturedPolygons.h" />
     <ClInclude Include="..\Texture.h" />
     <ClInclude Include="..\Vector3.h" />
+    <ClInclude Include="..\Wall.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -81,12 +84,14 @@
     <ClCompile Include="..\Actor.cpp" />
     <ClCompile Include="..\Collider.cpp" />
     <ClCompile Include="..\Cube.cpp" />
+    <ClCompile Include="..\Dungeon.cpp" />
     <ClCompile Include="..\Game.cpp" />
     <ClCompile Include="..\lodepng.cpp" />
     <ClCompile Include="..\Model.cpp" />
     <ClCompile Include="..\MusicPlayer.cpp" />
     <ClCompile Include="..\Player.cpp" />
     <ClCompile Include="..\Projection.cpp" />
+    <ClCompile Include="..\Quarternion.cpp" />
     <ClCompile Include="..\Shay.cpp" />
     <ClCompile Include="..\Shay\AABB.CPP" />
     <ClCompile Include="..\Shay\AABBLinkedList.cpp" />
@@ -103,6 +108,7 @@
     <ClCompile Include="..\Shay\texturedPolygons.cpp" />
     <ClCompile Include="..\Texture.cpp" />
     <ClCompile Include="..\Vector3.cpp" />
+    <ClCompile Include="..\Wall.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -113,9 +119,10 @@
     <ClCompile Include="Test002Music.cpp" />
     <ClCompile Include="Test000Vector3.cpp" />
     <ClCompile Include="Test001AABB.cpp" />
-    <ClCompile Include="Test003Game.cpp" />
     <ClCompile Include="Test004Texture.cpp" />
     <ClCompile Include="Test005Model.cpp" />
+    <ClCompile Include="Test006Quarternion.cpp" />
+    <ClCompile Include="Test007Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\data\440window.raw" />
@@ -224,6 +231,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>$(projectDir)../Library;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

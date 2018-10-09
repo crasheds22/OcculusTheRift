@@ -5,6 +5,7 @@
 
 #include "Actor.h"
 #include "Cube.h"
+#include "Quarternion.h"
 
 /**
  *	@class Player
@@ -120,6 +121,20 @@ public:
 	void Move(float deltaTime);
 	//========================================
 
+
+	void SetCameraViewLR(Vector3 inputVector);
+	void SetCameraViewUD(Vector3 inputVector);
+	void SetCameraViewDelta(Vector3 inputVector);
+	void SetCameraUp(Vector3 inputVector);
+	Vector3 GetCameraViewLR();
+	Vector3 GetCameraViewUD();
+	Vector3 GetCameraViewDelta();
+	Vector3 GetCameraUp();
+
+	Quarternion RotateCameraLR(GLdouble mouseAngle, Vector3 pAxis, Vector3 qAxis,float deltaTime);
+	Quarternion RotateCameraUD(GLdouble mouseAngle, Vector3 pAxis, Vector3 qAxis,float deltaTime);
+	Vector3 RotateCameraDelta(Vector3 axisOne, Vector3 axisTwo);
+
 private:
 	//========================================
 	//Singleton design
@@ -147,10 +162,10 @@ private:
 			 deltaMoveLR,	/*<! The total change in direction left/right */
 			 deltaMoveUD;	/*<! The total change in direction up/down */
 
-	GLdouble deltaMoveF,/*<! The change in direction forward */
-		deltaMoveB, /*<! The change in direction backward */
-		deltaMoveL, /*<! The change in direction left */
-		deltaMoveR; /*<! The change in direction right */
+	GLdouble	deltaMoveF, /*<! The change in direction forward */
+				deltaMoveB, /*<! The change in direction backward */
+				deltaMoveL, /*<! The change in direction left */
+				deltaMoveR; /*<! The change in direction right */
 	//========================================
 
 	//========================================
@@ -160,6 +175,11 @@ private:
 			 deltaRotLR,/*<! The change in rotation angle left/right */
 			 deltaRotUD;/*<! The change in rotation angle up/down */
 	//========================================
+
+	Vector3 cameraViewDelta;
+	Vector3 cameraViewLR;
+	Vector3 cameraViewUD;
+	Vector3 cameraUp;
 
 	//========================================
 	// Move functions
@@ -193,6 +213,10 @@ private:
 	 */
 	void LookLR(float deltaTime);
 	//========================================
+
+
+
+
 };
 
 #endif
