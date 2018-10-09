@@ -163,3 +163,18 @@ Vector3 Vector3::operator*(GLdouble &scalar)
 	return tempVector;
 }
 
+Vector3& Vector3::operator-=(const Vector3 &rhs) {
+	x -= rhs.x;
+	y -= rhs.y;
+	z -= rhs.z;
+
+	return *this;
+}
+
+Vector3 operator-(const Vector3 &lhs, const Vector3 &rhs) {
+	Vector3 result(lhs);
+
+	result -= rhs;
+
+	return result;
+}

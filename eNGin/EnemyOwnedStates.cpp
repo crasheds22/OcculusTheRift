@@ -7,11 +7,12 @@
 //==================
 
 //======================================================
+//Wander State
 
-WanderState* WanderState::Instance() {
-	static WanderState instance;
+WanderState::WanderState(Enemy* entity) {
+	flags = entity->GetFlags();
 
-	return &instance;
+	fIter = flags.begin();
 }
 
 void WanderState::Enter(Enemy* entity) {
@@ -20,33 +21,32 @@ void WanderState::Enter(Enemy* entity) {
 
 void WanderState::Execute(Enemy* entity) {
 	//Check player location for detection
-	Vector3 pDirection(entity->GetLR() - Player::GetInstance()->GetLR(), entity->GetUD() - Player::GetInstance()->GetUD(), entity->GetFB() - Player::GetInstance()->GetFB());
+	Vector3 pDirection(entity->GetPos() - Player::GetInstance()->GetPos());
 	double pDistance = pDirection.VectorMagnitude();
 
 	if (pDistance <= 24) {
-		//If player in range
-		entity->ChangeState(ChaseState::Instance());
+		//If player in range, chase them
+		entity->ChangeState(entity->GetChase());
 	}
-	else {
-		//Move to next flag in list
-		Vector3 temp = *fIter;
 
-		Vector3 direction(temp.GetPointX() - entity->GetLR(), temp.GetPointY() - entity->GetUD(), temp.GetPointZ() - entity->GetFB());
-		double distance = direction.VectorMagnitude();
+	//Move to flag
+	Vector3 temp = *fIter;
 
-		if (distance <= 2.0) {
-			if (fIter == flags.end()) {
-				fIter = flags.begin();
-			}
-			else {
-				fIter++;
-			}
+	Vector3 direction(temp - entity->GetPos());
+	double distance = direction.VectorMagnitude();
+
+	if (distance <= 2.0) {
+		if (fIter == flags.end()) {
+			fIter = flags.begin();
 		}
 		else {
-			entity->MoveX(direction.GetPointX());
-			entity->MoveY(direction.GetPointY());
-			entity->MoveZ(direction.GetPointZ());
+			fIter++;
 		}
+	}
+	else {
+		entity->MoveX(direction.GetPointX());
+		entity->MoveY(direction.GetPointY());
+		entity->MoveZ(direction.GetPointZ());
 	}
 }
 
@@ -54,19 +54,8 @@ void WanderState::Exit(Enemy* entity) {
 	std::cout << "Exit wander state" << std::endl;
 }
 
-void WanderState::SetFlags(std::vector<Vector3> tempFlags) {
-	flags = tempFlags;
-
-	fIter = flags.begin();
-}
-
 //======================================================
-
-ChaseState* ChaseState::Instance() {
-	static ChaseState instance;
-
-	return &instance;
-}
+//Chase State
 
 void ChaseState::Enter(Enemy* entity) {
 	std::cout << "Chase state enter" << std::endl;
@@ -78,11 +67,11 @@ void ChaseState::Execute(Enemy* entity) {
 
 	if (distance <= 8.0) {
 		//Close enough to attack
-		entity->ChangeState(AttackState::Instance());
+		entity->ChangeState(entity->GetAttack());
 	}
 	else if (distance >= 24.0) {
-		//Get last known player position, move towards it.
-		entity->ChangeState(WanderState::Instance());
+		//Player out of range
+		entity->ChangeState(entity->GetWander());
 	}
 	else {
 		//Chase player down
@@ -97,21 +86,14 @@ void ChaseState::Exit(Enemy* entity) {
 }
 
 //======================================================
-
-AttackState* AttackState::Instance() {
-	static AttackState instance;
-
-	return &instance;
-}
+//Attack State
 
 void AttackState::Enter(Enemy* entity) {
 	std::cout << "Enter attack state" << std::endl;
 }
 
 void AttackState::Execute(Enemy* entity) {
-
-	entity->ChangeState(ChaseState::Instance());
-
+	std::cout << "attacked" << std::endl;
 }
 
 void AttackState::Exit(Enemy* entity) {

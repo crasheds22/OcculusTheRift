@@ -1,20 +1,17 @@
 #include "Enemy.h"
 
-Enemy::Enemy(Model* mod, Texture* tex, std::vector<Vector3> f) : Actor(mod, tex),
-															   lookFB( 0.0, 0.0, -1.0 ),
-															   lookLR( 1.0, 1.0, 0.0 ),
-															   deltaMoveFB(0.0),
-															   deltaMoveLR(0.0),
-															   deltaMoveUD(0.0),
-															   rotLR(0.0),
-														 	   rotUD(0.0),
-															   deltaRotLR(0.0),
-															   deltaRotUD(0.0),
-															   currentState(WanderState::Instance())
+#include <iostream>
+
+Enemy::Enemy(Model* mod, Texture* tex, float xPos, float yPos, float zPos, std::vector<Vector3> &f) : Actor(mod, tex),
+																									  tempFlags(f)
 {
+	SetPos(xPos, yPos, zPos);
 	SetMoveSpeed(4);
 	SetRotateSpeed(5);
-	
+
+	wander = new WanderState(this);
+
+	currentState = wander;
 }
 
 void Enemy::Update(float deltaTime) {
@@ -31,6 +28,22 @@ void Enemy::ChangeState(State* newState) {
 	currentState = newState;
 
 	currentState->Enter(this);
+}
+
+State* Enemy::GetWander() {
+	return wander;
+}
+
+State* Enemy::GetChase() {
+	return chase;
+}
+
+State* Enemy::GetAttack() {
+	return attack;
+}
+
+std::vector<Vector3> Enemy::GetFlags() {
+	return tempFlags;
 }
 
 //=============================================================================

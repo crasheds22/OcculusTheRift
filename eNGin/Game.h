@@ -19,6 +19,7 @@
 #include "Wall.h"
 #include "Dungeon.h"
 #include "LevelExit.h"
+#include "Enemy.h"
 
 #define SHAY_STATE 0
 #define MENU_STATE 1
@@ -196,12 +197,11 @@ public:
 
 	/**
 	*	@brief to get the pointer to the player object
-	*	@param
 	*	@return memory address of the player
-	*	@pre
-	*	@post
 	*/
 	Player* GetPlayer() const;
+
+	void AddEnemy(float x, float y, float z, std::vector<Vector3> &f);
 
 private:
 	float startTime;			/*<! start counting time variable> */

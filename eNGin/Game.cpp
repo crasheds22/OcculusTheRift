@@ -8,7 +8,9 @@ Game::Game()
 	
 	shaysWorld = new Shay(this);
 	menuScreens = new Menu(this);
+
 	state = MENU_STATE;
+	
 	textures.resize(10);
 	models.resize(10);
 
@@ -32,7 +34,6 @@ Game::~Game()
 
 void Game::Run() 
 {
-	
 	endTime = glutGet(GLUT_ELAPSED_TIME);
 	deltaTime = (endTime - startTime)/1000;
 	Draw();
@@ -60,12 +61,15 @@ void Game::Initialise()
 	textures[3].LoadTexture("data/floor.png", 32, 32);
 	textures[4].LoadTexture("data/Statue.png", 1024, 1024);
 	textures[5].LoadTexture("data/Menu.png", 768, 768);
+	textures[6].LoadTexture("data/eyeball.png", 128, 128);
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
+	models[2] = new Model("data/eyeball.obj");
 
 	std::vector <Actor> tempObjectVectorOne;
 	std::vector <Actor> tempObjectVectorTwo;
+	std::vector <Actor> tempObjectVectorThree;
 
 
 	std::pair <int, std::vector <Actor>> enumActor;
@@ -79,13 +83,17 @@ void Game::Initialise()
 	enumActor.second = tempObjectVectorTwo;
 
 	Entities.insert(enumActorTwo);
+	
+	std::pair <int, std::vector <Actor>> enumActorThree;
+	enumActor.first = tEnemy;
+	enumActor.second = tempObjectVectorThree;
+
+	Entities.insert(enumActorThree);
 }
 
 void Game::Update(float deltaTime)
 {
 	std::map<int, std::vector<Actor>> tempMap;
-
-	
 
 	bgmControl.PlaySong();
 	
@@ -96,6 +104,10 @@ void Game::Update(float deltaTime)
 			if (Entities[tEXIT][0].GetCollider().AABBtoAABB(playerCharacter->GetCollider()))
 			{
 				ClearLevel();
+			}
+			
+			for (int i = 0; i < Entities[tEnemy].size(); i++) {
+				Entities[tEnemy][i].Update(deltaTime);
 			}
 
 			for (std::map <int, std::vector<Actor>>::iterator object = Entities.begin(); object != Entities.end(); ++object)
@@ -110,7 +122,6 @@ void Game::Update(float deltaTime)
 					
 					if (ProximityCull(playerCharacter->GetPos(), temp))
 					{
-						std::cout << "Object added" << std::endl;
 						resultObjectList.push_back(*col);
 					}
 				}
@@ -122,13 +133,15 @@ void Game::Update(float deltaTime)
 
 			playerCharacter->Update(deltaTime, tempMap);
 
-			for (std::map <int, std::vector<Actor>>::iterator object = Entities.begin(); object != Entities.end(); ++object)
+			
+
+			/*for (std::map <int, std::vector<Actor>>::iterator object = Entities.begin(); object != Entities.end(); ++object)
 			{
 				for (std::vector<Actor>::iterator col = object->second.begin(); col != object->second.end(); col++)
 				{
 					col->Update(deltaTime);
 				}
-			}
+			}*/
 			
 			break;
 
@@ -158,7 +171,6 @@ void Game::Draw()
 		case SHAY_STATE:
 			if (shaysWorld != NULL)
 			{
-				std::cout << "Drawing Shay" << std::endl;
 				shaysWorld->SetWidthHeight(800, 500);
 				glEnable(GL_DEPTH_TEST);
 				glMatrixMode(GL_PROJECTION);
@@ -186,11 +198,15 @@ void Game::Draw()
 			{
 				Entities[tEXIT][ii].Draw();
 			}
-
 			glPopMatrix();
 
 			dungeon->DrawRoof(textures[2]);
 			dungeon->DrawFloor(textures[3]);
+
+			for (int i = 0; i < Entities[tEnemy].size(); i++) 
+			{
+				Entities[tEnemy][i].Draw();
+			}
 
 			glPushMatrix();
 				if (exitScreen)
@@ -278,7 +294,6 @@ void Game::MouseLook(int x, int y)
 		int deltaX = ((centreX - x) < 0) - (0 < (centreX - x));
 		int deltaY = -(((centreY - y) < 0) - (0 < (centreY - y)));
 
-		std::cout << "Delta Time: " << deltaTime << std::endl;
 		playerCharacter->DirectionLookLR(deltaX);
 		playerCharacter->DirectionLookUD(deltaY);
 	}
@@ -386,16 +401,13 @@ int Game::GetCentreY()
 	return centreY;
 }
 
-
 void Game::AddWall(float x, float y, float z)
 {
-	
 	Entities[tWALL].push_back(Wall(x, y, z, models[0], &textures[1]));
 }
 
 void Game::AddExit(float x, float y, float z)
 {
-
 	Entities[tEXIT].push_back(LevelExit(x, y, z, models[0], &textures[4]));
 }
 
@@ -403,7 +415,6 @@ Player * Game::GetPlayer() const
 {
 	return playerCharacter;
 }
-
 
 bool Game::ProximityCull(Vector3 actorPosition, Vector3 &inputObject)
 {
@@ -431,4 +442,11 @@ void Game::ClearLevel()
 	delete dungeon;
 	dungeon = NULL;
 	state = LOAD_STATE;
+}
+
+void Game::AddEnemy(float x, float y, float z, std::vector<Vector3> &f)
+{
+	Enemy temp(models[2], &textures[6], x, y, z, f);
+
+	Entities[tEnemy].push_back(temp);
 }

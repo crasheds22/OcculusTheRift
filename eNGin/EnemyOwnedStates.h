@@ -11,7 +11,7 @@
  */
 class WanderState : public State {
 public:
-	static WanderState* Instance();
+	WanderState(Enemy* entity);
 
 	virtual void Enter(Enemy* entity);
 
@@ -19,14 +19,9 @@ public:
 
 	virtual void Exit(Enemy* entity);
 
-	void SetFlags(std::vector<Vector3> tempFlags);
+	void SetFlags(std::vector<Vector3> &f);
 
 private:
-	WanderState() {};
-
-	WanderState(const WanderState&) {};
-	WanderState& operator= (const WanderState&) {};
-
 	std::vector<Vector3> flags;
 	std::vector<Vector3>::iterator fIter;
 };
@@ -36,8 +31,6 @@ private:
  */
 class ChaseState : public State {
 public:
-	static ChaseState* Instance();
-
 	virtual void Enter(Enemy* entity);
 
 	virtual void Execute(Enemy* entity);
@@ -45,16 +38,11 @@ public:
 	virtual void Exit(Enemy* entity);
 
 private:
-	ChaseState() {};
 
-	ChaseState(const ChaseState&) {};
-	ChaseState& operator= (const ChaseState&) {};
 };
 
 class AttackState : public State {
 public:
-	static AttackState* Instance();
-
 	virtual void Enter(Enemy* entity);
 
 	virtual void Execute(Enemy* entity);
@@ -62,10 +50,7 @@ public:
 	virtual void Exit(Enemy* entity);
 
 private:
-	AttackState() {};
 
-	AttackState(const AttackState&) {};
-	AttackState& operator= (const AttackState&) {};
 };
 
 #endif

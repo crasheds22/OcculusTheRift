@@ -3,9 +3,6 @@
 #include <random>
 #include<iostream>
 
-
-
-
 Dungeon::~Dungeon()
 {
 	for (int i = 0; i < gridWidth; i++)
@@ -86,12 +83,10 @@ void Dungeon::DrawRoof(Texture & tex)
 				glVertex3f(xx + 2, yy, zz - 2);
 			glEnd();
 			glPopMatrix();
-			
 		}
 	}
 	glDisable(GL_TEXTURE_2D);
 }
-
 
 Dungeon::Dungeon(Game* gameIn)
 {
@@ -100,8 +95,9 @@ Dungeon::Dungeon(Game* gameIn)
 	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
 	std::uniform_int_distribution<int> uni(GO_LEFT, GO_DOWN); // guaranteed unbiased
 
-	dir = uni(rng);
+	int ex, ez;
 
+	dir = uni(rng);
 	
 	nSteps = 400;
 	
@@ -110,7 +106,6 @@ Dungeon::Dungeon(Game* gameIn)
 
 	xPos = gridWidth / 2;
 	yPos = gridHeight / 2;
-
 
 	grid = new int*[gridWidth];
 
@@ -129,16 +124,17 @@ Dungeon::Dungeon(Game* gameIn)
 		}
 	}
 
-	
-
 	for (int i = 0; i < nSteps; i++)
 	{
 		grid[xPos][yPos] = 1;
-		std::cout << "Tile Placed" << std::endl;
 		prevDir = dir;
 		dir = uni(rng);
-		std::cout << "Movement Chosen" << std::endl;
 		
+		if (i == nSteps - 2) {
+			ex = xPos;
+			ez = yPos;
+		}
+
 		switch(dir)
 		{
 			case GO_LEFT:
@@ -169,9 +165,8 @@ Dungeon::Dungeon(Game* gameIn)
 				}
 				break;
 		}
-		std::cout << "Movement Taken" << std::endl;
-		std::cout << "Step: " << i << std::endl;
 	}
+
 	owner->AddExit(xPos * 4, -1, yPos * 4);
 
 	for (xx = 0; xx < gridWidth; xx++)
@@ -188,6 +183,8 @@ Dungeon::Dungeon(Game* gameIn)
 			}
 		}
 	}
+
+	owner->AddEnemy(ex * 4, 2, ez * 4, flags);
 
 	Vector3 startPos = Vector3((gridWidth / 2)*4, 0, (gridHeight / 2)*4);
 

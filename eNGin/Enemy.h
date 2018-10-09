@@ -9,11 +9,17 @@
 
 class Enemy : public Actor {
 public:
-	Enemy(Model* mod, Texture* tex, std::vector<Vector3> f);
+	Enemy(Model* mod, Texture* tex, float xPos, float yPos, float zPos, std::vector<Vector3> &f);
 
 	void Update(float deltaTime);
 
 	void ChangeState(State* newState);
+
+	State* GetWander();
+	State* GetChase();
+	State* GetAttack();
+
+	std::vector<Vector3> GetFlags();
 
 	double GetFB();
 	double GetLR();
@@ -28,24 +34,13 @@ public:
 private:
 	State* currentState;
 
-	double decelVal = 2;
+	WanderState* wander;
+	ChaseState* chase;
+	AttackState* attack;
+
+	std::vector<Vector3> tempFlags;
 
 	float dT;
-
-	//===============================================================
-
-	Vector3 lookFB,
-		    lookLR;
-
-	double deltaMoveFB,
-		   deltaMoveLR,
-		   deltaMoveUD;
-
-	double rotLR,
-		   rotUD,
-		   deltaRotLR,
-		   deltaRotUD;
-
 };
 
 #endif
