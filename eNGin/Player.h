@@ -122,13 +122,13 @@ public:
 	//========================================
 
 
-	void SetCameraViewLR(Vector3 inputVector);
-	void SetCameraViewUD(Vector3 inputVector);
-	void SetCameraViewDelta(Vector3 inputVector);
+	void SetCameraViewLR(Quarternion inputVector);
+	void SetCameraViewUD(Quarternion inputVector);
+	void SetCameraViewDelta(Quarternion inputVector);
 	void SetCameraUp(Vector3 inputVector);
-	Vector3 GetCameraViewLR();
-	Vector3 GetCameraViewUD();
-	Vector3 GetCameraViewDelta();
+	Quarternion GetCameraViewLR();
+	Quarternion GetCameraViewUD();
+	Quarternion GetCameraViewDelta();
 	Vector3 GetCameraUp();
 
 	Quarternion RotateCameraLR(GLdouble mouseAngle, Vector3 pAxis, Vector3 qAxis,float deltaTime);
@@ -176,9 +176,9 @@ private:
 			 deltaRotUD;/*<! The change in rotation angle up/down */
 	//========================================
 
-	Vector3 cameraViewDelta;
-	Vector3 cameraViewLR;
-	Vector3 cameraViewUD;
+	Quarternion cameraViewDelta;
+	Quarternion cameraViewLR;
+	Quarternion cameraViewUD;
 	Vector3 cameraUp;
 
 	//========================================
