@@ -91,6 +91,7 @@ void Menu::MouseClick(int button, int state, int x, int y)
 
 		if ((x >= xLeft && x <= xRight) && (y >= yUp && y <= yDown))
 		{
+
 			owner->SetState(SHAY_STATE);
 		}
 		else if ((x >= xLeft && x <= xRight) && (y >= yUp + 90 && y <= yDown + 90))

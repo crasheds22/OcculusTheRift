@@ -182,6 +182,10 @@ Dungeon::Dungeon(Game* gameIn)
 			{
 				owner->AddWall(xx * 4, 0, yy * 4);
 			}
+			else
+			{
+				flags.emplace_back(Vector3(xx * 4, 0, yy * 4));
+			}
 		}
 	}
 

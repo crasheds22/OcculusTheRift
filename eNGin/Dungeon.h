@@ -4,6 +4,8 @@ class Game;
 
 #include "gl/glut.h"
 #include "Texture.h"
+#include "Vector3.h"
+#include <vector>
 
 #define GO_LEFT 0
 #define GO_RIGHT 1
@@ -28,6 +30,8 @@ protected:
 	int yPos;
 
 	Game* owner;
+
+	std::vector<Vector3> flags;
 
 public:
 	Dungeon(Game* gameIn);

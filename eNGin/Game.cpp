@@ -158,6 +158,15 @@ void Game::Draw()
 		case SHAY_STATE:
 			if (shaysWorld != NULL)
 			{
+				std::cout << "Drawing Shay" << std::endl;
+				shaysWorld->SetWidthHeight(800, 500);
+				glEnable(GL_DEPTH_TEST);
+				glMatrixMode(GL_PROJECTION);
+				glLoadIdentity();
+
+				gluPerspective(60.0, 1, 1.0, 30.0);
+				glMatrixMode(GL_MODELVIEW);
+				glLoadIdentity();
 				shaysWorld->Draw();
 			}
 			break;
