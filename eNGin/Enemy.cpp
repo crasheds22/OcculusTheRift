@@ -10,11 +10,14 @@ Enemy::Enemy(Model* mod, Texture* tex, float xPos, float yPos, float zPos, std::
 	SetRotateSpeed(5);
 
 	wander = new WanderState(this);
+	chase = new ChaseState();
+	attack = new AttackState();
 
 	currentState = wander;
 }
 
 void Enemy::Update(float deltaTime) {
+	std::cout << "Enemy update" << std::endl;
 	dT = deltaTime;
 
 	if (currentState) {

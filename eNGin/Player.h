@@ -29,12 +29,14 @@ class Player : public Actor {
 public:
 	static Player* GetInstance();
 
+	void Update(float deltaTime) override {};
+
 	//========================================
 	/**
 	 *	An overridden member taking no arguments
 	 *	Updates the Player's location in the world
 	 */
-	void Update(float deltaTime, std::map<int, std::vector<Actor>> entityMap);
+	void Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap);
 	//========================================
 
 	//========================================

@@ -11,7 +11,7 @@ class Enemy : public Actor {
 public:
 	Enemy(Model* mod, Texture* tex, float xPos, float yPos, float zPos, std::vector<Vector3> &f);
 
-	void Update(float deltaTime);
+	void Update(float deltaTime) override;
 
 	void ChangeState(State* newState);
 

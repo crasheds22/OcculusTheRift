@@ -19,8 +19,6 @@ public:
 
 	virtual void Exit(Enemy* entity);
 
-	void SetFlags(std::vector<Vector3> &f);
-
 private:
 	std::vector<Vector3> flags;
 	std::vector<Vector3>::iterator fIter;

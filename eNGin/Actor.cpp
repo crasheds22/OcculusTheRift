@@ -22,10 +22,6 @@ Actor::Actor(Model* mod, Texture* tex) : moveSpeed(0.0),
 
 }
 
-void Actor::Update(float deltaTime) {
-
-}
-
 void Actor::Draw() {
 	if ((model != NULL) && (texture != NULL))
 	{

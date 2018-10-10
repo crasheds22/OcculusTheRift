@@ -14,7 +14,7 @@ public:
 
 	LevelExit(float x, float y, float z, Model* mod, Texture* tex);
 
-
+	void Update(float deltaTime) override {};
 protected:
 	float size = 1;
 };

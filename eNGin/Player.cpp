@@ -1,7 +1,6 @@
 #include <pch.h>
 
 #include "Player.h"
-#include "Cube.h"
 
 Player::Player() : lookFB{ 0.0, 0.0, -1.0 },
 				   lookLR{ 1.0, 1.0, 0.0 },
@@ -23,7 +22,8 @@ Player* Player::GetInstance() {
 	return &instance;
 }
 
-void Player::Update(float deltaTime, std::map<int, std::vector<Actor>> entityMap) {
+void Player::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap) {
+	std::cout << "Player update" << std::endl;
 	Move(deltaTime);
 
 	glLoadIdentity();
@@ -37,9 +37,9 @@ void Player::Update(float deltaTime, std::map<int, std::vector<Actor>> entityMap
 	//Check for Wall Collisions
 	for (int ii = 0; ii < entityMap[2].size(); ii++)
 	{
-		if (collisionBox.AABBtoAABB(entityMap[2][ii].GetCollider()))
+		if (collisionBox.AABBtoAABB(entityMap[2][ii]->GetCollider()))
 		{
-			collisionBox.CollideWith(this, entityMap[2][ii]);
+			collisionBox.CollideWith(this, *entityMap[2][ii]);
 		}
 	}
 }

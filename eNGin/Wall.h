@@ -14,7 +14,7 @@ public:
 
 	Wall(float x, float y, float z, Model* mod, Texture* tex);
 
-
+	void Update(float deltaTime) override {};
 protected:
 	float size = 2.2;
 };

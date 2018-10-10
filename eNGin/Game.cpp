@@ -36,8 +36,10 @@ void Game::Run()
 {
 	endTime = glutGet(GLUT_ELAPSED_TIME);
 	deltaTime = (endTime - startTime)/1000;
-	Draw();
-	Update(deltaTime);
+
+	Game::Draw();
+	
+	Game::Update(deltaTime);
 
 	startTime = endTime;
 }
@@ -67,24 +69,23 @@ void Game::Initialise()
 	models[1] = new Model("data/statue_base.obj");
 	models[2] = new Model("data/eyeball.obj");
 
-	std::vector <Actor> tempObjectVectorOne;
-	std::vector <Actor> tempObjectVectorTwo;
-	std::vector <Actor> tempObjectVectorThree;
+	std::vector <Actor*> tempObjectVectorOne;
+	std::vector <Actor*> tempObjectVectorTwo;
+	std::vector <Actor*> tempObjectVectorThree;
 
-
-	std::pair <int, std::vector <Actor>> enumActor;
+	std::pair <int, std::vector <Actor*>> enumActor;
 	enumActor.first = tWALL;
 	enumActor.second = tempObjectVectorOne;
 
 	Entities.insert(enumActor);
 
-	std::pair <int, std::vector <Actor>> enumActorTwo;
+	std::pair <int, std::vector <Actor*>> enumActorTwo;
 	enumActor.first = tEXIT;
 	enumActor.second = tempObjectVectorTwo;
 
 	Entities.insert(enumActorTwo);
 	
-	std::pair <int, std::vector <Actor>> enumActorThree;
+	std::pair <int, std::vector <Actor*>> enumActorThree;
 	enumActor.first = tEnemy;
 	enumActor.second = tempObjectVectorThree;
 
@@ -93,7 +94,7 @@ void Game::Initialise()
 
 void Game::Update(float deltaTime)
 {
-	std::map<int, std::vector<Actor>> tempMap;
+	std::map<int, std::vector<Actor*>> tempMap;
 
 	bgmControl.PlaySong();
 	
@@ -101,47 +102,36 @@ void Game::Update(float deltaTime)
 	{
 		case GAME_STATE:
 
-			if (Entities[tEXIT][0].GetCollider().AABBtoAABB(playerCharacter->GetCollider()))
+			if (Entities[tEXIT][0]->GetCollider().AABBtoAABB(playerCharacter->GetCollider()))
 			{
 				ClearLevel();
 			}
 			
 			for (int i = 0; i < Entities[tEnemy].size(); i++) {
-				Entities[tEnemy][i].Update(deltaTime);
+				Entities[tEnemy][i]->Update(deltaTime);
 			}
 
-			for (std::map <int, std::vector<Actor>>::iterator object = Entities.begin(); object != Entities.end(); ++object)
+			for (int i = 0; i < Entities.size(); ++i)
 			{
-				std::vector <Actor> resultObjectList;
-				std::pair <int, std::vector <Actor>> enumActor;
+				std::vector<Actor*> resultObjectList;
+				std::pair <int, std::vector<Actor*>> enumActor;
 
-
-				for (std::vector<Actor>::iterator col = object->second.begin(); col != object->second.end(); col++)
+				for (int j = 0; j < Entities[i].size(); j++)
 				{
-					Vector3 temp = col->GetPos();
+					Vector3 temp = Entities[i][j]->GetPos();
 					
 					if (ProximityCull(playerCharacter->GetPos(), temp))
 					{
-						resultObjectList.push_back(*col);
+						resultObjectList.push_back(Entities[i][j]);
 					}
 				}
 
-				enumActor.first = object->first;
+				enumActor.first = i;
 				enumActor.second = resultObjectList;
 				tempMap.insert(enumActor);
 			}
 
 			playerCharacter->Update(deltaTime, tempMap);
-
-			
-
-			/*for (std::map <int, std::vector<Actor>>::iterator object = Entities.begin(); object != Entities.end(); ++object)
-			{
-				for (std::vector<Actor>::iterator col = object->second.begin(); col != object->second.end(); col++)
-				{
-					col->Update(deltaTime);
-				}
-			}*/
 			
 			break;
 
@@ -191,12 +181,12 @@ void Game::Draw()
 			glPushMatrix();
 			for (int ii = 0; ii < Entities[tWALL].size(); ii++)
 			{
-				Entities[tWALL][ii].Draw();
+				Entities[tWALL][ii]->Draw();
 			}
 
 			for (int ii = 0; ii < Entities[tEXIT].size(); ii++)
 			{
-				Entities[tEXIT][ii].Draw();
+				Entities[tEXIT][ii]->Draw();
 			}
 			glPopMatrix();
 
@@ -205,7 +195,7 @@ void Game::Draw()
 
 			for (int i = 0; i < Entities[tEnemy].size(); i++) 
 			{
-				Entities[tEnemy][i].Draw();
+				Entities[tEnemy][i]->Draw();
 			}
 
 			glPushMatrix();
@@ -403,12 +393,15 @@ int Game::GetCentreY()
 
 void Game::AddWall(float x, float y, float z)
 {
-	Entities[tWALL].push_back(Wall(x, y, z, models[0], &textures[1]));
+	Wall *temp = new Wall(x, y, z, models[0], &textures[1]);
+	Entities[tWALL].push_back(temp);
 }
 
 void Game::AddExit(float x, float y, float z)
 {
-	Entities[tEXIT].push_back(LevelExit(x, y, z, models[0], &textures[4]));
+	LevelExit *exit = new LevelExit(x, y, z, models[0], &textures[4]);
+
+	Entities[tEXIT].push_back(exit);
 }
 
 Player * Game::GetPlayer() const
@@ -446,7 +439,7 @@ void Game::ClearLevel()
 
 void Game::AddEnemy(float x, float y, float z, std::vector<Vector3> &f)
 {
-	Enemy temp(models[2], &textures[6], x, y, z, f);
+	Enemy *enemy = new Enemy(models[2], &textures[6], x, y, z, f);
 
-	Entities[tEnemy].push_back(temp);
+	Entities[tEnemy].push_back(enemy);
 }
