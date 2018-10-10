@@ -167,6 +167,7 @@
     <ClCompile Include="Shay\Sound.cpp" />
     <ClCompile Include="Shay\SoundTime.cpp" />
     <ClCompile Include="Shay\texturedPolygons.cpp" />
+    <ClCompile Include="SoundPlayer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Wall.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="Shay\Sound.h" />
     <ClInclude Include="Shay\SoundTime.h" />
     <ClInclude Include="Shay\texturedPolygons.h" />
+    <ClInclude Include="SoundPlayer.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vector3.h" />

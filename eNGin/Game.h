@@ -20,6 +20,7 @@
 #include "Dungeon.h"
 #include "LevelExit.h"
 #include "Enemy.h"
+#include "SoundPlayer.h"
 
 #define SHAY_STATE 0
 #define MENU_STATE 1
@@ -218,6 +219,8 @@ private:
 	Menu * menuScreens;			/*<! The menu screens */
 
 	MusicPlayer bgmControl;		/*<! Handles the BGM for the Game> */
+
+	SoundPlayer soundControl;
 
 	Dungeon* dungeon;	/*<!The level generator>*/
 

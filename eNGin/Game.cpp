@@ -236,10 +236,7 @@ void Game::InputDown(unsigned char key, int x, int y)
 		break;
 	case 't':
 	case 'T':
-		if (state == GAME_STATE)
-		{
-			ClearLevel();
-		}
+		soundControl.PlaySound(0);
 		//exitScreen = !exitScreen;
 		break;
 	case 'p':
