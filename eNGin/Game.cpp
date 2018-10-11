@@ -50,7 +50,14 @@ void Game::Initialise()
 
 	playerCharacter->SetMoveSpeed(8);
 	playerCharacter->SetRotateSpeed(1);
-
+	/*
+	Quarternion tempQuart;
+	tempQuart.SetQuartW(0);
+	tempQuart.SetQuartX(playerCharacter->GetPos().GetPointX());
+	tempQuart.SetQuartY(playerCharacter->GetPos().GetPointY());
+	tempQuart.SetQuartZ(playerCharacter->GetPos().GetPointZ());
+	playerCharacter->SetCameraViewDelta(tempQuart);
+	*/
 	textures[0].LoadTexture("data/Group.png", 768, 768);
 	textures[1].LoadTexture("data/wall1.png", 64, 64);
 	textures[2].LoadTexture("data/roof.png", 32, 32);
@@ -192,11 +199,12 @@ void Game::InputDown(unsigned char key, int x, int y)
 		Vector3 pitchAxis;
 		GLdouble radian;
 		
-		radian = -90 * (PI / 180);
+		radian = 90 * (PI / 180);
 		yawAxis = Vector3(0, 1, 0);
-		pitchAxis = Vector3(1, 0, 1);
-		//playerCharacter->RotateCameraLR(radian, yawAxis, playerCharacter->GetPos(), deltaTime);
-		playerCharacter->RotateCameraUD(radian, pitchAxis, playerCharacter->GetPos(), deltaTime);
+		pitchAxis = Vector3(1, 0, -1);
+
+		playerCharacter->RotateCamera(radian, yawAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
+		//playerCharacter->RotateCamera(radian, pitchAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
 	}
 }
 
@@ -224,28 +232,28 @@ void Game::InputUp(unsigned char key, int x, int y)
 
 void Game::MouseLook(int x, int y)
 {
-	int deadzone = 1;
+	int deadzone = 0.25;
 	Vector3 pitchAxis;
 	GLdouble currentRotation;
 	GLdouble mouseSensitivity = 10;
 
-	/*
+	
 	//If the mouse pointer has moved far enough, rotate camera
 	if ((abs((long double)x) > deadzone) || (abs((long double)y) > deadzone)) 
 	{	
 		//std::cout << "Delta Time: " << deltaTime << std::endl;
-		//int deltaX = ((centreX - x) < 0) - (0 < (centreX - x));
-		//int deltaY = -(((centreY - y) < 0) - (0 < (centreY - y)));
+		int deltaX = ((centreX - x) < 0) - (0 < (centreX - x));
+		int deltaY = -(((centreY - y) < 0) - (0 < (centreY - y)));
 
-		int deltaX = (centreX - x);
-		int deltaY = (centreY - y);
+		//int deltaX = (centreX - x);
+		//int deltaY = (centreY - y);
 
 		if (deltaX > 1)
 		{
 			deltaX = 1;
 		}
 
-		if (deltaX > -1)
+		if (deltaX < -1)
 		{
 			deltaX = -1;
 		}
@@ -255,7 +263,7 @@ void Game::MouseLook(int x, int y)
 			deltaY = 1;
 		}
 
-		if (deltaY > -1)
+		if (deltaY < -1)
 		{
 			deltaY = -1;
 		}
@@ -263,27 +271,26 @@ void Game::MouseLook(int x, int y)
 		double radianX = deltaX * (PI / 180);
 		double radianY = deltaY * (PI / 180);
 
-		std::cout << "Delta X " << deltaX << std::endl;
-		std::cout << "Delta Y " << deltaY << std::endl;
-		std::cout << "Radian X " << radianX << std::endl;
-		std::cout << "Radian Y " << radianY << std::endl;
+		//std::cout << "Delta X " << deltaX << std::endl;
+		//std::cout << "Delta Y " << deltaY << std::endl;
+		//std::cout << "Radian X " << radianX << std::endl;
+		//std::cout << "Radian Y " << radianY << std::endl;
 
 		if (radianX != 0 || radianY != 0)
 		{
-			pitchAxis = playerCharacter->GetCameraViewLR().CrossProduct(playerCharacter->GetCameraViewUD());
 			// pitch
-			playerCharacter->RotateCameraLR(radianY, playerCharacter->GetCameraViewUD(), playerCharacter->GetCameraViewLR(),deltaTime);
+			playerCharacter->RotateCamera(radianY, Vector3(1, 0, 0), playerCharacter->GetCameraViewDelta(), deltaTime);
 			// yaw
-			playerCharacter->RotateCameraUD(radianX, playerCharacter->GetCameraViewLR(), playerCharacter->GetCameraViewUD(),deltaTime);
+			playerCharacter->RotateCamera(radianX, Vector3(0, 1, 0), playerCharacter->GetCameraViewDelta(), deltaTime);
 		}
 		
 
-		//glutWarpPointer(centreX, centreY);
+		glutWarpPointer(centreX, centreY);
 		//playerCharacter->DirectionLookLR(deltaX);
 		//playerCharacter->DirectionLookUD(deltaY);
 	}
-	*/
-	//glutWarpPointer(centreX, centreY);
+	/*
+	glutWarpPointer(centreX, centreY);
 	
 	int deltaX = (centreX - x);
 	int deltaY = (centreY - y);
@@ -307,7 +314,7 @@ void Game::MouseLook(int x, int y)
 	{
 		deltaY = -1;
 	}
-	*/
+	
 
 	double radianX = deltaX * (PI / 180);
 	double radianY = deltaY * (PI / 180);
@@ -321,11 +328,11 @@ void Game::MouseLook(int x, int y)
 	{
 		//pitchAxis = playerCharacter->GetCameraViewLR().CrossProduct(playerCharacter->GetCameraViewUD());
 		// pitch
-		playerCharacter->RotateCameraLR(radianY, Vector3(1, 0, 1), playerCharacter->GetPos(),deltaTime);
+		playerCharacter->RotateCamera(radianY, Vector3(1, 0, 0), playerCharacter->GetCameraViewDelta(), deltaTime);
 		// yaw
-		playerCharacter->RotateCameraUD(radianX, Vector3(0, 1, 0), playerCharacter->GetPos(),deltaTime);
+		playerCharacter->RotateCamera(radianX, Vector3(0, 1, 0), playerCharacter->GetCameraViewDelta(),deltaTime);
 	}
-	
+	*/
 }
 
 void Game::MouseClick(int button, int state, int x, int y) {

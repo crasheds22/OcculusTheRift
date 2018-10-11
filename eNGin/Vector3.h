@@ -116,6 +116,14 @@ public:
 	*/
 	Vector3 UnitNormal(Vector3 &inputVector);
 
+	/**
+	*	@brief calculates the unit vector 
+	*	@param 
+	*	@return normalised vector is returned
+	*	@pre 
+	*	@post
+	*/
+	Vector3 UnitVector();
 
 	/**
 	*	@brief calculates the angle of a vector in relation to another 

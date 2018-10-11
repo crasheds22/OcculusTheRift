@@ -188,7 +188,7 @@ Quarternion Quarternion::QRotation(double theTheta, Vector3 theAxis)
 	double theRadian, sinTheta;
 
 	// Normalise rotation axis to have unit length
-	theNormal = theAxis.MultiplyByScalar(1 / theAxis.VectorMagnitude());
+	theNormal = theAxis.UnitVector();
 	
 	sinTheta = sin(theTheta / 2);
 

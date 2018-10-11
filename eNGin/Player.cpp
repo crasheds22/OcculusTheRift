@@ -15,18 +15,10 @@ Player::Player() : lookFB{ 0.0, 0.0, -1.0 },
 				   deltaRotUD(0.0)
 {
 	
-	cameraViewLR.SetQuartX(1);
-	cameraViewLR.SetQuartY(0);
-	cameraViewLR.SetQuartZ(1);
-
-	cameraViewUD.SetQuartX(0);
-	cameraViewUD.SetQuartY(1);
-	cameraViewUD.SetQuartZ(0);
+	cameraViewDelta.SetQuartX(40);
+	cameraViewDelta.SetQuartY(1.8);
+	cameraViewDelta.SetQuartZ(40);
 	
-	cameraViewDelta.SetQuartX(position.GetPointX());
-	cameraViewDelta.SetQuartY(position.GetPointY());
-	cameraViewDelta.SetQuartZ(position.GetPointZ());
-
 	cameraUp.SetPointX(0);
 	cameraUp.SetPointY(1);
 	cameraUp.SetPointZ(0);
@@ -41,6 +33,7 @@ Player* Player::GetInstance() {
 void Player::Update(float deltaTime, std::vector<Actor> resultObjectList) {
 
 	//cameraUp = Vector3(0.0, 1.0, 0.0);
+
 
 	Move(deltaTime);
 	glLoadIdentity();
@@ -224,16 +217,16 @@ Vector3 Player::GetCameraUp()
 }
 
 // qpq'
-Quarternion Player::RotateCameraLR(GLdouble mouseAngle, Vector3 pAxis, Vector3 qAxis,float deltaTime)
+Quarternion Player::RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion pAxis,float deltaTime)
 {
 	Quarternion tempQuart, qQuart, pQuart, qpQuart, quartResult;
 
-	qQuart = tempQuart.QRotation(mouseAngle, pAxis);
+	qQuart = tempQuart.QRotation(mouseAngle, qAxis);
 	
 	pQuart.SetQuartW(0);
-	pQuart.SetQuartX(qAxis.GetPointX());
-	pQuart.SetQuartY(qAxis.GetPointY());
-	pQuart.SetQuartZ(qAxis.GetPointZ());
+	pQuart.SetQuartX(pAxis.GetQuartX());
+	pQuart.SetQuartY(pAxis.GetQuartY());
+	pQuart.SetQuartZ(pAxis.GetQuartZ());
 
 	std::cout << "qQuarternion W:" << qQuart.GetQuartW() << std::endl;
 	std::cout << "qQuarternion X:" << qQuart.GetQuartX() << std::endl;
@@ -244,69 +237,15 @@ Quarternion Player::RotateCameraLR(GLdouble mouseAngle, Vector3 pAxis, Vector3 q
 
 	quartResult = qpQuart.CrossProduct(qQuart.Inverse());
 
-	quartResult = quartResult.ScalarProduct(1);
-	std::cout << "Quarternion W:" << quartResult.GetQuartW() << std::endl;
-	std::cout << "Quarternion X:" << quartResult.GetQuartX() << std::endl;
-	std::cout << "Quarternion Y:" << quartResult.GetQuartY() << std::endl;
-	std::cout << "Quarternion Z:" << quartResult.GetQuartZ() << std::endl;
+	quartResult = quartResult.ScalarProduct(deltaTime * 60);
 
-
-	cameraViewDelta = cameraViewDelta + quartResult;
+	cameraViewDelta = quartResult; // <-- inconsistency here
 
 	std::cout << "Delta W:" << cameraViewDelta.GetQuartW() << std::endl;
 	std::cout << "Delta X:" << cameraViewDelta.GetQuartX() << std::endl;
 	std::cout << "Delta Y:" << cameraViewDelta.GetQuartY() << std::endl;
 	std::cout << "Delta Z:" << cameraViewDelta.GetQuartZ() << std::endl;
 
-	/*
-	cameraViewLR.SetPointX(cameraViewLR.GetPointX() * quartResult.GetQuartX());
-	cameraViewLR.SetPointY(cameraViewLR.GetPointY() * quartResult.GetQuartY());
-	cameraViewLR.SetPointZ(cameraViewLR.GetPointZ() * quartResult.GetQuartZ());
-	*/
-	return quartResult;
-}
-
-// qpq'
-Quarternion Player::RotateCameraUD(GLdouble mouseAngle, Vector3 pAxis, Vector3 qAxis, float deltaTime)
-{
-	Quarternion tempQuart, qQuart, pQuart, qpQuart, quartResult;
-
-	qQuart = tempQuart.QRotation(mouseAngle, pAxis);
-
-	pQuart.SetQuartW(0);
-	pQuart.SetQuartX(qAxis.GetPointX());
-	pQuart.SetQuartY(qAxis.GetPointY());
-	pQuart.SetQuartZ(qAxis.GetPointZ());
-
-	std::cout << "qQuarternion W:" << qQuart.GetQuartW() << std::endl;
-	std::cout << "qQuarternion X:" << qQuart.GetQuartX() << std::endl;
-	std::cout << "qQuarternion Y:" << qQuart.GetQuartY() << std::endl;
-	std::cout << "qQuarternion Z:" << qQuart.GetQuartZ() << std::endl;
-
-	qpQuart = qQuart.CrossProduct(pQuart);
-
-	quartResult = qpQuart.CrossProduct(qQuart.Inverse());
-
-	quartResult = quartResult.ScalarProduct(1);
-	std::cout << "Quarternion W:" << quartResult.GetQuartW() << std::endl;
-	std::cout << "Quarternion X:" << quartResult.GetQuartX() << std::endl;
-	std::cout << "Quarternion Y:" << quartResult.GetQuartY() << std::endl;
-	std::cout << "Quarternion Z:" << quartResult.GetQuartZ() << std::endl;
-
-
-
-	cameraViewDelta = cameraViewDelta.CrossProduct(quartResult);
-
-	std::cout << "Delta W:" << cameraViewDelta.GetQuartW() << std::endl;
-	std::cout << "Delta X:" << cameraViewDelta.GetQuartX() << std::endl;
-	std::cout << "Delta Y:" << cameraViewDelta.GetQuartY() << std::endl;
-	std::cout << "Delta Z:" << cameraViewDelta.GetQuartZ() << std::endl;
-
-	/*
-	cameraViewDelta.SetQuartX(cameraViewDelta.GetQuartX() + quartResult.GetQuartX());
-	cameraViewDelta.SetQuartY(cameraViewDelta.GetQuartY() + quartResult.GetQuartY());
-	cameraViewDelta.SetQuartZ(cameraViewDelta.GetQuartZ() quartResult.GetQuartZ());
-	*/
 	return quartResult;
 }
 

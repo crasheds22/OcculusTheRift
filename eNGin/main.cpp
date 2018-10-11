@@ -177,7 +177,8 @@ void MouseMove(int x, int y)
 {
 	if (game.GetState() == GAME_STATE)
 	{
-		//glutWarpPointer(game.GetCentreX(), game.GetCentreY());
+		
 		game.MouseLook(x, y);
+		glutWarpPointer(game.GetCentreX(), game.GetCentreY());
 	}
 }
