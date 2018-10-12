@@ -214,6 +214,11 @@ Quarternion Player::GetCameraViewDelta()
 	return cameraViewDelta;
 }
 
+Vector3 Player::GetCameraViewDeltaVector()
+{
+	return Vector3(cameraViewDelta.GetQuartX(), cameraViewDelta.GetQuartY(), cameraViewDelta.GetQuartZ());
+}
+
 Vector3 Player::GetCameraUp()
 {
 	return cameraUp;
@@ -231,10 +236,10 @@ Quarternion Player::RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion
 	pQuart.SetQuartY(pAxis.GetQuartY());
 	pQuart.SetQuartZ(pAxis.GetQuartZ());
 
-	std::cout << "qQuarternion W:" << qQuart.GetQuartW() << std::endl;
+	/*std::cout << "qQuarternion W:" << qQuart.GetQuartW() << std::endl;
 	std::cout << "qQuarternion X:" << qQuart.GetQuartX() << std::endl;
 	std::cout << "qQuarternion Y:" << qQuart.GetQuartY() << std::endl;
-	std::cout << "qQuarternion Z:" << qQuart.GetQuartZ() << std::endl;
+	std::cout << "qQuarternion Z:" << qQuart.GetQuartZ() << std::endl;*/
 	
 	qpQuart = qQuart.CrossProduct(pQuart);
 
@@ -244,10 +249,10 @@ Quarternion Player::RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion
 
 	cameraViewDelta = quartResult; 
 
-	std::cout << "Delta W:" << cameraViewDelta.GetQuartW() << std::endl;
+	/*std::cout << "Delta W:" << cameraViewDelta.GetQuartW() << std::endl;
 	std::cout << "Delta X:" << cameraViewDelta.GetQuartX() << std::endl;
 	std::cout << "Delta Y:" << cameraViewDelta.GetQuartY() << std::endl;
-	std::cout << "Delta Z:" << cameraViewDelta.GetQuartZ() << std::endl;
+	std::cout << "Delta Z:" << cameraViewDelta.GetQuartZ() << std::endl;*/
 
 	return quartResult;
 }

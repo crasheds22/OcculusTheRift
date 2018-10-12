@@ -129,6 +129,7 @@ public:
 	Quarternion GetCameraViewLR();
 	Quarternion GetCameraViewUD();
 	Quarternion GetCameraViewDelta();
+	Vector3 GetCameraViewDeltaVector();
 	Vector3 GetCameraUp();
 
 	Quarternion RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion pAxis,float deltaTime);
