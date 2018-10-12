@@ -59,13 +59,13 @@ void Game::Initialise()
 	playerCharacter->SetRotateSpeed(5);
 
 	textures[0].LoadTexture("data/Group.png", 768, 768);
-	textures[1].LoadTexture("data/wall1.png", 64, 64);
+	textures[1].LoadTexture("data/wall2.png", 64, 64);
 	textures[2].LoadTexture("data/roof.png", 32, 32);
-	textures[3].LoadTexture("data/floor.png", 32, 32);
+	textures[3].LoadTexture("data/floor2.png", 32, 32);
 	textures[4].LoadTexture("data/Statue.png", 1024, 1024);
 	textures[5].LoadTexture("data/Menu.png", 768, 768);
 	textures[6].LoadTexture("data/eyeball.png", 128, 128);
-	textures[7].LoadTexture("data/wall1_vines.png", 64, 64);
+	textures[7].LoadTexture("data/wall2_vines.png", 64, 64);
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
