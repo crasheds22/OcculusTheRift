@@ -203,8 +203,8 @@ void Game::InputDown(unsigned char key, int x, int y)
 		yawAxis = Vector3(0, 1, 0);
 		pitchAxis = Vector3(1, 0, -1);
 
-		playerCharacter->RotateCamera(radian, yawAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
-		//playerCharacter->RotateCamera(radian, pitchAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
+		//playerCharacter->RotateCamera(radian, yawAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
+		playerCharacter->RotateCamera(radian, pitchAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
 	}
 }
 
@@ -232,10 +232,10 @@ void Game::InputUp(unsigned char key, int x, int y)
 
 void Game::MouseLook(int x, int y)
 {
-	int deadzone = 0.25;
+	int deadzone = 8;
 	Vector3 pitchAxis;
-	GLdouble currentRotation;
-	GLdouble mouseSensitivity = 10;
+	GLdouble fps = 60;
+	GLdouble mouseSensitivity = 2;
 
 	
 	//If the mouse pointer has moved far enough, rotate camera
@@ -245,34 +245,36 @@ void Game::MouseLook(int x, int y)
 		int deltaX = ((centreX - x) < 0) - (0 < (centreX - x));
 		int deltaY = -(((centreY - y) < 0) - (0 < (centreY - y)));
 
+		std::cout << "@@@Delta X @@@ " << deltaX << std::endl;
+		std::cout << "@@@Delta Y @@@ " << deltaY << std::endl;
+
 		//int deltaX = (centreX - x);
 		//int deltaY = (centreY - y);
 
-		if (deltaX > 1)
+		if (deltaX >= 1)
 		{
-			deltaX = 1;
+			deltaX = 1 * deltaTime * fps * mouseSensitivity;
 		}
 
-		if (deltaX < -1)
+		if (deltaX <= -1)
 		{
-			deltaX = -1;
+			deltaX = -1 * deltaTime * fps * mouseSensitivity;
 		}
 
-		if (deltaY > 1)
+		if (deltaY >= 1)
 		{
-			deltaY = 1;
+			deltaY = -1 * deltaTime * fps * mouseSensitivity;
 		}
 
-		if (deltaY < -1)
+		if (deltaY <= -1)
 		{
-			deltaY = -1;
+			deltaY = 1 * deltaTime * fps * mouseSensitivity;
 		}
 
 		double radianX = deltaX * (PI / 180);
 		double radianY = deltaY * (PI / 180);
 
-		//std::cout << "Delta X " << deltaX << std::endl;
-		//std::cout << "Delta Y " << deltaY << std::endl;
+		
 		//std::cout << "Radian X " << radianX << std::endl;
 		//std::cout << "Radian Y " << radianY << std::endl;
 
@@ -289,6 +291,8 @@ void Game::MouseLook(int x, int y)
 		//playerCharacter->DirectionLookLR(deltaX);
 		//playerCharacter->DirectionLookUD(deltaY);
 	}
+
+	Update(deltaTime);
 	/*
 	glutWarpPointer(centreX, centreY);
 	

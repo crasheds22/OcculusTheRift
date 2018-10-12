@@ -14,7 +14,7 @@ Player::Player() : lookFB{ 0.0, 0.0, -1.0 },
 				   deltaRotLR(0.0),
 				   deltaRotUD(0.0)
 {
-	
+	// cameraViewDelta needs to be initialised to the position and cannot be 0,0,0
 	cameraViewDelta.SetQuartX(40);
 	cameraViewDelta.SetQuartY(1.8);
 	cameraViewDelta.SetQuartZ(40);
@@ -34,6 +34,9 @@ void Player::Update(float deltaTime, std::vector<Actor> resultObjectList) {
 
 	//cameraUp = Vector3(0.0, 1.0, 0.0);
 
+	//std::cout << "Player Spawning point X" << position.GetPointX() << std::endl;
+	//std::cout << "Player Spawning point Y" << position.GetPointY() << std::endl;
+	//std::cout << "Player Spawning point Z" << position.GetPointZ() << std::endl;
 
 	Move(deltaTime);
 	glLoadIdentity();
@@ -122,8 +125,8 @@ void Player::Move(float deltaTime) {
 	if (deltaMoveLR != 0)
 		MoveLR(deltaTime);
 
-	if (deltaMoveUD != 0)
-		MoveUD(deltaTime);
+	//if (deltaMoveUD != 0)
+		//MoveUD(deltaTime);
 
 	//if (deltaRotLR / rotateSpeed != 0)
 		//LookLR(deltaTime);
@@ -236,10 +239,10 @@ Quarternion Player::RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion
 	qpQuart = qQuart.CrossProduct(pQuart);
 
 	quartResult = qpQuart.CrossProduct(qQuart.Inverse());
+	
+	quartResult = quartResult.ScalarProduct(1);
 
-	quartResult = quartResult.ScalarProduct(deltaTime * 60);
-
-	cameraViewDelta = quartResult; // <-- inconsistency here
+	cameraViewDelta = quartResult; 
 
 	std::cout << "Delta W:" << cameraViewDelta.GetQuartW() << std::endl;
 	std::cout << "Delta X:" << cameraViewDelta.GetQuartX() << std::endl;
