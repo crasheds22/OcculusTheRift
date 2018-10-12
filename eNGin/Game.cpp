@@ -232,7 +232,7 @@ void Game::InputUp(unsigned char key, int x, int y)
 
 void Game::MouseLook(int x, int y)
 {
-	int deadzone = 0.25;
+	int deadzone = 1;
 	Vector3 pitchAxis;
 	GLdouble currentRotation;
 	GLdouble mouseSensitivity = 10;
@@ -278,8 +278,10 @@ void Game::MouseLook(int x, int y)
 
 		if (radianX != 0 || radianY != 0)
 		{
+			pitchAxis = playerCharacter->GetCameraViewDeltaVector().CrossProduct(playerCharacter->GetCameraUp());
+			pitchAxis = pitchAxis.UnitVector();
 			// pitch
-			playerCharacter->RotateCamera(radianY, Vector3(1, 0, 0), playerCharacter->GetCameraViewDelta(), deltaTime);
+			playerCharacter->RotateCamera(radianY, pitchAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
 			// yaw
 			playerCharacter->RotateCamera(radianX, Vector3(0, 1, 0), playerCharacter->GetCameraViewDelta(), deltaTime);
 		}

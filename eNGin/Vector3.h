@@ -188,8 +188,6 @@ public:
 	*/
 	Vector3 operator*(GLdouble &scalar);
 
-	
-
 private:
 	GLdouble x;	/*<! The x point value */
 	GLdouble y; /*<! The y point value */
