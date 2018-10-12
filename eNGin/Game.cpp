@@ -1,6 +1,7 @@
 #include <pch.h>
 
 #include "Game.h"
+#include <random>
 
 Game::Game()
 {
@@ -64,6 +65,7 @@ void Game::Initialise()
 	textures[4].LoadTexture("data/Statue.png", 1024, 1024);
 	textures[5].LoadTexture("data/Menu.png", 768, 768);
 	textures[6].LoadTexture("data/eyeball.png", 128, 128);
+	textures[7].LoadTexture("data/wall1_vines.png", 64, 64);
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
@@ -390,7 +392,21 @@ int Game::GetCentreY()
 
 void Game::AddWall(float x, float y, float z)
 {
-	Wall *temp = new Wall(x, y, z, models[0], &textures[1]);
+
+	std::random_device rd;     // only used once to initialise (seed) engine
+	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
+	std::uniform_int_distribution<int> uni(0, 4); // guaranteed unbiased
+	int chance = uni(rng);
+	Wall *temp = NULL;
+
+	if (chance < 4)
+	{
+		temp = new Wall(x, y, z, models[0], &textures[1]);
+	}
+	else
+	{
+		temp = new Wall(x, y, z, models[0], &textures[7]);
+	}
 	Entities[tWALL].push_back(temp);
 }
 
