@@ -207,6 +207,14 @@ class Quarternion
 		*/
 		Quarternion QRotation(double theTheta, Vector3 theAxis);
 
+		/**
+		*	@brief normalization for quarternions
+		*	@return quarternion
+		*	@pre
+		*	@post
+		*/
+		Quarternion Normalize();
+
 	private:
 		GLdouble x;
 		GLdouble y;
