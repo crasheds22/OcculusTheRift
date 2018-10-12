@@ -14,7 +14,7 @@ Player::Player() : lookFB{ 0.0, 0.0, -1.0 },
 				   deltaRotLR(0.0),
 				   deltaRotUD(0.0)
 {
-	// cameraViewDelta needs to be initialised to the position and cannot be 0,0,0
+	
 	cameraViewDelta.SetQuartX(40);
 	cameraViewDelta.SetQuartY(0);
 	cameraViewDelta.SetQuartZ(40);
@@ -34,9 +34,6 @@ void Player::Update(float deltaTime, std::vector<Actor> resultObjectList) {
 
 	//cameraUp = Vector3(0.0, 1.0, 0.0);
 
-	//std::cout << "Player Spawning point X" << position.GetPointX() << std::endl;
-	//std::cout << "Player Spawning point Y" << position.GetPointY() << std::endl;
-	//std::cout << "Player Spawning point Z" << position.GetPointZ() << std::endl;
 
 	Move(deltaTime);
 	glLoadIdentity();
@@ -136,8 +133,11 @@ void Player::Move(float deltaTime) {
 }
 
 void Player::MoveFB(float deltaTime) {
-	GLdouble moveX = deltaMoveFB * lookFB.x * moveSpeed * deltaTime;
-	GLdouble moveZ = deltaMoveFB * lookFB.z * moveSpeed * deltaTime;
+
+	Quarternion view = cameraViewDelta.Normalize();
+
+	GLdouble moveX = deltaMoveFB * view.GetQuartX() * moveSpeed * deltaTime;
+	GLdouble moveZ = deltaMoveFB * view.GetQuartZ() * moveSpeed * deltaTime;
 
 	position.SetPointX(moveX + position.GetPointX());
 	position.SetPointZ(moveZ + position.GetPointZ());
@@ -244,15 +244,17 @@ Quarternion Player::RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion
 	qpQuart = qQuart.CrossProduct(pQuart);
 
 	quartResult = qpQuart.CrossProduct(qQuart.Inverse());
-	
-	quartResult = quartResult.ScalarProduct(1);
 
-	cameraViewDelta = quartResult; 
+	quartResult = quartResult.ScalarProduct(deltaTime * 60);
+
+	cameraViewDelta = quartResult;
 
 	std::cout << "Delta W:" << cameraViewDelta.GetQuartW() << std::endl;
 	std::cout << "Delta X:" << cameraViewDelta.GetQuartX() << std::endl;
 	std::cout << "Delta Y:" << cameraViewDelta.GetQuartY() << std::endl;
 	std::cout << "Delta Z:" << cameraViewDelta.GetQuartZ() << std::endl;
+
+	cameraViewDelta.SetQuartZ(-cameraViewDelta.GetQuartZ()); //Temporary fix for LR mouse movement, janky as heck- VT
 
 	return quartResult;
 }

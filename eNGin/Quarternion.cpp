@@ -201,3 +201,14 @@ Quarternion Quarternion::QRotation(double theTheta, Vector3 theAxis)
 	return rotationQuart;
 }
 
+Quarternion Quarternion::Normalize()
+{
+	Quarternion tempQuat;
+
+	tempQuat.x = x / QuartMagnitude();
+	tempQuat.y = y / QuartMagnitude();
+	tempQuat.z = z / QuartMagnitude();
+	tempQuat.w = w / QuartMagnitude();
+
+	return tempQuat;
+}
