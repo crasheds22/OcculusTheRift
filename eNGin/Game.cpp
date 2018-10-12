@@ -50,14 +50,7 @@ void Game::Initialise()
 
 	playerCharacter->SetMoveSpeed(8);
 	playerCharacter->SetRotateSpeed(1);
-	/*
-	Quarternion tempQuart;
-	tempQuart.SetQuartW(0);
-	tempQuart.SetQuartX(playerCharacter->GetPos().GetPointX());
-	tempQuart.SetQuartY(playerCharacter->GetPos().GetPointY());
-	tempQuart.SetQuartZ(playerCharacter->GetPos().GetPointZ());
-	playerCharacter->SetCameraViewDelta(tempQuart);
-	*/
+	
 	textures[0].LoadTexture("data/Group.png", 768, 768);
 	textures[1].LoadTexture("data/wall1.png", 64, 64);
 	textures[2].LoadTexture("data/roof.png", 32, 32);
@@ -199,12 +192,12 @@ void Game::InputDown(unsigned char key, int x, int y)
 		Vector3 pitchAxis;
 		GLdouble radian;
 		
-		radian = 90 * (PI / 180);
+		radian = 42 * (PI / 180);
 		yawAxis = Vector3(0, 1, 0);
-		pitchAxis = Vector3(1, 0, -1);
+		pitchAxis = Vector3(1, 0, 0);
 
-		//playerCharacter->RotateCamera(radian, yawAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
-		playerCharacter->RotateCamera(radian, pitchAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
+		playerCharacter->RotateCamera(radian, yawAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
+		//playerCharacter->RotateCamera(radian, pitchAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
 	}
 }
 
@@ -233,7 +226,7 @@ void Game::InputUp(unsigned char key, int x, int y)
 void Game::MouseLook(int x, int y)
 {
 
-	int deadzone = 8;
+	int deadzone = 1;
 
 	Vector3 pitchAxis;
 	GLdouble fps = 60;
@@ -285,7 +278,7 @@ void Game::MouseLook(int x, int y)
 			pitchAxis = playerCharacter->GetCameraViewDeltaVector().CrossProduct(playerCharacter->GetCameraUp());
 			pitchAxis = pitchAxis.UnitVector();
 			// pitch
-			playerCharacter->RotateCamera(radianY, pitchAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
+			playerCharacter->RotateCamera(radianY, Vector3(1,0,0), playerCharacter->GetCameraViewDelta(), deltaTime);
 			// yaw
 			playerCharacter->RotateCamera(radianX, Vector3(0, 1, 0), playerCharacter->GetCameraViewDelta(), deltaTime);
 		}
@@ -296,7 +289,7 @@ void Game::MouseLook(int x, int y)
 		//playerCharacter->DirectionLookUD(deltaY);
 	}
 
-	Update(deltaTime);
+	//Update(deltaTime);
 	/*
 	glutWarpPointer(centreX, centreY);
 	

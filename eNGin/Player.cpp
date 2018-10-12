@@ -16,7 +16,7 @@ Player::Player() : lookFB{ 0.0, 0.0, -1.0 },
 {
 	// cameraViewDelta needs to be initialised to the position and cannot be 0,0,0
 	cameraViewDelta.SetQuartX(40);
-	cameraViewDelta.SetQuartY(1.8);
+	cameraViewDelta.SetQuartY(0);
 	cameraViewDelta.SetQuartZ(40);
 	
 	cameraUp.SetPointX(0);
@@ -125,8 +125,8 @@ void Player::Move(float deltaTime) {
 	if (deltaMoveLR != 0)
 		MoveLR(deltaTime);
 
-	//if (deltaMoveUD != 0)
-		//MoveUD(deltaTime);
+	if (deltaMoveUD != 0)
+		MoveUD(deltaTime);
 
 	//if (deltaRotLR / rotateSpeed != 0)
 		//LookLR(deltaTime);
@@ -236,10 +236,10 @@ Quarternion Player::RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion
 	pQuart.SetQuartY(pAxis.GetQuartY());
 	pQuart.SetQuartZ(pAxis.GetQuartZ());
 
-	/*std::cout << "qQuarternion W:" << qQuart.GetQuartW() << std::endl;
+	std::cout << "qQuarternion W:" << qQuart.GetQuartW() << std::endl;
 	std::cout << "qQuarternion X:" << qQuart.GetQuartX() << std::endl;
 	std::cout << "qQuarternion Y:" << qQuart.GetQuartY() << std::endl;
-	std::cout << "qQuarternion Z:" << qQuart.GetQuartZ() << std::endl;*/
+	std::cout << "qQuarternion Z:" << qQuart.GetQuartZ() << std::endl;
 	
 	qpQuart = qQuart.CrossProduct(pQuart);
 
@@ -249,10 +249,10 @@ Quarternion Player::RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion
 
 	cameraViewDelta = quartResult; 
 
-	/*std::cout << "Delta W:" << cameraViewDelta.GetQuartW() << std::endl;
+	std::cout << "Delta W:" << cameraViewDelta.GetQuartW() << std::endl;
 	std::cout << "Delta X:" << cameraViewDelta.GetQuartX() << std::endl;
 	std::cout << "Delta Y:" << cameraViewDelta.GetQuartY() << std::endl;
-	std::cout << "Delta Z:" << cameraViewDelta.GetQuartZ() << std::endl;*/
+	std::cout << "Delta Z:" << cameraViewDelta.GetQuartZ() << std::endl;
 
 	return quartResult;
 }
