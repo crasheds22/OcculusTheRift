@@ -215,6 +215,14 @@ class Quarternion
 		*/
 		Quarternion Normalize();
 
+		/**
+		*	@brief spherical linear interpolation
+		*	@return quarternion
+		*	@pre
+		*	@post
+		*/
+		Quarternion Slerp(Quarternion targetQuart, GLdouble t);
+
 	private:
 		GLdouble x;
 		GLdouble y;

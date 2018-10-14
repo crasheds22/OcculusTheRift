@@ -32,6 +32,14 @@ public:
 	 *	An overridden member taking no arguments
 	 *	Updates the Player's location in the world
 	 */
+	void Initialise();
+	//========================================
+
+	//========================================
+	/**
+	 *	An overridden member taking no arguments
+	 *	Updates the Player's location in the world
+	 */
 	void Update(float deltaTime, std::vector<Actor> resultObjectList);
 	//========================================
 
@@ -125,16 +133,20 @@ public:
 	void SetCameraViewLR(Quarternion inputVector);
 	void SetCameraViewUD(Quarternion inputVector);
 	void SetCameraViewDelta(Quarternion inputVector);
+	void SetCameraView(Quarternion inputQuart);
 	void SetCameraUp(Vector3 inputVector);
 	Quarternion GetCameraViewLR();
 	Quarternion GetCameraViewUD();
 	Quarternion GetCameraViewDelta();
+	Quarternion GetCameraView();
 	Vector3 GetCameraViewDeltaVector();
 	Vector3 GetCameraUp();
 
 	Quarternion RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion pAxis,float deltaTime);
 	//Quarternion RotateCameraUD(GLdouble mouseAngle, Vector3 qAxis, Quarternion pAxis, float deltaTime);
-	Vector3 RotateCameraDelta(Vector3 axisOne, Vector3 axisTwo);
+	Quarternion RotateCameraSlerp(Quarternion sourceQuart, Quarternion targetQuart, GLdouble t);
+
+	Point GetLookFB();
 
 private:
 	//========================================
@@ -178,6 +190,7 @@ private:
 	//========================================
 
 	Quarternion cameraViewDelta;
+	Quarternion cameraView;
 	Quarternion cameraViewLR;
 	Quarternion cameraViewUD;
 	Vector3 cameraUp;
