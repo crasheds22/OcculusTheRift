@@ -167,7 +167,7 @@ Dungeon::Dungeon(Game* gameIn)
 		}
 	}
 
-	owner->AddExit(xPos * 4, -1, yPos * 4);
+	owner->AddExit(ex * 4, -1, ez * 4);
 
 	for (xx = 0; xx < gridWidth; xx++)
 	{

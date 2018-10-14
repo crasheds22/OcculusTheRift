@@ -66,10 +66,12 @@ void Game::Initialise()
 	textures[5].LoadTexture("data/Menu.png", 768, 768);
 	textures[6].LoadTexture("data/eyeball.png", 128, 128);
 	textures[7].LoadTexture("data/wall2_vines.png", 64, 64);
+	textures[8].LoadTexture("data/exit.png", 128, 128);
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
 	models[2] = new Model("data/eyeball.obj");
+	models[3] = new Model("data/exit.obj");
 
 	std::vector <Actor*> tempObjectVectorOne;
 	std::vector <Actor*> tempObjectVectorTwo;
@@ -412,7 +414,7 @@ void Game::AddWall(float x, float y, float z)
 
 void Game::AddExit(float x, float y, float z)
 {
-	LevelExit *exit = new LevelExit(x, y, z, models[0], &textures[4]);
+	LevelExit *exit = new LevelExit(x, y, z, models[3], &textures[8]);
 
 	Entities[tEXIT].push_back(exit);
 }
