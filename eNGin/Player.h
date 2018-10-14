@@ -37,6 +37,15 @@ public:
 	 *	An overridden member taking no arguments
 	 *	Updates the Player's location in the world
 	 */
+
+	void Initialise();
+	//========================================
+
+	//========================================
+	/**
+	 *	An overridden member taking no arguments
+	 *	Updates the Player's location in the world
+	 */
 	void Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap);
 	//========================================
 
@@ -127,18 +136,23 @@ public:
 	//========================================
 
 
-	void SetCameraViewLR(Vector3 inputVector);
-	void SetCameraViewUD(Vector3 inputVector);
-	void SetCameraViewDelta(Vector3 inputVector);
+	void SetCameraViewLR(Quarternion inputVector);
+	void SetCameraViewUD(Quarternion inputVector);
+	void SetCameraViewDelta(Quarternion inputVector);
+	void SetCameraView(Quarternion inputQuart);
 	void SetCameraUp(Vector3 inputVector);
-	Vector3 GetCameraViewLR();
-	Vector3 GetCameraViewUD();
-	Vector3 GetCameraViewDelta();
+	Quarternion GetCameraViewLR();
+	Quarternion GetCameraViewUD();
+	Quarternion GetCameraViewDelta();
+	Quarternion GetCameraView();
+	Vector3 GetCameraViewDeltaVector();
 	Vector3 GetCameraUp();
 
-	Quarternion RotateCameraLR(GLdouble mouseAngle, Vector3 pAxis, Vector3 qAxis,float deltaTime);
-	Quarternion RotateCameraUD(GLdouble mouseAngle, Vector3 pAxis, Vector3 qAxis,float deltaTime);
-	Vector3 RotateCameraDelta(Vector3 axisOne, Vector3 axisTwo);
+	Quarternion RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion pAxis,float deltaTime);
+	//Quarternion RotateCameraUD(GLdouble mouseAngle, Vector3 qAxis, Quarternion pAxis, float deltaTime);
+	Quarternion RotateCameraSlerp(Quarternion sourceQuart, Quarternion targetQuart, GLdouble t);
+
+	Point GetLookFB();
 
 private:
 	//========================================
@@ -181,9 +195,10 @@ private:
 			 deltaRotUD;/*<! The change in rotation angle up/down */
 	//========================================
 
-	Vector3 cameraViewDelta;
-	Vector3 cameraViewLR;
-	Vector3 cameraViewUD;
+	Quarternion cameraViewDelta;
+	Quarternion cameraView;
+	Quarternion cameraViewLR;
+	Quarternion cameraViewUD;
 	Vector3 cameraUp;
 
 	//========================================

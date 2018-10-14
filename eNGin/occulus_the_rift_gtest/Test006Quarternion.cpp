@@ -133,6 +133,48 @@ TEST(TestSuite006_QuarternionTesting, QuartTest006_QuartRotation)
 	SUCCEED();
 }
 
+/*
+0.0		0 + 0.6i + 0.8j + 0k
+0.1     0 + 0.46714i + 0.872923j - 0.140664k
+0.2     0 + 0.314307i + 0.908523j - 0.275314k
+0.3     0 + 0.148035i + 0.905278j - 0.398192k
+0.4     0 - 0.0245656i + 0.863327j - 0.504046k
+0.5     0 - 0.196116i + 0.784465j - 0.588348k
+0.6     0 - 0.359282i + 0.672061j - 0.647496k
+0.7     0 - 0.507086i + 0.530923j - 0.678959k
+0.8     0 - 0.633209i + 0.367085j - 0.681392k
+0.9     0 - 0.732259i + 0.187552j - 0.654692k
+1       0 - 0.8i + 5.55112e-17j - 0.6k
+*/
+
+TEST(TestSuite006_QuarternionTesting, QuartTest007_QuartSlerp)
+{
+	Quarternion quartOne, quartTwo;
+	Quarternion theResult[10];
+
+	quartOne = Quarternion(0, 0.6, 0.8, 0);
+	quartTwo = Quarternion(0, -0.8, 0, -0.6);
+
+	for (int ii = 0; ii < 10; ii++)
+	{
+		theResult[ii] = quartOne.Slerp(quartTwo, 0.1*ii);
+
+		std::cout	<< " W: " << theResult[ii].GetQuartW()
+					<< " X: " << theResult[ii].GetQuartX()
+					<< " Y: " << theResult[ii].GetQuartY()
+					<< " Z: " << theResult[ii].GetQuartZ();
+	}
+	
+
+
+	EXPECT_EQ(0, theResult[1].GetQuartW());
+	EXPECT_EQ(0.467140, theResult[1].GetQuartX());
+	EXPECT_EQ(0.872923, theResult[1].GetQuartY());
+	EXPECT_EQ(-0.140664, theResult[1].GetQuartZ());
+
+	SUCCEED();
+}
+
 
 
 

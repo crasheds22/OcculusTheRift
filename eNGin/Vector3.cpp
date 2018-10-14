@@ -80,6 +80,18 @@ Vector3 Vector3::UnitNormal(Vector3 &inputVector) {
 	return resultVector;
 }
 
+Vector3 Vector3::UnitVector() 
+{
+	GLdouble mag = VectorMagnitude();
+	Vector3 resultVector;
+
+	resultVector.SetPointX(x / mag);
+	resultVector.SetPointY(y / mag);
+	resultVector.SetPointZ(z / mag);
+
+	return resultVector;
+}
+
 GLdouble Vector3::VectorAngle(Vector3 targetVector)
 {
 	GLdouble tempDotResult;

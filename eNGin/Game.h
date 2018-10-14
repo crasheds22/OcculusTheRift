@@ -205,6 +205,7 @@ public:
 	void AddEnemy(float x, float y, float z, std::vector<Vector3> &f);
 
 private:
+	int count;
 	float startTime;			/*<! start counting time variable> */
 	float endTime;				/*<! end counting time variable> */
 	float deltaTime;			/*<! A change in time variable> */

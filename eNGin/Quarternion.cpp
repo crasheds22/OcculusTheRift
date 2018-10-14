@@ -184,20 +184,76 @@ Quarternion Quarternion::Inverse()
 Quarternion Quarternion::QRotation(double theTheta, Vector3 theAxis)
 {
 	Quarternion rotationQuart, axisQuart, pqQuart, quartResult;
-	Vector3 theNormal;
+	Vector3 theUnitVector;
 	double theRadian, sinTheta;
 
 	// Normalise rotation axis to have unit length
-	theNormal = theAxis.MultiplyByScalar(1 / theAxis.VectorMagnitude());
+	theUnitVector = theAxis.UnitVector();
 	
 	sinTheta = sin(theTheta / 2);
 
 	// Convert to rotation quaternion
-	rotationQuart.SetQuartX(theNormal.GetPointX() * sinTheta);  // theTheta should be in radians
-	rotationQuart.SetQuartY(theNormal.GetPointY() * sinTheta);
-	rotationQuart.SetQuartZ(theNormal.GetPointZ() * sinTheta);
+	rotationQuart.SetQuartX(theUnitVector.GetPointX() * sinTheta);  // theTheta should be in radians
+	rotationQuart.SetQuartY(theUnitVector.GetPointY() * sinTheta);
+	rotationQuart.SetQuartZ(theUnitVector.GetPointZ() * sinTheta);
 	rotationQuart.SetQuartW(cos(theTheta / 2));
 
 	return rotationQuart;
 }
 
+Quarternion Quarternion::Normalize()
+{
+	Quarternion tempQuat;
+
+	tempQuat.x = x / QuartMagnitude();
+	tempQuat.y = y / QuartMagnitude();
+	tempQuat.z = z / QuartMagnitude();
+	tempQuat.w = w / QuartMagnitude();
+
+	return tempQuat;
+}
+
+Quarternion Quarternion::Slerp(Quarternion targetQuart, GLdouble t)
+{
+	Quarternion resultQuart;
+	GLdouble cosineHalfTheta;
+	GLdouble halfTheta;
+	GLdouble sineHalfTheta;
+	GLdouble ratioOne;
+	GLdouble ratioTwo;
+
+	cosineHalfTheta = DotProduct(targetQuart);
+
+	if (abs(cosineHalfTheta) >= 1.0)
+	{
+		resultQuart.SetQuartW(w);
+		resultQuart.SetQuartX(x);
+		resultQuart.SetQuartY(y);
+		resultQuart.SetQuartZ(z);
+
+		return resultQuart;
+	}
+
+	halfTheta = acos(cosineHalfTheta);
+	sineHalfTheta = sqrt(1.0 - cosineHalfTheta * cosineHalfTheta);
+
+	if (abs(sineHalfTheta) < 0.001)
+	{
+		resultQuart.SetQuartW(w * 0.5 + targetQuart.GetQuartW() * 0.5);
+		resultQuart.SetQuartX(x * 0.5 + targetQuart.GetQuartX() * 0.5);
+		resultQuart.SetQuartY(y * 0.5 + targetQuart.GetQuartY() * 0.5);
+		resultQuart.SetQuartZ(z * 0.5 + targetQuart.GetQuartZ() * 0.5);
+
+		return resultQuart;
+	}
+
+	ratioOne = sin((1 - t) * halfTheta) / sineHalfTheta;
+	ratioTwo = sin(t * halfTheta) / sineHalfTheta;
+
+	resultQuart.SetQuartW(w * ratioOne + targetQuart.GetQuartW() * ratioTwo);
+	resultQuart.SetQuartX(x * ratioOne + targetQuart.GetQuartX() * ratioTwo);
+	resultQuart.SetQuartY(y * ratioOne + targetQuart.GetQuartY() * ratioTwo);
+	resultQuart.SetQuartZ(z * ratioOne + targetQuart.GetQuartZ() * ratioTwo);
+
+	return resultQuart;
+}
