@@ -95,7 +95,6 @@ void Game::Update(float deltaTime)
 					
 					if (ProximityCull(playerCharacter->GetPos(), temp))
 					{
-						std::cout << "Object added" << std::endl;
 						resultObjectList.push_back(*col);
 					}
 				}
@@ -198,42 +197,7 @@ void Game::InputDown(unsigned char key, int x, int y)
 		}
 		//exitScreen = !exitScreen;
 		break;
-	case'z':
-		Vector3 yawAxis;
-		Vector3 pitchAxis;
-		Vector3 tempAxis;
-		Quarternion viewAxis;
-		Quarternion sourceQuart;
-		Quarternion targetQuart;
-		GLdouble radian;
-		
-		radian = 5 * (PI / 180);
-		yawAxis = Vector3(0, 1, 0);
 
-		pitchAxis = playerCharacter->GetCameraViewDeltaVector().CrossProduct(playerCharacter->GetCameraUp());
-		pitchAxis = pitchAxis.UnitVector();
-		// pitch
-		//playerCharacter->SetCameraViewDelta(playerCharacter->RotateCamera(radian, Vector3(1,0,0), playerCharacter->GetCameraViewDelta(), deltaTime));
-		// yaw
-		playerCharacter->RotateCamera(radian, yawAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
-		
-		/*
-		for (int ii = 0; ii < 25; ii++)
-		{
-			sourceQuart.SetQuartW(0);
-			sourceQuart.SetQuartX(playerCharacter->GetCameraView().GetQuartX());
-			sourceQuart.SetQuartY(playerCharacter->GetCameraView().GetQuartY());
-			sourceQuart.SetQuartZ(playerCharacter->GetCameraView().GetQuartZ());
-
-			targetQuart.SetQuartW(0);
-			targetQuart.SetQuartX(playerCharacter->GetCameraView().GetQuartX() - 40);
-			targetQuart.SetQuartY(playerCharacter->GetCameraView().GetQuartY());
-			targetQuart.SetQuartZ(playerCharacter->GetCameraView().GetQuartZ() - 40);
-
-			playerCharacter->RotateCameraSlerp(sourceQuart, targetQuart, 0.01 * ii);
-		}
-		*/
-	
 	}
 }
 
@@ -308,11 +272,8 @@ void Game::MouseLook(int x, int y)
 			pitchAxis = pitchAxis.UnitVector();
 			// pitch
 			playerCharacter->RotateCamera(radianY, pitchAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
-			//playerCharacter->SetCameraViewDelta(playerCharacter->RotateCamera(radianY, pitchAxis, playerCharacter->GetCameraViewDelta(), deltaTime));
 			// yaw
 			playerCharacter->RotateCamera(-radianX, Vector3(0, 1, 0), playerCharacter->GetCameraViewDelta(), deltaTime);
-			//playerCharacter->SetCameraViewDelta(playerCharacter->RotateCamera(radianX, Vector3(0, 1, 0), playerCharacter->GetCameraViewDelta(), deltaTime));
-			
 		}
 		
 

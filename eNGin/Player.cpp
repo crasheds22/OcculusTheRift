@@ -61,12 +61,7 @@ void Player::Update(float deltaTime, std::vector<Actor> resultObjectList)
 
 		if (collisionBox.AABBtoAABB(resultObjectList[ii].GetCollider()))
 		{
-			std::cout << "Collided" << std::endl;
 			collisionBox.CollideWith(this, resultObjectList[ii]);
-		}
-		else
-		{
-			std::cout << "No Collision" << std::endl;
 		}
 	}
 }
@@ -115,6 +110,7 @@ void Player::Move(float deltaTime) {
 
 	deltaMoveFB = deltaMoveF - deltaMoveB;
 	deltaMoveLR = deltaMoveR - deltaMoveL;
+
 	if (deltaMoveFB != 0)
 		MoveFB(deltaTime);
 
@@ -145,6 +141,7 @@ void Player::MoveFB(float deltaTime) {
 void Player::MoveLR(float deltaTime) {
 
 	Vector3 view(cameraViewDelta.GetQuartX(), cameraViewDelta.GetQuartY(), cameraViewDelta.GetQuartZ());
+
 
 	view = view.CrossProduct(GetCameraUp());
 	view = view.UnitVector();
@@ -255,15 +252,9 @@ Quarternion Player::RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion
 
 	quartResult = qpQuart.CrossProduct(qQuart.Inverse());
 
-	//quartResult = quartResult.ScalarProduct(1);
 
 	cameraViewDelta = quartResult;
-	/*
-	std::cout << "Delta W:" << cameraViewDelta.GetQuartW() << std::endl;
-	std::cout << "Delta X:" << cameraViewDelta.GetQuartX() << std::endl;
-	std::cout << "Delta Y:" << cameraViewDelta.GetQuartY() << std::endl;
-	std::cout << "Delta Z:" << cameraViewDelta.GetQuartZ() << std::endl;
-	*/
+	
 	return quartResult;
 }
 
