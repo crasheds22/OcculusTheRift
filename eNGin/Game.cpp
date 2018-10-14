@@ -91,7 +91,6 @@ void Game::Update(float deltaTime)
 					
 					if (ProximityCull(playerCharacter->GetPos(), temp))
 					{
-						std::cout << "Object added" << std::endl;
 						resultObjectList.push_back(*col);
 					}
 				}
@@ -194,17 +193,6 @@ void Game::InputDown(unsigned char key, int x, int y)
 		}
 		//exitScreen = !exitScreen;
 		break;
-	case'z':
-		Vector3 yawAxis;
-		Vector3 pitchAxis;
-		GLdouble radian;
-		
-		radian = 90 * (PI / 180);
-		yawAxis = Vector3(0, 1, 0);
-		pitchAxis = Vector3(1, 0, -1);
-
-		playerCharacter->RotateCamera(radian, yawAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
-		//playerCharacter->RotateCamera(radian, pitchAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
 	}
 }
 
@@ -285,7 +273,7 @@ void Game::MouseLook(int x, int y)
 			// pitch
 			playerCharacter->RotateCamera(radianY, pitchAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
 			// yaw
-			playerCharacter->RotateCamera(radianX, Vector3(0, 1, 0), playerCharacter->GetCameraViewDelta(), deltaTime);
+			playerCharacter->RotateCamera(-radianX, Vector3(0, 1, 0), playerCharacter->GetCameraViewDelta(), deltaTime);
 		}
 		
 
