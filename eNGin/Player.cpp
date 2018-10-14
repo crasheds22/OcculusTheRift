@@ -1,6 +1,7 @@
 #include <pch.h>
 
 #include "Player.h"
+
 #include "Cube.h"
 #include "Quarternion.h"
 
@@ -31,11 +32,11 @@ Player* Player::GetInstance() {
 	return &instance;
 }
 
-void Player::Update(float deltaTime, std::vector<Actor> resultObjectList) {
-
-	//cameraUp = Vector3(0.0, 1.0, 0.0);
+void Player::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap) {
+	std::cout << "Player update" << std::endl;
 
 	Move(deltaTime);
+
 	glLoadIdentity();
 	gluLookAt(position.GetPointX(), position.GetPointY() + 1.8, position.GetPointZ(),
 			  position.GetPointX() * cameraViewLR.GetPointX() * cameraViewUD.GetPointX(), 
@@ -46,22 +47,12 @@ void Player::Update(float deltaTime, std::vector<Actor> resultObjectList) {
 	collisionBox.SetMaxPoint(position.GetPointX() + 0.5, position.GetPointY() + 0.5, position.GetPointZ() + 0.5);
 	collisionBox.SetMinPoint(position.GetPointX() - 0.5, position.GetPointY() - 0.5, position.GetPointZ() - 0.5);
 
-
-	for (int ii = 0; ii < resultObjectList.size(); ii++)
+	//Check for Wall Collisions
+	for (int ii = 0; ii < entityMap[2].size(); ii++)
 	{
-		
-		std::cout << "Object List position X: " << resultObjectList[ii].GetPos().GetPointX() << std::endl;
-		std::cout << "Object List position Y: " << resultObjectList[ii].GetPos().GetPointY() << std::endl;
-		std::cout << "Object List position Z: " << resultObjectList[ii].GetPos().GetPointZ() << std::endl;
-
-		if (collisionBox.AABBtoAABB(resultObjectList[ii].GetCollider()))
+		if (collisionBox.AABBtoAABB(entityMap[2][ii]->GetCollider()))
 		{
-			std::cout << "Collided" << std::endl;
-			collisionBox.CollideWith(this, resultObjectList[ii]);
-		}
-		else
-		{
-			std::cout << "No Collision" << std::endl;
+			collisionBox.CollideWith(this, *entityMap[2][ii]);
 		}
 	}
 }
@@ -69,8 +60,6 @@ void Player::Update(float deltaTime, std::vector<Actor> resultObjectList) {
 void Player::DirectionB(const GLdouble tempMove) {
 	deltaMoveB = tempMove;
 }
-
-
 
 void Player::DirectionR(const GLdouble tempMove) {
 	deltaMoveR = tempMove;
@@ -80,13 +69,9 @@ void Player::DirectionF(const GLdouble tempMove) {
 	deltaMoveF = tempMove;
 }
 
-
-
 void Player::DirectionL(const GLdouble tempMove) {
 	deltaMoveL = tempMove;
 }
-
-
 
 void Player::DirectionUD(const GLdouble tempMove) {
 	deltaMoveUD = tempMove;
@@ -96,12 +81,12 @@ void Player::DirectionLookLR(const GLdouble tempRot) {
 	deltaRotLR = tempRot * rotateSpeed;
 }
 
-GLdouble Player::GetFB() {
-	return position.GetPointZ();
-}
-
 void Player::DirectionLookUD(const GLdouble tempRot) {
 	deltaRotUD = tempRot * rotateSpeed;
+}
+
+GLdouble Player::GetFB() {
+	return position.GetPointZ();
 }
 
 GLdouble Player::GetLR() {
@@ -113,9 +98,9 @@ GLdouble Player::GetUD() {
 }
 
 void Player::Move(float deltaTime) {
-
 	deltaMoveFB = deltaMoveF - deltaMoveB;
 	deltaMoveLR = deltaMoveR - deltaMoveL;
+
 	if (deltaMoveFB != 0)
 		MoveFB(deltaTime);
 

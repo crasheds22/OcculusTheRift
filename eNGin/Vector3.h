@@ -180,12 +180,14 @@ public:
 	*/
 	Vector3 operator*(GLdouble &scalar);
 
-	
+	Vector3& operator-=(const Vector3 &rhs);
 
 private:
 	GLdouble x;	/*<! The x point value */
 	GLdouble y; /*<! The y point value */
 	GLdouble z; /*<! The z point value */
 };
+
+Vector3 operator-(const Vector3 &lhs, const Vector3 &rhs);
 
 #endif

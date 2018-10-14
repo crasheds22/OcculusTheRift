@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <gl\glut.h>
+#include <map>
 
 #include "Actor.h"
 #include "Cube.h"
@@ -23,16 +24,20 @@
  *	@version 2.0 Change class to singleton design
  *	@date 10-09-2018
  */
+
+
 class Player : public Actor {
 public:
 	static Player* GetInstance();
+
+	void Update(float deltaTime) override {};
 
 	//========================================
 	/**
 	 *	An overridden member taking no arguments
 	 *	Updates the Player's location in the world
 	 */
-	void Update(float deltaTime, std::vector<Actor> resultObjectList);
+	void Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap);
 	//========================================
 
 	//========================================

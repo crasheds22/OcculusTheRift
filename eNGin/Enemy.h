@@ -1,63 +1,46 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
+#include <vector>
+
 #include "Actor.h"
 #include "State.h"
 #include "EnemyOwnedStates.h"
 
 class Enemy : public Actor {
 public:
-	Enemy(Model* mod, Texture* tex);
+	Enemy(Model* mod, Texture* tex, float xPos, float yPos, float zPos, std::vector<Vector3> &f);
 
-	void Update(float deltaTime);
+	void Update(float deltaTime) override;
 
 	void ChangeState(State* newState);
 
-	void Wander();
-	void Chase(Vector3 targetPos);
-	void Attack();
-	void Search(Vector3 targetPos);
+	State* GetWander();
+	State* GetChase();
+	State* GetAttack();
 
-	void FindTarget(Actor &target);
-
-	//Movement functions
-	void DirectionFB(const double tempMove);
-	void DirectionUD(const double tempMove);
-	void DirectionLR(const double tempMove);
-	void DirectionLookUD(const double tempRot);
-	void DirectionLookLR(const double tempRot);
+	std::vector<Vector3> GetFlags();
 
 	double GetFB();
 	double GetLR();
 	double GetUD();
 
-	void Move();
+	void MoveX(double moveX);
+	void MoveY(double moveY);
+	void MoveZ(double moveZ);
+	void RotateXZ();
+	void RotateXY();
+
 private:
 	State* currentState;
 
-	Vector3 target;
+	WanderState* wander;
+	ChaseState* chase;
+	AttackState* attack;
 
-	double decelVal = 2;
+	std::vector<Vector3> tempFlags;
 
-	Vector3 lookFB,
-		    lookLR;
-
-	double deltaMoveFB,
-		   deltaMoveLR,
-		   deltaMoveUD;
-
-	double rotLR,
-		   rotUD,
-		   deltaRotLR,
-		   deltaRotUD;
-
-	bool firstWanderEntry = true;
-
-	void MoveFB();
-	void MoveLR();
-	void MoveUD();
-	void LookUD();
-	void LookLR();
+	float dT;
 };
 
 #endif

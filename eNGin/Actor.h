@@ -56,7 +56,7 @@ public:
 	 *	A virtual member taking no arguments
 	 *	Every Actor can override the Update function for their own unique reasons
 	 */
-	virtual void Update(float deltaTime);
+	virtual void Update(float deltaTime) = 0;
 
 	/**
 	 *	A virtual member taking no arguments
@@ -192,6 +192,8 @@ protected:
 	
 	double maxHealth, health,
 		maxStamina, stamina;
+
+	bool emptyHands = true;
 };
 
 #endif

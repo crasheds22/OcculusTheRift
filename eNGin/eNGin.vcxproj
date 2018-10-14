@@ -141,13 +141,14 @@
   <ItemGroup>
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyOwnedStates.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="LevelExit.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="MusicPlayer.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="Shay\Sound.cpp" />
     <ClCompile Include="Shay\SoundTime.cpp" />
     <ClCompile Include="Shay\texturedPolygons.cpp" />
+    <ClCompile Include="SoundPlayer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Wall.cpp" />
@@ -174,12 +176,13 @@
   <ItemGroup>
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Actor.h" />
-    <ClInclude Include="Cube.h" />
     <ClInclude Include="Dungeon.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyOwnedStates.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="LevelExit.h" />
     <ClInclude Include="lodepng.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="MusicPlayer.h" />
     <ClInclude Include="Player.h" />
@@ -198,6 +201,7 @@
     <ClInclude Include="Shay\Sound.h" />
     <ClInclude Include="Shay\SoundTime.h" />
     <ClInclude Include="Shay\texturedPolygons.h" />
+    <ClInclude Include="SoundPlayer.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vector3.h" />

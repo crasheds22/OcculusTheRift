@@ -11,25 +11,28 @@
 #include <iostream>
 
 #include "Player.h"
-#include "Cube.h"
+#include "Menu.h"
 #include "Model.h"
 #include "Texture.h"
 #include "Shay.h"
 #include "MusicPlayer.h"
 #include "Wall.h"
 #include "Dungeon.h"
+#include "LevelExit.h"
+#include "Enemy.h"
+#include "SoundPlayer.h"
 
 #define SHAY_STATE 0
 #define MENU_STATE 1
 #define GAME_STATE 2
 #define LOAD_STATE 3
 
-enum Tag {
-	PLAYER,
-	ENEMY,
-	WALL,
-	POWERUP
-};
+
+#define tPlayer 0
+#define tEnemy 1
+#define tWALL 2
+#define tPOWERUP 3
+#define tEXIT 4
 
 /**
  *	@class Game
@@ -112,6 +115,13 @@ public:
 	Shay * GetShaysWorld() const;
 
 	/**
+	*	A normal member returning a pointer to a Menu object
+	*	Returns a pointer to Menu
+	*	@return Menu pointer
+	*/
+	Menu * GetMenu() const;
+
+	/**
 	*	A normal member returning the state value
 	*	Returns the value representing the current state of the game
 	*	@return the game state
@@ -178,13 +188,21 @@ public:
 	void AddWall(float x, float y, float z);
 
 	/**
+	*	A normal member taking 3 arguments
+	*	Used to add an exit to the list of game entities
+	*	@param x The x position of the wall
+	*	@param y The y position of the wall
+	*	@param z The z position of the wall
+	*/
+	void AddExit(float x, float y, float z);
+
+	/**
 	*	@brief to get the pointer to the player object
-	*	@param
 	*	@return memory address of the player
-	*	@pre
-	*	@post
 	*/
 	Player* GetPlayer() const;
+
+	void AddEnemy(float x, float y, float z, std::vector<Vector3> &f);
 
 private:
 	float startTime;			/*<! start counting time variable> */
@@ -198,20 +216,25 @@ private:
 
 	Player *playerCharacter;		/*<! The player in a scene */
 
+	Menu * menuScreens;			/*<! The menu screens */
 
 	MusicPlayer bgmControl;		/*<! Handles the BGM for the Game> */
+
+	SoundPlayer soundControl;
 
 	Dungeon* dungeon;	/*<!The level generator>*/
 
 	std::vector<Model*> models;		/*<! All possible models to be used in the running of the game */
 	std::vector<Texture> textures;	/*<! All possible textures to be used in the running of the game */
 
-	std::map<Tag, std::vector<Actor>> Entities; /*<! All entities in the current level */
+	std::map<int, std::vector<Actor*>> Entities; /*<! All entities in the current level */
 
 	int centreX,		/*<! The x value of the centre of the screen */
 		centreY;		/*<! The y value of the centre of the screen */
 
 	bool exitScreen;
+
+	bool menuScreen;
 
 	/**
 	 *	A normal member taking no arguments

@@ -1,17 +1,22 @@
 #include <pch.h>
 
 #include "Game.h"
+#include <random>
 
 Game::Game()
 {
 	playerCharacter = Player::GetInstance();
 	
 	shaysWorld = new Shay(this);
-	state = SHAY_STATE;
+	menuScreens = new Menu(this);
+
+	state = MENU_STATE;
+	
 	textures.resize(10);
 	models.resize(10);
 
 	exitScreen = false;
+	menuScreen = true;
 }
 
 Game::~Game()
@@ -30,11 +35,12 @@ Game::~Game()
 
 void Game::Run() 
 {
-	
 	endTime = glutGet(GLUT_ELAPSED_TIME);
 	deltaTime = (endTime - startTime)/1000;
-	Draw();
-	Update(deltaTime);
+
+	Game::Draw();
+	
+	Game::Update(deltaTime);
 
 	startTime = endTime;
 }
@@ -42,6 +48,7 @@ void Game::Run()
 void Game::Initialise() 
 {
 	shaysWorld->Init();
+	menuScreens->Init();
 	
 	centreX = glutGet(GLUT_WINDOW_WIDTH) / 2;
 	centreY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
@@ -52,53 +59,83 @@ void Game::Initialise()
 	playerCharacter->SetRotateSpeed(1);
 
 	textures[0].LoadTexture("data/Group.png", 768, 768);
-	textures[1].LoadTexture("data/wall1.png", 64, 64);
+	textures[1].LoadTexture("data/wall2.png", 64, 64);
 	textures[2].LoadTexture("data/roof.png", 32, 32);
-	textures[3].LoadTexture("data/floor.png", 32, 32);
+	textures[3].LoadTexture("data/floor2.png", 32, 32);
+	textures[4].LoadTexture("data/Statue.png", 1024, 1024);
+	textures[5].LoadTexture("data/Menu.png", 768, 768);
+	textures[6].LoadTexture("data/eyeball.png", 128, 128);
+	textures[7].LoadTexture("data/wall2_vines.png", 64, 64);
+	textures[8].LoadTexture("data/exit.png", 128, 128);
 
 	models[0] = new Model("data/wall1.obj");
+	models[1] = new Model("data/statue_base.obj");
+	models[2] = new Model("data/eyeball.obj");
+	models[3] = new Model("data/exit.obj");
 
-	std::vector <Actor> tempObjectVectorOne;
+	std::vector <Actor*> tempObjectVectorOne;
+	std::vector <Actor*> tempObjectVectorTwo;
+	std::vector <Actor*> tempObjectVectorThree;
 
-	std::pair <Tag, std::vector <Actor>> enumActor;
-	enumActor.first = Tag::WALL;
+	std::pair <int, std::vector <Actor*>> enumActor;
+	enumActor.first = tWALL;
 	enumActor.second = tempObjectVectorOne;
 
 	Entities.insert(enumActor);
+
+	std::pair <int, std::vector <Actor*>> enumActorTwo;
+	enumActor.first = tEXIT;
+	enumActor.second = tempObjectVectorTwo;
+
+	Entities.insert(enumActorTwo);
+	
+	std::pair <int, std::vector <Actor*>> enumActorThree;
+	enumActor.first = tEnemy;
+	enumActor.second = tempObjectVectorThree;
+
+	Entities.insert(enumActorThree);
 }
 
 void Game::Update(float deltaTime)
 {
-	std::vector <Actor> resultObjectList;
+	std::map<int, std::vector<Actor*>> tempMap;
 
 	bgmControl.PlaySong();
 	
 	switch (state)
 	{
-		case GAME_STATE:			
-			for (std::map <Tag, std::vector<Actor>>::iterator object = Entities.begin(); object != Entities.end(); ++object)
+		case GAME_STATE:
+
+			if (Entities[tEXIT][0]->GetCollider().AABBtoAABB(playerCharacter->GetCollider()))
 			{
-				for (std::vector<Actor>::iterator col = object->second.begin(); col != object->second.end(); col++)
+				ClearLevel();
+			}
+			
+			for (int i = 0; i < Entities[tEnemy].size(); i++) {
+				Entities[tEnemy][i]->Update(deltaTime);
+			}
+
+			for (int i = 0; i < Entities.size(); ++i)
+			{
+				std::vector<Actor*> resultObjectList;
+				std::pair <int, std::vector<Actor*>> enumActor;
+
+				for (int j = 0; j < Entities[i].size(); j++)
 				{
-					Vector3 temp = col->GetPos();
+					Vector3 temp = Entities[i][j]->GetPos();
 					
 					if (ProximityCull(playerCharacter->GetPos(), temp))
 					{
-						std::cout << "Object added" << std::endl;
-						resultObjectList.push_back(*col);
+						resultObjectList.push_back(Entities[i][j]);
 					}
 				}
+
+				enumActor.first = i;
+				enumActor.second = resultObjectList;
+				tempMap.insert(enumActor);
 			}
 
-			playerCharacter->Update(deltaTime, resultObjectList);
-
-			for (std::map <Tag, std::vector<Actor>>::iterator object = Entities.begin(); object != Entities.end(); ++object)
-			{
-				for (std::vector<Actor>::iterator col = object->second.begin(); col != object->second.end(); col++)
-				{
-					col->Update(deltaTime);
-				}
-			}
+			playerCharacter->Update(deltaTime, tempMap);
 			
 			break;
 
@@ -119,11 +156,23 @@ void Game::Draw()
 	switch (state)
 	{
 		case MENU_STATE:
+			if (menuScreens != NULL)
+			{
+				menuScreens->Draw(textures[5]);
+			}
 			break;
 
 		case SHAY_STATE:
 			if (shaysWorld != NULL)
 			{
+				shaysWorld->SetWidthHeight(800, 500);
+				glEnable(GL_DEPTH_TEST);
+				glMatrixMode(GL_PROJECTION);
+				glLoadIdentity();
+
+				gluPerspective(60.0, 1, 1.0, 30.0);
+				glMatrixMode(GL_MODELVIEW);
+				glLoadIdentity();
 				shaysWorld->Draw();
 			}
 			break;
@@ -134,14 +183,24 @@ void Game::Draw()
 			playerCharacter->Draw();
 
 			glPushMatrix();
-			for (int ii = 0; ii < Entities[Tag::WALL].size(); ii++)
+			for (int ii = 0; ii < Entities[tWALL].size(); ii++)
 			{
-				Entities[Tag::WALL][ii].Draw();
+				Entities[tWALL][ii]->Draw();
+			}
+
+			for (int ii = 0; ii < Entities[tEXIT].size(); ii++)
+			{
+				Entities[tEXIT][ii]->Draw();
 			}
 			glPopMatrix();
 
 			dungeon->DrawRoof(textures[2]);
 			dungeon->DrawFloor(textures[3]);
+
+			for (int i = 0; i < Entities[tEnemy].size(); i++) 
+			{
+				Entities[tEnemy][i]->Draw();
+			}
 
 			glPushMatrix();
 				if (exitScreen)
@@ -181,19 +240,17 @@ void Game::InputDown(unsigned char key, int x, int y)
 		break;
 	case 't':
 	case 'T':
-		if (state == GAME_STATE)
-		{
-			ClearLevel();
-		}
+		soundControl.PlaySound(0);
 		//exitScreen = !exitScreen;
 		break;
-	case'z':
-		Vector3 pitchAxis;
-		GLdouble radian;
-		pitchAxis = playerCharacter->GetCameraViewLR().CrossProduct(playerCharacter->GetCameraUp());
-		radian = -90 * (PI / 180);
-		playerCharacter->RotateCameraLR(radian, playerCharacter->GetCameraViewUD(), playerCharacter->GetCameraViewLR(), deltaTime);
-		//playerCharacter->RotateCameraUD(radian, playerCharacter->GetCameraViewLR(), playerCharacter->GetCameraViewUD(), deltaTime);
+	case 'p':
+	case 'P':
+		menuScreen = !menuScreen;
+		if (!menuScreen)
+			SetState(MENU_STATE);
+		else
+			SetState(GAME_STATE);
+		break;
 	}
 }
 
@@ -233,6 +290,7 @@ void Game::MouseLook(int x, int y)
 		//std::cout << "Delta Time: " << deltaTime << std::endl;
 		//int deltaX = ((centreX - x) < 0) - (0 < (centreX - x));
 		//int deltaY = -(((centreY - y) < 0) - (0 < (centreY - y)));
+
 
 		int deltaX = (centreX - x);
 		int deltaY = (centreY - y);
@@ -276,8 +334,7 @@ void Game::MouseLook(int x, int y)
 		
 
 		//glutWarpPointer(centreX, centreY);
-		//playerCharacter->DirectionLookLR(deltaX);
-		//playerCharacter->DirectionLookUD(deltaY);
+
 	}
 	*/
 	//glutWarpPointer(centreX, centreY);
@@ -334,6 +391,11 @@ void Game::MouseClick(int button, int state, int x, int y) {
 Shay * Game::GetShaysWorld() const
 {
 	return shaysWorld;
+}
+
+Menu * Game::GetMenu() const
+{
+	return menuScreens;
 }
 
 int Game::GetState() const
@@ -424,16 +486,35 @@ int Game::GetCentreY()
 
 void Game::AddWall(float x, float y, float z)
 {
-	
-	Entities[Tag::WALL].push_back(Wall(x, y, z, models[0], &textures[1]));
-	wallCount++;
+
+	std::random_device rd;     // only used once to initialise (seed) engine
+	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
+	std::uniform_int_distribution<int> uni(0, 4); // guaranteed unbiased
+	int chance = uni(rng);
+	Wall *temp = NULL;
+
+	if (chance < 4)
+	{
+		temp = new Wall(x, y, z, models[0], &textures[1]);
+	}
+	else
+	{
+		temp = new Wall(x, y, z, models[0], &textures[7]);
+	}
+	Entities[tWALL].push_back(temp);
+}
+
+void Game::AddExit(float x, float y, float z)
+{
+	LevelExit *exit = new LevelExit(x, y, z, models[3], &textures[8]);
+
+	Entities[tEXIT].push_back(exit);
 }
 
 Player * Game::GetPlayer() const
 {
 	return playerCharacter;
 }
-
 
 bool Game::ProximityCull(Vector3 actorPosition, Vector3 &inputObject)
 {
@@ -456,8 +537,16 @@ bool Game::ProximityCull(Vector3 actorPosition, Vector3 &inputObject)
 
 void Game::ClearLevel()
 {
-	Entities[Tag::WALL].clear();
+	Entities[tWALL].clear();
+	Entities[tEXIT].clear();
 	delete dungeon;
 	dungeon = NULL;
 	state = LOAD_STATE;
+}
+
+void Game::AddEnemy(float x, float y, float z, std::vector<Vector3> &f)
+{
+	Enemy *enemy = new Enemy(models[2], &textures[6], x, y, z, f);
+
+	Entities[tEnemy].push_back(enemy);
 }

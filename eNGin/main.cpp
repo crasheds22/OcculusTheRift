@@ -36,10 +36,11 @@ int main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(800, 500);
-	glutCreateWindow("Oculus The Rift");
+	glutCreateWindow("Occulus The Rift");
 
 	myinit();
 	game.Initialise();
+	game.GetMenu()->Init();
 
 	glutIgnoreKeyRepeat(1);
 	glutKeyboardUpFunc(releaseKeys);
@@ -170,6 +171,10 @@ void Mouse(int button, int state, int x, int y)
 
 	if (game.GetState() == GAME_STATE) {
 		game.MouseClick(button, state, x, y);
+	}
+
+	if (game.GetState() == MENU_STATE) {
+		game.GetMenu()->MouseClick(button, state, x, y);
 	}
 }
 
