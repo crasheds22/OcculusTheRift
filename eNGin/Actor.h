@@ -52,8 +52,6 @@ public:
 	 */
 	Actor(Model* mod, Texture* tex);
 
-	//~Actor();
-
 	/**
 	 *	A virtual member taking no arguments
 	 *	Every Actor can override the Update function for their own unique reasons
