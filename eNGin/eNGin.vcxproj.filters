@@ -34,7 +34,11 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Wall.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="TargetReticle.cpp" />
+=======
+    <ClCompile Include="Projectile.cpp" />
+>>>>>>> 2128aaed2eb0ba25d33aeae79d7878dd128ab3eb
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
@@ -69,7 +73,11 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Wall.h" />
+<<<<<<< HEAD
     <ClInclude Include="TargetReticle.h" />
+=======
+    <ClInclude Include="Projectile.h" />
+>>>>>>> 2128aaed2eb0ba25d33aeae79d7878dd128ab3eb
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

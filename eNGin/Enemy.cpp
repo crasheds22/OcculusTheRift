@@ -1,9 +1,9 @@
 #include "Enemy.h"
+#include "Game.h"
 
-#include <iostream>
-
-Enemy::Enemy(Model* mod, Texture* tex, float xPos, float yPos, float zPos, std::vector<Vector3> &f) : Actor(mod, tex),
-																									  tempFlags(f)
+Enemy::Enemy(Game* own, Model* mod, Texture* tex, float xPos, float yPos, float zPos, std::vector<Vector3> &f) : Actor(mod, tex),
+																												 tempFlags(f),
+																												 owner(own)
 {
 	SetPos(xPos, yPos, zPos);
 	SetMoveSpeed(4);
@@ -17,7 +17,6 @@ Enemy::Enemy(Model* mod, Texture* tex, float xPos, float yPos, float zPos, std::
 }
 
 void Enemy::Update(float deltaTime) {
-	std::cout << "Enemy update" << std::endl;
 	dT = deltaTime;
 
 	if (currentState) {
@@ -47,6 +46,10 @@ State* Enemy::GetAttack() {
 
 std::vector<Vector3> Enemy::GetFlags() {
 	return tempFlags;
+}
+
+void Enemy::Shoot() {
+
 }
 
 //=============================================================================
@@ -89,12 +92,4 @@ void Enemy::MoveZ(double moveZ) {
 	newZ = position.GetPointZ() + moveZ * moveSpeed * dT;
 
 	position.SetPointZ(newZ);
-}
-
-void Enemy::RotateXZ() {
-
-}
-
-void Enemy::RotateXY() {
-
 }

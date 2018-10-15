@@ -44,8 +44,11 @@ void Player::Initialise()
 
 void Player::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap)
 {
+<<<<<<< HEAD
 	std::cout << "Player update" << std::endl;
 
+=======
+>>>>>>> 2128aaed2eb0ba25d33aeae79d7878dd128ab3eb
 	Move(deltaTime);
 
 	glLoadIdentity();
