@@ -1,222 +1,75 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Source Files\ShaysWorld">
-      <UniqueIdentifier>{7743b2f2-e77d-4dca-a66e-dea7f389d1a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="Dungeon.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyOwnedStates.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="LevelExit.cpp" />
+    <ClCompile Include="lodepng.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="MusicPlayer.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Projection.cpp" />
+    <ClCompile Include="Quarternion.cpp" />
+    <ClCompile Include="Shay.cpp" />
+    <ClCompile Include="Shay\AABB.CPP" />
+    <ClCompile Include="Shay\AABBLinkedList.cpp" />
+    <ClCompile Include="Shay\AABBNode.cpp" />
+    <ClCompile Include="Shay\camera.cpp" />
+    <ClCompile Include="Shay\cameraMap.cpp" />
+    <ClCompile Include="Shay\collision.cpp" />
+    <ClCompile Include="Shay\EasySound.cpp" />
+    <ClCompile Include="Shay\Model_Shay.cpp" />
+    <ClCompile Include="Shay\PlainLinkedList.cpp" />
+    <ClCompile Include="Shay\PlainNode.cpp" />
+    <ClCompile Include="Shay\Sound.cpp" />
+    <ClCompile Include="Shay\SoundTime.cpp" />
+    <ClCompile Include="Shay\texturedPolygons.cpp" />
+    <ClCompile Include="SoundPlayer.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="Projectile.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lodepng.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Projection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Collider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shay\EasySound.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shay\Sound.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shay\SoundTime.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MusicPlayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shay\AABB.CPP">
-      <Filter>Source Files\ShaysWorld</Filter>
-    </ClCompile>
-    <ClCompile Include="Shay\AABBLinkedList.cpp">
-      <Filter>Source Files\ShaysWorld</Filter>
-    </ClCompile>
-    <ClCompile Include="Shay\AABBNode.cpp">
-      <Filter>Source Files\ShaysWorld</Filter>
-    </ClCompile>
-    <ClCompile Include="Shay\camera.cpp">
-      <Filter>Source Files\ShaysWorld</Filter>
-    </ClCompile>
-    <ClCompile Include="Shay\cameraMap.cpp">
-      <Filter>Source Files\ShaysWorld</Filter>
-    </ClCompile>
-    <ClCompile Include="Shay\collision.cpp">
-      <Filter>Source Files\ShaysWorld</Filter>
-    </ClCompile>
-    <ClCompile Include="Shay\PlainLinkedList.cpp">
-      <Filter>Source Files\ShaysWorld</Filter>
-    </ClCompile>
-    <ClCompile Include="Shay\PlainNode.cpp">
-      <Filter>Source Files\ShaysWorld</Filter>
-    </ClCompile>
-    <ClCompile Include="Shay.cpp">
-      <Filter>Source Files\ShaysWorld</Filter>
-    </ClCompile>
-    <ClCompile Include="Shay\texturedPolygons.cpp">
-      <Filter>Source Files\ShaysWorld</Filter>
-    </ClCompile>
-    <ClCompile Include="Shay\Model_Shay.cpp">
-      <Filter>Source Files\ShaysWorld</Filter>
-    </ClCompile>
-    <ClCompile Include="Wall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dungeon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyOwnedStates.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Quarternion.cpp">
-=======
-    <ClCompile Include="LevelExit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundPlayer.cpp">
->>>>>>> ee5ac95643888fadd77dd7c0b3c6320d50f60de7
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lodepng.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Projection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shay\AABB.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shay\AABBLinkedList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shay\AABBNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shay\camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shay\cameraMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shay\collision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shay\Model_Shay.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shay\PlainLinkedList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shay\PlainNode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shay\Sound.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shay\SoundTime.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shay\texturedPolygons.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shay.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MusicPlayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Wall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dungeon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyOwnedStates.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="Quarternion.h">
-=======
-    <ClInclude Include="LevelExit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundPlayer.h">
->>>>>>> ee5ac95643888fadd77dd7c0b3c6320d50f60de7
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="Dungeon.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyOwnedStates.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="LevelExit.h" />
+    <ClInclude Include="lodepng.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="MusicPlayer.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Projection.h" />
+    <ClInclude Include="Quarternion.h" />
+    <ClInclude Include="Shay.h" />
+    <ClInclude Include="Shay\AABB.h" />
+    <ClInclude Include="Shay\AABBLinkedList.h" />
+    <ClInclude Include="Shay\AABBNode.h" />
+    <ClInclude Include="Shay\camera.h" />
+    <ClInclude Include="Shay\cameraMap.h" />
+    <ClInclude Include="Shay\collision.h" />
+    <ClInclude Include="Shay\Model_Shay.h" />
+    <ClInclude Include="Shay\PlainLinkedList.h" />
+    <ClInclude Include="Shay\PlainNode.h" />
+    <ClInclude Include="Shay\Sound.h" />
+    <ClInclude Include="Shay\SoundTime.h" />
+    <ClInclude Include="Shay\texturedPolygons.h" />
+    <ClInclude Include="SoundPlayer.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Vector3.h" />
+    <ClInclude Include="Wall.h" />
+    <ClInclude Include="Projectile.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -506,6 +506,7 @@ void Game::ClearLevel()
 {
 	Entities[tWALL].clear();
 	Entities[tEXIT].clear();
+	Entities[tEnemy].clear();
 	delete dungeon;
 	dungeon = NULL;
 	state = LOAD_STATE;
@@ -513,7 +514,7 @@ void Game::ClearLevel()
 
 void Game::AddEnemy(float x, float y, float z, std::vector<Vector3> &f)
 {
-	Enemy *enemy = new Enemy(models[2], &textures[6], x, y, z, f);
+	Enemy *enemy = new Enemy(this, models[2], &textures[6], x, y, z, f);
 
 	Entities[tEnemy].push_back(enemy);
 }

@@ -2,10 +2,6 @@
 #include "Enemy.h"
 #include "Player.h"
 
-//==================
-#include <iostream>
-//==================
-
 //======================================================
 //Wander State
 
@@ -16,7 +12,7 @@ WanderState::WanderState(Enemy* entity) {
 }
 
 void WanderState::Enter(Enemy* entity) {
-	std::cout << "Enter wander state" << std::endl;
+
 }
 
 void WanderState::Execute(Enemy* entity) {
@@ -51,18 +47,18 @@ void WanderState::Execute(Enemy* entity) {
 }
 
 void WanderState::Exit(Enemy* entity) {
-	std::cout << "Exit wander state" << std::endl;
+
 }
 
 //======================================================
 //Chase State
 
 void ChaseState::Enter(Enemy* entity) {
-	std::cout << "Chase state enter" << std::endl;
+
 }
 
 void ChaseState::Execute(Enemy* entity) {
-	Vector3 target = Player::GetInstance()->GetPos();
+	Vector3 target(Player::GetInstance()->GetPos() - entity->GetPos());
 	double distance = target.VectorMagnitude();
 
 	if (distance <= 8.0) {
@@ -82,22 +78,21 @@ void ChaseState::Execute(Enemy* entity) {
 }
 
 void ChaseState::Exit(Enemy* entity) {
-	std::cout << "Exit chase state" << std::endl;
 }
 
 //======================================================
 //Attack State
 
 void AttackState::Enter(Enemy* entity) {
-	std::cout << "Enter attack state" << std::endl;
 }
 
 void AttackState::Execute(Enemy* entity) {
-	std::cout << "attacked" << std::endl;
+	entity->Shoot();
+	entity->ChangeState(entity->GetChase());
 }
 
 void AttackState::Exit(Enemy* entity) {
-	std::cout << "Exit attack state" << std::endl;
+
 }
 
 //======================================================
