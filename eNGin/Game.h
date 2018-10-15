@@ -213,7 +213,7 @@ private:
 
 	Shay * shaysWorld;			/*<! shaysWorld black box>*/
 
-	Player *playerCharacter;		/*<! The player in a scene */
+	Player *playerCharacter;	/*<! The player in a scene */
 
 	Menu * menuScreens;			/*<! The menu screens */
 

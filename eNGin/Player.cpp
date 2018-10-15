@@ -23,7 +23,6 @@ Player* Player::GetInstance() {
 }
 
 void Player::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap) {
-	std::cout << "Player update" << std::endl;
 	Move(deltaTime);
 
 	glLoadIdentity();

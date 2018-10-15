@@ -2,10 +2,6 @@
 #include "Enemy.h"
 #include "Player.h"
 
-//==================
-#include <iostream>
-//==================
-
 //======================================================
 //Wander State
 
@@ -16,12 +12,12 @@ WanderState::WanderState(Enemy* entity) {
 }
 
 void WanderState::Enter(Enemy* entity) {
-	std::cout << "Enter wander state" << std::endl;
+
 }
 
 void WanderState::Execute(Enemy* entity) {
 	//Check player location for detection
-	Vector3 pDirection(entity->GetPos() - Player::GetInstance()->GetPos());
+	Vector3 pDirection(Player::GetInstance()->GetPos() - entity->GetPos());
 	double pDistance = pDirection.VectorMagnitude();
 
 	if (pDistance <= 24) {
@@ -32,9 +28,12 @@ void WanderState::Execute(Enemy* entity) {
 	//Move to flag
 	Vector3 temp = *fIter;
 
+	//Get direction to flag
 	Vector3 direction(temp - entity->GetPos());
+	//Find distance
 	double distance = direction.VectorMagnitude();
 
+	//Change flags if close enough
 	if (distance <= 2.0) {
 		if (fIter == flags.end()) {
 			fIter = flags.begin();
@@ -43,6 +42,7 @@ void WanderState::Execute(Enemy* entity) {
 			fIter++;
 		}
 	}
+	//Move to flag
 	else {
 		entity->MoveX(direction.GetPointX());
 		entity->MoveY(direction.GetPointY());
@@ -51,53 +51,65 @@ void WanderState::Execute(Enemy* entity) {
 }
 
 void WanderState::Exit(Enemy* entity) {
-	std::cout << "Exit wander state" << std::endl;
+
 }
 
 //======================================================
 //Chase State
 
 void ChaseState::Enter(Enemy* entity) {
-	std::cout << "Chase state enter" << std::endl;
+
 }
 
 void ChaseState::Execute(Enemy* entity) {
-	Vector3 target = Player::GetInstance()->GetPos();
+	Vector3 target(Player::GetInstance()->GetPos() - entity->GetPos());
 	double distance = target.VectorMagnitude();
 
 	if (distance <= 8.0) {
 		//Close enough to attack
+
+		//Stop moving
+		entity->MoveX(0);
+		entity->MoveY(0);
+		entity->MoveZ(0);
+
+		//Attack
 		entity->ChangeState(entity->GetAttack());
 	}
-	else if (distance >= 24.0) {
+	
+	if (distance >= 24.0) {
 		//Player out of range
 		entity->ChangeState(entity->GetWander());
 	}
-	else {
-		//Chase player down
-		entity->MoveX(target.GetPointX());
-		entity->MoveY(target.GetPointY());
-		entity->MoveZ(target.GetPointZ());
-	}
+	
+	//Chase player down
+	entity->MoveX(target.GetPointX());
+	entity->MoveY(target.GetPointY());
+	entity->MoveZ(target.GetPointZ());
 }
 
 void ChaseState::Exit(Enemy* entity) {
-	std::cout << "Exit chase state" << std::endl;
+
 }
 
 //======================================================
 //Attack State
 
 void AttackState::Enter(Enemy* entity) {
-	std::cout << "Enter attack state" << std::endl;
 }
 
 void AttackState::Execute(Enemy* entity) {
-	std::cout << "attacked" << std::endl;
+	//Stop moving
+	entity->MoveX(0);
+	entity->MoveY(0);
+	entity->MoveZ(0);
+
+	//Fire
+
+	entity->ChangeState(entity->GetChase());
 }
 
 void AttackState::Exit(Enemy* entity) {
-	std::cout << "Exit attack state" << std::endl;
 }
 
 //======================================================
