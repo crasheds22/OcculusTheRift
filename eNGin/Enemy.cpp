@@ -1,7 +1,5 @@
 #include "Enemy.h"
 
-#include <iostream>
-
 Enemy::Enemy(Model* mod, Texture* tex, float xPos, float yPos, float zPos, std::vector<Vector3> &f) : Actor(mod, tex),
 																									  tempFlags(f)
 {
@@ -17,7 +15,6 @@ Enemy::Enemy(Model* mod, Texture* tex, float xPos, float yPos, float zPos, std::
 }
 
 void Enemy::Update(float deltaTime) {
-	std::cout << "Enemy update" << std::endl;
 	dT = deltaTime;
 
 	if (currentState) {
@@ -70,7 +67,7 @@ double Enemy::GetUD() {
 void Enemy::MoveX(double moveX) {
 	double newX = 0.0;
 
-	newX = position.GetPointX() + moveX * moveSpeed * dT;
+	newX = position.GetPointX() + (moveX * moveSpeed * 0.006);
 
 	position.SetPointX(newX);
 }
@@ -78,7 +75,7 @@ void Enemy::MoveX(double moveX) {
 void Enemy::MoveY(double moveY) {
 	double newY = 0.0;
 
-	newY = position.GetPointY() + moveY * moveSpeed * dT;
+	newY = position.GetPointY() + moveY * moveSpeed * 0.006;
 
 	position.SetPointY(newY);
 }
@@ -86,15 +83,7 @@ void Enemy::MoveY(double moveY) {
 void Enemy::MoveZ(double moveZ) {
 	double newZ = 0.0;
 
-	newZ = position.GetPointZ() + moveZ * moveSpeed * dT;
+	newZ = position.GetPointZ() + moveZ * moveSpeed * 0.006;
 
 	position.SetPointZ(newZ);
-}
-
-void Enemy::RotateXZ() {
-
-}
-
-void Enemy::RotateXY() {
-
 }
