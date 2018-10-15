@@ -243,12 +243,7 @@ Quarternion Player::RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion
 	pQuart.SetQuartX(pAxis.GetQuartX());
 	pQuart.SetQuartY(pAxis.GetQuartY());
 	pQuart.SetQuartZ(pAxis.GetQuartZ());
-	/*
-	std::cout << "qQuarternion W:" << qQuart.GetQuartW() << std::endl;
-	std::cout << "qQuarternion X:" << qQuart.GetQuartX() << std::endl;
-	std::cout << "qQuarternion Y:" << qQuart.GetQuartY() << std::endl;
-	std::cout << "qQuarternion Z:" << qQuart.GetQuartZ() << std::endl;
-	*/
+	
 	qpQuart = qQuart.CrossProduct(pQuart);
 
 	quartResult = qpQuart.CrossProduct(qQuart.Inverse());

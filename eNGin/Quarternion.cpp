@@ -185,7 +185,7 @@ Quarternion Quarternion::QRotation(double theTheta, Vector3 theAxis)
 {
 	Quarternion rotationQuart, axisQuart, pqQuart, quartResult;
 	Vector3 theUnitVector;
-	double theRadian, sinTheta;
+	double  sinTheta;
 
 	// Normalise rotation axis to have unit length
 	theUnitVector = theAxis.UnitVector();

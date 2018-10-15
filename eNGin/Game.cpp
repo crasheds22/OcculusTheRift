@@ -292,23 +292,17 @@ void Game::InputUp(unsigned char key, int x, int y)
 void Game::MouseLook(int x, int y)
 {
 	int deadzone = 0.25;
-
 	Vector3 pitchAxis;
 	GLdouble fps = 60;
-	GLdouble currentRotation;
 	GLdouble mouseSensitivity = 3;
-	
-	
+
 	//If the mouse pointer has moved far enough, rotate camera
 	if ((abs((long double)x) > deadzone) || (abs((long double)y) > deadzone)) 
 	{	
-		//std::cout << "Delta Time: " << deltaTime << std::endl;
-
+		
 		int deltaX = ((centreX - x) < 0) - (0 < (centreX - x));
 		int deltaY = -(((centreY - y) < 0) - (0 < (centreY - y)));
 
-		//deltaX = deltaX * deltaTime * fps * mouseSensitivity;
-		//deltaY = deltaY * deltaTime * fps * mouseSensitivity;
 		
 		if (deltaX >= 1)
 		{
