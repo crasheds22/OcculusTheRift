@@ -99,7 +99,7 @@ public:
 	*	@param in The vector to multiply by
 	*	@return Vector3 The resultant vector
 	*/
-	Vector3 CrossProduct(Vector3 &in);
+	Vector3 CrossProduct(Vector3 in);
 
 	/**
 	*	A utility function taking one argument and returning a Vector3
@@ -116,6 +116,14 @@ public:
 	*/
 	Vector3 UnitNormal(Vector3 &inputVector);
 
+	/**
+	*	@brief calculates the unit vector 
+	*	@param 
+	*	@return normalised vector is returned
+	*	@pre 
+	*	@post
+	*/
+	Vector3 UnitVector();
 
 	/**
 	*	@brief calculates the angle of a vector in relation to another 
@@ -180,7 +188,15 @@ public:
 	*/
 	Vector3 operator*(GLdouble &scalar);
 
+	/**
+	*	@brief operator that calculates the subtraction of vector 
+	*	@param theInputVector target vector
+	*	@return a subtracted vector
+	*	@pre
+	*	@post
+	*/
 	Vector3& operator-=(const Vector3 &rhs);
+
 
 private:
 	GLdouble x;	/*<! The x point value */

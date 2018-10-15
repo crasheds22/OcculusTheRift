@@ -6,6 +6,7 @@
 
 #include "Actor.h"
 #include "Cube.h"
+#include "Quarternion.h"
 
 /**
  *	@class Player
@@ -30,6 +31,15 @@ public:
 	static Player* GetInstance();
 
 	void Update(float deltaTime) override {};
+
+	//========================================
+	/**
+	 *	An overridden member taking no arguments
+	 *	Updates the Player's location in the world
+	 */
+
+	void Initialise();
+	//========================================
 
 	//========================================
 	/**
@@ -125,6 +135,25 @@ public:
 	void Move(float deltaTime);
 	//========================================
 
+
+	void SetCameraViewLR(Quarternion inputVector);
+	void SetCameraViewUD(Quarternion inputVector);
+	void SetCameraViewDelta(Quarternion inputVector);
+	void SetCameraView(Quarternion inputQuart);
+	void SetCameraUp(Vector3 inputVector);
+	Quarternion GetCameraViewLR();
+	Quarternion GetCameraViewUD();
+	Quarternion GetCameraViewDelta();
+	Quarternion GetCameraView();
+	Vector3 GetCameraViewDeltaVector();
+	Vector3 GetCameraUp();
+
+	Quarternion RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion pAxis,float deltaTime);
+	//Quarternion RotateCameraUD(GLdouble mouseAngle, Vector3 qAxis, Quarternion pAxis, float deltaTime);
+	Quarternion RotateCameraSlerp(Quarternion sourceQuart, Quarternion targetQuart, GLdouble t);
+
+	Point GetLookFB();
+
 private:
 	//========================================
 	//Singleton design
@@ -152,10 +181,10 @@ private:
 			 deltaMoveLR,	/*<! The total change in direction left/right */
 			 deltaMoveUD;	/*<! The total change in direction up/down */
 
-	GLdouble deltaMoveF,/*<! The change in direction forward */
-		deltaMoveB, /*<! The change in direction backward */
-		deltaMoveL, /*<! The change in direction left */
-		deltaMoveR; /*<! The change in direction right */
+	GLdouble	deltaMoveF, /*<! The change in direction forward */
+				deltaMoveB, /*<! The change in direction backward */
+				deltaMoveL, /*<! The change in direction left */
+				deltaMoveR; /*<! The change in direction right */
 	//========================================
 
 	//========================================
@@ -165,6 +194,12 @@ private:
 			 deltaRotLR,/*<! The change in rotation angle left/right */
 			 deltaRotUD;/*<! The change in rotation angle up/down */
 	//========================================
+
+	Quarternion cameraViewDelta;
+	Quarternion cameraView;
+	Quarternion cameraViewLR;
+	Quarternion cameraViewUD;
+	Vector3 cameraUp;
 
 	//========================================
 	// Move functions
@@ -198,6 +233,10 @@ private:
 	 */
 	void LookLR(float deltaTime);
 	//========================================
+
+
+
+
 };
 
 #endif

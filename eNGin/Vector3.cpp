@@ -51,7 +51,7 @@ GLdouble Vector3::DotProduct(Vector3 &in) {
 	return x * in.x + y * in.y + z * in.z;
 }
 
-Vector3 Vector3::CrossProduct(Vector3 &in) {
+Vector3 Vector3::CrossProduct(Vector3 in) {
 	Vector3 tempVec(y * in.GetPointZ() - z * in.GetPointY(),
 					z * in.GetPointX() - x * in.GetPointZ(),
 					x * in.GetPointY() - y * in.GetPointX());
@@ -76,6 +76,18 @@ Vector3 Vector3::UnitNormal(Vector3 &inputVector) {
 	resultVector.SetPointX(normalVector.GetPointX() / mag);
 	resultVector.SetPointY(normalVector.GetPointY() / mag);
 	resultVector.SetPointZ(normalVector.GetPointZ() / mag);
+
+	return resultVector;
+}
+
+Vector3 Vector3::UnitVector() 
+{
+	GLdouble mag = VectorMagnitude();
+	Vector3 resultVector;
+
+	resultVector.SetPointX(x / mag);
+	resultVector.SetPointY(y / mag);
+	resultVector.SetPointZ(z / mag);
 
 	return resultVector;
 }

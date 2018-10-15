@@ -1,6 +1,7 @@
 #include <pch.h>
 
 #include "Game.h"
+#include <random>
 
 Game::Game()
 {
@@ -46,6 +47,7 @@ void Game::Run()
 
 void Game::Initialise() 
 {
+	count = 0;
 	shaysWorld->Init();
 	menuScreens->Init();
 	
@@ -54,20 +56,24 @@ void Game::Initialise()
 
 	startTime = glutGet(GLUT_ELAPSED_TIME);
 
+	
 	playerCharacter->SetMoveSpeed(8);
-	playerCharacter->SetRotateSpeed(5);
-
+	playerCharacter->SetRotateSpeed(1);
+	
 	textures[0].LoadTexture("data/Group.png", 768, 768);
-	textures[1].LoadTexture("data/wall1.png", 64, 64);
+	textures[1].LoadTexture("data/wall2.png", 64, 64);
 	textures[2].LoadTexture("data/roof.png", 32, 32);
-	textures[3].LoadTexture("data/floor.png", 32, 32);
+	textures[3].LoadTexture("data/floor2.png", 32, 32);
 	textures[4].LoadTexture("data/Statue.png", 1024, 1024);
 	textures[5].LoadTexture("data/Menu.png", 768, 768);
 	textures[6].LoadTexture("data/eyeball.png", 128, 128);
+	textures[7].LoadTexture("data/wall2_vines.png", 64, 64);
+	textures[8].LoadTexture("data/exit.png", 128, 128);
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
 	models[2] = new Model("data/eyeball.obj");
+	models[3] = new Model("data/exit.obj");
 
 	std::vector <Actor*> tempObjectVectorOne;
 	std::vector <Actor*> tempObjectVectorTwo;
@@ -94,13 +100,22 @@ void Game::Initialise()
 
 void Game::Update(float deltaTime)
 {
+
 	std::map<int, std::vector<Actor*>> tempMap;
+
 
 	bgmControl.PlaySong();
 	
 	switch (state)
 	{
+
 		case GAME_STATE:
+
+			if (count <= 0)
+			{
+				playerCharacter->Initialise();
+				count++;
+			}
 
 			if (Entities[tEXIT][0]->GetCollider().AABBtoAABB(playerCharacter->GetCollider()))
 			{
@@ -123,6 +138,7 @@ void Game::Update(float deltaTime)
 					if (ProximityCull(playerCharacter->GetPos(), temp))
 					{
 						resultObjectList.push_back(Entities[i][j]);
+
 					}
 				}
 
@@ -236,10 +252,7 @@ void Game::InputDown(unsigned char key, int x, int y)
 		break;
 	case 't':
 	case 'T':
-		if (state == GAME_STATE)
-		{
-			ClearLevel();
-		}
+		soundControl.PlaySound(0);
 		//exitScreen = !exitScreen;
 		break;
 	case 'p':
@@ -250,6 +263,7 @@ void Game::InputDown(unsigned char key, int x, int y)
 		else
 			SetState(GAME_STATE);
 		break;
+
 	}
 }
 
@@ -277,16 +291,62 @@ void Game::InputUp(unsigned char key, int x, int y)
 
 void Game::MouseLook(int x, int y)
 {
-	int deadzone = PI * 0.15915494309;
+	int deadzone = 0.25;
 
+	Vector3 pitchAxis;
+	GLdouble fps = 60;
+	GLdouble currentRotation;
+	GLdouble mouseSensitivity = 3;
+	
+	
 	//If the mouse pointer has moved far enough, rotate camera
-	if ((abs((long double)x) > deadzone) || (abs((long double)y) > deadzone)) {
+	if ((abs((long double)x) > deadzone) || (abs((long double)y) > deadzone)) 
+	{	
+		//std::cout << "Delta Time: " << deltaTime << std::endl;
+
 		int deltaX = ((centreX - x) < 0) - (0 < (centreX - x));
 		int deltaY = -(((centreY - y) < 0) - (0 < (centreY - y)));
 
-		playerCharacter->DirectionLookLR(deltaX);
-		playerCharacter->DirectionLookUD(deltaY);
+		//deltaX = deltaX * deltaTime * fps * mouseSensitivity;
+		//deltaY = deltaY * deltaTime * fps * mouseSensitivity;
+		
+		if (deltaX >= 1)
+		{
+			deltaX = 1 * deltaTime * fps * mouseSensitivity;
+		}
+
+		if (deltaX <= -1)
+		{
+			deltaX = -1 * deltaTime * fps * mouseSensitivity;
+		}
+
+		if (deltaY >= 1)
+		{
+			deltaY = 1 * deltaTime * fps * mouseSensitivity;
+		}
+
+		if (deltaY <= -1)
+		{
+			deltaY = -1 * deltaTime * fps * mouseSensitivity;
+		}
+
+		double radianX = deltaX * (PI / 180);
+		double radianY = deltaY * (PI / 180);
+
+		if (radianX != 0 || radianY != 0)
+		{
+			pitchAxis = playerCharacter->GetCameraViewDeltaVector().CrossProduct(playerCharacter->GetCameraUp());
+			pitchAxis = pitchAxis.UnitVector();
+			// pitch
+			playerCharacter->RotateCamera(radianY, pitchAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
+			// yaw
+			playerCharacter->RotateCamera(-radianX, Vector3(0, 1, 0), playerCharacter->GetCameraViewDelta(), deltaTime);
+		}
+		
+		glutWarpPointer(centreX, centreY);
+
 	}
+
 }
 
 void Game::MouseClick(int button, int state, int x, int y) {
@@ -393,13 +453,27 @@ int Game::GetCentreY()
 
 void Game::AddWall(float x, float y, float z)
 {
-	Wall *temp = new Wall(x, y, z, models[0], &textures[1]);
+
+	std::random_device rd;     // only used once to initialise (seed) engine
+	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
+	std::uniform_int_distribution<int> uni(0, 4); // guaranteed unbiased
+	int chance = uni(rng);
+	Wall *temp = NULL;
+
+	if (chance < 4)
+	{
+		temp = new Wall(x, y, z, models[0], &textures[1]);
+	}
+	else
+	{
+		temp = new Wall(x, y, z, models[0], &textures[7]);
+	}
 	Entities[tWALL].push_back(temp);
 }
 
 void Game::AddExit(float x, float y, float z)
 {
-	LevelExit *exit = new LevelExit(x, y, z, models[0], &textures[4]);
+	LevelExit *exit = new LevelExit(x, y, z, models[3], &textures[8]);
 
 	Entities[tEXIT].push_back(exit);
 }

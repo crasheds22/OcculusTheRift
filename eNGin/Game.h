@@ -20,6 +20,7 @@
 #include "Dungeon.h"
 #include "LevelExit.h"
 #include "Enemy.h"
+#include "SoundPlayer.h"
 
 #define SHAY_STATE 0
 #define MENU_STATE 1
@@ -204,6 +205,7 @@ public:
 	void AddEnemy(float x, float y, float z, std::vector<Vector3> &f);
 
 private:
+	int count;
 	float startTime;			/*<! start counting time variable> */
 	float endTime;				/*<! end counting time variable> */
 	float deltaTime;			/*<! A change in time variable> */
@@ -218,6 +220,8 @@ private:
 	Menu * menuScreens;			/*<! The menu screens */
 
 	MusicPlayer bgmControl;		/*<! Handles the BGM for the Game> */
+
+	SoundPlayer soundControl;
 
 	Dungeon* dungeon;	/*<!The level generator>*/
 

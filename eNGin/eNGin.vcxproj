@@ -75,7 +75,7 @@
     <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir);$(SolutionDir)\eNGin\glut_bin;$(projectDir)/occulus_the_rift_gtest/packages/Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.0/build/native/include;$(projectDir)Include;$(projectDir)occulus_the_rift_gtest;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir);$(SolutionDir)\eNGin\glut_bin;$(projectDir)occulus_the_rift_gtest/packages/Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.0/build/native/include;$(projectDir)Include;$(projectDir)occulus_the_rift_gtest;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\eNGin\SDL2-devel-2.0.8-VC\SDL2-2.0.8\lib\x86;$(SolutionDir)\eNGin\SDL2_Mixer\lib\x86\SLD2_mixer.lib;$(SolutionDir)\eNGin\glut_bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -153,6 +153,7 @@
     <ClCompile Include="MusicPlayer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Projection.cpp" />
+    <ClCompile Include="Quarternion.cpp" />
     <ClCompile Include="Shay.cpp" />
     <ClCompile Include="Shay\AABB.CPP" />
     <ClCompile Include="Shay\AABBLinkedList.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="Shay\Sound.cpp" />
     <ClCompile Include="Shay\SoundTime.cpp" />
     <ClCompile Include="Shay\texturedPolygons.cpp" />
+    <ClCompile Include="SoundPlayer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Wall.cpp" />
@@ -185,6 +187,7 @@
     <ClInclude Include="MusicPlayer.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projection.h" />
+    <ClInclude Include="Quarternion.h" />
     <ClInclude Include="Shay.h" />
     <ClInclude Include="Shay\AABB.h" />
     <ClInclude Include="Shay\AABBLinkedList.h" />
@@ -198,6 +201,7 @@
     <ClInclude Include="Shay\Sound.h" />
     <ClInclude Include="Shay\SoundTime.h" />
     <ClInclude Include="Shay\texturedPolygons.h" />
+    <ClInclude Include="SoundPlayer.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vector3.h" />
