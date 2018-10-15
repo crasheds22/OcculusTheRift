@@ -114,8 +114,6 @@ void reshape(int w, int h)
 	game.SetCentreX(w / 2);
 	game.SetCentreY(h / 2);
 	
-	
-
 	ratio = 1.0f * w / h;
 
 	// Reset the coordinate system before modifying

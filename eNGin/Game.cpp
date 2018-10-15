@@ -186,6 +186,7 @@ void Game::Draw()
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
 				shaysWorld->Draw();
+
 			}
 			break;
 

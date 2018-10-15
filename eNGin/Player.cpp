@@ -25,9 +25,6 @@ Player* Player::GetInstance()
 	return &instance;
 }
 
-<<<<<<< HEAD
-void Player::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap) {
-=======
 void Player::Initialise()
 {
 	cameraViewDelta.SetQuartW(0);
@@ -48,7 +45,7 @@ void Player::Initialise()
 void Player::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap)
 {
 	std::cout << "Player update" << std::endl;
->>>>>>> 8aeeb60be70c9327d51ef4032b23dbb683504ee7
+
 	Move(deltaTime);
 
 	glLoadIdentity();
