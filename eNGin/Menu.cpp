@@ -50,7 +50,7 @@ void Menu::Draw(Texture displayingTexture)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	gluPerspective(60.0, 1 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 0.5, 100.0);
+	gluPerspective(60.0, 1.0 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1.0, 400.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }

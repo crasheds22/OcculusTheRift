@@ -48,8 +48,8 @@ void Game::Run()
 void Game::Initialise() 
 {
 	count = 0;
-	menuScreens->Init();
 	shaysWorld->Init();
+	menuScreens->Init();
 	
 	centreX = glutGet(GLUT_WINDOW_WIDTH) / 2;
 	centreY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
@@ -182,9 +182,10 @@ void Game::Draw()
 				glMatrixMode(GL_PROJECTION);
 				glLoadIdentity();
 
-				gluPerspective(45.0, 1 * glutGet(GLUT_SCREEN_WIDTH) / glutGet(GLUT_SCREEN_HEIGHT), 1.0, 250000.0);
+				//this one
+				glViewport(0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+				gluPerspective(45.0, 1.0 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1.0, 250000.0);
 				glMatrixMode(GL_MODELVIEW);
-				glLoadIdentity();
 				shaysWorld->Draw();
 			}
 			break;
@@ -379,7 +380,7 @@ void Game::SwitchState()
 {
 	if (state == SHAY_STATE)
 	{
-		state = LOAD_STATE;
+		state = MENU_STATE;
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0, 0, 0, 1);
 		glFlush();
@@ -428,7 +429,7 @@ void Game::DrawGUI()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	gluPerspective(60.0, 1, 1.0, 30.0);
+	gluPerspective(60.0, 1.0 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1.0, 400.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }

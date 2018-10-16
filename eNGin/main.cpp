@@ -71,10 +71,10 @@ void myinit()
 	glLoadIdentity();
 
 	//Create Camera
-	GLdouble fov = 45;
+	GLdouble fov = 60;
 	GLdouble aspect = 1 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT);
 	GLdouble nearVal = 1;
-	GLdouble farVal = 25000;
+	GLdouble farVal = 100;
 
 	gluPerspective(fov, aspect, nearVal, farVal);
 
@@ -122,7 +122,7 @@ void reshape(int w, int h)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glViewport(0, 0, w, h);
-	gluPerspective(45, ratio, 1, 250000);
+	gluPerspective(60, ratio, 0.5, 250000);
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -167,6 +167,7 @@ void Mouse(int button, int state, int x, int y)
 {
 	if (game.GetState() == SHAY_STATE) {
 		game.GetShaysWorld()->MouseClick(button, state, x, y);
+		std::cout << "SHAY" << std::endl;
 	}
 
 	if (game.GetState() == GAME_STATE) {
@@ -175,6 +176,7 @@ void Mouse(int button, int state, int x, int y)
 
 	if (game.GetState() == MENU_STATE) {
 		game.GetMenu()->MouseClick(button, state, x, y);
+		std::cout << "MENU" << std::endl;
 	}
 }
 
