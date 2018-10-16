@@ -42,6 +42,7 @@ public:
 private:
 	Mix_Music * currentSong; /*<! Song currently being played by the MusicPlayer>*/
 	std::vector<Mix_Music*> songs; /*<! Vector of all songs used in game>*/
+	bool menuCheck; /*<! check to prevent menu music from looping>*/
 };
 
 #endif

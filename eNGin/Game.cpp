@@ -12,11 +12,14 @@ Game::Game()
 
 	state = SHAY_STATE;
 	
-	textures.resize(10);
+	textures.resize(20);
 	models.resize(10);
 
 	exitScreen = false;
 	menuScreen = true;
+
+	currentStage = 1;
+	currentLevel = 1;
 }
 
 Game::~Game()
@@ -61,14 +64,22 @@ void Game::Initialise()
 	playerCharacter->SetRotateSpeed(1);
 	
 	textures[0].LoadTexture("data/Group.png", 768, 768);
-	textures[1].LoadTexture("data/wall2.png", 64, 64);
+	textures[1].LoadTexture("data/wall1.png", 64, 64);
 	textures[2].LoadTexture("data/roof.png", 32, 32);
-	textures[3].LoadTexture("data/floor2.png", 32, 32);
+	textures[3].LoadTexture("data/floor.png", 32, 32);
 	textures[4].LoadTexture("data/Statue.png", 1024, 1024);
 	textures[5].LoadTexture("data/Menu.png", 768, 768);
 	textures[6].LoadTexture("data/eyeball.png", 128, 128);
-	textures[7].LoadTexture("data/wall2_vines.png", 64, 64);
+	textures[7].LoadTexture("data/wall1_vines.png", 64, 64);
 	textures[8].LoadTexture("data/exit.png", 128, 128);
+	textures[9].LoadTexture("data/wall2.png", 64, 64);
+	textures[10].LoadTexture("data/wall2_vines.png", 64, 64);
+	textures[11].LoadTexture("data/roof2.png", 32, 32);
+	textures[12].LoadTexture("data/floor2.png", 32, 32);
+	textures[13].LoadTexture("data/wall3.png", 64, 64);
+	textures[14].LoadTexture("data/wall3_vines.png", 64, 64);
+	textures[15].LoadTexture("data/roof3.png", 32, 32);
+	textures[16].LoadTexture("data/floor3.png", 32, 32);
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
@@ -119,6 +130,15 @@ void Game::Update(float deltaTime)
 
 			if (Entities[tEXIT][0]->GetCollider().AABBtoAABB(playerCharacter->GetCollider()))
 			{
+				if (currentStage < 3)
+				{
+					currentStage++;
+				}
+				else
+				{
+					currentLevel++;
+					currentStage = 1;
+				}
 				ClearLevel();
 			}
 			
@@ -157,6 +177,21 @@ void Game::Update(float deltaTime)
 		case LOAD_STATE:
 			if (dungeon == NULL)
 			{
+				switch (currentStage)
+				{
+					case 1:
+						bgmControl.SetSong(2);
+						break;
+
+					case 2:
+						bgmControl.SetSong(3);
+						break;
+
+					case 3:
+						bgmControl.SetSong(4);
+						break;
+				}
+
 				dungeon = new Dungeon(this);
 			}
 			break;
@@ -207,8 +242,23 @@ void Game::Draw()
 			}
 			glPopMatrix();
 
-			dungeon->DrawRoof(textures[2]);
-			dungeon->DrawFloor(textures[3]);
+			switch (currentStage)
+			{
+				case 1:
+					dungeon->DrawRoof(textures[2]);
+					dungeon->DrawFloor(textures[3]);
+					break;
+				
+				case 2:
+					dungeon->DrawRoof(textures[11]);
+					dungeon->DrawFloor(textures[12]);
+					break;
+				
+				case 3:
+					dungeon->DrawRoof(textures[15]);
+					dungeon->DrawFloor(textures[16]);
+					break;
+			}
 
 			for (int i = 0; i < Entities[tEnemy].size(); i++) 
 			{
@@ -386,8 +436,7 @@ void Game::SwitchState()
 		glFlush();
 		delete shaysWorld;
 		shaysWorld = NULL;
-		// temporary the need to work in silence
-		//bgmControl.SetSong(1);
+		bgmControl.SetSong(1);
 	}
 }
 
@@ -461,14 +510,45 @@ void Game::AddWall(float x, float y, float z)
 	int chance = uni(rng);
 	Wall *temp = NULL;
 
-	if (chance < 4)
+
+	switch (currentStage)
 	{
-		temp = new Wall(x, y, z, models[0], &textures[1]);
+	case 1:
+		if (chance < 4)
+		{
+			temp = new Wall(x, y, z, models[0], &textures[1]);
+		}
+		else
+		{
+			temp = new Wall(x, y, z, models[0], &textures[7]);
+		}
+		break;
+
+	case 2:
+		if (chance < 4)
+		{
+			temp = new Wall(x, y, z, models[0], &textures[9]);
+		}
+		else
+		{
+			temp = new Wall(x, y, z, models[0], &textures[10]);
+		}
+		break;
+
+	case 3:
+		if (chance < 4)
+		{
+			temp = new Wall(x, y, z, models[0], &textures[13]);
+		}
+		else
+		{
+			temp = new Wall(x, y, z, models[0], &textures[14]);
+		}
+		break;
 	}
-	else
-	{
-		temp = new Wall(x, y, z, models[0], &textures[7]);
-	}
+
+
+
 	Entities[tWALL].push_back(temp);
 }
 
@@ -518,4 +598,14 @@ void Game::AddEnemy(float x, float y, float z, std::vector<Vector3> &f)
 	Enemy *enemy = new Enemy(this, models[2], &textures[6], x, y, z, f);
 
 	Entities[tEnemy].push_back(enemy);
+}
+
+int Game::GetStage()
+{
+	return currentStage;
+}
+
+int Game::GetLevel()
+{
+	return currentLevel;
 }

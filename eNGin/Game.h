@@ -139,6 +139,10 @@ public:
 
 	void DrawGUI();
 
+	int GetStage();
+
+	int GetLevel();
+
 	/**
 	 *	A normal member taking one argument
 	 *	Sets the value for the centre of the screen on the x axis
@@ -250,6 +254,10 @@ private:
 	void Draw();
 
 	bool ProximityCull(Vector3 actorPosition, Vector3 &inputObject);
+
+
+	int currentLevel; /*<! The current level of the game */
+	int currentStage;/*<! The current stage of the game */
 
 };
 
