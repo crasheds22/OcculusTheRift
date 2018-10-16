@@ -10,7 +10,7 @@ Game::Game()
 	shaysWorld = new Shay(this);
 	menuScreens = new Menu(this);
 
-	state = MENU_STATE;
+	state = SHAY_STATE;
 	
 	textures.resize(10);
 	models.resize(10);
@@ -48,8 +48,8 @@ void Game::Run()
 void Game::Initialise() 
 {
 	count = 0;
-	shaysWorld->Init();
 	menuScreens->Init();
+	shaysWorld->Init();
 	
 	centreX = glutGet(GLUT_WINDOW_WIDTH) / 2;
 	centreY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
@@ -182,7 +182,7 @@ void Game::Draw()
 				glMatrixMode(GL_PROJECTION);
 				glLoadIdentity();
 
-				gluPerspective(60.0, 1, 1.0, 30.0);
+				gluPerspective(45.0, 1 * glutGet(GLUT_SCREEN_WIDTH) / glutGet(GLUT_SCREEN_HEIGHT), 1.0, 250000.0);
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
 				shaysWorld->Draw();

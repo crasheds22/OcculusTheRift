@@ -65,16 +65,15 @@ void ChaseState::Execute(Enemy* entity) {
 		//Close enough to attack
 		entity->ChangeState(entity->GetAttack());
 	}
-	else if (distance >= 24.0) {
+	else if (distance > 24.0) {
 		//Player out of range
 		entity->ChangeState(entity->GetWander());
 	}
-	else {
-		//Chase player down
-		entity->MoveX(target.GetPointX());
-		entity->MoveY(target.GetPointY());
-		entity->MoveZ(target.GetPointZ());
-	}
+
+	//Chase player down
+	entity->MoveX(target.GetPointX());
+	entity->MoveY(target.GetPointY());
+	entity->MoveZ(target.GetPointZ());
 }
 
 void ChaseState::Exit(Enemy* entity) {
