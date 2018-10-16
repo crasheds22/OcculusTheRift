@@ -71,10 +71,10 @@ void myinit()
 	glLoadIdentity();
 
 	//Create Camera
-	GLdouble fov = 60;
+	GLdouble fov = 45;
 	GLdouble aspect = 1 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT);
-	GLdouble nearVal = -1;
-	GLdouble farVal = 100;
+	GLdouble nearVal = 1;
+	GLdouble farVal = 25000;
 
 	gluPerspective(fov, aspect, nearVal, farVal);
 
@@ -120,7 +120,7 @@ void reshape(int w, int h)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glViewport(0, 0, w, h);
-	gluPerspective(60, ratio, 0.5, 250000);
+	gluPerspective(45, ratio, 1, 250000);
 	glMatrixMode(GL_MODELVIEW);
 }
 
