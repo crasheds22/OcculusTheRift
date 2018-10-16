@@ -1,32 +1,21 @@
 #include "Projectile.h"
 
-Projectile::Projectile(Actor* act, Model *mod, Texture *tex) : Actor(mod, tex),
-															   timeAlive(0)
+Projectile::Projectile(Actor* act, Model *mod, Texture *tex, double spd, Vector3 dir, Vector3 start) : Actor(mod, tex),
+																									   timeAlive(0),
+																									   direction(dir)
 {
 	owner = act;
+	this->SetPos(start);
+	this->SetMoveSpeed(spd);
 }
 
 void Projectile::Update(float deltaTime) {
-	timeAlive += glutGet(GLUT_ELAPSED_TIME);
+	timeAlive += deltaTime;
+	dT = deltaTime;
 
-	if (timeAlive > 5000)
-		delete this;
-	else
-		Move();
+	Move();
 }
 
 void Projectile::Move() {
-	this->SetPos(this->GetPos() + direction * speed);
-}
-
-void Projectile::SetSpeed(double spd) {
-	speed = spd;
-}
-
-void Projectile::SetDirection(Vector3 &dir) {
-	direction = dir;
-}
-
-void Projectile::SetStartPosition(Vector3 &start) {
-	startPos = start;
+	this->SetPos(this->GetPos().AddVector(direction * moveSpeed * dT));
 }

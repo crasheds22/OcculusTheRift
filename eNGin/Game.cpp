@@ -80,11 +80,14 @@ void Game::Initialise()
 	textures[14].LoadTexture("data/wall3_vines.png", 64, 64);
 	textures[15].LoadTexture("data/roof3.png", 32, 32);
 	textures[16].LoadTexture("data/floor3.png", 32, 32);
+	textures[17].LoadTexture("data/player_laser.png", 32, 32);
+	textures[18].LoadTexture("data/enemy_laser.png", 32, 32);
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
 	models[2] = new Model("data/eyeball.obj");
 	models[3] = new Model("data/exit.obj");
+	models[4] = new Model("data/laser.obj");
 
 	std::vector <Actor*> tempObjectVectorOne;
 	std::vector <Actor*> tempObjectVectorTwo;
@@ -111,15 +114,12 @@ void Game::Initialise()
 
 void Game::Update(float deltaTime)
 {
-
 	std::map<int, std::vector<Actor*>> tempMap;
-
 
 	bgmControl.PlaySong();
 	
 	switch (state)
 	{
-
 		case GAME_STATE:
 
 			if (count <= 0)
@@ -144,6 +144,10 @@ void Game::Update(float deltaTime)
 			
 			for (int i = 0; i < Entities[tEnemy].size(); i++) {
 				Entities[tEnemy][i]->Update(deltaTime);
+			}
+
+			for (int i = 0; i < Entities[tProjectile].size(); i++) {
+				Entities[tProjectile][i]->Update(deltaTime);
 			}
 
 			for (int i = 0; i < Entities.size(); ++i)
@@ -240,6 +244,7 @@ void Game::Draw()
 			{
 				Entities[tEXIT][ii]->Draw();
 			}
+
 			glPopMatrix();
 
 			switch (currentStage)
@@ -263,6 +268,10 @@ void Game::Draw()
 			for (int i = 0; i < Entities[tEnemy].size(); i++) 
 			{
 				Entities[tEnemy][i]->Draw();
+			}
+
+			for (int i = 0; i < Entities[tProjectile].size(); i++) {
+				Entities[tProjectile][i]->Draw();
 			}
 
 			glPushMatrix();
@@ -588,6 +597,7 @@ void Game::ClearLevel()
 	Entities[tWALL].clear();
 	Entities[tEXIT].clear();
 	Entities[tEnemy].clear();
+	Entities[tProjectile].clear();
 	delete dungeon;
 	dungeon = NULL;
 	state = LOAD_STATE;
@@ -608,4 +618,10 @@ int Game::GetStage()
 int Game::GetLevel()
 {
 	return currentLevel;
+}
+
+void Game::AddProjectile(Actor* owner, Vector3 start, Vector3 dir) {
+	Projectile *proj = new Projectile(owner, models[4], &textures[18], 0.5, dir, start);
+
+	Entities[tProjectile].push_back(proj);
 }

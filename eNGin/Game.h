@@ -21,6 +21,7 @@
 #include "LevelExit.h"
 #include "Enemy.h"
 #include "SoundPlayer.h"
+#include "Projectile.h"
 
 #define SHAY_STATE 0
 #define MENU_STATE 1
@@ -33,6 +34,7 @@
 #define tWALL 2
 #define tPOWERUP 3
 #define tEXIT 4
+#define tProjectile 5
 
 /**
  *	@class Game
@@ -207,6 +209,8 @@ public:
 	Player* GetPlayer() const;
 
 	void AddEnemy(float x, float y, float z, std::vector<Vector3> &f);
+
+	void AddProjectile(Actor* owner, Vector3 start, Vector3 dir);
 
 private:
 	int count;

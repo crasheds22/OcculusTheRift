@@ -1,6 +1,6 @@
-class Game;
 #ifndef ENEMY_H
 #define ENEMY_H
+class Game;
 
 #include <vector>
 
