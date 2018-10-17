@@ -2,8 +2,6 @@
 #define ENEMY_H
 class Game;
 
-#include <vector>
-
 #include "Actor.h"
 #include "State.h"
 #include "EnemyOwnedStates.h"
@@ -14,6 +12,7 @@ public:
 	Enemy(Game* own, Model* mod, Texture* tex, float xPos, float yPos, float zPos, std::vector<Vector3> &f);
 
 	void Update(float deltaTime) override;
+	void Update(float deltaTime, std::map<int, std::vector<Actor*>> ent);
 
 	void ChangeState(State* newState);
 

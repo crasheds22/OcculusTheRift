@@ -73,7 +73,7 @@ double Enemy::GetUD() {
 void Enemy::MoveX(double moveX) {
 	double newX = 0.0;
 
-	newX = position.GetPointX() + moveX * moveSpeed * dT * 0.6;
+	newX = position.GetPointX() + (moveX * moveSpeed * dT);
 
 	position.SetPointX(newX);
 }
@@ -81,7 +81,7 @@ void Enemy::MoveX(double moveX) {
 void Enemy::MoveY(double moveY) {
 	double newY = 0.0;
 
-	newY = position.GetPointY() + moveY * moveSpeed * dT * 0.6;
+	newY = position.GetPointY() + (moveY * moveSpeed * dT);
 
 	position.SetPointY(newY);
 }
@@ -89,7 +89,7 @@ void Enemy::MoveY(double moveY) {
 void Enemy::MoveZ(double moveZ) {
 	double newZ = 0.0;
 
-	newZ = position.GetPointZ() + moveZ * moveSpeed * dT * 0.6;
+	newZ = position.GetPointZ() + (moveZ * moveSpeed * dT);
 
 	position.SetPointZ(newZ);
 }

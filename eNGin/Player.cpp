@@ -2,7 +2,6 @@
 
 #include "Player.h"
 
-#include "Cube.h"
 #include "Quarternion.h"
 
 Player::Player() : lookFB{ 0.0, 0.0, -1.0 },
@@ -65,6 +64,7 @@ void Player::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMa
 
 		}
 	}
+	//Check for projectile collisions
 }
 
 void Player::DirectionB(const GLdouble tempMove) {

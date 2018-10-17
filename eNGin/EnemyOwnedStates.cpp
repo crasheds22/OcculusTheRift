@@ -31,6 +31,8 @@ void WanderState::Execute(Enemy* entity) {
 	Vector3 direction(temp - entity->GetPos());
 	double distance = direction.VectorMagnitude();
 
+	direction = direction.UnitVector();
+
 	if (distance <= 2.0) {
 		if (fIter == flags.end()) {
 			fIter = flags.begin();
@@ -60,6 +62,8 @@ void ChaseState::Enter(Enemy* entity) {
 void ChaseState::Execute(Enemy* entity) {
 	Vector3 target(Player::GetInstance()->GetPos() - entity->GetPos());
 	double distance = target.VectorMagnitude();
+
+	target = target.UnitVector();
 
 	if (distance <= 8.0) {
 		//Close enough to attack
