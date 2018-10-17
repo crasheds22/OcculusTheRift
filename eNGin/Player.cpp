@@ -32,11 +32,6 @@ void Player::Initialise()
 	cameraViewDelta.SetQuartY(position.GetPointY() + 1.8);
 	cameraViewDelta.SetQuartZ(position.GetPointZ());
 
-	cameraView.SetQuartW(0);
-	cameraView.SetQuartX(position.GetPointX());
-	cameraView.SetQuartY(position.GetPointY());
-	cameraView.SetQuartZ(position.GetPointZ());
-
 	cameraUp.SetPointX(0);
 	cameraUp.SetPointY(1);
 	cameraUp.SetPointZ(0);
@@ -44,11 +39,7 @@ void Player::Initialise()
 
 void Player::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap)
 {
-<<<<<<< HEAD
-	std::cout << "Player update" << std::endl;
 
-=======
->>>>>>> 2128aaed2eb0ba25d33aeae79d7878dd128ab3eb
 	Move(deltaTime);
 
 	glLoadIdentity();
@@ -147,7 +138,6 @@ void Player::MoveLR(float deltaTime) {
 
 	Vector3 view(cameraViewDelta.GetQuartX(), cameraViewDelta.GetQuartY(), cameraViewDelta.GetQuartZ());
 
-
 	view = view.CrossProduct(GetCameraUp());
 	view = view.UnitVector();
 
@@ -184,15 +174,6 @@ void Player::LookUD(float deltaTime) {
 	lookLR.y = sin(rotUD + (float)PI / 2.0);
 }
 
-void Player::SetCameraViewLR(Quarternion inputVector)
-{
-	cameraViewLR = inputVector;
-}
-
-void Player::SetCameraViewUD(Quarternion inputVector)
-{
-	cameraViewUD = inputVector;
-}
 
 void Player::SetCameraViewDelta(Quarternion inputVector)
 {
@@ -206,25 +187,12 @@ void Player::SetCameraUp(Vector3 inputVector)
 	cameraUp = inputVector;
 }
 
-Quarternion Player::GetCameraViewLR()
-{
-	return cameraViewLR;
-}
-
-Quarternion Player::GetCameraViewUD()
-{
-	return cameraViewUD;
-}
 
 Quarternion Player::GetCameraViewDelta()
 {
 	return cameraViewDelta;
 }
 
-Quarternion Player::GetCameraView()
-{
-	return cameraView;
-}
 
 Vector3 Player::GetCameraViewDeltaVector()
 {
@@ -258,22 +226,6 @@ Quarternion Player::RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion
 	return quartResult;
 }
 
-// t is the step??
-Quarternion Player::RotateCameraSlerp(Quarternion sourceQuart, Quarternion targetQuart, GLdouble t)
-{
-	Quarternion theResult;
-
-	theResult = sourceQuart.Slerp(targetQuart, t);
-	
-	cameraView = theResult;
-
-	std::cout << "Delta W:" << cameraView.GetQuartW() << std::endl;
-	std::cout << "Delta X:" << cameraView.GetQuartX() << std::endl;
-	std::cout << "Delta Y:" << cameraView.GetQuartY() << std::endl;
-	std::cout << "Delta Z:" << cameraView.GetQuartZ() << std::endl;
-
-	return theResult;
-}
 
 Point Player::GetLookFB()
 {

@@ -9,6 +9,7 @@ Game::Game()
 	
 	shaysWorld = new Shay(this);
 	menuScreens = new Menu(this);
+	playerInterface = new GUI(this);
 
 	state = SHAY_STATE;
 	
@@ -56,7 +57,6 @@ void Game::Initialise()
 
 	startTime = glutGet(GLUT_ELAPSED_TIME);
 
-	
 	playerCharacter->SetMoveSpeed(8);
 	playerCharacter->SetRotateSpeed(1);
 	
@@ -69,6 +69,10 @@ void Game::Initialise()
 	textures[6].LoadTexture("data/eyeball.png", 128, 128);
 	textures[7].LoadTexture("data/wall2_vines.png", 64, 64);
 	textures[8].LoadTexture("data/exit.png", 128, 128);
+	const char * tempFilePath;
+	tempFilePath = new char[50];
+	tempFilePath = "data/crosshairRGBA.png";
+	textures[9].LoadTexture(tempFilePath, 64, 64);
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
@@ -220,6 +224,11 @@ void Game::Draw()
 					DrawGUI();
 			glPopMatrix();
 
+			glPushMatrix();
+				DrawGUI();
+			glPopMatrix();
+
+
 			glFlush();
 			
 			break;
@@ -295,7 +304,7 @@ void Game::MouseLook(int x, int y)
 	int deadzone = 0.25;
 	Vector3 pitchAxis;
 	GLdouble fps = 60;
-	GLdouble mouseSensitivity = 2;
+	GLdouble mouseSensitivity = 1.75;
 
 	//If the mouse pointer has moved far enough, rotate camera
 	if ((abs((long double)x) > deadzone) || (abs((long double)y) > deadzone)) 
@@ -387,45 +396,7 @@ void Game::SwitchState()
 
 void Game::DrawGUI()
 {
-	//Set View mode to orthographic
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(-8.0, 8.0, -5.0, 5.0, 1.0, 30.0);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	//Assign Texture
-	std::vector<unsigned char> temp = textures[0].GetTexture();
-	glEnable(GL_TEXTURE_2D);
-	glDisable(GL_DEPTH_TEST);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_BLEND);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //GL_NEAREST = no smoothing
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textures[0].GetWidth(), textures[0].GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, &temp[0]);
-
-	//Draw Healthbar
-	glPushMatrix();
-	glBegin(GL_QUADS);
-		glTexCoord2f(-1.0, 1.0);
-		glVertex3f(-4, -4, -1);
-		glTexCoord2f(-1.0, 0.0);
-		glVertex3f(-4, 4, -1);
-		glTexCoord2f(0.0, 0.0);
-		glVertex3f(4, 4, -1);
-		glTexCoord2f(0.0, 1.0);
-		glVertex3f(4, -4, -1);
-	glEnd();
-	glPopMatrix();
-	glDisable(GL_TEXTURE_2D);
-
-	glEnable(GL_DEPTH_TEST);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-	gluPerspective(60.0, 1, 1.0, 30.0);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	playerInterface->DrawReticle();
 }
 
 void Game::SetCentreX(int x) {
@@ -512,4 +483,9 @@ void Game::AddEnemy(float x, float y, float z, std::vector<Vector3> &f)
 	Enemy *enemy = new Enemy(this, models[2], &textures[6], x, y, z, f);
 
 	Entities[tEnemy].push_back(enemy);
+}
+
+std::vector <Texture>  Game::GetTexture()
+{
+	return textures;
 }

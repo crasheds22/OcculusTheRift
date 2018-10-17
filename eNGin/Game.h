@@ -21,6 +21,7 @@
 #include "LevelExit.h"
 #include "Enemy.h"
 #include "SoundPlayer.h"
+#include "GUI.h"
 
 #define SHAY_STATE 0
 #define MENU_STATE 1
@@ -204,6 +205,8 @@ public:
 
 	void AddEnemy(float x, float y, float z, std::vector<Vector3> &f);
 
+	std::vector<Texture> GetTexture();
+
 private:
 	int count;
 	float startTime;			/*<! start counting time variable> */
@@ -224,6 +227,8 @@ private:
 	SoundPlayer soundControl;
 
 	Dungeon* dungeon;	/*<!The level generator>*/
+
+	GUI * playerInterface;
 
 	std::vector<Model*> models;		/*<! All possible models to be used in the running of the game */
 	std::vector<Texture> textures;	/*<! All possible textures to be used in the running of the game */

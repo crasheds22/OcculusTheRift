@@ -135,22 +135,59 @@ public:
 	void Move(float deltaTime);
 	//========================================
 
-
-	void SetCameraViewLR(Quarternion inputVector);
-	void SetCameraViewUD(Quarternion inputVector);
+	/**
+	*	@brief sets the camera to th new quarternion position 
+	*	@param theInputVector target vector
+	*	@return void
+	*	@pre 
+	*	@post
+	*/
 	void SetCameraViewDelta(Quarternion inputVector);
-	void SetCameraView(Quarternion inputQuart);
+
+	/**
+	*	@brief sets the up position of the camera
+	*	@param theInputVector target vector
+	*	@return void
+	*	@pre
+	*	@post
+	*/
 	void SetCameraUp(Vector3 inputVector);
-	Quarternion GetCameraViewLR();
-	Quarternion GetCameraViewUD();
+
+	/**
+	*	@brief gets the new current view of the camera
+	*	@param 
+	*	@return quarternion of the new direction
+	*	@pre
+	*	@post
+	*/
 	Quarternion GetCameraViewDelta();
-	Quarternion GetCameraView();
+
+	/**
+	*	@brief gets the new current view of the camera as a vector
+	*	@param
+	*	@return vector of the new direction
+	*	@pre
+	*	@post
+	*/
 	Vector3 GetCameraViewDeltaVector();
+
+	/**
+	*	@brief gets the new current view of the camera
+	*	@param
+	*	@return quarternion of the new direction
+	*	@pre
+	*	@post
+	*/
 	Vector3 GetCameraUp();
 
+	/**
+	*	@brief applies the quarternion rotation to the camera position 
+	*	@param
+	*	@return quarternion of the new direction
+	*	@pre
+	*	@post
+	*/
 	Quarternion RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion pAxis,float deltaTime);
-	//Quarternion RotateCameraUD(GLdouble mouseAngle, Vector3 qAxis, Quarternion pAxis, float deltaTime);
-	Quarternion RotateCameraSlerp(Quarternion sourceQuart, Quarternion targetQuart, GLdouble t);
 
 	Point GetLookFB();
 
@@ -195,11 +232,8 @@ private:
 			 deltaRotUD;/*<! The change in rotation angle up/down */
 	//========================================
 
-	Quarternion cameraViewDelta;
-	Quarternion cameraView;
-	Quarternion cameraViewLR;
-	Quarternion cameraViewUD;
-	Vector3 cameraUp;
+	Quarternion cameraViewDelta; /*<! The quarternion camera */
+	Vector3 cameraUp;  /*<! The up position of the camera */
 
 	//========================================
 	// Move functions

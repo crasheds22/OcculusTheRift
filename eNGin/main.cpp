@@ -33,7 +33,7 @@ void MouseMove(int x, int y);
 int main(int argc, char **argv)
 {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GLUT_STENCIL);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(800, 500);
 	glutCreateWindow("Occulus The Rift");

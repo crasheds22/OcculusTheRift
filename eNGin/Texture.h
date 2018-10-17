@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 #include "lodepng.h"
+#include "png.h"
+#include <soil/SOIL.h>
 
 /**
  *	@class Texture
@@ -16,6 +18,9 @@
  */
 class Texture {
 public:
+
+	virtual~Texture();
+
 	/**
 	 *	Returns the address of the texture in raw form
 	 *	@return The texture as a byte array address
@@ -30,6 +35,16 @@ public:
 	 *	@param h The height of the texture
 	 */
 	void LoadTexture(std::string filePath, unsigned int w, unsigned int h);
+
+	/**
+	 *	A normal member taking 3 arguments
+	 *	Takes a path to a file, the width and height and loads a texture file
+	 *	@param filePath The path to the file to load
+	 *	@param w The width of the texture
+	 *	@param h The height of the texture
+	 */
+	void LoadTextureSOIL(const char * filePath, unsigned int w, unsigned int h);
+
 
 	/**
 	 *	A normal member returning an unsigned
@@ -48,6 +63,7 @@ private:
 				 texH;	/*<! The texture height */
 
 	std::vector<unsigned char> data; /*<! The texture data array */
+
 };
 
 #endif
