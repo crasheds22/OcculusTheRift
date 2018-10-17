@@ -147,6 +147,13 @@ void Game::Update(float deltaTime)
 			}
 
 			for (int i = 0; i < Entities[tProjectile].size(); i++) {
+				Projectile* p = dynamic_cast<Projectile*>(Entities[tProjectile][i]);
+				if (p) {
+					if (p->GetTime() > 5) {
+						Entities[tProjectile].erase(Entities[tProjectile].begin() + i);
+					}
+				}
+
 				Entities[tProjectile][i]->Update(deltaTime);
 			}
 
@@ -621,7 +628,7 @@ int Game::GetLevel()
 }
 
 void Game::AddProjectile(Actor* owner, Vector3 start, Vector3 dir) {
-	Projectile *proj = new Projectile(owner, models[4], &textures[18], 0.5, dir, start);
+	Projectile *proj = new Projectile(owner, models[4], &textures[18], 2, dir, start);
 
 	Entities[tProjectile].push_back(proj);
 }

@@ -1,7 +1,6 @@
 #include "EnemyOwnedStates.h"
 #include "Enemy.h"
 #include "Player.h"
-#include <stdlib.h>
 
 //======================================================
 //Wander State

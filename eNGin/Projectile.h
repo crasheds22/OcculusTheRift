@@ -12,6 +12,8 @@ public:
 
 	void Move();
 
+	double GetTime();
+
 private:
 	Actor* owner;
 

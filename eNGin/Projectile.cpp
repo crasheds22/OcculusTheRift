@@ -19,3 +19,7 @@ void Projectile::Update(float deltaTime) {
 void Projectile::Move() {
 	this->SetPos(this->GetPos().AddVector(direction * moveSpeed * dT));
 }
+
+double Projectile::GetTime() {
+	return timeAlive;
+}
