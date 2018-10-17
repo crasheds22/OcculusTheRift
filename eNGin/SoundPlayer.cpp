@@ -17,7 +17,7 @@ SoundPlayer::SoundPlayer()
 		fprintf(stderr, "Unable to initialize audio: %s\n", Mix_GetError());
 	}
 
-	sounds.emplace_back(Mix_LoadWAV("data/step.wav"));
+	sounds.emplace_back(Mix_LoadWAV("data/coin.wav"));
 
 
 }

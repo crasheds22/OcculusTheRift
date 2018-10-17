@@ -75,7 +75,7 @@ void GUI::DrawReticle()
 
 	//Assign Texture
 	
-	std::vector<unsigned char> temp = theParent->GetTexture()[9].GetTexture();
+	std::vector<unsigned char> temp = theParent->GetTexture()[20].GetTexture();
 	//glEnable(SDL_GL_FRAMEBUFFER_SRGB_CAPABLE);
 	glEnable(GL_TEXTURE_2D);
 	glDisable(GL_DEPTH_TEST);
@@ -100,7 +100,7 @@ void GUI::DrawReticle()
 
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //GL_NEAREST = no smoothing
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, theParent->GetTexture()[9].GetWidth(), theParent->GetTexture()[9].GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, &temp[0]);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, theParent->GetTexture()[20].GetWidth(), theParent->GetTexture()[20].GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, &temp[0]);
 
 	//Draw Crosshair
 	glPushMatrix();

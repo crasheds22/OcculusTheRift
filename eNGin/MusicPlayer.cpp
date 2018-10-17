@@ -25,7 +25,13 @@ MusicPlayer::MusicPlayer()
 
 	songs[0] = Mix_LoadMUS("data/test_song.mp3");
 
-	songs[1] = Mix_LoadMUS("data/test_song2.mp3");
+	songs[1] = Mix_LoadMUS("data/bgm_menu.mp3");
+
+	songs[2] = Mix_LoadMUS("data/bgm_stage1.mp3");
+
+	songs[3] = Mix_LoadMUS("data/bgm_stage2.mp3");
+
+	songs[4] = Mix_LoadMUS("data/bgm_stage3.mp3");
 
 	currentSong = songs[0];
 }
@@ -38,10 +44,27 @@ MusicPlayer::~MusicPlayer()
 
 void MusicPlayer::PlaySong()
 {
+
+
 	if (!Mix_PlayingMusic())
 	{
-		std::cout << "Test" << std::endl;
-		Mix_FadeInMusic(currentSong, -1, 100);
+		if (currentSong == songs[1])
+		{
+			if (!menuCheck)
+			{
+				Mix_FadeInMusic(currentSong, 1, 100);
+				menuCheck = true;
+			}
+			else
+			{
+				return;
+			}
+		}
+		else
+		{
+			std::cout << "Test" << std::endl;
+			Mix_FadeInMusic(currentSong, -1, 100);
+		}
 	}
 }
 
@@ -49,6 +72,10 @@ void MusicPlayer::SetSong(int songIn)
 {
 	if (songs[songIn] != currentSong)
 	{
+		if (songIn == 1)
+		{
+			menuCheck = false;
+		}
 		Mix_FadeOutMusic(500);
 		currentSong = songs[songIn];
 	}

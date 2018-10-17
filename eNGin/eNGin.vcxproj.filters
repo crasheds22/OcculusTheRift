@@ -35,7 +35,12 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Wall.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="GUI.cpp" />
+=======
+    <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="Coin.cpp" />
+>>>>>>> 99a1983b06ba51f81eb4f2a39abb880176af589d
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
@@ -71,7 +76,12 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Wall.h" />
+<<<<<<< HEAD
     <ClInclude Include="GUI.h" />
+=======
+    <ClInclude Include="Projectile.h" />
+    <ClInclude Include="Coin.h" />
+>>>>>>> 99a1983b06ba51f81eb4f2a39abb880176af589d
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

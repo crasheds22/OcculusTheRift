@@ -6,23 +6,20 @@
 
 class Projectile : public Actor {
 public:
-	Projectile(Actor* act, Model *mod, Texture *tex);
+	Projectile(Actor* act, Model *mod, Texture *tex, double spd, Vector3 dir, Vector3 start);
 
 	void Update(float deltaTime) override;
 
 	void Move();
 
-	void SetSpeed(double spd);
-	void SetDirection(Vector3 &dir);
-	void SetStartPosition(Vector3 &start);
+	double GetTime();
 
 private:
 	Actor* owner;
 
-	double speed;
 	double timeAlive;
+	double dT;
 
-	Vector3 startPos;
 	Vector3 direction;
 
 };

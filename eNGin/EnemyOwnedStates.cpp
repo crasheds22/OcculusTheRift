@@ -63,6 +63,10 @@ void ChaseState::Execute(Enemy* entity) {
 
 	if (distance <= 8.0) {
 		//Close enough to attack
+		entity->MoveX(0);
+		entity->MoveY(0);
+		entity->MoveZ(0);
+
 		entity->ChangeState(entity->GetAttack());
 	}
 	else if (distance > 24.0) {
@@ -86,7 +90,12 @@ void AttackState::Enter(Enemy* entity) {
 }
 
 void AttackState::Execute(Enemy* entity) {
+	entity->MoveX(0);
+	entity->MoveY(0);
+	entity->MoveZ(0);
+
 	entity->Shoot();
+
 	entity->ChangeState(entity->GetChase());
 }
 

@@ -22,6 +22,9 @@
 #include "Enemy.h"
 #include "SoundPlayer.h"
 #include "GUI.h"
+#include "Projectile.h"
+#include "Coin.h"
+
 
 #define SHAY_STATE 0
 #define MENU_STATE 1
@@ -34,6 +37,7 @@
 #define tWALL 2
 #define tPOWERUP 3
 #define tEXIT 4
+#define tProjectile 5
 
 /**
  *	@class Game
@@ -140,6 +144,10 @@ public:
 
 	void DrawGUI();
 
+	int GetStage();
+
+	int GetLevel();
+
 	/**
 	 *	A normal member taking one argument
 	 *	Sets the value for the centre of the screen on the x axis
@@ -188,6 +196,16 @@ public:
 	*/
 	void AddWall(float x, float y, float z);
 
+
+	/**
+	*	A normal member taking 3 arguments
+	*	Used to add a coin to the list of game entities
+	*	@param x The x position of the coin
+	*	@param y The y position of the coin
+	*	@param z The z position of the coin
+	*/
+	void AddCoin(float x, float y, float z);
+
 	/**
 	*	A normal member taking 3 arguments
 	*	Used to add an exit to the list of game entities
@@ -206,9 +224,12 @@ public:
 	void AddEnemy(float x, float y, float z, std::vector<Vector3> &f);
 
 	std::vector<Texture> GetTexture();
+	
+	void AddProjectile(Actor* owner, Vector3 start, Vector3 dir);
 
 private:
 	int count;
+	int gameScore;
 	float startTime;			/*<! start counting time variable> */
 	float endTime;				/*<! end counting time variable> */
 	float deltaTime;			/*<! A change in time variable> */
@@ -255,6 +276,10 @@ private:
 	void Draw();
 
 	bool ProximityCull(Vector3 actorPosition, Vector3 &inputObject);
+
+
+	int currentLevel; /*<! The current level of the game */
+	int currentStage;/*<! The current stage of the game */
 
 };
 

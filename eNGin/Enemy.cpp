@@ -49,7 +49,7 @@ std::vector<Vector3> Enemy::GetFlags() {
 }
 
 void Enemy::Shoot() {
-
+	owner->AddProjectile(this, this->GetPos(), (owner->GetPlayer()->GetPos() - this->GetPos()));
 }
 
 //=============================================================================
@@ -73,7 +73,7 @@ double Enemy::GetUD() {
 void Enemy::MoveX(double moveX) {
 	double newX = 0.0;
 
-	newX = position.GetPointX() + moveX * moveSpeed * dT;
+	newX = position.GetPointX() + moveX * moveSpeed * dT * 0.6;
 
 	position.SetPointX(newX);
 }
@@ -81,7 +81,7 @@ void Enemy::MoveX(double moveX) {
 void Enemy::MoveY(double moveY) {
 	double newY = 0.0;
 
-	newY = position.GetPointY() + moveY * moveSpeed * dT;
+	newY = position.GetPointY() + moveY * moveSpeed * dT * 0.6;
 
 	position.SetPointY(newY);
 }
@@ -89,7 +89,7 @@ void Enemy::MoveY(double moveY) {
 void Enemy::MoveZ(double moveZ) {
 	double newZ = 0.0;
 
-	newZ = position.GetPointZ() + moveZ * moveSpeed * dT;
+	newZ = position.GetPointZ() + moveZ * moveSpeed * dT * 0.6;
 
 	position.SetPointZ(newZ);
 }
