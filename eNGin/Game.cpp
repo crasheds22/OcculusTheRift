@@ -13,7 +13,7 @@ Game::Game()
 
 	state = SHAY_STATE;
 	
-	textures.resize(20);
+	textures.resize(25);
 	models.resize(10);
 
 	exitScreen = false;
@@ -83,7 +83,6 @@ void Game::Initialise()
 	textures[17].LoadTexture("data/player_laser.png", 32, 32);
 	textures[18].LoadTexture("data/enemy_laser.png", 32, 32);
 	textures[19].LoadTexture("data/coin.png", 128, 128);
-
 	textures[20].LoadTexture("data/crosshairRGBA.png", 64, 64);
 
 
@@ -400,15 +399,9 @@ void Game::MouseLook(int x, int y)
 	int deadzone = 0.25;
 	Vector3 pitchAxis;
 	GLdouble fps = 60;
-<<<<<<< HEAD
-	GLdouble mouseSensitivity = 1.75;
+	GLdouble mouseSensitivity = 1;
 
-=======
-	GLdouble currentRotation;
-	GLdouble mouseSensitivity = 2;
-	
-	
->>>>>>> 447e67b5b341d33783fb87e289881516003b279f
+
 	//If the mouse pointer has moved far enough, rotate camera
 	if ((abs((long double)x) > deadzone) || (abs((long double)y) > deadzone)) 
 	{	
