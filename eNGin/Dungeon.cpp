@@ -181,6 +181,10 @@ Dungeon::Dungeon(Game* gameIn)
 			else
 			{
 				flags.emplace_back(Vector3(xx * 4, 0, yy * 4));
+				if (xx % 4 == 0)
+				{
+					owner->AddCoin(xx * 4, 0, yy * 4);
+				}
 			}
 		}
 	}

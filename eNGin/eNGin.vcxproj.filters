@@ -35,6 +35,7 @@
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="Coin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
@@ -70,6 +71,7 @@
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="Coin.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

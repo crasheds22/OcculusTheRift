@@ -82,12 +82,14 @@ void Game::Initialise()
 	textures[16].LoadTexture("data/floor3.png", 32, 32);
 	textures[17].LoadTexture("data/player_laser.png", 32, 32);
 	textures[18].LoadTexture("data/enemy_laser.png", 32, 32);
+	textures[19].LoadTexture("data/coin.png", 128, 128);
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
 	models[2] = new Model("data/eyeball.obj");
 	models[3] = new Model("data/exit.obj");
 	models[4] = new Model("data/laser.obj");
+	models[5] = new Model("data/coin.obj");
 
 	std::vector <Actor*> tempObjectVectorOne;
 	std::vector <Actor*> tempObjectVectorTwo;
@@ -100,16 +102,24 @@ void Game::Initialise()
 	Entities.insert(enumActor);
 
 	std::pair <int, std::vector <Actor*>> enumActorTwo;
-	enumActor.first = tEXIT;
-	enumActor.second = tempObjectVectorTwo;
+	enumActorTwo.first = tEXIT;
+	enumActorTwo.second = tempObjectVectorTwo;
 
 	Entities.insert(enumActorTwo);
 	
 	std::pair <int, std::vector <Actor*>> enumActorThree;
-	enumActor.first = tEnemy;
-	enumActor.second = tempObjectVectorThree;
+	enumActorThree.first = tEnemy;
+	enumActorThree.second = tempObjectVectorThree;
 
 	Entities.insert(enumActorThree);
+
+	std::pair <int, std::vector <Actor*>> enumActorFour;
+	enumActorFour.first = tPOWERUP;
+	enumActorFour.second = tempObjectVectorThree;
+
+	Entities.insert(enumActorFour);
+
+	gameScore = 0;
 }
 
 void Game::Update(float deltaTime)
@@ -141,8 +151,20 @@ void Game::Update(float deltaTime)
 				}
 				ClearLevel();
 			}
+
+			for (int i = 0; i < Entities[tPOWERUP].size(); i++) 
+			{
+				if (Entities[tPOWERUP][i]->GetCollider().AABBtoAABB(playerCharacter->GetCollider()))
+				{
+					soundControl.PlaySound(0);
+					gameScore += 20;
+					Entities[tPOWERUP].erase(Entities[tPOWERUP].begin()+i);
+				}
+			}
+
 			
-			for (int i = 0; i < Entities[tEnemy].size(); i++) {
+			for (int i = 0; i < Entities[tEnemy].size(); i++)
+			{
 				Entities[tEnemy][i]->Update(deltaTime);
 			}
 
@@ -278,6 +300,10 @@ void Game::Draw()
 
 			for (int i = 0; i < Entities[tProjectile].size(); i++) {
 				Entities[tProjectile][i]->Draw();
+			}
+
+			for (int i = 0; i < Entities[tPOWERUP].size(); i++) {
+				Entities[tPOWERUP][i]->Update(deltaTime);
 			}
 
 			glPushMatrix();
@@ -572,6 +598,13 @@ void Game::AddExit(float x, float y, float z)
 	LevelExit *exit = new LevelExit(x, y, z, models[3], &textures[8]);
 
 	Entities[tEXIT].push_back(exit);
+}
+
+void Game::AddCoin(float x, float y, float z)
+{
+	Coin *coin = new Coin(x, y, z, models[5], &textures[19]);
+
+	Entities[tPOWERUP].push_back(coin);
 }
 
 Player * Game::GetPlayer() const

@@ -22,6 +22,7 @@
 #include "Enemy.h"
 #include "SoundPlayer.h"
 #include "Projectile.h"
+#include "Coin.h"
 
 #define SHAY_STATE 0
 #define MENU_STATE 1
@@ -193,6 +194,16 @@ public:
 	*/
 	void AddWall(float x, float y, float z);
 
+
+	/**
+	*	A normal member taking 3 arguments
+	*	Used to add a coin to the list of game entities
+	*	@param x The x position of the coin
+	*	@param y The y position of the coin
+	*	@param z The z position of the coin
+	*/
+	void AddCoin(float x, float y, float z);
+
 	/**
 	*	A normal member taking 3 arguments
 	*	Used to add an exit to the list of game entities
@@ -214,6 +225,7 @@ public:
 
 private:
 	int count;
+	int gameScore;
 	float startTime;			/*<! start counting time variable> */
 	float endTime;				/*<! end counting time variable> */
 	float deltaTime;			/*<! A change in time variable> */
