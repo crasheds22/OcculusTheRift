@@ -228,7 +228,6 @@ void Game::Draw()
 				glMatrixMode(GL_PROJECTION);
 				glLoadIdentity();
 
-				//this one
 				glViewport(0, 0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 				gluPerspective(45.0, 1.0 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1.0, 250000.0);
 				glMatrixMode(GL_MODELVIEW);

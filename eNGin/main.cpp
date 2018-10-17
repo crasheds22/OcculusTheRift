@@ -167,7 +167,6 @@ void Mouse(int button, int state, int x, int y)
 {
 	if (game.GetState() == SHAY_STATE) {
 		game.GetShaysWorld()->MouseClick(button, state, x, y);
-		std::cout << "SHAY" << std::endl;
 	}
 
 	if (game.GetState() == GAME_STATE) {
@@ -176,7 +175,6 @@ void Mouse(int button, int state, int x, int y)
 
 	if (game.GetState() == MENU_STATE) {
 		game.GetMenu()->MouseClick(button, state, x, y);
-		std::cout << "MENU" << std::endl;
 	}
 }
 
