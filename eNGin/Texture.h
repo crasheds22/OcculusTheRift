@@ -5,7 +5,6 @@
 #include <vector>
 #include <string>
 #include "lodepng.h"
-#include "png.h"
 #include <soil/SOIL.h>
 
 /**

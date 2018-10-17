@@ -14,7 +14,7 @@ GUI::GUI(Game * inputParent)
 
 GUI::~GUI()
 {
-	delete[] temp;
+	
 }
 
 void GUI::DrawGUI()

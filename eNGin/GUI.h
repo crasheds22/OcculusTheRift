@@ -11,6 +11,6 @@ class GUI
 
 	private:
 		Game * theParent;
-		png_bytep * temp;
+
 };
 
