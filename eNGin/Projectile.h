@@ -7,6 +7,7 @@
 class Projectile : public Actor {
 public:
 	Projectile(Actor* act, Model *mod, Texture *tex, double spd, Vector3 dir, Vector3 start);
+	~Projectile();
 
 	void Update(float deltaTime) override;
 

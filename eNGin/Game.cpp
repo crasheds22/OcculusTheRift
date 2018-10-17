@@ -174,12 +174,14 @@ void Game::Update(float deltaTime)
 			for (int i = 0; i < Entities[tProjectile].size(); i++) {
 				Projectile* p = dynamic_cast<Projectile*>(Entities[tProjectile][i]);
 				if (p) {
-					if (p->GetTime() > 5) {
+					if (p->GetTime() > 2) {
 						Entities[tProjectile].erase(Entities[tProjectile].begin() + i);
+						Entities[tProjectile][i] = NULL;
+					}
+					else {
+						Entities[tProjectile][i]->Update(deltaTime);
 					}
 				}
-
-				Entities[tProjectile][i]->Update(deltaTime);
 			}
 
 			for (int i = 0; i < Entities.size(); ++i)
@@ -189,12 +191,13 @@ void Game::Update(float deltaTime)
 
 				for (int j = 0; j < Entities[i].size(); j++)
 				{
-					Vector3 temp = Entities[i][j]->GetPos();
-					
-					if (ProximityCull(playerCharacter->GetPos(), temp))
-					{
-						resultObjectList.push_back(Entities[i][j]);
+					if (Entities[i][j] != NULL) {
+						Vector3 temp = Entities[i][j]->GetPos();
 
+						if (ProximityCull(playerCharacter->GetPos(), temp))
+						{
+							resultObjectList.push_back(Entities[i][j]);
+						}
 					}
 				}
 
@@ -303,7 +306,9 @@ void Game::Draw()
 			}
 
 			for (int i = 0; i < Entities[tProjectile].size(); i++) {
-				Entities[tProjectile][i]->Draw();
+				if (Entities[tProjectile][i] != NULL) {
+					Entities[tProjectile][i]->Draw();
+				}
 			}
 
 			for (int i = 0; i < Entities[tPOWERUP].size(); i++) {
@@ -395,8 +400,15 @@ void Game::MouseLook(int x, int y)
 	int deadzone = 0.25;
 	Vector3 pitchAxis;
 	GLdouble fps = 60;
+<<<<<<< HEAD
 	GLdouble mouseSensitivity = 1.75;
 
+=======
+	GLdouble currentRotation;
+	GLdouble mouseSensitivity = 2;
+	
+	
+>>>>>>> 447e67b5b341d33783fb87e289881516003b279f
 	//If the mouse pointer has moved far enough, rotate camera
 	if ((abs((long double)x) > deadzone) || (abs((long double)y) > deadzone)) 
 	{	

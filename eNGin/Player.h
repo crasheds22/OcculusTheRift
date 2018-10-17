@@ -2,10 +2,8 @@
 #define PLAYER_H
 
 #include <gl\glut.h>
-#include <map>
 
 #include "Actor.h"
-#include "Cube.h"
 #include "Quarternion.h"
 
 /**

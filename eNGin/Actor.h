@@ -2,6 +2,8 @@
 #define ACTOR_H
 
 #include <math.h>
+#include <vector>
+#include <map>
 #include <gl\glut.h>
 
 #include "Collider.h"
