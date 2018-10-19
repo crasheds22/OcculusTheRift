@@ -13,9 +13,6 @@ std::vector<unsigned char>& Texture::GetTexture() {
 	return data;
 }
 
-std::vector<GLuint>& Texture::GetTextureSOIL() {
-	return dataSOIL;
-}
 
 void Texture::LoadTexture(std::string filePath, unsigned int w, unsigned int h) {
 	texW = w;
@@ -27,11 +24,6 @@ void Texture::LoadTexture(std::string filePath, unsigned int w, unsigned int h) 
 		std::cout << "Error " << error << ": " << lodepng_error_text(error) << std::endl;
 		exit(1);
 	}
-}
-
-void Texture::LoadTextureSOIL(const char * filePath, unsigned int w, unsigned int h)
-{
-	dataSOIL.push_back(SOIL_load_OGL_texture(filePath, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_MULTIPLY_ALPHA));
 }
 
 unsigned int Texture::GetHeight() {

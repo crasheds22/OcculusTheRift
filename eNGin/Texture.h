@@ -27,11 +27,6 @@ public:
 	 */
 	std::vector<unsigned char>& GetTexture();
 
-	/**
-	 *	Returns the address of the texture in raw form
-	 *	@return The texture as a byte array address
-	 */
-	std::vector<GLuint>& GetTextureSOIL();
 
 	/**
 	 *	A normal member taking 3 arguments
@@ -42,14 +37,6 @@ public:
 	 */
 	void LoadTexture(std::string filePath, unsigned int w, unsigned int h);
 
-	/**
-	 *	A normal member taking 3 arguments
-	 *	Takes a path to a file, the width and height and loads a texture file
-	 *	@param filePath The path to the file to load
-	 *	@param w The width of the texture
-	 *	@param h The height of the texture
-	 */
-	void LoadTextureSOIL(const char * filePath, unsigned int w, unsigned int h);
 
 
 	/**

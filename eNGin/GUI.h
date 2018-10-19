@@ -8,7 +8,7 @@ class GUI
 		void Init();
 		void DrawGUI();
 		void DrawReticle();
-		void DrawReticleSOIL();
+	
 
 	private:
 		Game * theParent;

@@ -85,8 +85,6 @@ void Game::Initialise()
 	textures[19].LoadTexture("data/coin.png", 128, 128);
 	textures[20].LoadTexture("data/crosshairRGBA.png", 64, 64);
 
-	//playerInterface->Init();
-
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
 	models[2] = new Model("data/eyeball.obj");
@@ -124,6 +122,8 @@ void Game::Initialise()
 	Entities.insert(enumActorFour);
 
 	gameScore = 0;
+
+	
 }
 
 void Game::Update(float deltaTime)
@@ -135,6 +135,7 @@ void Game::Update(float deltaTime)
 	switch (state)
 	{
 		case GAME_STATE:
+			glutSetCursor(GLUT_CURSOR_NONE);
 
 			if (count <= 0)
 			{
@@ -208,6 +209,8 @@ void Game::Update(float deltaTime)
 			}
 
 			playerCharacter->Update(deltaTime, tempMap);
+
+			
 			
 			break;
 
