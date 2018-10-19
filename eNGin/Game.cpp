@@ -122,8 +122,6 @@ void Game::Initialise()
 	Entities.insert(enumActorFour);
 
 	gameScore = 0;
-
-	
 }
 
 void Game::Update(float deltaTime)
@@ -163,8 +161,10 @@ void Game::Update(float deltaTime)
 				{
 					soundControl.PlaySound(0);
 					gameScore += 20;
-					Entities[tPOWERUP].erase(Entities[tPOWERUP].begin()+i);
+					Entities[tPOWERUP].erase(Entities[tPOWERUP].begin() + i);
 				}
+				else
+					Entities[tPOWERUP][i]->Update(deltaTime);
 			}
 
 			
@@ -315,7 +315,8 @@ void Game::Draw()
 			}
 
 			for (int i = 0; i < Entities[tPOWERUP].size(); i++) {
-				Entities[tPOWERUP][i]->Update(deltaTime);
+				if(Entities[tPOWERUP][i] != NULL)
+					Entities[tPOWERUP][i]->Draw();
 			}
 
 			glPushMatrix();
@@ -325,8 +326,6 @@ void Game::Draw()
 
 			
 			DrawGUI();
-			
-
 
 			glFlush();
 			

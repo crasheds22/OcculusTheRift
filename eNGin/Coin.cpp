@@ -37,7 +37,7 @@ int Coin::GetValue()
 
 void Coin::Update(float deltaTime)
 {
-	if (rotate < 360)
+	/*(if (rotate < 360)
 	{
 		rotate += rotSpeed * deltaTime;
 	}
@@ -53,5 +53,12 @@ void Coin::Update(float deltaTime)
 	glRotatef(rotate, 0, 1, 0);
 	model->DrawModel(0, 0,0, texture->GetTexture(), texture->GetWidth(), texture->GetHeight());
 
-	glPopMatrix();
+	glPopMatrix();*/
+
+	if (rotations.GetPointY() < 360) {
+		rotations.SetPointY(rotations.GetPointY() + rotSpeed * deltaTime);
+	}
+	else {
+		rotations.SetPointY(rotations.GetPointY() - 360);
+	}
 }
