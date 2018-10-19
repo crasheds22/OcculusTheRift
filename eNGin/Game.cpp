@@ -122,8 +122,6 @@ void Game::Initialise()
 	Entities.insert(enumActorFour);
 
 	gameScore = 0;
-
-	
 }
 
 void Game::Update(float deltaTime)
@@ -163,8 +161,10 @@ void Game::Update(float deltaTime)
 				{
 					soundControl.PlaySound(0);
 					gameScore += 20;
-					Entities[tPOWERUP].erase(Entities[tPOWERUP].begin()+i);
+					Entities[tPOWERUP].erase(Entities[tPOWERUP].begin() + i);
 				}
+				else
+					Entities[tPOWERUP][i]->Update(deltaTime);
 			}
 
 			
@@ -178,7 +178,6 @@ void Game::Update(float deltaTime)
 				if (p) {
 					if (p->GetTime() > 2) {
 						Entities[tProjectile].erase(Entities[tProjectile].begin() + i);
-						Entities[tProjectile][i] = NULL;
 					}
 					else {
 						Entities[tProjectile][i]->Update(deltaTime);
@@ -316,7 +315,8 @@ void Game::Draw()
 			}
 
 			for (int i = 0; i < Entities[tPOWERUP].size(); i++) {
-				Entities[tPOWERUP][i]->Update(deltaTime);
+				if(Entities[tPOWERUP][i] != NULL)
+					Entities[tPOWERUP][i]->Draw();
 			}
 
 			glPushMatrix();
@@ -326,8 +326,6 @@ void Game::Draw()
 
 			
 			DrawGUI();
-			
-
 
 			glFlush();
 			
@@ -615,6 +613,7 @@ void Game::ClearLevel()
 	Entities[tEXIT].clear();
 	Entities[tEnemy].clear();
 	Entities[tProjectile].clear();
+	Entities[tPOWERUP].clear();
 	delete dungeon;
 	dungeon = NULL;
 	state = LOAD_STATE;

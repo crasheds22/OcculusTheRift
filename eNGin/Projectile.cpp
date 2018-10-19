@@ -7,9 +7,6 @@ Projectile::Projectile(Actor* act, Model *mod, Texture *tex, double spd, Vector3
 	owner = act;
 	this->SetPos(start);
 	this->SetMoveSpeed(spd);
-
-	collisionBox.SetMaxPoint(position.GetPointX() + 0.5, position.GetPointY() + 0.5, position.GetPointZ() + 0.5);
-	collisionBox.SetMinPoint(position.GetPointX() - 0.5, position.GetPointY() - 0.5, position.GetPointZ() - 0.5);
 }
 
 Projectile::~Projectile() {
@@ -19,6 +16,9 @@ Projectile::~Projectile() {
 void Projectile::Update(float deltaTime) {
 	timeAlive += deltaTime;
 	dT = deltaTime;
+
+	collisionBox.SetMaxPoint(position.GetPointX() + 0.5, position.GetPointY() + 0.5, position.GetPointZ() + 0.5);
+	collisionBox.SetMinPoint(position.GetPointX() - 0.5, position.GetPointY() - 0.5, position.GetPointZ() - 0.5);
 
 	Move();
 }
