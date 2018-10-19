@@ -187,7 +187,16 @@ public:
 	*/
 	Quarternion RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion pAxis,float deltaTime);
 
-	Point GetLookFB();
+	/**
+	*	@brief creates a weapon that the player uses
+	*	@param
+	*	@return 
+	*	@pre
+	*	@post
+	*/
+	void PlayerWeapon(Model* mod, Texture* tex);
+
+
 
 private:
 	//========================================

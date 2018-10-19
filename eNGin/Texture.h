@@ -6,6 +6,7 @@
 #include <string>
 #include "lodepng.h"
 #include <soil/SOIL.h>
+#include <gl/glut.h>
 
 /**
  *	@class Texture
@@ -25,6 +26,12 @@ public:
 	 *	@return The texture as a byte array address
 	 */
 	std::vector<unsigned char>& GetTexture();
+
+	/**
+	 *	Returns the address of the texture in raw form
+	 *	@return The texture as a byte array address
+	 */
+	std::vector<GLuint>& GetTextureSOIL();
 
 	/**
 	 *	A normal member taking 3 arguments
@@ -62,7 +69,7 @@ private:
 				 texH;	/*<! The texture height */
 
 	std::vector<unsigned char> data; /*<! The texture data array */
-
+	std::vector<GLuint> dataSOIL; /*<! The texture data array */
 };
 
 #endif

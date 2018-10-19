@@ -13,6 +13,10 @@ std::vector<unsigned char>& Texture::GetTexture() {
 	return data;
 }
 
+std::vector<GLuint>& Texture::GetTextureSOIL() {
+	return dataSOIL;
+}
+
 void Texture::LoadTexture(std::string filePath, unsigned int w, unsigned int h) {
 	texW = w;
 	texH = h;
@@ -27,7 +31,7 @@ void Texture::LoadTexture(std::string filePath, unsigned int w, unsigned int h) 
 
 void Texture::LoadTextureSOIL(const char * filePath, unsigned int w, unsigned int h)
 {
-	data.push_back(SOIL_load_OGL_texture(filePath, SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID, SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_MULTIPLY_ALPHA));
+	dataSOIL.push_back(SOIL_load_OGL_texture(filePath, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_MULTIPLY_ALPHA));
 }
 
 unsigned int Texture::GetHeight() {

@@ -226,10 +226,9 @@ Quarternion Player::RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion
 	return quartResult;
 }
 
-
-Point Player::GetLookFB()
+void Player::PlayerWeapon(Model* mod, Texture* tex)
 {
-	return lookFB;
+	model = mod;
+	texture = tex;
 }
-
 

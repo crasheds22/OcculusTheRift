@@ -85,6 +85,7 @@ void Game::Initialise()
 	textures[19].LoadTexture("data/coin.png", 128, 128);
 	textures[20].LoadTexture("data/crosshairRGBA.png", 64, 64);
 
+	//playerInterface->Init();
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
@@ -92,6 +93,7 @@ void Game::Initialise()
 	models[3] = new Model("data/exit.obj");
 	models[4] = new Model("data/laser.obj");
 	models[5] = new Model("data/coin.obj");
+	models[6] = new Model("data/coin.obj");
 
 	std::vector <Actor*> tempObjectVectorOne;
 	std::vector <Actor*> tempObjectVectorTwo;
@@ -319,9 +321,9 @@ void Game::Draw()
 					DrawGUI();
 			glPopMatrix();
 
-			glPushMatrix();
-				DrawGUI();
-			glPopMatrix();
+			
+			DrawGUI();
+			
 
 
 			glFlush();

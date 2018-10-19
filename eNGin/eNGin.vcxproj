@@ -148,6 +148,7 @@
     <ClCompile Include="EnemyOwnedStates.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="HandGun.cpp" />
     <ClCompile Include="LevelExit.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="EnemyOwnedStates.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GUI.h" />
+    <ClInclude Include="HandGun.h" />
     <ClInclude Include="LevelExit.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="Menu.h" />

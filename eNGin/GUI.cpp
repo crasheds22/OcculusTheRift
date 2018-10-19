@@ -17,6 +17,17 @@ GUI::~GUI()
 	
 }
 
+void GUI::Init()
+{
+	temp.push_back(theParent->GetTexture()[20].GetTextureSOIL()[0]);
+	glGenTextures(1, &temp[0]);
+	glBindTexture(GL_TEXTURE_2D, temp[0]);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //GL_NEAREST = no smoothing
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, theParent->GetTexture()[20].GetWidth(), theParent->GetTexture()[20].GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, &temp[0]);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
 void GUI::DrawGUI()
 {
 	//Set View mode to orthographic
@@ -135,4 +146,46 @@ void GUI::DrawReticle()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	
+}
+
+void GUI::DrawReticleSOIL()
+{
+	//Set View mode to orthographic
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-8.0, 8.0, -5.0, 5.0, 1.0, 30.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glEnable(GL_TEXTURE_2D);
+	glDisable(GL_DEPTH_TEST);
+	glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_COLOR);
+	//glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+
+	//Draw Crosshair
+	glPushMatrix();
+	glBindTexture(GL_TEXTURE_2D, temp[0]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(-1.0, 1.0);
+	glVertex3f(-0.5, -0.5, -1);
+	glTexCoord2f(-1.0, 0.0);
+	glVertex3f(-0.5, 0.5, -1);
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(0.5, 0.5, -1);
+	glTexCoord2f(0.0, 1.0);
+	glVertex3f(0.5, -0.5, -1);
+	glEnd();
+	glPopMatrix();
+
+	glDisable(GL_BLEND);
+	glDisable(GL_TEXTURE_2D);
+	glEnable(GL_DEPTH_TEST);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	gluPerspective(60.0, 1, 1.0, 250000.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
 }

@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyOwnedStates.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GUI.cpp" />
     <ClCompile Include="LevelExit.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
@@ -35,20 +37,17 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Wall.cpp" />
-<<<<<<< HEAD
-    <ClCompile Include="GUI.cpp" />
-=======
-    <ClCompile Include="Projectile.cpp" />
-    <ClCompile Include="Coin.cpp" />
->>>>>>> 99a1983b06ba51f81eb4f2a39abb880176af589d
+    <ClCompile Include="HandGun.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Coin.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Dungeon.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyOwnedStates.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GUI.h" />
     <ClInclude Include="LevelExit.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="Menu.h" />
@@ -76,12 +75,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Wall.h" />
-<<<<<<< HEAD
-    <ClInclude Include="GUI.h" />
-=======
-    <ClInclude Include="Projectile.h" />
-    <ClInclude Include="Coin.h" />
->>>>>>> 99a1983b06ba51f81eb4f2a39abb880176af589d
+    <ClInclude Include="HandGun.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
