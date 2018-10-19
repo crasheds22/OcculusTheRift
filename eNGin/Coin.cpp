@@ -1,5 +1,4 @@
 #include "Coin.h"
-#include <iostream>
 
 Coin::Coin()
 {
@@ -41,7 +40,6 @@ void Coin::Update(float deltaTime)
 	if (rotate < 360)
 	{
 		rotate += rotSpeed * deltaTime;
-		std::cout << "rotating: " << rotate << std::endl;
 	}
 	else
 	{

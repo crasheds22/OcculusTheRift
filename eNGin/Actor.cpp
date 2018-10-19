@@ -26,14 +26,13 @@ void Actor::Draw() {
 	if ((model != NULL) && (texture != NULL))
 	{
 		glPushMatrix();
+			glTranslatef(position.GetPointX(), position.GetPointY(), position.GetPointZ());
+
 			glRotatef(rotations.GetPointX(), 1.0, 0.0, 0.0);
 			glRotatef(rotations.GetPointY(), 0.0, 1.0, 0.0);
 			glRotatef(rotations.GetPointZ(), 0.0, 0.0, 1.0);
 
-			glScalef(scale.GetPointX(), scale.GetPointY(), scale.GetPointZ());
-
-			model->DrawModel(position.GetPointX(), position.GetPointY(), position.GetPointZ(),
-				texture->GetTexture(), texture->GetWidth(), texture->GetHeight());
+			model->DrawModel(0, 0, 0, texture->GetTexture(), texture->GetWidth(), texture->GetHeight());
 		glPopMatrix();
 	}
 }

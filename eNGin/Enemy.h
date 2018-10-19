@@ -2,6 +2,8 @@
 #define ENEMY_H
 class Game;
 
+#include <gl/glut.h>
+
 #include "Actor.h"
 #include "State.h"
 #include "EnemyOwnedStates.h"

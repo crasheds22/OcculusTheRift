@@ -178,7 +178,6 @@ void Game::Update(float deltaTime)
 				if (p) {
 					if (p->GetTime() > 2) {
 						Entities[tProjectile].erase(Entities[tProjectile].begin() + i);
-						Entities[tProjectile][i] = NULL;
 					}
 					else {
 						Entities[tProjectile][i]->Update(deltaTime);
@@ -615,6 +614,7 @@ void Game::ClearLevel()
 	Entities[tEXIT].clear();
 	Entities[tEnemy].clear();
 	Entities[tProjectile].clear();
+	Entities[tPOWERUP].clear();
 	delete dungeon;
 	dungeon = NULL;
 	state = LOAD_STATE;
