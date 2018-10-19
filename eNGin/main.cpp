@@ -46,6 +46,8 @@ int main(int argc, char **argv)
 	glutKeyboardUpFunc(releaseKeys);
 	glutKeyboardFunc(keys);
 
+	glutFullScreen();
+
 	glutDisplayFunc(Display);
 	glutIdleFunc(Display);
 
