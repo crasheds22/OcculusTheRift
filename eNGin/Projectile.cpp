@@ -7,6 +7,8 @@ Projectile::Projectile(Actor* act, Model *mod, Texture *tex, double spd, Vector3
 	owner = act;
 	this->SetPos(start);
 	this->SetMoveSpeed(spd);
+
+	this->SetRot(0.0, dir.VectorAngle(start) * 180 / 3.141592654, 0.0);
 }
 
 Projectile::~Projectile() {

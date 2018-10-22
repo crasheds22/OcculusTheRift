@@ -85,3 +85,11 @@ void Actor::SetMoveSpeed(GLdouble spd) {
 void Actor::SetRotateSpeed(GLdouble spd) {
 	rotateSpeed = spd;
 }
+
+double Actor::GetRotateSpeed() {
+	return rotateSpeed;
+}
+
+double Actor::GetMoveSpeed() {
+	return moveSpeed;
+}

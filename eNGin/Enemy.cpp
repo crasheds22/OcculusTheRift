@@ -36,7 +36,9 @@ State* Enemy::GetWander() {
 	return wander;
 }
 
-State* Enemy::GetChase() {
+State* Enemy::GetChase(Vector3 last) {
+	chase->SetLastTarget(last);
+
 	return chase;
 }
 
@@ -50,6 +52,10 @@ std::vector<Vector3> Enemy::GetFlags() {
 
 void Enemy::Shoot() {
 	owner->AddProjectile(this, this->GetPos(), (owner->GetPlayer()->GetPos() - this->GetPos()));
+}
+
+float Enemy::GetdT() {
+	return dT;
 }
 
 //=============================================================================

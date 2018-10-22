@@ -2,6 +2,9 @@
 #include "Enemy.h"
 #include "Player.h"
 
+#include <iostream>
+using namespace std;
+
 //======================================================
 //Wander State
 
@@ -22,7 +25,7 @@ void WanderState::Execute(Enemy* entity) {
 
 	if (pDistance <= 24) {
 		//If player in range, chase them
-		entity->ChangeState(entity->GetChase());
+		entity->ChangeState(entity->GetChase(*fIter));
 	}
 
 	//Move to flag
@@ -63,7 +66,14 @@ void ChaseState::Execute(Enemy* entity) {
 	Vector3 target(Player::GetInstance()->GetPos() - entity->GetPos());
 	double distance = target.VectorMagnitude();
 
-	target = target.UnitVector();
+	Vector3 unitTarget = target.UnitVector();
+
+	Vector3 Va = entity->GetPos();
+	Vector3 Vb = Player::GetInstance()->GetPos();
+	Vector3 Vn = Va.CrossProduct(Vb).UnitVector();
+
+	double angle = Va.CrossProduct(Vb).DotProduct(Vn) / Va.DotProduct(Vb);
+	angle = atan(angle);
 
 	if (distance <= 8.0) {
 		//Close enough to attack
@@ -79,12 +89,21 @@ void ChaseState::Execute(Enemy* entity) {
 	}
 
 	//Chase player down
-	entity->MoveX(target.GetPointX());
-	entity->MoveY(target.GetPointY());
-	entity->MoveZ(target.GetPointZ());
+	entity->MoveX(unitTarget.GetPointX());
+	entity->MoveY(unitTarget.GetPointY());
+	entity->MoveZ(unitTarget.GetPointZ());
+
+	lastTarget = target;
 }
 
 void ChaseState::Exit(Enemy* entity) {
+
+}
+
+void ChaseState::SetLastTarget(Vector3 last) {
+	lastTarget.SetPointX(last.GetPointX());
+	lastTarget.SetPointY(last.GetPointY());
+	lastTarget.SetPointZ(last.GetPointZ());
 }
 
 //======================================================
@@ -100,7 +119,7 @@ void AttackState::Execute(Enemy* entity) {
 
 	entity->Shoot();
 
-	entity->ChangeState(entity->GetChase());
+	entity->ChangeState(entity->GetChase(Player::GetInstance()->GetPos()));
 }
 
 void AttackState::Exit(Enemy* entity) {

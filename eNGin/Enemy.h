@@ -14,12 +14,12 @@ public:
 	Enemy(Game* own, Model* mod, Texture* tex, float xPos, float yPos, float zPos, std::vector<Vector3> &f);
 
 	void Update(float deltaTime) override;
-	void Update(float deltaTime, std::map<int, std::vector<Actor*>> ent);
+	//void Update(float deltaTime, std::map<int, std::vector<Actor*>> ent);
 
 	void ChangeState(State* newState);
 
 	State* GetWander();
-	State* GetChase();
+	State* GetChase(Vector3 last);
 	State* GetAttack();
 
 	void Shoot();
@@ -33,6 +33,8 @@ public:
 	void MoveX(double moveX);
 	void MoveY(double moveY);
 	void MoveZ(double moveZ);
+
+	float GetdT();
 
 private:
 	State* currentState;

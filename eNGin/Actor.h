@@ -175,6 +175,9 @@ public:
 	 */
 	Collider GetCollider();
 
+	double GetRotateSpeed();
+	double GetMoveSpeed();
+
 
 protected:
 	Vector3 position;	/*<! The position of the Actor */

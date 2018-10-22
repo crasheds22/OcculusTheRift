@@ -61,7 +61,7 @@ void Game::Initialise()
 	startTime = glutGet(GLUT_ELAPSED_TIME);
 
 	playerCharacter->SetMoveSpeed(8);
-	playerCharacter->SetRotateSpeed(1);
+	playerCharacter->SetRotateSpeed(2);
 	
 	textures[0].LoadTexture("data/Group.png", 768, 768);
 	textures[1].LoadTexture("data/wall1.png", 64, 64);
@@ -92,34 +92,6 @@ void Game::Initialise()
 	models[4] = new Model("data/laser.obj");
 	models[5] = new Model("data/coin.obj");
 	models[6] = new Model("data/coin.obj");
-
-	std::vector <Actor*> tempObjectVectorOne;
-	std::vector <Actor*> tempObjectVectorTwo;
-	std::vector <Actor*> tempObjectVectorThree;
-
-	std::pair <int, std::vector <Actor*>> enumActor;
-	enumActor.first = tWALL;
-	enumActor.second = tempObjectVectorOne;
-
-	Entities.insert(enumActor);
-
-	std::pair <int, std::vector <Actor*>> enumActorTwo;
-	enumActorTwo.first = tEXIT;
-	enumActorTwo.second = tempObjectVectorTwo;
-
-	Entities.insert(enumActorTwo);
-	
-	std::pair <int, std::vector <Actor*>> enumActorThree;
-	enumActorThree.first = tEnemy;
-	enumActorThree.second = tempObjectVectorThree;
-
-	Entities.insert(enumActorThree);
-
-	std::pair <int, std::vector <Actor*>> enumActorFour;
-	enumActorFour.first = tPOWERUP;
-	enumActorFour.second = tempObjectVectorThree;
-
-	Entities.insert(enumActorFour);
 
 	gameScore = 0;
 }
@@ -166,7 +138,6 @@ void Game::Update(float deltaTime)
 				else
 					Entities[tPOWERUP][i]->Update(deltaTime);
 			}
-
 			
 			for (int i = 0; i < Entities[tEnemy].size(); i++)
 			{
@@ -209,8 +180,6 @@ void Game::Update(float deltaTime)
 
 			playerCharacter->Update(deltaTime, tempMap);
 
-			
-			
 			break;
 
 		case MENU_STATE:
@@ -305,7 +274,8 @@ void Game::Draw()
 
 			for (int i = 0; i < Entities[tEnemy].size(); i++) 
 			{
-				Entities[tEnemy][i]->Draw();
+				if (Entities[tEnemy][i] != NULL)
+					Entities[tEnemy][i]->Draw();
 			}
 
 			for (int i = 0; i < Entities[tProjectile].size(); i++) {
@@ -315,7 +285,7 @@ void Game::Draw()
 			}
 
 			for (int i = 0; i < Entities[tPOWERUP].size(); i++) {
-				if(Entities[tPOWERUP][i] != NULL)
+				if (Entities[tPOWERUP][i] != NULL)
 					Entities[tPOWERUP][i]->Draw();
 			}
 

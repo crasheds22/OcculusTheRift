@@ -35,10 +35,15 @@ public:
 
 	virtual void Exit(Enemy* entity);
 
-private:
+	void SetLastTarget(Vector3 last);
 
+private:
+	Vector3 lastTarget;
 };
 
+/**
+ *	@class AttackState
+ */
 class AttackState : public State {
 public:
 	virtual void Enter(Enemy* entity);
@@ -46,9 +51,6 @@ public:
 	virtual void Execute(Enemy* entity);
 
 	virtual void Exit(Enemy* entity);
-
-private:
-
 };
 
 #endif
