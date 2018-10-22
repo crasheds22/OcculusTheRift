@@ -136,7 +136,8 @@ void GUI::DrawReticle()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	gluPerspective(60.0, 1, 1.0, 250000.0);
+	gluPerspective(60.0, 1.0 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1.0, 400.0);
+	//gluPerspective(60.0, 1, 1.0, 250000.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	

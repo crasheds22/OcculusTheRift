@@ -34,6 +34,9 @@ void Player::Initialise()
 	cameraUp.SetPointX(0);
 	cameraUp.SetPointY(1);
 	cameraUp.SetPointZ(0);
+
+	health = 5;
+	maxHealth = 5;
 }
 
 void Player::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap)

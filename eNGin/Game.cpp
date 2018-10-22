@@ -13,7 +13,7 @@ Game::Game()
 
 	state = SHAY_STATE;
 	
-	textures.resize(25);
+	textures.resize(30);
 	models.resize(10);
 
 	exitScreen = false;
@@ -84,6 +84,12 @@ void Game::Initialise()
 	textures[18].LoadTexture("data/enemy_laser.png", 32, 32);
 	textures[19].LoadTexture("data/coin.png", 128, 128);
 	textures[20].LoadTexture("data/crosshairRGBA.png", 64, 64);
+	textures[21].LoadTexture("data/hb_empty_left.png", 32, 32);
+	textures[23].LoadTexture("data/hb_empty_middle.png", 32, 32);
+	textures[25].LoadTexture("data/hb_empty_right.png", 32, 32);
+	textures[22].LoadTexture("data/hb_full_left.png", 32, 32);
+	textures[24].LoadTexture("data/hb_full_middle.png", 32, 32);
+	textures[26].LoadTexture("data/hb_full_right.png", 32, 32);
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
@@ -296,6 +302,7 @@ void Game::Draw()
 
 			
 			DrawGUI();
+			DrawHUD();
 
 			glFlush();
 			
@@ -330,7 +337,7 @@ void Game::InputDown(unsigned char key, int x, int y)
 		break;
 	case 't':
 	case 'T':
-		soundControl.PlaySound(0);
+		playerCharacter->SetCurrentHealth(playerCharacter->GetCurrentHealth() - 1);
 		//exitScreen = !exitScreen;
 		break;
 	case 'p':
@@ -466,8 +473,6 @@ void Game::DrawGUI()
 {
 
 	playerInterface->DrawReticle();
-
-	
 }
 
 void Game::SetCentreX(int x) {
@@ -616,4 +621,83 @@ void Game::AddProjectile(Actor* owner, Vector3 start, Vector3 dir) {
 	Projectile *proj = new Projectile(owner, models[4], &textures[18], 2, dir, start);
 
 	Entities[tProjectile].push_back(proj);
+}
+
+void Game::DrawHUD()
+{
+	//Set View mode to orthographic
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-8.0, 8.0, -5.0, 5.0, 1.0, 30.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	float x1 = -7.5;
+	float x2 = -6.5;
+
+	float y1 = 4.5;
+	float y2 = 3.5;
+	int maxHealth = (int)playerCharacter->GetMaxHealth();
+	int currentHealth = (int)playerCharacter->GetCurrentHealth();
+	int hbSlot = 0;
+
+	for (int i = 0; i < maxHealth; i++)
+	{
+
+		//Choose Texture
+		if (i == 0)
+		{
+			hbSlot = 22;
+		}
+		else
+		{
+			if (i == maxHealth - 1)
+			{
+				hbSlot = 26;
+			}
+			else
+			{
+				hbSlot = 24;
+			}
+		}
+
+		if (i + 1 > currentHealth)
+		{
+			hbSlot -= 1;
+		}
+
+		//Assign Texture
+		std::vector<unsigned char> temp = textures[hbSlot].GetTexture();
+		glEnable(GL_TEXTURE_2D);
+		glDisable(GL_DEPTH_TEST);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_BLEND);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //GL_NEAREST = no smoothing
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textures[hbSlot].GetWidth(), textures[hbSlot].GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, &temp[0]);
+
+		//Draw Healthbar
+		glPushMatrix();
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0, -1);
+		glVertex3f(x1 + i, y1, -1);
+		glTexCoord2f(1.0, -1);
+		glVertex3f(x2 + i, y1, -1);
+		glTexCoord2f(1.0, 0.0);
+		glVertex3f(x2 + i, y2, -1);
+		glTexCoord2f(0.0, 0.0);
+		glVertex3f(x1 + i, y2, -1);
+		glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+	}
+
+	glEnable(GL_DEPTH_TEST);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	gluPerspective(60.0, 1.0 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1.0, 400.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
 }

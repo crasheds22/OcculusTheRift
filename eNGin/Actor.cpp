@@ -93,3 +93,23 @@ double Actor::GetRotateSpeed() {
 double Actor::GetMoveSpeed() {
 	return moveSpeed;
 }
+
+void Actor::SetMaxHealth(double max)
+{
+	maxHealth = max;
+}
+
+double Actor::GetMaxHealth()
+{
+	return maxHealth;
+}
+
+void Actor::SetCurrentHealth(double cur)
+{
+	health = cur;
+}
+
+double Actor::GetCurrentHealth()
+{
+	return health;
+}
