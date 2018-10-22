@@ -48,6 +48,9 @@ private:
 	std::vector<Vector3> tempFlags;
 
 	float dT;
+
+	float shootTime;
+	float shootTimer;
 };
 
 #endif

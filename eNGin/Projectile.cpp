@@ -1,14 +1,23 @@
 #include "Projectile.h"
+#include <math.h>
 
 Projectile::Projectile(Actor* act, Model *mod, Texture *tex, double spd, Vector3 dir, Vector3 start) : Actor(mod, tex),
-																									   timeAlive(0),
-																									   direction(dir)
+timeAlive(0),
+direction(dir)
 {
 	owner = act;
 	this->SetPos(start);
 	this->SetMoveSpeed(spd);
 
-	this->SetRot(0.0, dir.VectorAngle(start) * 180 / 3.141592654, 0.0);
+	Vector3 Vn(0, 1, 0);
+	Vector3 Va(start), Vb(dir);
+	Vector3 cross = Vb.CrossProduct(Va);
+	double dot = Va.DotProduct(Vb);
+
+	double angle = atan2(cross.DotProduct(Vn), dot);
+	angle *= 180 / 3.141592653;
+
+	this->SetRot(0.0, angle, 0.0);
 }
 
 Projectile::~Projectile() {

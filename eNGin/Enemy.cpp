@@ -3,7 +3,9 @@
 
 Enemy::Enemy(Game* own, Model* mod, Texture* tex, float xPos, float yPos, float zPos, std::vector<Vector3> &f) : Actor(mod, tex),
 																												 tempFlags(f),
-																												 owner(own)
+																												 owner(own),
+																												 shootTime(2),
+																												 shootTimer(shootTime)
 {
 	SetPos(xPos, yPos, zPos);
 	SetMoveSpeed(4);
@@ -22,6 +24,8 @@ void Enemy::Update(float deltaTime) {
 	if (currentState) {
 		currentState->Execute(this);
 	}
+
+	shootTimer -= dT;
 }
 
 void Enemy::ChangeState(State* newState) {
@@ -51,7 +55,10 @@ std::vector<Vector3> Enemy::GetFlags() {
 }
 
 void Enemy::Shoot() {
-	owner->AddProjectile(this, this->GetPos(), (owner->GetPlayer()->GetPos() - this->GetPos()));
+	if (shootTimer <= 0) {
+		owner->AddProjectile(this, this->GetPos(), owner->GetPlayer()->GetPos() - this->GetPos());
+		shootTimer = shootTime;
+	}
 }
 
 float Enemy::GetdT() {

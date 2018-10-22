@@ -68,12 +68,16 @@ void ChaseState::Execute(Enemy* entity) {
 
 	Vector3 unitTarget = target.UnitVector();
 
-	Vector3 Va = entity->GetPos();
-	Vector3 Vb = Player::GetInstance()->GetPos();
-	Vector3 Vn = Va.CrossProduct(Vb).UnitVector();
+	Vector3 Vn(0, 1, 0);
+	Vector3 Va(Player::GetInstance()->GetPos()), Vb(target);
+	Vector3 cross = Vb.CrossProduct(Va);
+	double dot = Va.DotProduct(Vb);
 
-	double angle = Va.CrossProduct(Vb).DotProduct(Vn) / Va.DotProduct(Vb);
-	angle = atan(angle);
+	double angle = atan2(cross.DotProduct(Vn), dot);
+	angle *= 180 / 3.141592653;
+
+	if (angle < 0)
+		angle = -angle;
 
 	if (distance <= 8.0) {
 		//Close enough to attack
@@ -93,7 +97,7 @@ void ChaseState::Execute(Enemy* entity) {
 	entity->MoveY(unitTarget.GetPointY());
 	entity->MoveZ(unitTarget.GetPointZ());
 
-	lastTarget = target;
+	entity->SetRot(0, entity->GetRot().GetPointY() + angle, 0);
 }
 
 void ChaseState::Exit(Enemy* entity) {
