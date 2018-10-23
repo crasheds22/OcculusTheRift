@@ -38,8 +38,6 @@ Vector3 Collider::GetMaxPoint()
 
 bool Collider::AABBtoAABB(Collider objectOther)
 {
-
-
 	return (	maxPoint.GetPointX() > objectOther.minPoint.GetPointX() &&
 				minPoint.GetPointX() < objectOther.maxPoint.GetPointX() &&
 				maxPoint.GetPointY() > objectOther.minPoint.GetPointY() &&

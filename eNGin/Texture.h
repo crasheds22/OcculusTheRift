@@ -18,7 +18,6 @@
  */
 class Texture {
 public:
-
 	virtual~Texture();
 
 	/**

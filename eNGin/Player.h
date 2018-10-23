@@ -187,16 +187,11 @@ public:
 	*/
 	Quarternion RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion pAxis,float deltaTime);
 
-	/**
-	*	@brief creates a weapon that the player uses
-	*	@param
-	*	@return 
-	*	@pre
-	*	@post
-	*/
-	void PlayerWeapon(Model* mod, Texture* tex);
+	double GetShotTimer();
+	double GetShotTime();
 
-
+	void SetShotTimer(double t);
+	void SetShotTime(double t);
 
 private:
 	//========================================
@@ -242,6 +237,9 @@ private:
 	Quarternion cameraViewDelta; /*<! The quarternion camera */
 	Vector3 cameraUp;  /*<! The up position of the camera */
 
+	double damageTime = 1, damageTimer;
+	double shotTime = 2, shotTimer;
+
 	//========================================
 	// Move functions
 	/**
@@ -274,10 +272,6 @@ private:
 	 */
 	void LookLR(float deltaTime);
 	//========================================
-
-
-
-
 };
 
 #endif

@@ -16,6 +16,9 @@ Enemy::Enemy(Game* own, Model* mod, Texture* tex, float xPos, float yPos, float 
 	attack = new AttackState();
 
 	currentState = wander;
+
+	SetMaxHealth(2);
+	SetCurrentHealth(2);
 }
 
 void Enemy::Update(float deltaTime) {
@@ -56,7 +59,7 @@ std::vector<Vector3> Enemy::GetFlags() {
 
 void Enemy::Shoot() {
 	if (shootTimer <= 0) {
-		owner->AddProjectile(this, this->GetPos(), owner->GetPlayer()->GetPos() - this->GetPos());
+		owner->AddProjectile(this, this->GetPos(), owner->GetPlayer()->GetPos() - this->GetPos(), 18);
 		shootTimer = shootTime;
 	}
 }

@@ -22,6 +22,8 @@ public:
 private:
 	std::vector<Vector3> flags;
 	std::vector<Vector3>::iterator fIter;
+
+	double lastAngle = 0;
 };
 
 /**
@@ -39,6 +41,7 @@ public:
 
 private:
 	Vector3 lastTarget;
+	double lastAngle = 0;
 };
 
 /**

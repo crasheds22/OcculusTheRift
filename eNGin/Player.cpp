@@ -14,7 +14,7 @@ Player::Player() : lookFB{ 0.0, 0.0, -1.0 },
 				   deltaRotLR(0.0),
 				   deltaRotUD(0.0)
 {
-	
+	shotTimer = shotTime;
 }
 
 Player* Player::GetInstance() 
@@ -41,7 +41,6 @@ void Player::Initialise()
 
 void Player::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap)
 {
-
 	Move(deltaTime);
 
 	glLoadIdentity();
@@ -64,6 +63,21 @@ void Player::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMa
 		}
 	}
 	//Check for projectile collisions
+	for (int ii = 0; ii < entityMap[5].size(); ii++)
+	{
+		if (entityMap[5][ii] != NULL) {
+			if (collisionBox.AABBtoAABB(entityMap[5][ii]->GetCollider()))
+			{
+				if (damageTimer <= 0) {
+					SetCurrentHealth(GetCurrentHealth() - 1);
+					damageTimer = damageTime;
+				}
+			}
+		}
+	}
+	damageTimer -= deltaTime;
+
+	shotTimer -= deltaTime;
 }
 
 void Player::DirectionB(const GLdouble tempMove) {
@@ -115,15 +129,6 @@ void Player::Move(float deltaTime) {
 
 	if (deltaMoveLR != 0)
 		MoveLR(deltaTime);
-
-	//if (deltaMoveUD != 0)
-		//MoveUD(deltaTime);
-
-	//if (deltaRotLR / rotateSpeed != 0)
-		//LookLR(deltaTime);
-
-	//if (deltaRotUD / rotateSpeed != 0)
-		//LookUD(deltaTime);
 }
 
 void Player::MoveFB(float deltaTime) {
@@ -177,25 +182,20 @@ void Player::LookUD(float deltaTime) {
 	lookLR.y = sin(rotUD + (float)PI / 2.0);
 }
 
-
 void Player::SetCameraViewDelta(Quarternion inputVector)
 {
 	cameraViewDelta = inputVector;
 }
-
-
 
 void Player::SetCameraUp(Vector3 inputVector)
 {
 	cameraUp = inputVector;
 }
 
-
 Quarternion Player::GetCameraViewDelta()
 {
 	return cameraViewDelta;
 }
-
 
 Vector3 Player::GetCameraViewDeltaVector()
 {
@@ -229,9 +229,18 @@ Quarternion Player::RotateCamera(GLdouble mouseAngle, Vector3 qAxis, Quarternion
 	return quartResult;
 }
 
-void Player::PlayerWeapon(Model* mod, Texture* tex)
-{
-	model = mod;
-	texture = tex;
+double Player::GetShotTimer() {
+	return shotTimer;
 }
 
+double Player::GetShotTime() {
+	return shotTime;
+}
+
+void Player::SetShotTimer(double t) {
+	shotTimer = t;
+}
+
+void Player::SetShotTime(double t) {
+	shotTime = t;
+}

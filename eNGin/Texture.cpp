@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include "Texture.h"
 
-
-
 Texture::~Texture()
 {
 	

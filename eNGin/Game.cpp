@@ -97,7 +97,6 @@ void Game::Initialise()
 	models[3] = new Model("data/exit.obj");
 	models[4] = new Model("data/laser.obj");
 	models[5] = new Model("data/coin.obj");
-	models[6] = new Model("data/coin.obj");
 
 	gameScore = 0;
 }
@@ -147,7 +146,14 @@ void Game::Update(float deltaTime)
 			
 			for (int i = 0; i < Entities[tEnemy].size(); i++)
 			{
-				Entities[tEnemy][i]->Update(deltaTime);
+				if (Entities[tEnemy][i] != NULL) {
+					if (Entities[tEnemy][i]->GetCurrentHealth() > 0) {
+						Entities[tEnemy][i]->Update(deltaTime);
+					}
+					else {
+						Entities[tEnemy].erase(Entities[tEnemy].begin() + i);
+					}
+				}
 			}
 
 			for (int i = 0; i < Entities[tProjectile].size(); i++) {
@@ -381,15 +387,12 @@ void Game::MouseLook(int x, int y)
 	GLdouble fps = 60;
 	GLdouble mouseSensitivity = 3;
 
-
 	//If the mouse pointer has moved far enough, rotate camera
 	if ((abs((long double)x) > deadzone) || (abs((long double)y) > deadzone)) 
 	{	
-		
 		int deltaX = ((centreX - x) < 0) - (0 < (centreX - x));
 		int deltaY = -(((centreY - y) < 0) - (0 < (centreY - y)));
 
-		
 		if (deltaX >= 1)
 		{
 			deltaX = 1 * deltaTime * fps * mouseSensitivity;
@@ -421,6 +424,7 @@ void Game::MouseLook(int x, int y)
 			playerCharacter->RotateCamera(radianY, pitchAxis, playerCharacter->GetCameraViewDelta(), deltaTime);
 			// yaw
 			playerCharacter->RotateCamera(-radianX, Vector3(0, 1, 0), playerCharacter->GetCameraViewDelta(), deltaTime);
+			playerCharacter->SetRot(deltaX, 0, 0);
 		}
 		
 		glutWarpPointer(centreX, centreY);
@@ -430,8 +434,9 @@ void Game::MouseLook(int x, int y)
 }
 
 void Game::MouseClick(int button, int state, int x, int y) {
-	if (exitScreen && button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
-		exit(0);
+	if (playerCharacter->GetShotTimer() <= 0) {
+		AddProjectile(playerCharacter, playerCharacter->GetPos(), (playerCharacter->GetCameraViewDeltaVector() - playerCharacter->GetPos()).UnitVector(), 17);
+		playerCharacter->SetShotTimer(playerCharacter->GetShotTime());
 	}
 }
 
@@ -471,7 +476,6 @@ void Game::SwitchState()
 
 void Game::DrawGUI()
 {
-
 	playerInterface->DrawReticle();
 }
 
@@ -558,6 +562,19 @@ void Game::AddCoin(float x, float y, float z)
 	Entities[tPOWERUP].push_back(coin);
 }
 
+void Game::AddEnemy(float x, float y, float z, std::vector<Vector3> &f)
+{
+	Enemy *enemy = new Enemy(this, models[2], &textures[6], x, y, z, f);
+
+	Entities[tEnemy].push_back(enemy);
+}
+
+void Game::AddProjectile(Actor* owner, Vector3 start, Vector3 dir, int tex) {
+	Projectile *proj = new Projectile(owner, models[4], &textures[tex], 2, dir, start);
+
+	Entities[tProjectile].push_back(proj);
+}
+
 Player * Game::GetPlayer() const
 {
 	return playerCharacter;
@@ -594,14 +611,6 @@ void Game::ClearLevel()
 	state = LOAD_STATE;
 }
 
-void Game::AddEnemy(float x, float y, float z, std::vector<Vector3> &f)
-{
-	Enemy *enemy = new Enemy(this, models[2], &textures[6], x, y, z, f);
-
-	Entities[tEnemy].push_back(enemy);
-}
-
-
 std::vector <Texture>  Game::GetTexture()
 {
 	return textures;
@@ -615,12 +624,6 @@ int Game::GetStage()
 int Game::GetLevel()
 {
 	return currentLevel;
-}
-
-void Game::AddProjectile(Actor* owner, Vector3 start, Vector3 dir) {
-	Projectile *proj = new Projectile(owner, models[4], &textures[18], 2, dir, start);
-
-	Entities[tProjectile].push_back(proj);
 }
 
 void Game::DrawHUD()

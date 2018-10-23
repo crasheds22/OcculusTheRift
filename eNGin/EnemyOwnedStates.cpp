@@ -70,14 +70,13 @@ void ChaseState::Execute(Enemy* entity) {
 
 	Vector3 Vn(0, 1, 0);
 	Vector3 Va(Player::GetInstance()->GetPos()), Vb(target);
-	Vector3 cross = Vb.CrossProduct(Va);
-	double dot = Va.DotProduct(Vb);
+	Vector3 cross = Va.CrossProduct(Vb);
+	double dot = Vb.DotProduct(Va);
 
 	double angle = atan2(cross.DotProduct(Vn), dot);
 	angle *= 180 / 3.141592653;
 
-	if (angle < 0)
-		angle = -angle;
+	cout << angle << endl;
 
 	if (distance <= 8.0) {
 		//Close enough to attack
@@ -91,13 +90,14 @@ void ChaseState::Execute(Enemy* entity) {
 		//Player out of range
 		entity->ChangeState(entity->GetWander());
 	}
+	else {
+		//Chase player down
+		entity->MoveX(unitTarget.GetPointX());
+		entity->MoveY(unitTarget.GetPointY());
+		entity->MoveZ(unitTarget.GetPointZ());
 
-	//Chase player down
-	entity->MoveX(unitTarget.GetPointX());
-	entity->MoveY(unitTarget.GetPointY());
-	entity->MoveZ(unitTarget.GetPointZ());
-
-	entity->SetRot(0, entity->GetRot().GetPointY() + angle, 0);
+		entity->SetRot(0, angle - 240, 0);
+	}
 }
 
 void ChaseState::Exit(Enemy* entity) {
@@ -117,9 +117,19 @@ void AttackState::Enter(Enemy* entity) {
 }
 
 void AttackState::Execute(Enemy* entity) {
+	Vector3 Vn(0, 1, 0);
+	Vector3 Va(Player::GetInstance()->GetPos()), Vb(Va - entity->GetPos());
+	Vector3 cross = Va.CrossProduct(Vb);
+	double dot = Vb.DotProduct(Va);
+
+	double angle = atan2(cross.DotProduct(Vn), dot);
+	angle *= 180 / 3.141592653;
+
 	entity->MoveX(0);
 	entity->MoveY(0);
 	entity->MoveZ(0);
+
+	entity->SetRot(0, angle - 240, 0);
 
 	entity->Shoot();
 

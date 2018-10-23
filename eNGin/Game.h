@@ -1,7 +1,6 @@
 #ifndef Game_h
 #define Game_h
 
-
 #include <ctime>
 #include <cmath>
 #include <gl/glut.h>
@@ -25,12 +24,10 @@
 #include "Projectile.h"
 #include "Coin.h"
 
-
 #define SHAY_STATE 0
 #define MENU_STATE 1
 #define GAME_STATE 2
 #define LOAD_STATE 3
-
 
 #define tPlayer 0
 #define tEnemy 1
@@ -38,6 +35,7 @@
 #define tPOWERUP 3
 #define tEXIT 4
 #define tProjectile 5
+#define tGun 6
 
 /**
  *	@class Game
@@ -225,7 +223,7 @@ public:
 
 	std::vector<Texture> GetTexture();
 	
-	void AddProjectile(Actor* owner, Vector3 start, Vector3 dir);
+	void AddProjectile(Actor* owner, Vector3 start, Vector3 dir, int tex);
 
 private:
 	int count;
