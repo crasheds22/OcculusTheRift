@@ -17,7 +17,8 @@ Game::Game()
 	models.resize(10);
 
 	exitScreen = false;
-	menuScreen = true;
+	pauseScreen = false;
+	deathScreen = false;
 
 	currentStage = 1;
 	currentLevel = 1;
@@ -90,6 +91,8 @@ void Game::Initialise()
 	textures[22].LoadTexture("data/hb_full_left.png", 32, 32);
 	textures[24].LoadTexture("data/hb_full_middle.png", 32, 32);
 	textures[26].LoadTexture("data/hb_full_right.png", 32, 32);
+	textures[27].LoadTexture("data/Pause.png", 512, 512);
+	textures[28].LoadTexture("data/Death.png", 512, 512);
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
@@ -192,6 +195,12 @@ void Game::Update(float deltaTime)
 
 			playerCharacter->Update(deltaTime, tempMap);
 
+			if (playerCharacter->GetCurrentHealth() <= 0)
+			{
+				deathScreen = true;
+				SetState(MENU_STATE);
+			}
+
 			break;
 
 		case MENU_STATE:
@@ -228,7 +237,18 @@ void Game::Draw()
 		case MENU_STATE:
 			if (menuScreens != NULL)
 			{
-				menuScreens->Draw(textures[5]);
+				glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+
+				if(deathScreen && !pauseScreen)
+				{
+					menuScreens->Draw(textures[28]);
+					menuScreens->SetMenuState(DEATH_MENU);
+				}
+				else
+				{
+					menuScreens->Draw(textures[5]);
+					menuScreens->SetMenuState(MAIN_MENU);
+				}
 			}
 			break;
 
@@ -304,6 +324,17 @@ void Game::Draw()
 			glPushMatrix();
 				if (exitScreen)
 					DrawGUI();
+
+				if (pauseScreen && !deathScreen)
+				{
+					glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+					menuScreens->Draw(textures[27]);
+					menuScreens->SetMenuState(PAUSE_MENU);
+				}
+				else
+				{
+					menuScreens->SetMenuState(0);
+				}
 			glPopMatrix();
 
 			
@@ -348,11 +379,8 @@ void Game::InputDown(unsigned char key, int x, int y)
 		break;
 	case 'p':
 	case 'P':
-		menuScreen = !menuScreen;
-		if (!menuScreen)
-			SetState(MENU_STATE);
-		else
-			SetState(GAME_STATE);
+		if(!deathScreen)
+			pauseScreen = !pauseScreen;
 		break;
 
 	}

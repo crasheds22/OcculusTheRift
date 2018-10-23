@@ -28,6 +28,9 @@
 #define MENU_STATE 1
 #define GAME_STATE 2
 #define LOAD_STATE 3
+#define MAIN_MENU 4
+#define PAUSE_MENU 5
+#define DEATH_MENU 6
 
 #define tPlayer 0
 #define tEnemy 1
@@ -259,7 +262,11 @@ private:
 
 	bool exitScreen;
 
-	bool menuScreen;
+	bool pauseScreen;
+	
+	bool deathScreen;
+
+	bool mainScreen;
 
 	/**
 	 *	A normal member taking no arguments

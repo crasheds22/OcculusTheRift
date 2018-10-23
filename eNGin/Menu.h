@@ -25,6 +25,8 @@
 #define SHAY_STATE 0
 #define MENU_STATE 1
 #define GAME_STATE 2
+#define PAUSE_MENU 5
+#define DEATH_MENU 6
 
 class Game;
 
@@ -39,21 +41,28 @@ class Menu
 
 		void Init();
 
-		void Update();
-
 		void MouseClick(int button, int state, int x, int y);
 
 		int GetState();
 
 		void SetState(int settingState);
 
+		void Clear();
+
+		void SetMenuState(int settingState);
+
+		int GetMenuState();
+
 		Game* owner;
 
 	private:
 
+		float windowWidth;
+		float windowHeight;
 		float centreX;
 		float centreY;
 		int gameState;
+		int menuState;
 };
 
 #endif
