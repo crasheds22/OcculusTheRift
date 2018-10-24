@@ -149,10 +149,10 @@ void Game::Update(float deltaTime)
 			for (std::size_t i = 0; i < Entities[tEnemy].size(); i++)
 			{
 				if (Entities[tEnemy][i] != NULL) {
-					if (Entities[tEnemy][i]->GetCurrentHealth() > 0) {
+					if (!pauseScreen) {
 						Entities[tEnemy][i]->Update(deltaTime);
 					}
-					else {
+					else if(Entities[tEnemy][i]->GetCurrentHealth() <= 0){
 						Entities[tEnemy].erase(Entities[tEnemy].begin() + i);
 					}
 				}
@@ -203,24 +203,10 @@ void Game::Update(float deltaTime)
 			if (pauseScreen && !deathScreen)
 			{
 				allowMovement = false;
-				for (int i = 0; i < Entities[tEnemy].size(); i++)
-				{
-					if (Entities[tEnemy][i] != NULL)
-					{
-						Entities[tEnemy][i]->SetMoveSpeed(0);
-					}
-				}
 			}
 			else
 			{
 				allowMovement = true;
-				for (int i = 0; i < Entities[tEnemy].size(); i++)
-				{
-					if (Entities[tEnemy][i] != NULL)
-					{
-						Entities[tEnemy][i]->SetMoveSpeed(4);
-					}
-				}
 			}
 
 			break;
