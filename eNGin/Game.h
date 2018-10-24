@@ -292,6 +292,7 @@ private:
 	float startTime;			/*<! start counting time variable> */
 	float endTime;				/*<! end counting time variable> */
 	float deltaTime;			/*<! A change in time variable> */
+	float currentSpeed;
 	int state;					/*<! an int representing current game state>*/
 
 	int wallCount = 0;			/*<! used to place walls in the Entities map>*/
@@ -323,8 +324,6 @@ private:
 	bool deathScreen;	/*<! To determine if the death screen is showing */
 
 	bool mainScreen;	/*<! To determine if the main menu screen is showing */
-
-	bool allowMovement; /*<! To determine if player can move */
 
 	/**
 	 *	A normal member taking no arguments

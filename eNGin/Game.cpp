@@ -18,8 +18,8 @@ Game::Game()
 
 	pauseScreen = false;
 	deathScreen = false;
-	allowMovement = true;
 
+	currentSpeed = 1;
 	currentStage = 1;
 	currentLevel = 1;
 }
@@ -202,11 +202,11 @@ void Game::Update(float deltaTime)
 
 			if (pauseScreen && !deathScreen)
 			{
-				allowMovement = false;
+				currentSpeed = 0;
 			}
 			else
 			{
-				allowMovement = true;
+				currentSpeed = 1;
 			}
 
 			break;
@@ -378,11 +378,6 @@ void Game::Draw()
 
 void Game::InputDown(unsigned char key, int x, int y)
 {
-	float currentSpeed = 1;
-
-	if (!allowMovement)
-		currentSpeed = 0;
-
 	switch (key) {
 	case 'a':
 	case 'A':
