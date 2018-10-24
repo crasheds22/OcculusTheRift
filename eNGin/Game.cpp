@@ -226,6 +226,13 @@ void Game::Update(float deltaTime)
 
 				dungeon = new Dungeon(this);
 			}
+			else
+			{
+				if (menuScreens->GetMenuState() == MAIN_MENU)
+				{
+					bgmControl.SetSong(1);
+				}
+			}
 			break;
 	}
 }
@@ -324,19 +331,19 @@ void Game::Draw()
 			glPushMatrix();
 				if (exitScreen)
 					DrawGUI();
-
-				if (pauseScreen && !deathScreen)
-				{
-					glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
-					menuScreens->Draw(textures[27]);
-					menuScreens->SetMenuState(PAUSE_MENU);
-				}
-				else
-				{
-					menuScreens->SetMenuState(0);
-				}
 			glPopMatrix();
 
+
+			if (pauseScreen && !deathScreen)
+			{
+				glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+				menuScreens->Draw(textures[27]);
+				menuScreens->SetMenuState(PAUSE_MENU);
+			}
+			else
+			{
+				menuScreens->SetMenuState(0);
+			}
 			
 			DrawGUI();
 			DrawHUD();
@@ -500,11 +507,27 @@ void Game::SwitchState()
 		shaysWorld = NULL;
 		bgmControl.SetSong(1);
 	}
+	else if (state == GAME_STATE && menuScreens->GetMenuState() == PAUSE_MENU)
+	{
+		pauseScreen = false;
+		deathScreen = false;
+		state = MENU_STATE;
+		menuScreens->SetMenuState(MAIN_MENU);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0, 0, 0, 1);
+		glFlush();
+		bgmControl.SetSong(1);
+	}
+	else if (state == MENU_STATE && menuScreens->GetMenuState() == MAIN_MENU)
+	{
+		Restart();
+	}
 }
 
 void Game::DrawGUI()
 {
-	playerInterface->DrawReticle();
+	if(GetMenu()->GetMenuState() != PAUSE_MENU)
+		playerInterface->DrawReticle();
 }
 
 void Game::SetCentreX(int x) {
@@ -637,6 +660,23 @@ void Game::ClearLevel()
 	delete dungeon;
 	dungeon = NULL;
 	state = LOAD_STATE;
+}
+
+void Game::Restart()
+{
+	exitScreen = false;
+	pauseScreen = false;
+	deathScreen = false;
+
+	currentStage = 1;
+	currentLevel = 1;
+	playerCharacter->Initialise();
+	menuScreens->SetMenuState(0);
+	ClearLevel();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0, 0, 0, 1);
+	glFlush();
+	bgmControl.SetSong(2);
 }
 
 std::vector <Texture>  Game::GetTexture()

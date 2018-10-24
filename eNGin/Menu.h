@@ -25,6 +25,7 @@
 #define SHAY_STATE 0
 #define MENU_STATE 1
 #define GAME_STATE 2
+#define MAIN_MENU 4
 #define PAUSE_MENU 5
 #define DEATH_MENU 6
 

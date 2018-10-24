@@ -228,6 +228,12 @@ public:
 	
 	void AddProjectile(Actor* owner, Vector3 start, Vector3 dir, int tex);
 
+	/**
+	*	A normal member taking no arguments
+	*	Restarts game world
+	*/
+	void Restart();
+
 private:
 	int count;
 	int gameScore;
@@ -287,7 +293,6 @@ private:
 	*	Draws the HUD within the game world
 	*/
 	void DrawHUD();
-
 
 	int currentLevel; /*<! The current level of the game */
 	int currentStage;/*<! The current stage of the game */

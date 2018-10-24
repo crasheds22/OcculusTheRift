@@ -18,7 +18,7 @@ Menu::Menu(Game* ownerIn)
 
 void Menu::Draw(Texture displayingTexture)
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
 	
 	//Set View mode to orthographic
 	glMatrixMode(GL_PROJECTION);
@@ -57,6 +57,8 @@ void Menu::Draw(Texture displayingTexture)
 
 	gluPerspective(60.0, 1.0 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1.0, 400.0);
 	glMatrixMode(GL_MODELVIEW);
+
+	glFlush();
 }
 
 void Menu::Init() 
@@ -83,8 +85,7 @@ void Menu::MouseClick(int button, int state, int x, int y)
 		{
 			if ((x >= xLeft && x <= xRight) && (y >= yUp && y <= yDown))
 			{
-				owner->SetState(LOAD_STATE);
-				SetMenuState(MAIN_MENU);
+				owner->SwitchState();
 			}
 			else if ((x >= xLeft && x <= xRight) && (y >= yUp + yDistance && y <= yDown + yDistance))
 			{
@@ -95,8 +96,7 @@ void Menu::MouseClick(int button, int state, int x, int y)
 		{
 			if ((x >= xLeft && x <= xRight) && (y >= yUp && y <= yDown))
 			{
-				owner->ClearLevel();
-				SetMenuState(0);
+				owner->Restart();
 			}
 			else if ((x >= xLeft && x <= xRight) && (y >= yUp + yDistance && y <= yDown + yDistance))
 			{
@@ -110,12 +110,11 @@ void Menu::MouseClick(int button, int state, int x, int y)
 
 			if ((x >= xLeft && x <= xRight) && (y >= yUp && y <= yDown))
 			{
-				owner->SetState(LOAD_STATE);
+				owner->SwitchState();
 			}
 			else if ((x >= xLeft && x <= xRight) && (y >= yUp + yDistance && y <= yDown + yDistance))
 			{
-				owner->SetState(LOAD_STATE);
-				SetMenuState(0);
+				owner->SwitchState();
 			}
 			else if ((x >= xLeft && x <= xRight) && (y >= yUp + yDistance * 2 && y <= yDown + yDistance * 2))
 			{
