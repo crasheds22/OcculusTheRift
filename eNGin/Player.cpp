@@ -50,7 +50,7 @@ void Player::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMa
 	collisionBox.SetMinPoint(position.GetPointX() - 0.5, position.GetPointY() - 0.5, position.GetPointZ() - 0.5);
 
 	//Check for Wall Collisions
-	for (int ii = 0; ii < entityMap[2].size(); ii++)
+	for (std::size_t ii = 0; ii < entityMap[2].size(); ii++)
 	{
 		if (collisionBox.AABBtoAABB(entityMap[2][ii]->GetCollider()))
 		{
@@ -59,7 +59,7 @@ void Player::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMa
 		}
 	}
 	//Check for projectile collisions
-	for (int ii = 0; ii < entityMap[5].size(); ii++)
+	for (std::size_t ii = 0; ii < entityMap[5].size(); ii++)
 	{
 		if (entityMap[5][ii] != NULL) {
 			if (collisionBox.AABBtoAABB(entityMap[5][ii]->GetCollider()))

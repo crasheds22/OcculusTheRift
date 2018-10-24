@@ -22,7 +22,7 @@ SoundPlayer::SoundPlayer()
 
 SoundPlayer::~SoundPlayer()
 {
-	for (int i = 0; i < sounds.size(); i++)
+	for (std::size_t i = 0; i < sounds.size(); i++)
 	{
 		Mix_FreeChunk(sounds[i]);
 	}

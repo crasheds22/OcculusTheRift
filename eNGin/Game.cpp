@@ -147,7 +147,7 @@ void Game::Update(float deltaTime)
 					Entities[tPOWERUP][i]->Update(deltaTime);
 			}
 			
-			for (int i = 0; i < Entities[tEnemy].size(); i++)
+			for (std::size_t i = 0; i < Entities[tEnemy].size(); i++)
 			{
 				if (Entities[tEnemy][i] != NULL) {
 					if (Entities[tEnemy][i]->GetCurrentHealth() > 0) {
@@ -159,7 +159,7 @@ void Game::Update(float deltaTime)
 				}
 			}
 
-			for (int i = 0; i < Entities[tProjectile].size(); i++) {
+			for (std::size_t i = 0; i < Entities[tProjectile].size(); i++) {
 				Projectile* p = dynamic_cast<Projectile*>(Entities[tProjectile][i]);
 				if (p) {
 					if (p->GetTime() > 2) {
@@ -171,12 +171,12 @@ void Game::Update(float deltaTime)
 				}
 			}
 
-			for (int i = 0; i < Entities.size(); ++i)
+			for (std::size_t i = 0; i < Entities.size(); ++i)
 			{
 				std::vector<Actor*> resultObjectList;
 				std::pair <int, std::vector<Actor*>> enumActor;
 
-				for (int j = 0; j < Entities[i].size(); j++)
+				for (std::size_t j = 0; j < Entities[i].size(); j++)
 				{
 					if (Entities[i][j] != NULL) {
 						Vector3 temp = Entities[i][j]->GetPos();
@@ -281,12 +281,12 @@ void Game::Draw()
 			playerCharacter->Draw();
 
 			glPushMatrix();
-			for (int ii = 0; ii < Entities[tWALL].size(); ii++)
+			for (std::size_t ii = 0; ii < Entities[tWALL].size(); ii++)
 			{
 				Entities[tWALL][ii]->Draw();
 			}
 
-			for (int ii = 0; ii < Entities[tEXIT].size(); ii++)
+			for (std::size_t ii = 0; ii < Entities[tEXIT].size(); ii++)
 			{
 				Entities[tEXIT][ii]->Draw();
 			}
@@ -311,19 +311,19 @@ void Game::Draw()
 					break;
 			}
 
-			for (int i = 0; i < Entities[tEnemy].size(); i++) 
+			for (std::size_t i = 0; i < Entities[tEnemy].size(); i++)
 			{
 				if (Entities[tEnemy][i] != NULL)
 					Entities[tEnemy][i]->Draw();
 			}
 
-			for (int i = 0; i < Entities[tProjectile].size(); i++) {
+			for (std::size_t i = 0; i < Entities[tProjectile].size(); i++) {
 				if (Entities[tProjectile][i] != NULL) {
 					Entities[tProjectile][i]->Draw();
 				}
 			}
 
-			for (int i = 0; i < Entities[tPOWERUP].size(); i++) {
+			for (std::size_t i = 0; i < Entities[tPOWERUP].size(); i++) {
 				if (Entities[tPOWERUP][i] != NULL)
 					Entities[tPOWERUP][i]->Draw();
 			}
