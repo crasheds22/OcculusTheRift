@@ -385,7 +385,7 @@ void Game::MouseLook(int x, int y)
 	int deadzone = 0.25;
 	Vector3 pitchAxis;
 	GLdouble fps = 60;
-	GLdouble mouseSensitivity = 3;
+	GLdouble mouseSensitivity = 2;
 
 	//If the mouse pointer has moved far enough, rotate camera
 	if ((abs((long double)x) > deadzone) || (abs((long double)y) > deadzone)) 
