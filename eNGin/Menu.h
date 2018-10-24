@@ -91,6 +91,14 @@ public:
 	 */
 	int GetMenuState();
 
+	/**
+	 *	A normal function returning a boolean
+	 *	@return exitScreen boolean
+	 */
+	bool GetExit();
+
+	bool exitScreen; /*<! To determine fi the exit screen is showing */
+
 private:
 	Game* owner;		/*<!  The owner of the menu instance */
 	

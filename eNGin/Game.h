@@ -292,6 +292,7 @@ private:
 	float startTime;			/*<! start counting time variable> */
 	float endTime;				/*<! end counting time variable> */
 	float deltaTime;			/*<! A change in time variable> */
+	float currentSpeed;
 	int state;					/*<! an int representing current game state>*/
 
 	int wallCount = 0;			/*<! used to place walls in the Entities map>*/
@@ -317,8 +318,6 @@ private:
 
 	int centreX,		/*<! The x value of the centre of the screen */
 		centreY;		/*<! The y value of the centre of the screen */
-
-	bool exitScreen;	/*<! To determine fi the exit screen is showing */
 
 	bool pauseScreen;	/*<! To determine if the pause screen is showing */
 	
