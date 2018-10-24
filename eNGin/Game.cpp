@@ -16,9 +16,9 @@ Game::Game()
 	textures.resize(30);
 	models.resize(10);
 
-	exitScreen = false;
 	pauseScreen = false;
 	deathScreen = false;
+	allowMovement = true;
 
 	currentStage = 1;
 	currentLevel = 1;
@@ -113,7 +113,6 @@ void Game::Update(float deltaTime)
 	switch (state)
 	{
 		case GAME_STATE:
-			glutSetCursor(GLUT_CURSOR_NONE);
 
 			if (count <= 0)
 			{
@@ -201,6 +200,29 @@ void Game::Update(float deltaTime)
 				SetState(MENU_STATE);
 			}
 
+			if (pauseScreen && !deathScreen)
+			{
+				allowMovement = false;
+				for (int i = 0; i < Entities[tEnemy].size(); i++)
+				{
+					if (Entities[tEnemy][i] != NULL)
+					{
+						Entities[tEnemy][i]->SetMoveSpeed(0);
+					}
+				}
+			}
+			else
+			{
+				allowMovement = true;
+				for (int i = 0; i < Entities[tEnemy].size(); i++)
+				{
+					if (Entities[tEnemy][i] != NULL)
+					{
+						Entities[tEnemy][i]->SetMoveSpeed(4);
+					}
+				}
+			}
+
 			break;
 
 		case MENU_STATE:
@@ -246,7 +268,11 @@ void Game::Draw()
 			{
 				glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 
-				if(deathScreen && !pauseScreen)
+				if (menuScreens->GetExit())
+				{
+					menuScreens->Draw(textures[0]);
+				}
+				else if(deathScreen && !pauseScreen)
 				{
 					menuScreens->Draw(textures[28]);
 					menuScreens->SetMenuState(DEATH_MENU);
@@ -328,13 +354,13 @@ void Game::Draw()
 					Entities[tPOWERUP][i]->Draw();
 			}
 
-			glPushMatrix();
-				if (exitScreen)
-					DrawGUI();
-			glPopMatrix();
 
-
-			if (pauseScreen && !deathScreen)
+			
+			if(menuScreens->GetExit())
+			{
+				SetState(MENU_STATE);
+			}
+			else if(pauseScreen && !deathScreen)
 			{
 				glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 				menuScreens->Draw(textures[27]);
@@ -342,11 +368,15 @@ void Game::Draw()
 			}
 			else
 			{
+				glutSetCursor(GLUT_CURSOR_NONE);
 				menuScreens->SetMenuState(0);
 			}
-			
-			DrawGUI();
-			DrawHUD();
+
+			if (!pauseScreen)
+			{
+				DrawGUI();
+				DrawHUD();
+			}
 
 			glFlush();
 			
@@ -362,34 +392,37 @@ void Game::Draw()
 
 void Game::InputDown(unsigned char key, int x, int y)
 {
+	float currentSpeed = 1;
+
+	if (!allowMovement)
+		currentSpeed = 0;
+
 	switch (key) {
 	case 'a':
 	case 'A':
-		playerCharacter->DirectionL(1);
+		playerCharacter->DirectionL(currentSpeed);
 		break;
 	case 's':
 	case 'S':
-		playerCharacter->DirectionB(1);
+		playerCharacter->DirectionB(currentSpeed);
 		break;
 	case 'd':
 	case 'D':
-		playerCharacter->DirectionR(1);
+		playerCharacter->DirectionR(currentSpeed);
 		break;
 	case 'w':
 	case 'W':
-		playerCharacter->DirectionF(1);
+		playerCharacter->DirectionF(currentSpeed);
 		break;
 	case 't':
 	case 'T':
 		playerCharacter->SetCurrentHealth(playerCharacter->GetCurrentHealth() - 1);
-		//exitScreen = !exitScreen;
 		break;
 	case 'p':
 	case 'P':
 		if(!deathScreen)
 			pauseScreen = !pauseScreen;
 		break;
-
 	}
 }
 
@@ -518,16 +551,11 @@ void Game::SwitchState()
 		glFlush();
 		bgmControl.SetSong(1);
 	}
-	else if (state == MENU_STATE && menuScreens->GetMenuState() == MAIN_MENU)
-	{
-		Restart();
-	}
 }
 
 void Game::DrawGUI()
 {
-	if(GetMenu()->GetMenuState() != PAUSE_MENU)
-		playerInterface->DrawReticle();
+	playerInterface->DrawReticle();
 }
 
 void Game::SetCentreX(int x) {
@@ -664,7 +692,6 @@ void Game::ClearLevel()
 
 void Game::Restart()
 {
-	exitScreen = false;
 	pauseScreen = false;
 	deathScreen = false;
 

@@ -56,6 +56,7 @@ void Menu::Draw(Texture displayingTexture)
 void Menu::Init() 
 {
 	SetState(MENU_STATE);
+	exitScreen = false;
 }
 
 void Menu::MouseClick(int button, int state, int x, int y) 
@@ -73,15 +74,27 @@ void Menu::MouseClick(int button, int state, int x, int y)
 
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
-		if (menuState == PAUSE_MENU)
+		if (exitScreen)
 		{
+			xLeft = windowWidth / 4.01764705882;
+			xRight = windowWidth / 1.333984375;
+			yUp = windowHeight / 10.1052631579;
+			yDown = windowHeight / 1.11304347826;
+
 			if ((x >= xLeft && x <= xRight) && (y >= yUp && y <= yDown))
 			{
+				exit(0);
+			}
+		}
+		else if (menuState == PAUSE_MENU)
+		{
+			if ((x >= xLeft && x <= xRight) && (y >= yUp && y <= yDown))
+			{ 
 				owner->SwitchState();
 			}
 			else if ((x >= xLeft && x <= xRight) && (y >= yUp + yDistance && y <= yDown + yDistance))
 			{
-				exit(0);
+				exitScreen = true;
 			}
 		}
 		else if (menuState == DEATH_MENU)
@@ -92,7 +105,7 @@ void Menu::MouseClick(int button, int state, int x, int y)
 			}
 			else if ((x >= xLeft && x <= xRight) && (y >= yUp + yDistance && y <= yDown + yDistance))
 			{
-				exit(0);
+				exitScreen = true;
 			}
 		}
 		else
@@ -102,15 +115,15 @@ void Menu::MouseClick(int button, int state, int x, int y)
 
 			if ((x >= xLeft && x <= xRight) && (y >= yUp && y <= yDown))
 			{
-				owner->SwitchState();
+				owner->Restart();
 			}
 			else if ((x >= xLeft && x <= xRight) && (y >= yUp + yDistance && y <= yDown + yDistance))
 			{
-				owner->SwitchState();
+				owner->Restart();
 			}
 			else if ((x >= xLeft && x <= xRight) && (y >= yUp + yDistance * 2 && y <= yDown + yDistance * 2))
 			{
-				exit(0);
+				exitScreen = true;
 			}
 		}
 		
@@ -140,4 +153,9 @@ void Menu::SetMenuState(int settingState)
 int Menu::GetMenuState()
 {
 	return menuState;
+}
+
+bool Menu::GetExit()
+{
+	return exitScreen;
 }

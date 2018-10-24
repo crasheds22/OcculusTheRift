@@ -318,13 +318,13 @@ private:
 	int centreX,		/*<! The x value of the centre of the screen */
 		centreY;		/*<! The y value of the centre of the screen */
 
-	bool exitScreen;	/*<! To determine fi the exit screen is showing */
-
 	bool pauseScreen;	/*<! To determine if the pause screen is showing */
 	
 	bool deathScreen;	/*<! To determine if the death screen is showing */
 
 	bool mainScreen;	/*<! To determine if the main menu screen is showing */
+
+	bool allowMovement; /*<! To determine if player can move */
 
 	/**
 	 *	A normal member taking no arguments
