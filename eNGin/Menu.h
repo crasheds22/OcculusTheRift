@@ -1,6 +1,17 @@
 #ifndef MENU_H
 #define MENU_H
 
+class Game;
+
+#include <gl/glut.h>
+#include "Texture.h"
+
+#define SHAY_STATE 0
+#define MENU_STATE 1
+#define GAME_STATE 2
+#define PAUSE_MENU 5
+#define DEATH_MENU 6
+
 /**
  *	@class Menu
  *	@brief Base class for all menus : Main Menu, Pause Menu
@@ -19,51 +30,78 @@
  *	@date 05-10-2018
  */
 
-#include <gl/glut.h>
-#include "Texture.h"
-
-#define SHAY_STATE 0
-#define MENU_STATE 1
-#define GAME_STATE 2
-#define MAIN_MENU 4
-#define PAUSE_MENU 5
-#define DEATH_MENU 6
-
 class Game;
 
 class Menu
 {
-	public:
-		Menu();
-		 
-		Menu(Game * ownerIn);
+public:
+	/**
+	 *	Constructor with a parameter
+	 *	Accepts a Game owner and initialises accordingly
+	 */
+	Menu(Game * ownerIn);
 
-		void Draw(Texture displayingTexture);
+	/**
+	 *	Function to draw a texture to the screen
+	 *	@param displayingTexture The texture to draw on the screen
+	 */
+	void Draw(Texture displayingTexture);
 
-		void Init();
+	/**
+	 *	Function to initialise the Menu class
+	 */
+	void Init();
 
-		void MouseClick(int button, int state, int x, int y);
+	/**
+	 *	A mouse callback function
+	 *	Active only when in the menu state, allows selection of menu buttons
+	 *	@param button The mouse button being clicked
+	 *	@param state The state that button is in
+	 *	@param x The x location on screen
+	 *	@param y The y location on screen
+	 */
+	void MouseClick(int button, int state, int x, int y);
 
-		int GetState();
+	/**
+	 *	A normal function returning an int
+	 *	@return The current game state
+	 */
+	int GetState();
 
-		void SetState(int settingState);
+	/**
+	 *	A normal function accepting one parameter
+	 *	@param settingState The state of the game to be set to
+	 */
+	void SetState(int settingState);
 
-		void Clear();
+	/**
+	 *	A normal function clearing the bit channels
+	 */
+	void Clear();
 
-		void SetMenuState(int settingState);
+	/**
+	 *	A normal function setting the menu state
+	 *	@param settingState The state ot set the menu to
+	 */
+	void SetMenuState(int settingState);
 
-		int GetMenuState();
+	/**
+	 *	A normal function returning an int
+	 *	@return The current menu state
+	 */
+	int GetMenuState();
 
-		Game* owner;
-
-	private:
-
-		float windowWidth;
-		float windowHeight;
-		float centreX;
-		float centreY;
-		int gameState;
-		int menuState;
+private:
+	Game* owner;		/*<!  The owner of the menu instance */
+	
+	float windowWidth;	/*<! The width of the current window */
+	float windowHeight;	/*<! The height of the current window */
+	
+	float centreX;	/*<! The centre of the window width */
+	float centreY;	/*<! The centre of the window height */
+	
+	int gameState;	/*<! The current gamme state value */
+	int menuState;	/*<! The currennt menu state value */
 };
 
 #endif

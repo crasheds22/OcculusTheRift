@@ -1,6 +1,4 @@
-#include <math.h>
 #include <gl/glut.h>
-#include <time.h>
 
 #include "Game.h"
 
@@ -85,7 +83,6 @@ void myinit()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	//glEnable(GL_DEPTH_TEST);
 	gluLookAt(0.0, 1.75, 0.0,
 		0.0, 1.75, -1,
 		0.0f, 1.0f, 0.0f);

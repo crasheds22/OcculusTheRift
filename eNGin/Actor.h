@@ -1,27 +1,13 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 
-#include <math.h>
 #include <vector>
 #include <map>
-#include <gl\glut.h>
 
 #include "Collider.h"
 #include "Vector3.h"
 #include "Model.h"
 #include "Texture.h"
-
-//const float PI = 3.141592654;
-
-/**
- *	@struct Point
- *	Defines a point in 3D space
- */
-struct Point {
-	GLdouble x, /*<! Position on the x plane */
-			 y, /*<! Position on the y plane */
-			 z; /*<! Position of the z plane */
-};
 
 /**
  *	@class Actor
@@ -33,12 +19,28 @@ struct Point {
  *	@date 14-08-2018
  *	
  *	@author Aaron Thomson
- *	@version 2.0 Changed the position type to a Vector 3, added AABB 
+ *	@version 2.0 Changed the position type to a Vector3, added AABB 
  *	@date 05-09-2018
  *
  *	@author Aaron Thomson
  *	@version 3.0 Added Model and Texture pointer
  *	@date 06-09-2018
+ *
+ *	@author Aaron Thomson
+ *	@version 3.1 Updated constructors
+ *	@date 10-09-2018
+ *
+ *	@author Vincent Tran
+ *	@version 4.0 Added collisions
+ *	@date 28-09-2018
+ *
+ *	@author Vincent Tran
+ *	@version 4.1 Move collisions out of Actor class
+ *	@date 29-09-2018
+ *
+ *	@author Aaron Thomson
+ *	@version 4.2 Added extra set/get functions for health, Changed draw function to translate, rotate then draw
+ *	@date 22-10-2018
  */
 class Actor {
 public:
@@ -56,7 +58,7 @@ public:
 
 	/**
 	 *	A virtual member taking no arguments
-	 *	Every Actor can override the Update function for their own unique reasons
+	 *	Every Actor has to override the Update function for their own unique reasons
 	 */
 	virtual void Update(float deltaTime) = 0;
 
@@ -70,17 +72,17 @@ public:
 	// Set methods
 	/**
 	 *	A normal member taking one argument
-	 *	Sets the move speed for the Player
-	 *	@param spd The desired speed of the Player
+	 *	Sets the move speed for the actor
+	 *	@param spd The desired speed of the actor
 	 */
-	void SetMoveSpeed(GLdouble spd);
+	void SetMoveSpeed(double spd);
 
 	/**
 	 *	A normal member taking one argument
-	 *	Sets the rotate speed of the Player
-	 *	@param spd The desired rotation speed of the Player
+	 *	Sets the rotate speed of the Actor
+	 *	@param spd The desired rotation speed of the ACtor
 	 */
-	void SetRotateSpeed(GLdouble spd);
+	void SetRotateSpeed(double spd);
 
 	/**
 	 *	A normal member taking one argument
@@ -96,14 +98,14 @@ public:
 	 *	@param tempY The desired y position
 	 *	@param tempZ The desired z position
 	 */
-	void SetPos(GLdouble tempX, GLdouble tempY, GLdouble tempZs);
+	void SetPos(double tempX, double tempY, double tempZs);
 
 	/**
 	 *	A normal member taking one argument
 	 *	Sets the Actor's rotation in the world
 	 *	@param rot The desired rotations around each axis
 	 */
-	virtual void SetRot(Vector3 rot);
+	void SetRot(Vector3 rot);
 
 	/**
 	 *	A normal member taking 3 arguments
@@ -112,7 +114,7 @@ public:
 	 *	@param rotY The rotation about the y axis
 	 *	@param rotZ The rotation about the z axis
 	 */
-	virtual void SetRot(GLdouble rotX, GLdouble rotY, GLdouble rotZ);
+	void SetRot(double rotX, double rotY, double rotZ);
 
 	/**
 	 *	A normal member taking one argument
@@ -128,40 +130,53 @@ public:
 	 *	@param scaY The Scaling along the y axis
 	 *	@param scaZ The scaling along the z axis
 	 */
-	void SetScale(GLdouble scaX, GLdouble scaY, GLdouble scaZ);
+	void SetScale(double scaX, double scaY, double scaZ);
 
-	void SetMaxHealth(double max);
-	double GetMaxHealth();
-	void SetCurrentHealth(double cur);
-	double GetCurrentHealth();
+	/**
+	 *	A normal function taking one argument
+	 *	Sets the Actors maximum health
+	 *	@param max The Value of maximum health
+	 */
+	void SetMaxHealth(int max);
 
-	void SetMaxStamina(double max);
-	double GetMaxStamina();
-	void SetCurrentStamina(double cur);
-	double GetCurrentStamina();
+	/**
+	 *	A normal function returning an int
+	 *	@return The mmaximum health of the actor
+	 */
+	int GetMaxHealth();
 
-	void SwitchHandsEmtpy();
-	bool isHandsEmpty();
+	/**
+	 *	A normal fucntion taking one argument
+	 *	Sets the actors current health
+	 *	@param cur The value to change the actors health too
+	 */
+	void SetCurrentHealth(int cur);
+
+	/**
+	 *	A normal function returning an int
+	 *	@return The actor's current health
+	 */
+	int GetCurrentHealth();
 	//================================================================================
 
 	//================================================================================
 	// Get methods
 	/**
-	 *	A normal member returning a Point value
+	 *	A normal member returning a Vector
 	 *	Returns the values relating to the Actor's position
 	 *	@return The position values
 	 */
 	Vector3 GetPos();
 
 	/**
-	 *	A normal member returning a Point value
+	 *	A normal member returning a Vector
 	 *	Returns the values relating to the Actor's rotation
 	 *	@return The rotation values
 	 */
 	Vector3 GetRot();
 
 	/**
-	 *	A normal member returning a Point value
+	 *	A normal member returning a Vector
 	 *	Returns the values relating to the Actor's scale
 	 *	@return The scale values
 	 */
@@ -169,15 +184,23 @@ public:
 	//================================================================================
 
 	/**
-	 *	A collider getter
+	 *	A normal fucntion returning a Collider
 	 *	Returns the values relating to the Actor's collision coords
 	 *	@return The collider values
 	 */
 	Collider GetCollider();
 
+	/**
+	 *	A normal fucntion returning a double
+	 *	@return The rotate speed of the actor
+	 */
 	double GetRotateSpeed();
-	double GetMoveSpeed();
 
+	/**
+	 *	A normal function returning a double
+	 *	@return The movement speed of the actor
+	 */
+	double GetMoveSpeed();
 
 protected:
 	Vector3 position;	/*<! The position of the Actor */
@@ -191,14 +214,12 @@ protected:
 
 	//========================================
 	//Speeds
-	GLdouble moveSpeed,		/*<! The Actor's movement speed */
+	double moveSpeed,		/*<! The Actor's movement speed */
 		rotateSpeed;	/*<! The Actor's rotation speed */
 	//========================================
 	
-	double maxHealth, health,
-		maxStamina, stamina;
-
-	bool emptyHands = true;
+	int maxHealth,	/*<! The actor's maximum health */
+		health;		/*<! The actor's current health */
 };
 
 #endif

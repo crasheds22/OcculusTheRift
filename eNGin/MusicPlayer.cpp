@@ -1,9 +1,7 @@
-
 #include <pch.h>
 #include <iostream>
 
 #include "MusicPlayer.h"
-
 
 MusicPlayer::MusicPlayer()
 {
@@ -40,12 +38,13 @@ MusicPlayer::~MusicPlayer()
 {
 	Mix_FreeMusic(songs[0]);
 	Mix_FreeMusic(songs[1]);
+	Mix_FreeMusic(songs[2]);
+	Mix_FreeMusic(songs[3]);
+	Mix_FreeMusic(songs[4]);
 }
 
 void MusicPlayer::PlaySong()
 {
-
-
 	if (!Mix_PlayingMusic())
 	{
 		if (currentSong == songs[1])
@@ -62,7 +61,6 @@ void MusicPlayer::PlaySong()
 		}
 		else
 		{
-			std::cout << "Test" << std::endl;
 			Mix_FadeInMusic(currentSong, -1, 100);
 		}
 	}
@@ -76,8 +74,8 @@ void MusicPlayer::SetSong(int songIn)
 		{
 			menuCheck = false;
 		}
+
 		Mix_FadeOutMusic(500);
 		currentSong = songs[songIn];
 	}
-
 }

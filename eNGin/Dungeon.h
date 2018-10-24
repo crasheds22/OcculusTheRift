@@ -12,6 +12,14 @@ class Game;
 #define GO_UP 2
 #define GO_DOWN 3
 
+/**
+ *	@class Dungeon
+ *	@brief The generator that sets up and creates the levels
+ *	
+ *	@author Liam Kinsella
+ *	@version 1.0
+ *	@date 03-10-2018
+ */
 class Dungeon
 {
 protected:
@@ -30,8 +38,6 @@ protected:
 	int yPos; /*<! the y position of the current step in the dungeon build>*/
 
 	Game* owner; /*<! the Game object that the dungeon is contained in>*/
-
-	std::vector<Vector3> flags; /*<! A vector of in game positions used by Enemy AI>*/
 
 public:
 	/**
@@ -59,6 +65,5 @@ public:
 	*	@param tex the texture used to draw the roof
 	*/
 	void DrawRoof(Texture & tex);
-
 };
 #endif

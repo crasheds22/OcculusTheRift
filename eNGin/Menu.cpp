@@ -1,15 +1,7 @@
 #include <pch.h>
 
-#include <algorithm>
-#include <math.h>
-
 #include "Menu.h"
 #include "Game.h"
-
-Menu::Menu()
-{
-
-}
 
 Menu::Menu(Game* ownerIn) 
 {
@@ -124,7 +116,6 @@ void Menu::MouseClick(int button, int state, int x, int y)
 		
 	}
 }
-
 
 int Menu::GetState()
 {

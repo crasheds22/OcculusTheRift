@@ -4,6 +4,8 @@
 
 Actor::Actor() : moveSpeed(0.0),
 			 	 rotateSpeed(0.0),
+				 maxHealth(0.0),
+				 health(maxHealth),
 				 position{ 0.0, 0.0, 0.0 },
 				 rotations{ 0.0, 0.0, 0.0 },
 				 scale{ 1.0, 1.0, 1.0 }
@@ -13,6 +15,8 @@ Actor::Actor() : moveSpeed(0.0),
 
 Actor::Actor(Model* mod, Texture* tex) : moveSpeed(0.0),
 										 rotateSpeed(0.0),
+										 maxHealth(0.0),
+										 health(maxHealth),
 										 position{ 0.0, 0.0, 0.0 },
 										 rotations{ 0.0, 0.0, 0.0 },
 										 scale{ 1.0, 1.0, 1.0 },
@@ -41,7 +45,7 @@ void Actor::SetPos(Vector3 pos) {
 	position = Vector3(pos.GetPointX(), pos.GetPointY(), pos.GetPointZ());
 }
 
-void Actor::SetPos(GLdouble tempX, GLdouble tempY, GLdouble tempZ) {
+void Actor::SetPos(double tempX, double tempY, double tempZ) {
 	position = Vector3(tempX, tempY, tempZ);
 }
 
@@ -49,7 +53,7 @@ void Actor::SetRot(Vector3 rot) {
 	rotations = { rot.GetPointX(), rot.GetPointY(), rot.GetPointZ() };
 }
 
-void Actor::SetRot(GLdouble rotX, GLdouble rotY, GLdouble rotZ) {
+void Actor::SetRot(double rotX, double rotY, double rotZ) {
 	rotations = { rotX, rotY, rotZ };
 }
 
@@ -57,7 +61,7 @@ void Actor::SetScale(Vector3 sca) {
 	scale = { sca.GetPointX(), sca.GetPointY(), sca.GetPointZ() };
 }
 
-void Actor::SetScale(GLdouble scaX, GLdouble scaY, GLdouble scaZ) {
+void Actor::SetScale(double scaX, double scaY, double scaZ) {
 	scale = { scaX, scaY, scaZ };
 }
 
@@ -78,11 +82,11 @@ Collider Actor::GetCollider()
 	return collisionBox;
 }
 
-void Actor::SetMoveSpeed(GLdouble spd) {
+void Actor::SetMoveSpeed(double spd) {
 	moveSpeed = spd;
 }
 
-void Actor::SetRotateSpeed(GLdouble spd) {
+void Actor::SetRotateSpeed(double spd) {
 	rotateSpeed = spd;
 }
 
@@ -94,22 +98,22 @@ double Actor::GetMoveSpeed() {
 	return moveSpeed;
 }
 
-void Actor::SetMaxHealth(double max)
+void Actor::SetMaxHealth(int max)
 {
 	maxHealth = max;
 }
 
-double Actor::GetMaxHealth()
+int Actor::GetMaxHealth()
 {
 	return maxHealth;
 }
 
-void Actor::SetCurrentHealth(double cur)
+void Actor::SetCurrentHealth(int cur)
 {
 	health = cur;
 }
 
-double Actor::GetCurrentHealth()
+int Actor::GetCurrentHealth()
 {
 	return health;
 }

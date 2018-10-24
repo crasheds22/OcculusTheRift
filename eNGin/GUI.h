@@ -1,18 +1,35 @@
-#pragma once
+#ifndef GUI_h
+#define GUI_h
+
+/**
+ *	@class GUI
+ *	@brief Defines the look of the users GUI
+ *
+ *	@author Rebecca Lim
+ *	@date 17-10-2018
+ *	@version 1.0
+ */
 class GUI
 {
-	public:
-		GUI(Game * inputParent);
-		~GUI();
+public:
+	/**
+	 *	A constructor with parameters
+	 *	Initiliases values with those passed in
+	 */
+	GUI(Game * inputParent);
 
-		void Init();
-		void DrawGUI();
-		void DrawReticle();
+	/**
+	 *	Draws the gui scrren for the player to see
+	 */
+	void DrawGUI();
+
+	/**
+	 *	Draws the reticule in the centre of the scrren
+	 */
+	void DrawReticle();
 	
-
-	private:
-		Game * theParent;
-		std::vector<GLuint> temp;
-
+private:
+	Game * theParent; /*<! The owner of the GUI instance */
 };
 
+#endif

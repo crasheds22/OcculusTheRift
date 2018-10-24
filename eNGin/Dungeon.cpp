@@ -2,7 +2,6 @@
 #include "Dungeon.h"
 #include "Game.h"
 #include <random>
-#include<iostream>
 
 Dungeon::~Dungeon()
 {
@@ -180,7 +179,6 @@ Dungeon::Dungeon(Game* gameIn)
 			}
 			else
 			{
-				flags.emplace_back(Vector3(xx * 4, 0, yy * 4));
 				if (xx % 4 == 0)
 				{
 					owner->AddCoin(xx * 4, 0, yy * 4);
@@ -189,7 +187,7 @@ Dungeon::Dungeon(Game* gameIn)
 		}
 	}
 
-	owner->AddEnemy(ex * 4, 2, ez * 4, flags);
+	owner->AddEnemy(ex * 4, 2, ez * 4);
 
 	Vector3 startPos = Vector3((gridWidth / 2)*4, 0, (gridHeight / 2)*4);
 

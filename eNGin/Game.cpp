@@ -135,7 +135,7 @@ void Game::Update(float deltaTime)
 				ClearLevel();
 			}
 
-			for (int i = 0; i < Entities[tPOWERUP].size(); i++) 
+			for (std::size_t i = 0; i < Entities[tPOWERUP].size(); i++) 
 			{
 				if (Entities[tPOWERUP][i]->GetCollider().AABBtoAABB(playerCharacter->GetCollider()))
 				{
@@ -613,9 +613,9 @@ void Game::AddCoin(float x, float y, float z)
 	Entities[tPOWERUP].push_back(coin);
 }
 
-void Game::AddEnemy(float x, float y, float z, std::vector<Vector3> &f)
+void Game::AddEnemy(float x, float y, float z)
 {
-	Enemy *enemy = new Enemy(this, models[2], &textures[6], x, y, z, f);
+	Enemy *enemy = new Enemy(this, models[2], &textures[6], x, y, z);
 
 	Entities[tEnemy].push_back(enemy);
 }
@@ -638,15 +638,15 @@ bool Game::ProximityCull(Vector3 actorPosition, Vector3 &inputObject)
 	Vector3 maxCullBox;
 
 	positionOffset = Vector3(4.0, 10.0, 4.0);
-	minCullBox = actorPosition.SubtractVector(positionOffset);
-	maxCullBox = actorPosition.AddVector(positionOffset);
+	minCullBox = actorPosition - (positionOffset);
+	maxCullBox = actorPosition + (positionOffset);
 
 	return (maxCullBox.GetPointX() > inputObject.GetPointX() &&
-		minCullBox.GetPointX() < inputObject.GetPointX() &&
-		maxCullBox.GetPointY() > inputObject.GetPointY() &&
-		minCullBox.GetPointY() < inputObject.GetPointY() &&
-		maxCullBox.GetPointZ() > inputObject.GetPointZ() &&
-		minCullBox.GetPointZ() < inputObject.GetPointZ());
+			minCullBox.GetPointX() < inputObject.GetPointX() &&
+			maxCullBox.GetPointY() > inputObject.GetPointY() &&
+			minCullBox.GetPointY() < inputObject.GetPointY() &&
+			maxCullBox.GetPointZ() > inputObject.GetPointZ() &&
+			minCullBox.GetPointZ() < inputObject.GetPointZ());
 
 }
 
@@ -714,7 +714,6 @@ void Game::DrawHUD()
 
 	for (int i = 0; i < maxHealth; i++)
 	{
-
 		//Choose Texture
 		if (i == 0)
 		{
@@ -770,5 +769,4 @@ void Game::DrawHUD()
 	gluPerspective(60.0, 1.0 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1.0, 400.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
 }

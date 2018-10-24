@@ -1,15 +1,23 @@
-#ifndef MusicPlayer_h
-#define MusicPlayer_h
-
+#ifndef MUSICPLAYER_H
+#define MUSICPLAYER_H
 
 #include <vector>
 
 #include "SDL.h"
 #include "SDL_mixer.h"
 
-
-
-
+/**
+ *	@class MusicPlayer
+ *	@brief Controls music in the Game
+ *	
+ *	@author Liam Kinsella
+ *	@date 09-09-2018
+ *	@version 1.0
+ *
+ *	@author Liam Kinsella
+ *	@date 16-10-2018
+ *	@version 2.0: Added extra music, fade in/out
+ */
 class MusicPlayer
 {
 public:
@@ -31,7 +39,6 @@ public:
 	*/
 	void PlaySong();
 
-
 	/**
 	*	A normal member taking 1 argument
 	*	Used to set the current song
@@ -40,9 +47,9 @@ public:
 	void SetSong(int songIn);
 
 private:
-	Mix_Music * currentSong; /*<! Song currently being played by the MusicPlayer>*/
-	std::vector<Mix_Music*> songs; /*<! Vector of all songs used in game>*/
-	bool menuCheck; /*<! check to prevent menu music from looping>*/
+	Mix_Music * currentSong;		/*<! Song currently being played by the MusicPlayer>*/
+	std::vector<Mix_Music*> songs;	/*<! Vector of all songs used in game>*/
+	bool menuCheck;					/*<! check to prevent menu music from looping>*/
 };
 
 #endif

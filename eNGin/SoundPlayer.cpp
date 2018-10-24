@@ -18,8 +18,6 @@ SoundPlayer::SoundPlayer()
 	}
 
 	sounds.emplace_back(Mix_LoadWAV("data/coin.wav"));
-
-
 }
 
 SoundPlayer::~SoundPlayer()
@@ -34,5 +32,4 @@ void SoundPlayer::PlaySound(int soundId)
 {
 	int channel;
 	channel = Mix_PlayChannel(-1, sounds[soundId], 0);
-
 }
