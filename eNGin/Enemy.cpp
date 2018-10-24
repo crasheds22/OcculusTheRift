@@ -1,8 +1,7 @@
 #include "Enemy.h"
 #include "Game.h"
 
-Enemy::Enemy(Game* own, Model* mod, Texture* tex, float xPos, float yPos, float zPos, std::vector<Vector3> &f) : Actor(mod, tex),
-																												 tempFlags(f),
+Enemy::Enemy(Game* own, Model* mod, Texture* tex, float xPos, float yPos, float zPos) : Actor(mod, tex),
 																												 owner(own),
 																												 shootTime(2),
 																												 shootTimer(shootTime)
@@ -11,7 +10,7 @@ Enemy::Enemy(Game* own, Model* mod, Texture* tex, float xPos, float yPos, float 
 	SetMoveSpeed(4);
 	SetRotateSpeed(5);
 
-	wander = new WanderState(this);
+	wander = new WanderState();
 	chase = new ChaseState();
 	attack = new AttackState();
 
@@ -19,6 +18,23 @@ Enemy::Enemy(Game* own, Model* mod, Texture* tex, float xPos, float yPos, float 
 
 	SetMaxHealth(2);
 	SetCurrentHealth(2);
+}
+
+Enemy::~Enemy() {
+	delete wander;
+	wander = NULL;
+
+	delete chase;
+	chase = NULL;
+
+	delete attack;
+	attack = NULL;
+
+	delete currentState;
+	currentState = NULL;
+
+	delete owner;
+	owner = NULL;
 }
 
 void Enemy::Update(float deltaTime) {
@@ -43,18 +59,12 @@ State* Enemy::GetWander() {
 	return wander;
 }
 
-State* Enemy::GetChase(Vector3 last) {
-	chase->SetLastTarget(last);
-
+State* Enemy::GetChase() {
 	return chase;
 }
 
 State* Enemy::GetAttack() {
 	return attack;
-}
-
-std::vector<Vector3> Enemy::GetFlags() {
-	return tempFlags;
 }
 
 void Enemy::Shoot() {
@@ -70,20 +80,8 @@ float Enemy::GetdT() {
 
 //=============================================================================
 
-double Enemy::GetFB() {
-	return position.GetPointZ();
-}
-
-double Enemy::GetLR() {
-	return position.GetPointX();
-}
-
-double Enemy::GetUD() {
-	return position.GetPointY();
-}
-
 //========================================
-// Private functions that mvoe the Actor
+// Functions that move the Actor
 //========================================
 
 void Enemy::MoveX(double moveX) {

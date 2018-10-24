@@ -1,27 +1,21 @@
-
 #include <pch.h>
 
-#include <math.h>
-#include <algorithm>
-#include <gl/glut.h>
-
 #include "Collider.h"
-#include "Projection.h"
 #include "Actor.h"
 
 
-Collider::Collider() 
+Collider::Collider() : minPoint(0, 0, 0),
+					   maxPoint(0, 0, 0)
 {
-	minPoint = Vector3(0.0, 0.0, 0.0);
-	maxPoint = Vector3(0.0, 0.0, 0.0);
+
 }
 
-void Collider::SetMinPoint(GLdouble tempX, GLdouble tempY, GLdouble tempZ) 
+void Collider::SetMinPoint(double tempX, double tempY, double tempZ) 
 {
 	minPoint = Vector3(tempX, tempY, tempZ);
 }
 
-void Collider::SetMaxPoint(GLdouble tempX, GLdouble tempY, GLdouble tempZ) 
+void Collider::SetMaxPoint(double tempX, double tempY, double tempZ) 
 {
 	maxPoint = Vector3(tempX, tempY, tempZ);
 }
@@ -63,8 +57,8 @@ bool Collider::ProximityCull(Vector3 actorPosition, Vector3 &inputObject)
 	Vector3 maxCullBox;
 
 	positionOffset = Vector3(4.0, 10.0, 4.0);
-	minCullBox = actorPosition.SubtractVector(positionOffset);
-	maxCullBox = actorPosition.AddVector(positionOffset);
+	minCullBox = actorPosition - positionOffset;
+	maxCullBox = actorPosition + positionOffset;
 
 	return (maxCullBox.GetPointX() > inputObject.GetPointX() &&
 			minCullBox.GetPointX() < inputObject.GetPointX() &&
@@ -74,8 +68,6 @@ bool Collider::ProximityCull(Vector3 actorPosition, Vector3 &inputObject)
 			minCullBox.GetPointZ() < inputObject.GetPointZ());
 		
 }
-
-
 
 void Collider::CollideWith(Actor *thisObject, Actor &otherObject)
 {

@@ -1,16 +1,9 @@
 #include <pch.h>
-#include <stdio.h>
 #include "Texture.h"
-
-Texture::~Texture()
-{
-	
-}
 
 std::vector<unsigned char>& Texture::GetTexture() {
 	return data;
 }
-
 
 void Texture::LoadTexture(std::string filePath, unsigned int w, unsigned int h) {
 	texW = w;

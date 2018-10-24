@@ -1,12 +1,9 @@
-class Actor;
-
 #ifndef Collider_H
 #define Collider_H
 
-#include <gl/glut.h>
+class Actor;
 
 #include "Vector3.h"
-#include "Projection.h"
 
 /**
  *	@class Collider
@@ -18,7 +15,7 @@ class Actor;
  *	@date 14-08-2018
  *
  *	@author Aaron Thomson
- *	@version 1.1 Changed Set methods from Vector3 type to 3 GLdouble types, Replaced AABBtoAABB function with overloaded < operators
+ *	@version 1.1 Changed Set methods from Vector3 type to 3 double types, Replaced AABBtoAABB function with overloaded < operators
  *	@date 05-09-2018
  *
  *	@author Rebecca Lim
@@ -41,7 +38,7 @@ public:
 	 *	@param tempY The minimum y point
 	 *	@param tempZ The minimum z point
 	 */
-	void SetMinPoint(GLdouble tempX, GLdouble tempY, GLdouble tempZ);
+	void SetMinPoint(double tempX, double tempY, double tempZ);
 
 	/**
 	 *	A normal member taking 3 arguments
@@ -50,7 +47,7 @@ public:
 	 *	@param tempY The maximum y point
 	 *	@param tempZ The maximum z point
 	 */
-	void SetMaxPoint(GLdouble tempX, GLdouble tempY, GLdouble tempZ);
+	void SetMaxPoint(double tempX, double tempY, double tempZ);
 	//======================================================================
 
 	//============================================================
@@ -81,31 +78,28 @@ public:
 
 	/**
 	 *	An overloaded operator function returning a boolean
-	 *	Returns the AABB that is less than another AABB
-	 *	@return bool If the box is within or outside another box
+	 *	Returns if AABB is less than another AABB
+	 *	@return If the box is within or outside another box
 	 */
 	bool operator < (Collider &other);
 
 	/**
 	 *	An overloaded operator function returning a boolean
-	 *	Returns the AABB that is greater than another AABB
-	 *	@return bool If the box is within or outside another box
+	 *	Returns if AABB is greater than another AABB
+	 *	@return If the box is within or outside another box
 	 */
 	bool operator > (Collider &other);
 
 	/**
-	*	@brief to cull the number of objects within the player's vicinity
-	*	@param 
-	*	@return Actor 
-	*	@pre
-	*	@post
+	*	Culls the number of objects within the player's vicinity
 	*/
 	bool ProximityCull(Vector3 actorPosition, Vector3 &inputObject);
 
-
 	/**
-	*	A void function
+	*	A normal function taking 2 arguments
 	*	Prevents an object from intersecting with another object during collision
+	*	@param thisObject The original object
+	*	@param otherObject The object to collide with
 	*/
 	void CollideWith(Actor *thisObject, Actor &otherObject);
 

@@ -1,12 +1,12 @@
-#include <math.h>
 #include <gl/glut.h>
-#include <time.h>
 
 #include "Game.h"
 
 #define SHAY_STATE 0
 #define MENU_STATE 1
 #define GAME_STATE 2
+#define PAUSE_MENU 5
+#define DEATH_MENU 6
 
 Game game;
 
@@ -83,7 +83,6 @@ void myinit()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	//glEnable(GL_DEPTH_TEST);
 	gluLookAt(0.0, 1.75, 0.0,
 		0.0, 1.75, -1,
 		0.0f, 1.0f, 0.0f);
@@ -170,7 +169,14 @@ void Mouse(int button, int state, int x, int y)
 	}
 
 	if (game.GetState() == GAME_STATE) {
-		game.MouseClick(button, state, x, y);
+		if (game.GetMenu()->GetMenuState() == MAIN_MENU || game.GetMenu()->GetMenuState() == PAUSE_MENU || game.GetMenu()->GetMenuState() == DEATH_MENU)
+		{
+			game.GetMenu()->MouseClick(button, state, x, y);
+		}
+		else
+		{
+			game.MouseClick(button, state, x, y);
+		}
 	}
 
 	if (game.GetState() == MENU_STATE) {
@@ -180,10 +186,18 @@ void Mouse(int button, int state, int x, int y)
 
 void MouseMove(int x, int y)
 {
+	bool showCursor = false;
+
+	if (game.GetMenu()->GetMenuState() == MAIN_MENU || game.GetMenu()->GetMenuState() == PAUSE_MENU || game.GetMenu()->GetMenuState() == DEATH_MENU)
+	{
+		showCursor = true;
+	}
 	if (game.GetState() == GAME_STATE)
 	{
-		glutWarpPointer(game.GetCentreX(), game.GetCentreY());
-		game.MouseLook(x, y);
-		
+		if (!showCursor)
+		{
+			glutWarpPointer(game.GetCentreX(), game.GetCentreY());
+			game.MouseLook(x, y);
+		}
 	}
 }

@@ -58,7 +58,9 @@ void Shay::Init()
 void Shay::Draw() {
 	// check for movement
 	cam.CheckCamera();
-	
+
+	SetWidthHeight(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// DISPLAY TEXTURES
@@ -138,7 +140,6 @@ void Shay::DownKey(unsigned char key, int x, int y) {
 		case 'F':
 			owner->SwitchState();
 			break;
-
 		case 'A':
 		case 'a':
 			cam.DirectionRotateLR(-1);

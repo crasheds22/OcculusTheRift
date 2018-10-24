@@ -1,5 +1,4 @@
 #include "Projectile.h"
-#include <math.h>
 
 Projectile::Projectile(Actor* act, Model *mod, Texture *tex, double spd, Vector3 dir, Vector3 start) : Actor(mod, tex),
 timeAlive(0),
@@ -25,7 +24,7 @@ void Projectile::Update(float deltaTime) {
 }
 
 void Projectile::Move() {
-	this->SetPos(this->GetPos().AddVector(direction * moveSpeed * dT));
+	this->SetPos(this->GetPos() + (direction * moveSpeed * dT));
 }
 
 double Projectile::GetTime() {

@@ -2,17 +2,8 @@
 #include "Enemy.h"
 #include "Player.h"
 
-#include <iostream>
-using namespace std;
-
 //======================================================
 //Wander State
-
-WanderState::WanderState(Enemy* entity) {
-	flags = entity->GetFlags();
-
-	fIter = flags.begin();
-}
 
 void WanderState::Enter(Enemy* entity) {
 
@@ -25,29 +16,7 @@ void WanderState::Execute(Enemy* entity) {
 
 	if (pDistance <= 24) {
 		//If player in range, chase them
-		entity->ChangeState(entity->GetChase(*fIter));
-	}
-
-	//Move to flag
-	Vector3 temp = *fIter;
-
-	Vector3 direction(temp - entity->GetPos());
-	double distance = direction.VectorMagnitude();
-
-	direction = direction.UnitVector();
-
-	if (distance <= 2.0) {
-		if (fIter == flags.end()) {
-			fIter = flags.begin();
-		}
-		else {
-			fIter++;
-		}
-	}
-	else {
-		entity->MoveX(direction.GetPointX());
-		entity->MoveY(direction.GetPointY());
-		entity->MoveZ(direction.GetPointZ());
+		entity->ChangeState(entity->GetChase());
 	}
 }
 
@@ -76,8 +45,6 @@ void ChaseState::Execute(Enemy* entity) {
 	double angle = atan2(cross.DotProduct(Vn), dot);
 	angle *= 180 / 3.141592653;
 
-	cout << angle << endl;
-
 	if (distance <= 8.0) {
 		//Close enough to attack
 		entity->MoveX(0);
@@ -104,12 +71,6 @@ void ChaseState::Exit(Enemy* entity) {
 
 }
 
-void ChaseState::SetLastTarget(Vector3 last) {
-	lastTarget.SetPointX(last.GetPointX());
-	lastTarget.SetPointY(last.GetPointY());
-	lastTarget.SetPointZ(last.GetPointZ());
-}
-
 //======================================================
 //Attack State
 
@@ -133,7 +94,7 @@ void AttackState::Execute(Enemy* entity) {
 
 	entity->Shoot();
 
-	entity->ChangeState(entity->GetChase(Player::GetInstance()->GetPos()));
+	entity->ChangeState(entity->GetChase());
 }
 
 void AttackState::Exit(Enemy* entity) {

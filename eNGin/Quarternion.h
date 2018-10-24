@@ -1,232 +1,189 @@
-#pragma once
+#ifndef QUATERNION_H
+#define QUATERNION_H
 
 #include <math.h>
-#include <gl/glut.h>
 #include "Vector3.h"
 
+/**
+ *	@class Quaternion
+ *	@brief A utility class for Quaternion math
+ *	
+ *	@author Rebecca Lim
+ *	@date 09-10-2018
+ *	@version 1.0
+ *
+ *	@author Vincent T
+ *	@date 12-10-2018
+ *	@version 1.1: Fixed LR mouse movement
+ */
 class Quarternion
 {
-	public:
-		Quarternion();
-		/**
-		*	@brief contructor with parameters for the creation of quarternions
-		*	@param inputX 
-		*	@param inputY
-		*	@param inputZ
-		*	@param inputW
-		*	@return the angle in degrees? is returned
-		*	@pre the comparison vector must exist
-		*	@post
-		*/
-		Quarternion(GLdouble inputX, GLdouble inputY, GLdouble inputZ, GLdouble inputW);
-		~Quarternion();
+public:
+	/**
+	 *	Default constructor
+	 *	Initialises all values to 0
+	 */
+	Quarternion();
 
-		/**
-		*	@brief accessor for 
-		*	@param inputX
-		*	@param inputY
-		*	@param inputZ
-		*	@param inputW
-		*	@return the angle in degrees? is returned
-		*	@pre the comparison vector must exist
-		*	@post
-		*/
-		void SetQuartX(GLdouble quartX);
-		/**
-		*	@brief accessor for
-		*	@param inputX
-		*	@param inputY
-		*	@param inputZ
-		*	@param inputW
-		*	@return the angle in degrees? is returned
-		*	@pre the comparison vector must exist
-		*	@post
-		*/
-		void SetQuartY(GLdouble quartY);
-		/**
-		*	@brief accessor for
-		*	@param inputX
-		*	@param inputY
-		*	@param inputZ
-		*	@param inputW
-		*	@return the angle in degrees? is returned
-		*	@pre the comparison vector must exist
-		*	@post
-		*/
-		void SetQuartZ(GLdouble quartZ);
-		/**
-		*	@brief accessor for
-		*	@param inputX
-		*	@param inputY
-		*	@param inputZ
-		*	@param inputW
-		*	@return the angle in degrees? is returned
-		*	@pre the comparison vector must exist
-		*	@post
-		*/
-		void SetQuartW(GLdouble quartW);
-		/**
-		*	@brief accessor for
-		*	@param inputX
-		*	@param inputY
-		*	@param inputZ
-		*	@param inputW
-		*	@return the angle in degrees? is returned
-		*	@pre the comparison vector must exist
-		*	@post
-		*/
-		GLdouble GetQuartX();
-		/**
-		*	@brief accessor for
-		*	@param inputX
-		*	@param inputY
-		*	@param inputZ
-		*	@param inputW
-		*	@return the angle in degrees? is returned
-		*	@pre the comparison vector must exist
-		*	@post
-		*/
-		GLdouble GetQuartY();
-		/**
-		*	@brief accessor for
-		*	@param inputX
-		*	@param inputY
-		*	@param inputZ
-		*	@param inputW
-		*	@return the angle in degrees? is returned
-		*	@pre the comparison vector must exist
-		*	@post
-		*/
-		GLdouble GetQuartZ();
-		/**
-		*	@brief accessor for
-		*	@param inputX
-		*	@param inputY
-		*	@param inputZ
-		*	@param inputW
-		*	@return the angle in degrees? is returned
-		*	@pre the comparison vector must exist
-		*	@post
-		*/
-		GLdouble GetQuartW();
+	/**
+	 *	Constructor with parameters
+	 *	Initialises values to those passed in
+	 *	@param inputX The x axis value
+	 *	@param inputY The y axis value
+	 *	@param inputZ The z axis value
+	 *	@param inputW The angle around the axis
+	 */
+	Quarternion(double inputX, double inputY, double inputZ, double inputW);
 
-		/**
-		*	@brief addition for quarternions
-		*	@param inputQuart
-		*	@return quarternion translation
-		*	@pre 
-		*	@post
-		*/
-		Quarternion operator+(Quarternion inputQuart);
-		/**
-		*	@brief subtraction for quarternions
-		*	@param inputQuart
-		*	@return quarternion translation
-		*	@pre
-		*	@post
-		*/
-		Quarternion operator-(Quarternion inputQuart);
+	//=============================================================================
+	// Set methods
+	/**
+	 *	A normal member taking one argument
+	 *	Sets the quaternion x value
+	 *	@param quartX The x value of the axis
+	 */
+	void SetQuartX(double quartX);
 
-		/**
-		*	@brief pre-calculation for quarternion magnitude
-		*	@param 
-		*	@return quarternion squared
-		*	@pre
-		*	@post
-		*/
-		GLdouble QuartSquared();
-		/**
-		*	@brief calculation for quarternion magnitude
-		*	@param
-		*	@return quarternion magnitude
-		*	@pre QuartSquared must return a valid value
-		*	@post
-		*/
-		GLdouble QuartMagnitude();
-		/**
-		*	@brief calculation for quarternion normal
-		*	@param
-		*	@return quarternion normal
-		*	@pre 
-		*	@post
-		*/
-		Quarternion Normal();
+	/**
+	*	A normal member taking one argument
+	*	Sets the quaternion y value
+	*	@param quartY The y value of the axis
+	*/
+	void SetQuartY(double quartY);
 
-		/**
-		*	@brief calculation for quarternion conjugate
-		*	@param
-		*	@return quarternion conjugate
-		*	@pre
-		*	@post
-		*/
-		Quarternion Conjugate();
+	/**
+	*	A normal member taking one argument
+	*	Sets the quaternion z value
+	*	@param quartX The z value of the axis
+	*/
+	void SetQuartZ(double quartZ);
 
-		/**
-		*	@brief dot product for quarternions
-		*	@param
-		*	@return quarternion scalar
-		*	@pre
-		*	@post
-		*/
-		GLdouble DotProduct(Quarternion inputQuart);
+	/**
+	*	A normal member taking one argument
+	*	Sets the quaternion w value
+	*	@param quartX The rotation value
+	*/
+	void SetQuartW(double quartW);
+	//=============================================================================
 
-		/**
-		*	@brief cross product for quarternions
-		*	@param inputQuart
-		*	@return quarternion 
-		*	@pre
-		*	@post
-		*/
-		Quarternion CrossProduct(Quarternion inputQuart);
+	//=============================================================================
+	// Get methods
+	/**
+	 *	A normal member returning a double value
+	 *	@return The x value of the axis
+	 */
+	double GetQuartX();
 
-		/**
-		*	@brief scalar product for quarternions
-		*	@param inputQuart
-		*	@return quarternion 
-		*	@pre
-		*	@post
-		*/
-		Quarternion ScalarProduct(GLdouble theScalar);
+	/**
+	*	A normal member returning a double value
+	*	@return The y value of the axis
+	*/
+	double GetQuartY();
 
-		/**
-		*	@brief inverse for quarternions
-		*	@param inputQuart
-		*	@return quarternion
-		*	@pre
-		*	@post
-		*/
-		Quarternion Inverse();
+	/**
+	*	A normal member returning a double value
+	*	@return The z value of the axis
+	*/
+	double GetQuartZ();
 
-		/**
-		*	@brief rotation for quarternions
-		*	@param theTheta angle in 
-		*	@param theAxis the axis to rotate on 
-		*	@return quarternion
-		*	@pre
-		*	@post
-		*/
-		Quarternion QRotation(double theTheta, Vector3 theAxis);
+	/**
+	*	A normal member returning a double value
+	*	@return The rotation value around the axis
+	*/
+	double GetQuartW();
+	//=============================================================================
 
-		/**
-		*	@brief normalization for quarternions
-		*	@return quarternion
-		*	@pre
-		*	@post
-		*/
-		Quarternion Normalize();
+	//=============================================================================
+	// Utility
+	/**
+	*	Function returns the squared magnitude value of the Quaternion
+	*	@return The squared magnitude value
+	*/
+	double QuartSquared();
 
-		/**
-		*	@brief spherical linear interpolation
-		*	@return quarternion
-		*	@pre
-		*	@post
-		*/
-		Quarternion Slerp(Quarternion targetQuart, GLdouble t);
+	/**
+	*	Function returns the actual magnitude of the quaternion
+	*	@return The magnitude of the quaternion
+	*/
+	double QuartMagnitude();
 
-	private:
-		GLdouble x;
-		GLdouble y;
-		GLdouble z;
-		GLdouble w;
+	/**
+	*	@brief calculation for quarternion conjugate
+	*	@param
+	*	@return quarternion conjugate
+	*	@pre
+	*	@post
+	*/
+	Quarternion Conjugate();
+
+	/**
+	*	@brief dot product for quarternions
+	*	@param
+	*	@return quarternion scalar
+	*	@pre
+	*	@post
+	*/
+	double DotProduct(Quarternion inputQuart);
+
+	/**
+	*	@brief cross product for quarternions
+	*	@param inputQuart
+	*	@return quarternion 
+	*	@pre
+	*	@post
+	*/
+	Quarternion CrossProduct(Quarternion inputQuart);
+
+	/**
+	*	@brief scalar product for quarternions
+	*	@param inputQuart
+	*	@return quarternion 
+	*	@pre
+	*	@post
+	*/
+	Quarternion ScalarProduct(double theScalar);
+
+	/**
+	*	@brief inverse for quarternions
+	*	@param inputQuart
+	*	@return quarternion
+	*	@pre
+	*	@post
+	*/
+	Quarternion Inverse();
+
+	/**
+	*	@brief rotation for quarternions
+	*	@param theTheta angle in 
+	*	@param theAxis the axis to rotate on 
+	*	@return quarternion
+	*	@pre
+	*	@post
+	*/
+	Quarternion QRotation(double theTheta, Vector3 theAxis);
+
+	/**
+	*	@brief normalization for quarternions
+	*	@return quarternion
+	*	@pre
+	*	@post
+	*/
+	Quarternion Normalize();
+
+	/**
+	*	Function for Spherical Linear Interpolation
+	*
+	*	@param targetQuart The quaternion to rotate to
+	*	@param t The time to take to get there
+	*	@return The resultant quaternion
+	*/
+	Quarternion Slerp(Quarternion targetQuart, double t);
+
+private:
+	double x; /*<! The x value */
+	double y; /*<! The y value */
+	double z; /*<! The z value */
+	double w; /*<! The w value */
 };
 
+#endif

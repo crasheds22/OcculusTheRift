@@ -1,124 +1,72 @@
 #include <math.h>
 #include <pch.h>
 
-
 #include "Quarternion.h"
 
-
-
-Quarternion::Quarternion()
-{
-	x = 0.0;
-	y = 0.0;
-	z = 0.0;
-	w = 0.0;
-}
-
-Quarternion::Quarternion(GLdouble inputW, GLdouble inputX, GLdouble inputY, GLdouble inputZ)
-{
-	w = inputW;
-	x = inputX;
-	y = inputY;
-	z = inputZ;
-	
-}
-
-Quarternion::~Quarternion()
+Quarternion::Quarternion() : w(0.0),
+							 x(0.0),
+							 y(0.0),
+							 z(0.0)
 {
 
 }
 
-void Quarternion::SetQuartX(GLdouble quartX)
+Quarternion::Quarternion(double inputW, double inputX, double inputY, double inputZ) : w(inputW),
+																							   x(inputX),
+																							   y(inputY),
+																							   z(inputZ)
+{
+
+}
+
+void Quarternion::SetQuartX(double quartX)
 {
 	x = quartX;
 }
 
-void Quarternion::SetQuartY(GLdouble quartY)
+void Quarternion::SetQuartY(double quartY)
 {
 	y = quartY;
 }
 
-void Quarternion::SetQuartZ(GLdouble quartZ)
+void Quarternion::SetQuartZ(double quartZ)
 {
 	z = quartZ;
 }
 
-void Quarternion::SetQuartW(GLdouble quartW)
+void Quarternion::SetQuartW(double quartW)
 {
 	w = quartW;
 }
 
-GLdouble Quarternion::GetQuartX()
+double Quarternion::GetQuartX()
 {
 	return x;
 }
 
-GLdouble Quarternion::GetQuartY()
+double Quarternion::GetQuartY()
 {
 	return y;
 }
 
-GLdouble Quarternion::GetQuartZ()
+double Quarternion::GetQuartZ()
 {
 	return z;
 }
 
-GLdouble Quarternion::GetQuartW()
+double Quarternion::GetQuartW()
 {
 	return w;
 }
 
-Quarternion Quarternion::operator+(Quarternion inputQuart)
+double Quarternion::QuartSquared()
 {
-	Quarternion resultQuart;
-
-	resultQuart.x = x + inputQuart.GetQuartX();
-	resultQuart.y = y + inputQuart.GetQuartY();
-	resultQuart.z = z + inputQuart.GetQuartZ();
-	resultQuart.w = w + inputQuart.GetQuartW();
-
-	return resultQuart;
+	return  x * x + y * y + z * z + w * w;
 }
 
-Quarternion Quarternion::operator-(Quarternion inputQuart)
-{
-	Quarternion resultQuart;
-
-	resultQuart.x = x - inputQuart.GetQuartX();
-	resultQuart.y = y - inputQuart.GetQuartY();
-	resultQuart.z = z - inputQuart.GetQuartZ();
-	resultQuart.w = w - inputQuart.GetQuartW();
-
-	return resultQuart;
-}
-
-GLdouble Quarternion::QuartSquared()
-{
-	GLdouble resultQuart;
-
-	resultQuart = x * x + y * y + z * z + w * w;
-	
-	return resultQuart;
-}
-
-GLdouble Quarternion::QuartMagnitude()
+double Quarternion::QuartMagnitude()
 {
 	return sqrt(QuartSquared());
-}
-
-Quarternion Quarternion::Normal()
-{
-	GLdouble inverseMagnitude;
-	Quarternion resultQuart;
-
-	inverseMagnitude = 1.0 / QuartMagnitude();
-
-	resultQuart.x = x * inverseMagnitude;
-	resultQuart.y = y * inverseMagnitude;
-	resultQuart.z = z * inverseMagnitude;
-	resultQuart.w = w * inverseMagnitude;
-	
-	return resultQuart;
 }
 
 Quarternion Quarternion::Conjugate()
@@ -133,17 +81,15 @@ Quarternion Quarternion::Conjugate()
 	return resultQuart;
 }
 
-GLdouble Quarternion::DotProduct(Quarternion inputQuart)
+double Quarternion::DotProduct(Quarternion inputQuart)
 {
 	return x * inputQuart.GetQuartX() + y * inputQuart.GetQuartY() + z * inputQuart.GetQuartZ() + w * inputQuart.GetQuartW();
 }
-
 
 //w = a.w*b.w - a.x*b.x - a.y*b.y - a.z*b.z;
 //x = a.y*b.z - a.z*b.y + a.w*b.x + a.x*b.w;
 //y = a.z*b.x - a.x*b.z + a.w*b.y + a.y*b.w;
 //z = a.x*b.y - a.y*b.x + a.w*b.z + a.z*b.w;
-
 Quarternion Quarternion::CrossProduct(Quarternion inputQuart)
 {
 	Quarternion resultQuart;
@@ -156,7 +102,7 @@ Quarternion Quarternion::CrossProduct(Quarternion inputQuart)
 	return resultQuart;
 }
 
-Quarternion Quarternion::ScalarProduct(GLdouble theScalar)
+Quarternion Quarternion::ScalarProduct(double theScalar)
 {
 	Quarternion resultQuart;
 
@@ -171,7 +117,7 @@ Quarternion Quarternion::ScalarProduct(GLdouble theScalar)
 Quarternion Quarternion::Inverse()
 {
 	Quarternion theConjugate;
-	GLdouble theSquaredMagnitude;
+	double theSquaredMagnitude;
 	Quarternion resultQuart;
 
 	theConjugate = Conjugate();
@@ -213,14 +159,14 @@ Quarternion Quarternion::Normalize()
 	return tempQuat;
 }
 
-Quarternion Quarternion::Slerp(Quarternion targetQuart, GLdouble t)
+Quarternion Quarternion::Slerp(Quarternion targetQuart, double t)
 {
 	Quarternion resultQuart;
-	GLdouble cosineHalfTheta;
-	GLdouble halfTheta;
-	GLdouble sineHalfTheta;
-	GLdouble ratioOne;
-	GLdouble ratioTwo;
+	double cosineHalfTheta;
+	double halfTheta;
+	double sineHalfTheta;
+	double ratioOne;
+	double ratioTwo;
 
 	cosineHalfTheta = DotProduct(targetQuart);
 

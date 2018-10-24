@@ -17,7 +17,8 @@ Game::Game()
 	models.resize(10);
 
 	exitScreen = false;
-	menuScreen = true;
+	pauseScreen = false;
+	deathScreen = false;
 
 	currentStage = 1;
 	currentLevel = 1;
@@ -90,6 +91,8 @@ void Game::Initialise()
 	textures[22].LoadTexture("data/hb_full_left.png", 32, 32);
 	textures[24].LoadTexture("data/hb_full_middle.png", 32, 32);
 	textures[26].LoadTexture("data/hb_full_right.png", 32, 32);
+	textures[27].LoadTexture("data/Pause.png", 512, 512);
+	textures[28].LoadTexture("data/Death.png", 512, 512);
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
@@ -132,7 +135,7 @@ void Game::Update(float deltaTime)
 				ClearLevel();
 			}
 
-			for (int i = 0; i < Entities[tPOWERUP].size(); i++) 
+			for (std::size_t i = 0; i < Entities[tPOWERUP].size(); i++) 
 			{
 				if (Entities[tPOWERUP][i]->GetCollider().AABBtoAABB(playerCharacter->GetCollider()))
 				{
@@ -144,7 +147,7 @@ void Game::Update(float deltaTime)
 					Entities[tPOWERUP][i]->Update(deltaTime);
 			}
 			
-			for (int i = 0; i < Entities[tEnemy].size(); i++)
+			for (std::size_t i = 0; i < Entities[tEnemy].size(); i++)
 			{
 				if (Entities[tEnemy][i] != NULL) {
 					if (Entities[tEnemy][i]->GetCurrentHealth() > 0) {
@@ -156,7 +159,7 @@ void Game::Update(float deltaTime)
 				}
 			}
 
-			for (int i = 0; i < Entities[tProjectile].size(); i++) {
+			for (std::size_t i = 0; i < Entities[tProjectile].size(); i++) {
 				Projectile* p = dynamic_cast<Projectile*>(Entities[tProjectile][i]);
 				if (p) {
 					if (p->GetTime() > 2) {
@@ -168,12 +171,12 @@ void Game::Update(float deltaTime)
 				}
 			}
 
-			for (int i = 0; i < Entities.size(); ++i)
+			for (std::size_t i = 0; i < Entities.size(); ++i)
 			{
 				std::vector<Actor*> resultObjectList;
 				std::pair <int, std::vector<Actor*>> enumActor;
 
-				for (int j = 0; j < Entities[i].size(); j++)
+				for (std::size_t j = 0; j < Entities[i].size(); j++)
 				{
 					if (Entities[i][j] != NULL) {
 						Vector3 temp = Entities[i][j]->GetPos();
@@ -191,6 +194,12 @@ void Game::Update(float deltaTime)
 			}
 
 			playerCharacter->Update(deltaTime, tempMap);
+
+			if (playerCharacter->GetCurrentHealth() <= 0)
+			{
+				deathScreen = true;
+				SetState(MENU_STATE);
+			}
 
 			break;
 
@@ -217,6 +226,13 @@ void Game::Update(float deltaTime)
 
 				dungeon = new Dungeon(this);
 			}
+			else
+			{
+				if (menuScreens->GetMenuState() == MAIN_MENU)
+				{
+					bgmControl.SetSong(1);
+				}
+			}
 			break;
 	}
 }
@@ -228,7 +244,18 @@ void Game::Draw()
 		case MENU_STATE:
 			if (menuScreens != NULL)
 			{
-				menuScreens->Draw(textures[5]);
+				glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+
+				if(deathScreen && !pauseScreen)
+				{
+					menuScreens->Draw(textures[28]);
+					menuScreens->SetMenuState(DEATH_MENU);
+				}
+				else
+				{
+					menuScreens->Draw(textures[5]);
+					menuScreens->SetMenuState(MAIN_MENU);
+				}
 			}
 			break;
 
@@ -254,12 +281,12 @@ void Game::Draw()
 			playerCharacter->Draw();
 
 			glPushMatrix();
-			for (int ii = 0; ii < Entities[tWALL].size(); ii++)
+			for (std::size_t ii = 0; ii < Entities[tWALL].size(); ii++)
 			{
 				Entities[tWALL][ii]->Draw();
 			}
 
-			for (int ii = 0; ii < Entities[tEXIT].size(); ii++)
+			for (std::size_t ii = 0; ii < Entities[tEXIT].size(); ii++)
 			{
 				Entities[tEXIT][ii]->Draw();
 			}
@@ -284,19 +311,19 @@ void Game::Draw()
 					break;
 			}
 
-			for (int i = 0; i < Entities[tEnemy].size(); i++) 
+			for (std::size_t i = 0; i < Entities[tEnemy].size(); i++)
 			{
 				if (Entities[tEnemy][i] != NULL)
 					Entities[tEnemy][i]->Draw();
 			}
 
-			for (int i = 0; i < Entities[tProjectile].size(); i++) {
+			for (std::size_t i = 0; i < Entities[tProjectile].size(); i++) {
 				if (Entities[tProjectile][i] != NULL) {
 					Entities[tProjectile][i]->Draw();
 				}
 			}
 
-			for (int i = 0; i < Entities[tPOWERUP].size(); i++) {
+			for (std::size_t i = 0; i < Entities[tPOWERUP].size(); i++) {
 				if (Entities[tPOWERUP][i] != NULL)
 					Entities[tPOWERUP][i]->Draw();
 			}
@@ -306,6 +333,17 @@ void Game::Draw()
 					DrawGUI();
 			glPopMatrix();
 
+
+			if (pauseScreen && !deathScreen)
+			{
+				glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
+				menuScreens->Draw(textures[27]);
+				menuScreens->SetMenuState(PAUSE_MENU);
+			}
+			else
+			{
+				menuScreens->SetMenuState(0);
+			}
 			
 			DrawGUI();
 			DrawHUD();
@@ -348,11 +386,8 @@ void Game::InputDown(unsigned char key, int x, int y)
 		break;
 	case 'p':
 	case 'P':
-		menuScreen = !menuScreen;
-		if (!menuScreen)
-			SetState(MENU_STATE);
-		else
-			SetState(GAME_STATE);
+		if(!deathScreen)
+			pauseScreen = !pauseScreen;
 		break;
 
 	}
@@ -472,11 +507,27 @@ void Game::SwitchState()
 		shaysWorld = NULL;
 		bgmControl.SetSong(1);
 	}
+	else if (state == GAME_STATE && menuScreens->GetMenuState() == PAUSE_MENU)
+	{
+		pauseScreen = false;
+		deathScreen = false;
+		state = MENU_STATE;
+		menuScreens->SetMenuState(MAIN_MENU);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0, 0, 0, 1);
+		glFlush();
+		bgmControl.SetSong(1);
+	}
+	else if (state == MENU_STATE && menuScreens->GetMenuState() == MAIN_MENU)
+	{
+		Restart();
+	}
 }
 
 void Game::DrawGUI()
 {
-	playerInterface->DrawReticle();
+	if(GetMenu()->GetMenuState() != PAUSE_MENU)
+		playerInterface->DrawReticle();
 }
 
 void Game::SetCentreX(int x) {
@@ -562,9 +613,9 @@ void Game::AddCoin(float x, float y, float z)
 	Entities[tPOWERUP].push_back(coin);
 }
 
-void Game::AddEnemy(float x, float y, float z, std::vector<Vector3> &f)
+void Game::AddEnemy(float x, float y, float z)
 {
-	Enemy *enemy = new Enemy(this, models[2], &textures[6], x, y, z, f);
+	Enemy *enemy = new Enemy(this, models[2], &textures[6], x, y, z);
 
 	Entities[tEnemy].push_back(enemy);
 }
@@ -587,15 +638,15 @@ bool Game::ProximityCull(Vector3 actorPosition, Vector3 &inputObject)
 	Vector3 maxCullBox;
 
 	positionOffset = Vector3(4.0, 10.0, 4.0);
-	minCullBox = actorPosition.SubtractVector(positionOffset);
-	maxCullBox = actorPosition.AddVector(positionOffset);
+	minCullBox = actorPosition - (positionOffset);
+	maxCullBox = actorPosition + (positionOffset);
 
 	return (maxCullBox.GetPointX() > inputObject.GetPointX() &&
-		minCullBox.GetPointX() < inputObject.GetPointX() &&
-		maxCullBox.GetPointY() > inputObject.GetPointY() &&
-		minCullBox.GetPointY() < inputObject.GetPointY() &&
-		maxCullBox.GetPointZ() > inputObject.GetPointZ() &&
-		minCullBox.GetPointZ() < inputObject.GetPointZ());
+			minCullBox.GetPointX() < inputObject.GetPointX() &&
+			maxCullBox.GetPointY() > inputObject.GetPointY() &&
+			minCullBox.GetPointY() < inputObject.GetPointY() &&
+			maxCullBox.GetPointZ() > inputObject.GetPointZ() &&
+			minCullBox.GetPointZ() < inputObject.GetPointZ());
 
 }
 
@@ -609,6 +660,23 @@ void Game::ClearLevel()
 	delete dungeon;
 	dungeon = NULL;
 	state = LOAD_STATE;
+}
+
+void Game::Restart()
+{
+	exitScreen = false;
+	pauseScreen = false;
+	deathScreen = false;
+
+	currentStage = 1;
+	currentLevel = 1;
+	playerCharacter->Initialise();
+	menuScreens->SetMenuState(0);
+	ClearLevel();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0, 0, 0, 1);
+	glFlush();
+	bgmControl.SetSong(2);
 }
 
 std::vector <Texture>  Game::GetTexture()
@@ -646,7 +714,6 @@ void Game::DrawHUD()
 
 	for (int i = 0; i < maxHealth; i++)
 	{
-
 		//Choose Texture
 		if (i == 0)
 		{
@@ -702,5 +769,4 @@ void Game::DrawHUD()
 	gluPerspective(60.0, 1.0 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1.0, 400.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
 }

@@ -18,13 +18,11 @@ SoundPlayer::SoundPlayer()
 	}
 
 	sounds.emplace_back(Mix_LoadWAV("data/coin.wav"));
-
-
 }
 
 SoundPlayer::~SoundPlayer()
 {
-	for (int i = 0; i < sounds.size(); i++)
+	for (std::size_t i = 0; i < sounds.size(); i++)
 	{
 		Mix_FreeChunk(sounds[i]);
 	}
@@ -34,5 +32,4 @@ void SoundPlayer::PlaySound(int soundId)
 {
 	int channel;
 	channel = Mix_PlayChannel(-1, sounds[soundId], 0);
-
 }

@@ -1,12 +1,19 @@
-#ifndef SoundPlayer_h
-#define SoundPlayer_h
-
+#ifndef SOUNDPLAYER_H
+#define SOUNDPLAYER_H
 
 #include <vector>
 
 #include "SDL.h"
 #include "SDL_mixer.h"
 
+/**
+ *	@class SoundPlayer
+ *	@brief Plays and controls sounds
+ *	
+ *	@author Liam Kinsella
+ *	@date 10-10-2018
+ *	@version 1.0
+ */
 class SoundPlayer
 {
 public:

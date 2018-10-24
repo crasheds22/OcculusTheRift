@@ -1,11 +1,7 @@
 #include <pch.h>
 
-#include <algorithm>
-#include <math.h>
-
 #include "Menu.h"
 #include "Game.h"
-
 
 Menu::Menu(Game* ownerIn) 
 {
@@ -14,8 +10,8 @@ Menu::Menu(Game* ownerIn)
 
 void Menu::Draw(Texture displayingTexture)
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
+	
 	//Set View mode to orthographic
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -33,7 +29,6 @@ void Menu::Draw(Texture displayingTexture)
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, displayingTexture.GetWidth(), displayingTexture.GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, &temp[0]);
 
-	//Requires this for some reason
 	glPushMatrix();
 	glBegin(GL_QUADS);
 	glTexCoord2f(-1.0, 1.0);
@@ -54,6 +49,8 @@ void Menu::Draw(Texture displayingTexture)
 
 	gluPerspective(60.0, 1.0 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1.0, 400.0);
 	glMatrixMode(GL_MODELVIEW);
+
+	glFlush();
 }
 
 void Menu::Init() 
@@ -61,51 +58,64 @@ void Menu::Init()
 	SetState(MENU_STATE);
 }
 
-void Menu::Update()
-{
-}
-
 void Menu::MouseClick(int button, int state, int x, int y) 
 {
-	centreX = glutGet(GLUT_WINDOW_WIDTH) / 2;
-	centreY = glutGet(GLUT_WINDOW_HEIGHT) / 2;
+	windowWidth = glutGet(GLUT_WINDOW_WIDTH);
+	windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+	centreX = windowWidth / 2;
+	centreY = windowHeight / 2;
+
+	float xLeft = windowWidth / 3.12585812357;
+	float xRight = windowWidth / 1.47357065804;
+	float yUp = windowHeight / 2.52631578947;
+	float yDown = windowHeight / 1.8962962963;
+	float yDistance = 138;
 
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
-
-		float xLeft = 254;
-		float xRight = 542;
-		float yUp = 173;
-		float yDown = 239;
-
-		if (centreX != 400)
+		if (menuState == PAUSE_MENU)
 		{
-			xLeft = glutGet(GLUT_WINDOW_WIDTH) / 3.25;
-			xRight = glutGet(GLUT_WINDOW_WIDTH) / 1.5;
+			if ((x >= xLeft && x <= xRight) && (y >= yUp && y <= yDown))
+			{
+				owner->SwitchState();
+			}
+			else if ((x >= xLeft && x <= xRight) && (y >= yUp + yDistance && y <= yDown + yDistance))
+			{
+				exit(0);
+			}
 		}
+		else if (menuState == DEATH_MENU)
+		{
+			if ((x >= xLeft && x <= xRight) && (y >= yUp && y <= yDown))
+			{
+				owner->Restart();
+			}
+			else if ((x >= xLeft && x <= xRight) && (y >= yUp + yDistance && y <= yDown + yDistance))
+			{
+				exit(0);
+			}
+		}
+		else
+		{
+			yUp = windowHeight / 2.88721804511;
+			yDown = windowHeight / 2.08695652174;
 
-		if (centreY != 250)
-		{
-			yUp = glutGet(GLUT_WINDOW_HEIGHT) / 2.88;
-			yDown = glutGet(GLUT_WINDOW_HEIGHT) / 2.08;
+			if ((x >= xLeft && x <= xRight) && (y >= yUp && y <= yDown))
+			{
+				owner->SwitchState();
+			}
+			else if ((x >= xLeft && x <= xRight) && (y >= yUp + yDistance && y <= yDown + yDistance))
+			{
+				owner->SwitchState();
+			}
+			else if ((x >= xLeft && x <= xRight) && (y >= yUp + yDistance * 2 && y <= yDown + yDistance * 2))
+			{
+				exit(0);
+			}
 		}
-
-		if ((x >= xLeft && x <= xRight) && (y >= yUp && y <= yDown))
-		{
-
-			owner->SetState(SHAY_STATE);
-		}
-		else if ((x >= xLeft && x <= xRight) && (y >= yUp + 90 && y <= yDown + 90))
-		{
-			owner->SetState(LOAD_STATE);
-		}
-		else if ((x >= xLeft && x <= xRight) && (y >= yUp + 180 && y <= yDown + 180))
-		{
-			exit(0);
-		}
+		
 	}
 }
-
 
 int Menu::GetState()
 {
@@ -115,4 +125,19 @@ int Menu::GetState()
 void Menu::SetState(int settingState)
 {
 	gameState = settingState;
+}
+
+void Menu::Clear()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void Menu::SetMenuState(int settingState)
+{
+	menuState = settingState;
+}
+
+int Menu::GetMenuState()
+{
+	return menuState;
 }
