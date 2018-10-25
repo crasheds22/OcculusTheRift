@@ -30,11 +30,11 @@
  *	@version 3.1 Updated constructors
  *	@date 10-09-2018
  *
- *	@author Vincent Tran
+ *	@author Vincent Tan
  *	@version 4.0 Added collisions
  *	@date 28-09-2018
  *
- *	@author Vincent Tran
+ *	@author Vincent Tan
  *	@version 4.1 Move collisions out of Actor class
  *	@date 29-09-2018
  *
