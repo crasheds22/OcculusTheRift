@@ -198,6 +198,9 @@ void Game::Update(float deltaTime)
 			if (playerCharacter->GetCurrentHealth() <= 0)
 			{
 				deathScreen = true;
+				gameScore = 0;
+				currentLevel = 1;
+				currentStage = 1;
 				SetState(MENU_STATE);
 			}
 
@@ -530,6 +533,9 @@ void Game::SwitchState()
 	{
 		pauseScreen = false;
 		deathScreen = false;
+		gameScore = 0;
+		currentLevel = 1;
+		currentStage = 1;
 		state = MENU_STATE;
 		menuScreens->SetMenuState(MAIN_MENU);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

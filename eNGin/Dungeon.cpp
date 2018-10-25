@@ -100,16 +100,56 @@ Dungeon::Dungeon(Game* gameIn)
 	std::random_device rd;     // only used once to initialise (seed) engine
 	std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
 	std::uniform_int_distribution<int> uni(GO_LEFT, GO_DOWN); // guaranteed unbiased
+	
+
+	int level = owner->GetLevel();
+	int nEnemies;
 
 	int ex, ez;
 
 	dir = uni(rng);
 	
-	nSteps = 400;
+	nSteps = 400 + ((level - 1) * 20);
 	
-	gridWidth = 20;
-	gridHeight = 20;
+	switch (level)
+	{
+		case 1:
+			gridWidth = 20;
+			nEnemies = 3;
+			break;
 
+		case 2:
+			gridWidth = 24;
+			nEnemies = 5;
+			break;
+
+		case 3:
+			gridWidth = 28;
+			nEnemies = 8;
+			break;
+
+		case 4:
+			gridWidth = 32;
+			nEnemies = 10;
+			break;
+
+		case 5:
+			gridWidth = 36;
+			nEnemies = 12;
+			break;
+
+		default:
+			gridWidth = 40;
+			nEnemies = 14;
+			break;
+	}
+	
+	gridHeight = gridWidth;
+
+	std::uniform_int_distribution<int> uGrid(2, gridWidth-3);
+
+	int startX = gridWidth / 2;
+	int startY = gridWidth / 2;
 	xPos = gridWidth / 2;
 	yPos = gridHeight / 2;
 
@@ -185,15 +225,45 @@ Dungeon::Dungeon(Game* gameIn)
 			}
 			else
 			{
-				if (xx % 4 == 0)
+				if (grid[xx][yy] >= 1)
 				{
-					owner->AddCoin(xx * 4, 0, yy * 4);
+					int nWalls = (grid[xx + 1][yy] == 0) + (grid[xx + 1][yy+1] == 0) + (grid[xx][yy+1] == 0) + (grid[xx-1][yy+1] == 0) + (grid[xx-1][yy] == 0) + (grid[xx-1][yy-1] == 0) + (grid[xx][yy-1] == 0) + (grid[xx+1][yy-1] == 0);
+					if (nWalls > 3)
+					{
+						owner->AddCoin(xx * 4, 0, yy * 4);
+					}
 				}
 			}
 		}
 	}
 
-	owner->AddEnemy(ex * 4, 2, ez * 4);
+	bool spawnCheck;
+	int enemyCount = 0;
+	while(enemyCount <= nEnemies)
+	{
+		spawnCheck = false;
+		for (xx = uGrid(rng); xx < gridWidth - 3; xx++)
+		{
+			for (yy = uGrid(rng); yy < gridHeight - 3; yy++)
+			{
+				if ((grid[xx][yy] == 1) && (abs(xx - startX) > 3 && abs(yy - startY) > 3))
+				{
+					dir = uni(rng);
+
+					if (dir == 0)
+					{
+						if (!spawnCheck)
+						{
+							spawnCheck = true;
+							owner->AddEnemy(xx * 4, 3, yy * 4);
+							enemyCount++;
+						}
+					}
+				}
+			}
+		}
+	}
+	
 
 	Vector3 startPos = Vector3((gridWidth / 2)*4, 0, (gridHeight / 2)*4);
 
