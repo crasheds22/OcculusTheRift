@@ -7,6 +7,7 @@
 #define GAME_STATE 2
 #define PAUSE_MENU 5
 #define DEATH_MENU 6
+#define STORY_MENU 7
 
 Game game;
 
@@ -169,7 +170,7 @@ void Mouse(int button, int state, int x, int y)
 	}
 
 	if (game.GetState() == GAME_STATE) {
-		if (game.GetMenu()->GetMenuState() == MAIN_MENU || game.GetMenu()->GetMenuState() == PAUSE_MENU || game.GetMenu()->GetMenuState() == DEATH_MENU)
+		if (game.GetMenu()->GetMenuState() == MAIN_MENU || game.GetMenu()->GetMenuState() == PAUSE_MENU || game.GetMenu()->GetMenuState() == DEATH_MENU || game.GetMenu()->GetMenuState() == STORY_MENU)
 		{
 			game.GetMenu()->MouseClick(button, state, x, y);
 		}
@@ -188,7 +189,7 @@ void MouseMove(int x, int y)
 {
 	bool showCursor = false;
 
-	if (game.GetMenu()->GetMenuState() == MAIN_MENU || game.GetMenu()->GetMenuState() == PAUSE_MENU || game.GetMenu()->GetMenuState() == DEATH_MENU)
+	if (game.GetMenu()->GetMenuState() == MAIN_MENU || game.GetMenu()->GetMenuState() == PAUSE_MENU || game.GetMenu()->GetMenuState() == DEATH_MENU || game.GetMenu()->GetMenuState() == STORY_MENU)
 	{
 		showCursor = true;
 	}

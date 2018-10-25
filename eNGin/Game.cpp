@@ -93,6 +93,7 @@ void Game::Initialise()
 	textures[26].LoadTexture("data/hb_full_right.png", 32, 32);
 	textures[27].LoadTexture("data/Pause.png", 512, 512);
 	textures[28].LoadTexture("data/Death.png", 512, 512);
+	textures[29].LoadTexture("data/Story.png", 768, 768);
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
@@ -262,6 +263,10 @@ void Game::Draw()
 				{
 					menuScreens->Draw(textures[28]);
 					menuScreens->SetMenuState(DEATH_MENU);
+				}
+				else if (menuScreens->GetMenuState() == STORY_MENU)
+				{
+					menuScreens->Draw(textures[29]);
 				}
 				else
 				{
@@ -531,6 +536,16 @@ void Game::SwitchState()
 		glClearColor(0, 0, 0, 1);
 		glFlush();
 		bgmControl.SetSong(1);
+	}
+	else if (state == MENU_STATE && menuScreens->GetMenuState() == STORY_MENU)
+	{
+		pauseScreen = false;
+		deathScreen = false;
+		menuScreens->SetMenuState(STORY_MENU);
+		menuScreens->SetMenuState(MAIN_MENU);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0, 0, 0, 1);
+		glFlush();
 	}
 }
 
