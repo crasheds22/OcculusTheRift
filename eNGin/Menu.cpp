@@ -108,6 +108,16 @@ void Menu::MouseClick(int button, int state, int x, int y)
 				exitScreen = true;
 			}
 		}
+		else if (menuState == STORY_MENU)
+		{
+			yUp = windowHeight / 1.41697416974;
+			yDown = windowHeight / 1.19254658385;
+
+			if ((x >= xLeft && x <= xRight) && (y >= yUp && y <= yDown))
+			{
+				owner->SwitchState();
+			}
+		}
 		else
 		{
 			yUp = windowHeight / 2.88721804511;
@@ -115,7 +125,7 @@ void Menu::MouseClick(int button, int state, int x, int y)
 
 			if ((x >= xLeft && x <= xRight) && (y >= yUp && y <= yDown))
 			{
-				owner->Restart();
+				menuState = STORY_MENU;
 			}
 			else if ((x >= xLeft && x <= xRight) && (y >= yUp + yDistance && y <= yDown + yDistance))
 			{

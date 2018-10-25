@@ -11,6 +11,7 @@ class Game;
 #define GAME_STATE 2
 #define PAUSE_MENU 5
 #define DEATH_MENU 6
+#define STORY_MENU 7
 
 /**
  *	@class Menu

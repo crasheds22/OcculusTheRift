@@ -29,22 +29,25 @@ void Dungeon::DrawFloor(Texture & tex)
 	{
 		for (j = 0; j < gridHeight; j++)
 		{
-			//Get Centre Position
-			xx = i * 4;
-			zz = j * 4;
+			if (grid[i][j] == 1)
+			{
+				//Get Centre Position
+				xx = i * 4;
+				zz = j * 4;
 
-			glPushMatrix();
-			glBegin(GL_QUADS);
-			glTexCoord2f(-1.0, 1.0);
-			glVertex3f(xx - 2, yy, zz - 2);
-			glTexCoord2f(-1.0, 0.0);
-			glVertex3f(xx - 2, yy, zz + 2);
-			glTexCoord2f(0.0, 0.0);
-			glVertex3f(xx + 2, yy, zz + 2);
-			glTexCoord2f(0.0, 1.0);
-			glVertex3f(xx + 2, yy, zz - 2);
-			glEnd();
-			glPopMatrix();
+				glPushMatrix();
+				glBegin(GL_QUADS);
+				glTexCoord2f(-1.0, 1.0);
+				glVertex3f(xx - 2, yy, zz - 2);
+				glTexCoord2f(-1.0, 0.0);
+				glVertex3f(xx - 2, yy, zz + 2);
+				glTexCoord2f(0.0, 0.0);
+				glVertex3f(xx + 2, yy, zz + 2);
+				glTexCoord2f(0.0, 1.0);
+				glVertex3f(xx + 2, yy, zz - 2);
+				glEnd();
+				glPopMatrix();
+			}
 
 		}
 	}
@@ -66,23 +69,26 @@ void Dungeon::DrawRoof(Texture & tex)
 	for (i = 0; i < gridWidth; i++)
 	{
 		for (j = 0; j < gridHeight; j++)
-		{			
-			//Get Centre Position
-			xx = i * 4;
-			zz = j * 4;
+		{	
+			if (grid[i][j] == 1)
+			{
+				//Get Centre Position
+				xx = i * 4;
+				zz = j * 4;
 
-			glPushMatrix();
-			glBegin(GL_QUADS);
+				glPushMatrix();
+				glBegin(GL_QUADS);
 				glTexCoord2f(-1.0, 1.0);
-				glVertex3f(xx-2, yy, zz-2);
+				glVertex3f(xx - 2, yy, zz - 2);
 				glTexCoord2f(-1.0, 0.0);
 				glVertex3f(xx - 2, yy, zz + 2);
 				glTexCoord2f(0.0, 0.0);
 				glVertex3f(xx + 2, yy, zz + 2);
 				glTexCoord2f(0.0, 1.0);
 				glVertex3f(xx + 2, yy, zz - 2);
-			glEnd();
-			glPopMatrix();
+				glEnd();
+				glPopMatrix();
+			}
 		}
 	}
 	glDisable(GL_TEXTURE_2D);
@@ -138,28 +144,28 @@ Dungeon::Dungeon(Game* gameIn)
 		switch(dir)
 		{
 			case GO_LEFT:
-				if (xPos > 1)
+				if (xPos > 2)
 				{
 					xPos--;
 				}
 				break;
 
 			case GO_RIGHT:
-				if (xPos < gridWidth - 2)
+				if (xPos < gridWidth - 3)
 				{
 					xPos++;
 				}
 				break;
 
 			case GO_UP:
-				if (yPos > 1)
+				if (yPos > 2)
 				{
 					yPos--;
 				}
 				break;
 
 			case GO_DOWN:
-				if (yPos < gridHeight - 2)
+				if (yPos < gridHeight - 3)
 				{
 					yPos++;
 				}
@@ -169,11 +175,11 @@ Dungeon::Dungeon(Game* gameIn)
 
 	owner->AddExit(ex * 4, -1, ez * 4);
 
-	for (xx = 0; xx < gridWidth; xx++)
+	for (xx = 1; xx < gridWidth-1; xx++)
 	{
-		for (yy = 0; yy < gridHeight; yy++)
+		for (yy = 1; yy < gridHeight-1; yy++)
 		{
-			if (grid[xx][yy] == 0)
+			if ((grid[xx][yy] == 0) && ((grid[xx-1][yy] == 1) || (grid[xx + 1][yy] == 1) || (grid[xx][yy+1] == 1) || (grid[xx][yy - 1] == 1)))
 			{
 				owner->AddWall(xx * 4, 0, yy * 4);
 			}

@@ -27,6 +27,7 @@
 #define MAIN_MENU 4
 #define PAUSE_MENU 5
 #define DEATH_MENU 6
+#define STORY_MENU 7
 
 #define tPlayer 0
 #define tEnemy 1

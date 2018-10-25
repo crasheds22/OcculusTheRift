@@ -9,6 +9,8 @@ MusicPlayer::MusicPlayer()
 	int result = 0;
 	int flags = MIX_INIT_MP3;
 
+	Mix_Volume(-1, 50);
+
 	if (SDL_Init(SDL_INIT_AUDIO) < 0) {
 		std::cout << "Failed to init SDL" << std::endl;
 		exit(1);
@@ -51,6 +53,7 @@ void MusicPlayer::PlaySong()
 		{
 			if (!menuCheck)
 			{
+				Mix_VolumeMusic(30);
 				Mix_FadeInMusic(currentSong, 1, 100);
 				menuCheck = true;
 			}
@@ -61,6 +64,7 @@ void MusicPlayer::PlaySong()
 		}
 		else
 		{
+			Mix_VolumeMusic(30);
 			Mix_FadeInMusic(currentSong, -1, 100);
 		}
 	}
