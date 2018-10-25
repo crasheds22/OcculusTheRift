@@ -10,7 +10,7 @@ Player::Player() : deltaMoveFB(0.0),
 				   deltaMoveR(0),
 				   damageTime(1),
 				   damageTimer(damageTime),
-				   shotTime(2),
+				   shotTime(0.3),
 				   shotTimer(shotTime)
 {
 
