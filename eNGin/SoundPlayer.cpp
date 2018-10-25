@@ -18,6 +18,12 @@ SoundPlayer::SoundPlayer()
 	}
 
 	sounds.emplace_back(Mix_LoadWAV("data/coin.wav"));
+	sounds.emplace_back(Mix_LoadWAV("data/laser_charge.wav"));
+	sounds.emplace_back(Mix_LoadWAV("data/laser_fire.wav"));
+	sounds.emplace_back(Mix_LoadWAV("data/eye_lost.wav"));
+	sounds.emplace_back(Mix_LoadWAV("data/eye_found.wav"));
+	sounds.emplace_back(Mix_LoadWAV("data/player_hurt.wav"));
+	sounds.emplace_back(Mix_LoadWAV("data/game_over_music.wav"));
 	
 }
 

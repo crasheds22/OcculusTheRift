@@ -9,6 +9,8 @@ MusicPlayer::MusicPlayer()
 	int result = 0;
 	int flags = MIX_INIT_MP3;
 
+	
+
 	Mix_Volume(-1, 50);
 
 	if (SDL_Init(SDL_INIT_AUDIO) < 0) {
@@ -82,4 +84,20 @@ void MusicPlayer::SetSong(int songIn)
 		Mix_FadeOutMusic(500);
 		currentSong = songs[songIn];
 	}
+}
+
+void MusicPlayer::StopMusic()
+{
+	Mix_RewindMusic();
+	Mix_PauseMusic();
+}
+
+void MusicPlayer::ResumeMusic()
+{
+	
+	if (Mix_PausedMusic() == 1)
+	{
+		Mix_ResumeMusic();
+	}
+	
 }

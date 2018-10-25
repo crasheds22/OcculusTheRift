@@ -287,6 +287,13 @@ public:
 	*/
 	void Restart();
 
+	/**
+	*	A normal member taking 1 arguments
+	*	Used to play a sound from within an actor
+	*	@param index of the sound to play
+	*/
+	void PlaySoundAt(int index);
+
 private:
 	int count;					/*<! Used to determine first run or not */
 	int gameScore;				/*<! Used to track the player's score in game */

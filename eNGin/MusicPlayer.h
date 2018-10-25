@@ -46,6 +46,18 @@ public:
 	*/
 	void SetSong(int songIn);
 
+	/**
+	*	Normal member function
+	*	Called by game to stop the music
+	*/
+	void StopMusic();
+
+	/**
+	*	Normal member function
+	*	Called by game to resume music
+	*/
+	void ResumeMusic();
+
 private:
 	Mix_Music * currentSong;		/*<! Song currently being played by the MusicPlayer>*/
 	std::vector<Mix_Music*> songs;	/*<! Vector of all songs used in game>*/

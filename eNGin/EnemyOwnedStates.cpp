@@ -28,7 +28,7 @@ void WanderState::Exit(Enemy* entity) {
 //Chase State
 
 void ChaseState::Enter(Enemy* entity) {
-
+	//entity->PlaySound(4);
 }
 
 void ChaseState::Execute(Enemy* entity) {
@@ -56,6 +56,7 @@ void ChaseState::Execute(Enemy* entity) {
 	else if (distance > 24.0) {
 		//Player out of range
 		entity->ChangeState(entity->GetWander());
+		entity->PlaySound(3);
 	}
 	else {
 		//Chase player down
@@ -75,6 +76,7 @@ void ChaseState::Exit(Enemy* entity) {
 //Attack State
 
 void AttackState::Enter(Enemy* entity) {
+	//entity->PlaySound(1);
 }
 
 void AttackState::Execute(Enemy* entity) {

@@ -132,6 +132,7 @@ void Game::Update(float deltaTime)
 					currentLevel++;
 					currentStage = 1;
 				}
+				soundControl.PlaySound(1);
 				ClearLevel();
 			}
 
@@ -201,6 +202,8 @@ void Game::Update(float deltaTime)
 				gameScore = 0;
 				currentLevel = 1;
 				currentStage = 1;
+				bgmControl.StopMusic();
+				PlaySoundAt(6);
 				SetState(MENU_STATE);
 			}
 
@@ -654,6 +657,7 @@ void Game::AddEnemy(float x, float y, float z)
 
 void Game::AddProjectile(Actor* owner, Vector3 start, Vector3 dir, int tex) {
 	Projectile *proj = new Projectile(owner, models[4], &textures[tex], 2, dir, start);
+	PlaySoundAt(2);
 
 	Entities[tProjectile].push_back(proj);
 }
@@ -701,13 +705,22 @@ void Game::Restart()
 
 	currentStage = 1;
 	currentLevel = 1;
+	gameScore = 0;
 	playerCharacter->Initialise();
 	menuScreens->SetMenuState(0);
 	ClearLevel();
+
+	bgmControl.ResumeMusic();
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0, 0, 0, 1);
 	glFlush();
 	bgmControl.SetSong(2);
+}
+
+void Game::PlaySoundAt(int index)
+{
+	soundControl.PlaySound(index);
 }
 
 std::vector <Texture>  Game::GetTexture()

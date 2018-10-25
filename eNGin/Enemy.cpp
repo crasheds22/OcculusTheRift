@@ -70,12 +70,18 @@ State* Enemy::GetAttack() {
 void Enemy::Shoot() {
 	if (shootTimer <= 0) {
 		owner->AddProjectile(this, this->GetPos(), owner->GetPlayer()->GetPos() - this->GetPos(), 18);
+		
 		shootTimer = shootTime;
 	}
 }
 
 float Enemy::GetdT() {
 	return dT;
+}
+
+void Enemy::PlaySound(int index)
+{
+	owner->PlaySoundAt(index);
 }
 
 //=============================================================================

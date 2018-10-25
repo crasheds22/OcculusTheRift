@@ -3,6 +3,7 @@
 
 #include "Actor.h"
 #include "Quarternion.h"
+#include "SoundPlayer.h"
 
 /**
  *	@class Player
@@ -234,6 +235,8 @@ private:
 
 	Quarternion cameraViewDelta; /*<! The quarternion camera */
 	Vector3 cameraUp;			 /*<! The up position of the camera */
+
+	SoundPlayer soundPlay; /*<! SFX control for player character*/
 
 	double damageTime,		/*<! The amount of time between taking damage */
 		   damageTimer;		/*<! Timer to determine when to take damage*/

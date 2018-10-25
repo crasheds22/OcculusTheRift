@@ -67,6 +67,7 @@ void Player::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMa
 				if (damageTimer <= 0) {
 					SetCurrentHealth(GetCurrentHealth() - 1);
 					damageTimer = damageTime;
+					soundPlay.PlaySound(5);
 				}
 			}
 		}

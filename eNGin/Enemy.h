@@ -113,6 +113,13 @@ public:
 	 */
 	float GetdT();
 
+	/**
+	*	A function taking one argument
+	*	Plays a sound from Game object
+	*	@param index the sound file to play
+	*/
+	void PlaySound(int index);
+
 private:
 	State* currentState;	/*<! The state the AI is currently in */
 

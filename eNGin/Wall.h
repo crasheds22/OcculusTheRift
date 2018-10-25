@@ -35,7 +35,7 @@ public:
 	void Update(float deltaTime) override {};
 
 protected:
-	float size = 2.2; /*<! size of the wall's hit box */
+	float size = 3.2; /*<! size of the wall's hit box */
 };
 //=========================================================================
 #endif
