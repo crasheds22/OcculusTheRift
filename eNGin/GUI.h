@@ -24,7 +24,7 @@ public:
 	void DrawGUI();
 
 	/**
-	 *	Draws the reticule in the centre of the scrren
+	 *	Draws the reticule in the centre of the screen
 	 */
 	void DrawReticle();
 	

@@ -442,7 +442,7 @@ void Game::MouseLook(int x, int y)
 	int deadzone = 0.25;
 	Vector3 pitchAxis;
 	GLdouble fps = 60;
-	GLdouble mouseSensitivity = 3;
+	GLdouble mouseSensitivity = 2;
 
 	//If the mouse pointer has moved far enough, rotate camera
 	if ((abs((long double)x) > deadzone) || (abs((long double)y) > deadzone)) 
@@ -492,7 +492,9 @@ void Game::MouseLook(int x, int y)
 
 void Game::MouseClick(int button, int state, int x, int y) {
 	if (playerCharacter->GetShotTimer() <= 0) {
-		AddProjectile(playerCharacter, playerCharacter->GetPos(), (playerCharacter->GetCameraViewDeltaVector() - playerCharacter->GetPos()).UnitVector(), 17);
+		Vector3 playerPos(playerCharacter->GetPos().GetPointX(), playerCharacter->GetPos().GetPointY() + playerCharacter->GetCameraUp().GetPointY(), playerCharacter->GetPos().GetPointZ());
+
+		AddProjectile(playerCharacter, playerPos, playerCharacter->GetCameraViewDeltaVector(), 17);
 		playerCharacter->SetShotTimer(playerCharacter->GetShotTime());
 	}
 }
