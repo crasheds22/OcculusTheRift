@@ -199,7 +199,6 @@ void Game::Update(float deltaTime)
 			if (playerCharacter->GetCurrentHealth() <= 0)
 			{
 				deathScreen = true;
-				gameScore = 0;
 				currentLevel = 1;
 				currentStage = 1;
 				bgmControl.StopMusic();
@@ -716,6 +715,11 @@ void Game::Restart()
 	glClearColor(0, 0, 0, 1);
 	glFlush();
 	bgmControl.SetSong(2);
+}
+
+int Game::GetGameScore()
+{
+	return gameScore;
 }
 
 void Game::PlaySoundAt(int index)

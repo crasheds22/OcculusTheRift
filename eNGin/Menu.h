@@ -42,6 +42,8 @@ public:
 	 */
 	Menu(Game * ownerIn);
 
+	void DrawText(const char * text, int length, int x, int y);
+
 	/**
 	 *	Function to draw a texture to the screen
 	 *	@param displayingTexture The texture to draw on the screen

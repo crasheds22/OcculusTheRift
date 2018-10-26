@@ -282,6 +282,12 @@ public:
 	void AddProjectile(Actor* owner, Vector3 start, Vector3 dir, int tex);
 
 	/**
+	*	Returns the gameScore
+	*	@return Game Score
+	*/
+	int GetGameScore();
+
+	/**
 	*	A normal member taking no arguments
 	*	Restarts game world
 	*/

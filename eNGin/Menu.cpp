@@ -8,6 +8,27 @@ Menu::Menu(Game* ownerIn)
 	owner = ownerIn;
 }
 
+void Menu::DrawText(const char *text, int length, int x, int y)
+{
+	glMatrixMode(GL_PROJECTION);
+	double *matrix = new double[16];
+	glGetDoublev(GL_PROJECTION_MATRIX, matrix);
+	glLoadIdentity();
+	glOrtho(0, 800, 0, 600, -5, 5);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glPushMatrix();
+	glLoadIdentity();
+	glTranslatef(x, y, 0);
+	glScalef(0.25, 0.25, 1);
+	for (int i = 0; i < length; i++)
+	{
+		glutStrokeCharacter(GLUT_STROKE_ROMAN, (int)text[i]);
+	}
+	glPopMatrix();
+	glMatrixMode(GL_PROJECTION);
+}
+
 void Menu::Draw(Texture displayingTexture)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	
@@ -47,6 +68,12 @@ void Menu::Draw(Texture displayingTexture)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
+	if (menuState == DEATH_MENU)
+	{
+		string text = "Score: " + to_string(owner->GetGameScore());
+		DrawText(text.data(), text.size(), centreX / 2.05, centreY);
+	}
+
 	gluPerspective(60.0, 1.0 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1.0, 400.0);
 	glMatrixMode(GL_MODELVIEW);
 
@@ -56,7 +83,11 @@ void Menu::Draw(Texture displayingTexture)
 void Menu::Init() 
 {
 	SetState(MENU_STATE);
-	exitScreen = false;
+	exitScreen = false; 
+	windowWidth = glutGet(GLUT_WINDOW_WIDTH);
+	windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+	centreX = windowWidth / 2;
+	centreY = windowHeight / 2;
 }
 
 void Menu::MouseClick(int button, int state, int x, int y) 
