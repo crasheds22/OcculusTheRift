@@ -70,7 +70,7 @@ void Menu::MouseClick(int button, int state, int x, int y)
 	float xRight = windowWidth / 1.47357065804;
 	float yUp = windowHeight / 2.52631578947;
 	float yDown = windowHeight / 1.8962962963;
-	float yDistance = 138;
+	float yDistance = windowHeight / 5.5652173913;
 
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
