@@ -68,7 +68,7 @@ void Menu::Draw(Texture displayingTexture)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	if (menuState == DEATH_MENU)
+	if (menuState == DEATH_MENU && !exitScreen)
 	{
 		string text = "Score: " + to_string(owner->GetGameScore());
 		DrawText(text.data(), text.size(), centreX / 2.05, centreY);

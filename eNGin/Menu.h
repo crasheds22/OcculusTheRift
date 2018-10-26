@@ -29,6 +29,10 @@ class Game;
  *	@author Vincent Tan
  *	@version 2.5 Mouse click on "buttons" change state of game
  *	@date 05-10-2018
+ *
+ *	@author Vincent Tan
+ *	@version 3.0 Fixes and more drawings
+ *	@date 26-10-2018
  */
 
 class Game;
@@ -41,8 +45,6 @@ public:
 	 *	Accepts a Game owner and initialises accordingly
 	 */
 	Menu(Game * ownerIn);
-
-	void DrawText(const char * text, int length, int x, int y);
 
 	/**
 	 *	Function to draw a texture to the screen
@@ -100,9 +102,19 @@ public:
 	 */
 	bool GetExit();
 
-	bool exitScreen; /*<! To determine fi the exit screen is showing */
+	bool exitScreen; /*<! To determine if the exit screen is showing */
 
 private:
+
+	/**
+	 *	Function to draw a texture to the screen
+	 *	@param text The text to display
+	 *	@param length The length of the text in integers
+	 *	@param x The X position to display
+	 *	@param y The Y position to display
+	 */
+	void DrawText(const char * text, int length, int x, int y);
+
 	Game* owner;		/*<!  The owner of the menu instance */
 	
 	float windowWidth;	/*<! The width of the current window */
