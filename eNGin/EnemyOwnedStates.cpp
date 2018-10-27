@@ -61,7 +61,7 @@ void ChaseState::Execute(Enemy* entity) {
 	else {
 		//Chase player down
 		entity->MoveX(unitTarget.GetPointX());
-		entity->MoveY(unitTarget.GetPointY());
+		//entity->MoveY(unitTarget.GetPointY());
 		entity->MoveZ(unitTarget.GetPointZ());
 
 		entity->SetRot(0, angle - 240, 0);

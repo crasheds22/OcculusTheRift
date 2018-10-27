@@ -300,7 +300,7 @@ void Game::Draw()
 
 		case GAME_STATE:
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			
+			glClearColor(0.5, 0.5, 0.5, 1);
 			playerCharacter->Draw();
 
 			glPushMatrix();
@@ -373,6 +373,10 @@ void Game::Draw()
 			{
 				DrawGUI();
 				DrawHUD();
+				std::string scoreText = "Score: ";
+				DrawText(20, -10, scoreText);
+				scoreText = std::to_string(gameScore);
+				DrawText(20, -11, scoreText);
 			}
 
 			glFlush();
@@ -728,6 +732,40 @@ void Game::PlaySoundAt(int index)
 	soundControl.PlaySound(index);
 }
 
+void Game::DrawText(int x, int y, std::string text)
+{
+	glDisable(GL_TEXTURE_2D); //added this
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(-32.0, 32.0, -18.0, 18.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glColor3d(1.0, 1.0, 1.0);
+	glRasterPos2i(x, y);
+	void * font = GLUT_BITMAP_TIMES_ROMAN_24;
+	for (string::iterator i = text.begin(); i != text.end(); ++i)
+	{
+		char c = *i;
+		
+		glutBitmapCharacter(font, c);
+	}
+	glMatrixMode(GL_PROJECTION); //swapped this with...
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW); //...this
+	glPopMatrix();
+	//added this
+
+	glEnable(GL_DEPTH_TEST);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	gluPerspective(60.0, 1.0 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1.0, 400.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
 std::vector <Texture>  Game::GetTexture()
 {
 	return textures;
@@ -811,6 +849,9 @@ void Game::DrawHUD()
 		glDisable(GL_TEXTURE_2D);
 	}
 
+
+
+
 	std::vector<unsigned char> box = textures[30].GetTexture();
 	glEnable(GL_TEXTURE_2D);
 	glDisable(GL_DEPTH_TEST);
@@ -823,7 +864,7 @@ void Game::DrawHUD()
 	float bx1 = 4.5;
 	float bx2 = 7.5;
 	float by1 = -2.5;
-	float by2 = -4.5;
+	float by2 = -3.25;
 
 	//Draw Hud Box
 	glPushMatrix();
@@ -840,6 +881,7 @@ void Game::DrawHUD()
 	glPopMatrix();
 	glDisable(GL_TEXTURE_2D);
 
+	
 
 
 	glEnable(GL_DEPTH_TEST);
@@ -849,4 +891,6 @@ void Game::DrawHUD()
 	gluPerspective(60.0, 1.0 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1.0, 400.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+
 }

@@ -255,7 +255,7 @@ Dungeon::Dungeon(Game* gameIn)
 						if (!spawnCheck)
 						{
 							spawnCheck = true;
-							owner->AddEnemy(xx * 4, 3, yy * 4);
+							owner->AddEnemy(xx * 4, uni(rng)+1, yy * 4);
 							enemyCount++;
 						}
 					}
