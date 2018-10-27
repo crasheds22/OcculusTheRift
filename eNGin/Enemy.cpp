@@ -4,7 +4,9 @@
 Enemy::Enemy(Game* own, Model* mod, Texture* tex, float xPos, float yPos, float zPos) : Actor(mod, tex),
 																												 owner(own),
 																												 shootTime(2),
-																												 shootTimer(shootTime)
+																												 shootTimer(shootTime),
+	damageTime(1),
+	damageTimer(damageTime)
 {
 	SetPos(xPos, yPos, zPos);
 	SetMoveSpeed(4);
@@ -37,14 +39,50 @@ Enemy::~Enemy() {
 	owner = NULL;
 }
 
-void Enemy::Update(float deltaTime) {
+void Enemy::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap) {
 	dT = deltaTime;
 
 	if (currentState) {
 		currentState->Execute(this);
 	}
 
+	collisionBox.SetMaxPoint(GetPos().GetPointX() + 1, GetPos().GetPointY() + 1, GetPos().GetPointZ() + 1);
+	collisionBox.SetMinPoint(GetPos().GetPointX() - 1, GetPos().GetPointY() - 1, GetPos().GetPointZ() - 1);
+
+	//Check for Wall Collisions
+	for (std::size_t ii = 0; ii < entityMap[2].size(); ii++)
+	{
+		if (collisionBox.AABBtoAABB(entityMap[2][ii]->GetCollider()))
+		{
+			collisionBox.CollideWith(this, *entityMap[2][ii]);
+
+		}
+	}
+	//Check for other enemy collisions
+	for (std::size_t ii = 0; ii < entityMap[1].size(); ii++)
+	{
+		if (collisionBox.AABBtoAABB(entityMap[1][ii]->GetCollider()))
+		{
+			collisionBox.CollideWith(this, *entityMap[1][ii]);
+
+		}
+	}
+	//Check for projectile collisions
+	for (std::size_t ii = 0; ii < entityMap[5].size(); ii++)
+	{
+		if (entityMap[5][ii] != NULL) {
+			if (collisionBox.AABBtoAABB(entityMap[5][ii]->GetCollider()))
+			{
+				if (damageTimer <= 0) {
+					SetCurrentHealth(GetCurrentHealth() - 1);
+					damageTimer = damageTime;
+				}
+			}
+		}
+	}
+
 	shootTimer -= dT;
+	damageTime -= dT;
 }
 
 void Enemy::ChangeState(State* newState) {

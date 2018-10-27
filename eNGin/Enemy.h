@@ -49,11 +49,19 @@ public:
 	~Enemy();
 
 	/**
-	 *	An overridden function taking one value
+	 *	A function taking one value
 	 *	Updates the enemy state in the game
 	 *	@param deltaTime The time between successive calls
+	 *	@param entityMap The list of closest entities
 	 */
-	void Update(float deltaTime) override;
+	void Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap) override;
+	
+	/**
+	 *	An overridden function taking on value
+	 *	Would be used to update the Enemy but has been replaced
+	 *	@param deltaTime The time between successive calls
+	 */
+	void Update(float deltaTime) override {};
 
 	/**
 	 *	A normal function taking one argument
@@ -133,6 +141,9 @@ private:
 
 	float shootTime;	/*<! How frequently an Enemy is allowed to shoot */
 	float shootTimer;	/*<! A countdown timer that decides when the Enemy may shoot */
+
+	double damageTime,		/*<! The amount of time between taking damage */
+		damageTimer;		/*<! Timer to determine when to take damage*/
 };
 
 #endif

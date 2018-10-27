@@ -41,6 +41,12 @@ public:
 	void Update(float deltaTime) override;
 
 	/**
+	 *	An empty overriden member
+	 *	Had to be overriden, but does nothing in this case
+	 */
+	void Update(float deltaTime, std::map<int, std::vector<Actor*>> eMap) override {};
+
+	/**
 	 *	Defines the way the projectile will move
 	 */
 	void Move();

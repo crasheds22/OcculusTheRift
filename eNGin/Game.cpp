@@ -108,7 +108,8 @@ void Game::Initialise()
 
 void Game::Update(float deltaTime)
 {
-	std::map<int, std::vector<Actor*>> tempMap;
+	std::map<int, std::vector<Actor*>> playerMap;
+	std::map<int, std::vector<Actor*>> enemyMap;
 
 	bgmControl.PlaySong();
 	
@@ -151,11 +152,36 @@ void Game::Update(float deltaTime)
 			
 			for (std::size_t i = 0; i < Entities[tEnemy].size(); i++)
 			{
+				enemyMap.clear();
 				if (Entities[tEnemy][i] != NULL) {
-					if (!pauseScreen) {
-						Entities[tEnemy][i]->Update(deltaTime);
+					for (std::size_t j = 0; j < Entities.size(); ++j)
+					{
+						std::vector<Actor*> resultObjectList;
+						std::pair <int, std::vector<Actor*>> enumActor;
+
+						for (std::size_t k = 0; k < Entities[j].size(); k++)
+						{
+							if (Entities[j][k] != NULL && Entities[j][k] != Entities[tEnemy][i]) {
+								Vector3 temp = Entities[j][k]->GetPos();
+
+								if (ProximityCull(Entities[tEnemy][i]->GetPos(), temp))
+								{
+									resultObjectList.push_back(Entities[j][k]);
+								}
+							}
+						}
+
+						enumActor.first = j;
+						enumActor.second = resultObjectList;
+						enemyMap.insert(enumActor);
 					}
-					else if(Entities[tEnemy][i]->GetCurrentHealth() <= 0){
+
+					if (!pauseScreen) {
+						Entities[tEnemy][i]->Update(deltaTime, enemyMap);
+						//Entities[tEnemy][i]->Update(deltaTime);
+					}
+					
+					if(Entities[tEnemy][i]->GetCurrentHealth() <= 0) {
 						Entities[tEnemy].erase(Entities[tEnemy].begin() + i);
 					}
 				}
@@ -173,6 +199,7 @@ void Game::Update(float deltaTime)
 				}
 			}
 
+			playerMap.clear();
 			for (std::size_t i = 0; i < Entities.size(); ++i)
 			{
 				std::vector<Actor*> resultObjectList;
@@ -192,10 +219,10 @@ void Game::Update(float deltaTime)
 
 				enumActor.first = i;
 				enumActor.second = resultObjectList;
-				tempMap.insert(enumActor);
+				playerMap.insert(enumActor);
 			}
 
-			playerCharacter->Update(deltaTime, tempMap);
+			playerCharacter->Update(deltaTime, playerMap);
 
 			if (playerCharacter->GetCurrentHealth() <= 0)
 			{
@@ -595,7 +622,6 @@ void Game::AddWall(float x, float y, float z)
 	std::uniform_int_distribution<int> uni(0, 4); // guaranteed unbiased
 	int chance = uni(rng);
 	Wall *temp = NULL;
-
 
 	switch (currentStage)
 	{

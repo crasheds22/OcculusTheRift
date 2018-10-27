@@ -137,12 +137,6 @@ void keys(unsigned char key, int x, int y)
 	}
 	else
 	{
-		switch (key)
-		{
-		case 27:
-			exit(0);
-			break;
-		}
 		game.InputDown(key, x, y);
 	}
 }

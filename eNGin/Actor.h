@@ -62,6 +62,8 @@ public:
 	 */
 	virtual void Update(float deltaTime) = 0;
 
+	virtual void Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap) = 0;
+
 	/**
 	 *	A virtual member taking no arguments
 	 *	Every Actor can override the Draw function for their own unique models and textures
