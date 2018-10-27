@@ -1,3 +1,4 @@
+#include <pch.h>
 #include "Coin.h"
 
 Coin::Coin(float x, float y, float z, Model * mod, Texture * tex) : Actor(mod, tex)

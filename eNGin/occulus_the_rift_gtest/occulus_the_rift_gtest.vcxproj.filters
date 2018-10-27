@@ -30,9 +30,6 @@
     <ClCompile Include="..\Shay\collision.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\Cube.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\Shay\EasySound.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -58,9 +55,6 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="..\Player.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Projection.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="..\Shay\Sound.cpp">
@@ -90,6 +84,31 @@
     <ClCompile Include="..\Dungeon.cpp" />
     <ClCompile Include="..\Wall.cpp" />
     <ClCompile Include="Test007Player.cpp" />
+    <ClCompile Include="Test003Game.cpp" />
+    <ClCompile Include="..\LevelExit.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Coin.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Enemy.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EnemyOwnedStates.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GUI.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Menu.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Projectile.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SoundPlayer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -115,9 +134,6 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="..\Shay\collision.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Cube.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="..\Shay\EasySound.h">
@@ -147,9 +163,6 @@
     <ClInclude Include="..\Player.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\Projection.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Headers</Filter>
     </ClInclude>
@@ -176,6 +189,33 @@
     </ClInclude>
     <ClInclude Include="..\Dungeon.h" />
     <ClInclude Include="..\Wall.h" />
+    <ClInclude Include="..\LevelExit.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Coin.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Enemy.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EnemyOwnedStates.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GUI.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Menu.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Projectile.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SoundPlayer.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\State.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="occulus_the_rift_gtest.rc" />

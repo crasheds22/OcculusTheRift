@@ -50,15 +50,20 @@
   </PropertyGroup>
   <ItemGroup>
     <ClInclude Include="..\Actor.h" />
+    <ClInclude Include="..\Coin.h" />
     <ClInclude Include="..\Collider.h" />
-    <ClInclude Include="..\Cube.h" />
     <ClInclude Include="..\Dungeon.h" />
+    <ClInclude Include="..\Enemy.h" />
+    <ClInclude Include="..\EnemyOwnedStates.h" />
     <ClInclude Include="..\Game.h" />
+    <ClInclude Include="..\GUI.h" />
+    <ClInclude Include="..\LevelExit.h" />
     <ClInclude Include="..\lodepng.h" />
+    <ClInclude Include="..\Menu.h" />
     <ClInclude Include="..\Model.h" />
     <ClInclude Include="..\MusicPlayer.h" />
     <ClInclude Include="..\Player.h" />
-    <ClInclude Include="..\Projection.h" />
+    <ClInclude Include="..\Projectile.h" />
     <ClInclude Include="..\Quarternion.h" />
     <ClInclude Include="..\Shay.h" />
     <ClInclude Include="..\Shay\AABB.h" />
@@ -74,6 +79,8 @@
     <ClInclude Include="..\Shay\Sound.h" />
     <ClInclude Include="..\Shay\SoundTime.h" />
     <ClInclude Include="..\Shay\texturedPolygons.h" />
+    <ClInclude Include="..\SoundPlayer.h" />
+    <ClInclude Include="..\State.h" />
     <ClInclude Include="..\Texture.h" />
     <ClInclude Include="..\Vector3.h" />
     <ClInclude Include="..\Wall.h" />
@@ -82,15 +89,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Actor.cpp" />
+    <ClCompile Include="..\Coin.cpp" />
     <ClCompile Include="..\Collider.cpp" />
-    <ClCompile Include="..\Cube.cpp" />
     <ClCompile Include="..\Dungeon.cpp" />
+    <ClCompile Include="..\Enemy.cpp" />
+    <ClCompile Include="..\EnemyOwnedStates.cpp" />
     <ClCompile Include="..\Game.cpp" />
+    <ClCompile Include="..\GUI.cpp" />
+    <ClCompile Include="..\LevelExit.cpp" />
     <ClCompile Include="..\lodepng.cpp" />
+    <ClCompile Include="..\Menu.cpp" />
     <ClCompile Include="..\Model.cpp" />
     <ClCompile Include="..\MusicPlayer.cpp" />
     <ClCompile Include="..\Player.cpp" />
-    <ClCompile Include="..\Projection.cpp" />
+    <ClCompile Include="..\Projectile.cpp" />
     <ClCompile Include="..\Quarternion.cpp" />
     <ClCompile Include="..\Shay.cpp" />
     <ClCompile Include="..\Shay\AABB.CPP" />
@@ -106,6 +118,7 @@
     <ClCompile Include="..\Shay\Sound.cpp" />
     <ClCompile Include="..\Shay\SoundTime.cpp" />
     <ClCompile Include="..\Shay\texturedPolygons.cpp" />
+    <ClCompile Include="..\SoundPlayer.cpp" />
     <ClCompile Include="..\Texture.cpp" />
     <ClCompile Include="..\Vector3.cpp" />
     <ClCompile Include="..\Wall.cpp" />
@@ -119,6 +132,7 @@
     <ClCompile Include="Test002Music.cpp" />
     <ClCompile Include="Test000Vector3.cpp" />
     <ClCompile Include="Test001AABB.cpp" />
+    <ClCompile Include="Test003Game.cpp" />
     <ClCompile Include="Test004Texture.cpp" />
     <ClCompile Include="Test005Model.cpp" />
     <ClCompile Include="Test006Quarternion.cpp" />

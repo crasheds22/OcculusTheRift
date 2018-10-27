@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "Projectile.h"
 
 Projectile::Projectile(Actor* act, Model *mod, Texture *tex, double spd, Vector3 dir, Vector3 start) : Actor(mod, tex),

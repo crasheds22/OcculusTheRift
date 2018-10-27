@@ -48,8 +48,8 @@ TEST(TestSuite006_QuarternionTesting, QuartTest004_QuartMultiplication)
 	Quarternion quartTwo;
 	Quarternion quartResult;
 
-	quartOne = Quarternion(1, 2, 3, 4).Normal();
-	quartTwo = Quarternion(5, 6, 7, 8).Normal();
+	quartOne = Quarternion(1, 2, 3, 4).Normalize();
+	quartTwo = Quarternion(5, 6, 7, 8).Normalize();
 
 	quartResult = quartOne.CrossProduct(quartTwo);
 
@@ -76,8 +76,8 @@ TEST(TestSuite006_QuarternionTesting, QuartTest005_QuartMultiplication)
 	Quarternion quartTwo;
 	Quarternion quartResult;
 
-	quartOne = Quarternion(1, 2, 3, 4).Normal();
-	quartTwo = Quarternion(5, 6, 7, 8).Normal();
+	quartOne = Quarternion(1, 2, 3, 4).Normalize();
+	quartTwo = Quarternion(5, 6, 7, 8).Normalize();
 	
 
 	quartResult = quartOne.CrossProduct(quartTwo);
