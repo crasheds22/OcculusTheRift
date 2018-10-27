@@ -13,7 +13,7 @@ Game::Game()
 
 	state = SHAY_STATE;
 	
-	textures.resize(30);
+	textures.resize(35);
 	models.resize(10);
 
 	pauseScreen = false;
@@ -94,6 +94,7 @@ void Game::Initialise()
 	textures[27].LoadTexture("data/Pause.png", 512, 512);
 	textures[28].LoadTexture("data/Death.png", 512, 512);
 	textures[29].LoadTexture("data/Story.png", 768, 768);
+	textures[30].LoadTexture("data/hud_box.png", 64, 64);
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
@@ -299,7 +300,7 @@ void Game::Draw()
 
 		case GAME_STATE:
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			
+			glClearColor(0.5, 0.5, 0.5, 1);
 			playerCharacter->Draw();
 
 			glPushMatrix();
@@ -372,6 +373,10 @@ void Game::Draw()
 			{
 				DrawGUI();
 				DrawHUD();
+				std::string scoreText = "Score: ";
+				DrawText(20, -10, scoreText);
+				scoreText = std::to_string(gameScore);
+				DrawText(20, -11, scoreText);
 			}
 
 			glFlush();
@@ -727,6 +732,40 @@ void Game::PlaySoundAt(int index)
 	soundControl.PlaySound(index);
 }
 
+void Game::DrawText(int x, int y, std::string text)
+{
+	glDisable(GL_TEXTURE_2D); //added this
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(-32.0, 32.0, -18.0, 18.0);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	glColor3d(1.0, 1.0, 1.0);
+	glRasterPos2i(x, y);
+	void * font = GLUT_BITMAP_TIMES_ROMAN_24;
+	for (string::iterator i = text.begin(); i != text.end(); ++i)
+	{
+		char c = *i;
+		
+		glutBitmapCharacter(font, c);
+	}
+	glMatrixMode(GL_PROJECTION); //swapped this with...
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW); //...this
+	glPopMatrix();
+	//added this
+
+	glEnable(GL_DEPTH_TEST);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	gluPerspective(60.0, 1.0 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1.0, 400.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
 std::vector <Texture>  Game::GetTexture()
 {
 	return textures;
@@ -810,6 +849,41 @@ void Game::DrawHUD()
 		glDisable(GL_TEXTURE_2D);
 	}
 
+
+
+
+	std::vector<unsigned char> box = textures[30].GetTexture();
+	glEnable(GL_TEXTURE_2D);
+	glDisable(GL_DEPTH_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //GL_NEAREST = no smoothing
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textures[30].GetWidth(), textures[30].GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, &box[0]);
+
+	float bx1 = 4.5;
+	float bx2 = 7.5;
+	float by1 = -2.5;
+	float by2 = -3.25;
+
+	//Draw Hud Box
+	glPushMatrix();
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0, -1);
+	glVertex3f(bx1, by1, -1);
+	glTexCoord2f(1.0, -1);
+	glVertex3f(bx2, by1, -1);
+	glTexCoord2f(1.0, 0.0);
+	glVertex3f(bx2, by2, -1);
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(bx1, by2, -1);
+	glEnd();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+
+	
+
+
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -817,4 +891,6 @@ void Game::DrawHUD()
 	gluPerspective(60.0, 1.0 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1.0, 400.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+
 }

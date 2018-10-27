@@ -4,6 +4,7 @@
 #include <gl/glut.h>
 #include <vector>
 #include <map>
+#include <string>
 
 #include "Player.h"
 #include "Menu.h"
@@ -299,6 +300,16 @@ public:
 	*	@param index of the sound to play
 	*/
 	void PlaySoundAt(int index);
+
+
+	/**
+	*	A normal member taking 3 arguments
+	*	Draws text to screen
+	*	@param x pos of text
+	*	@param y pos of text
+	*	@param text the text to draw
+	*/
+	void DrawText(int x, int y, std::string text);
 
 private:
 	int count;					/*<! Used to determine first run or not */
