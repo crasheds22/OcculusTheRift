@@ -13,7 +13,7 @@ Game::Game()
 
 	state = SHAY_STATE;
 	
-	textures.resize(30);
+	textures.resize(35);
 	models.resize(10);
 
 	pauseScreen = false;
@@ -94,6 +94,7 @@ void Game::Initialise()
 	textures[27].LoadTexture("data/Pause.png", 512, 512);
 	textures[28].LoadTexture("data/Death.png", 512, 512);
 	textures[29].LoadTexture("data/Story.png", 768, 768);
+	textures[30].LoadTexture("data/hud_box.png", 64, 64);
 
 	models[0] = new Model("data/wall1.obj");
 	models[1] = new Model("data/statue_base.obj");
@@ -809,6 +810,37 @@ void Game::DrawHUD()
 		glPopMatrix();
 		glDisable(GL_TEXTURE_2D);
 	}
+
+	std::vector<unsigned char> box = textures[30].GetTexture();
+	glEnable(GL_TEXTURE_2D);
+	glDisable(GL_DEPTH_TEST);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //GL_NEAREST = no smoothing
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textures[30].GetWidth(), textures[30].GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, &box[0]);
+
+	float bx1 = 4.5;
+	float bx2 = 7.5;
+	float by1 = -2.5;
+	float by2 = -4.5;
+
+	//Draw Hud Box
+	glPushMatrix();
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0, -1);
+	glVertex3f(bx1, by1, -1);
+	glTexCoord2f(1.0, -1);
+	glVertex3f(bx2, by1, -1);
+	glTexCoord2f(1.0, 0.0);
+	glVertex3f(bx2, by2, -1);
+	glTexCoord2f(0.0, 0.0);
+	glVertex3f(bx1, by2, -1);
+	glEnd();
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+
+
 
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_PROJECTION);
