@@ -24,8 +24,9 @@ public:
 	 *	@param spd The speed to move along at
 	 *	@param dir The direction to move in
 	 *	@param start The location to start moving from
+	 *	@param isE Is the projectile enemy owned?
 	 */
-	Projectile(Actor* act, Model *mod, Texture *tex, double spd, Vector3 dir, Vector3 start);
+	Projectile(Actor* act, Model *mod, Texture *tex, double spd, Vector3 dir, Vector3 start, bool isE);
 
 	/**
 	 *	A normal destructor
@@ -57,6 +58,12 @@ public:
 	 */
 	double GetTime();
 
+	/**
+	 *	A normal function returning a boolean
+	 *	@return Whether the projectile is enemy owned or not
+	 */
+	bool GetIsEnemy();
+
 private:
 	Actor* owner;	/*<! The owner of the projectile */
 
@@ -64,6 +71,8 @@ private:
 	double dT;	/*<! A staple for holding delta time */
 
 	Vector3 direction;	/*<! The direction to move in */
+
+	bool isEnemy; /*<! determines whether the projectile is Enemy owned or not */
 
 };
 

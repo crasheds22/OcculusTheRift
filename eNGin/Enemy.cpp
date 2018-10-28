@@ -49,8 +49,6 @@ void Enemy::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap
 
 	float boxSize = 2.2;
 
-
-
 	collisionBox.SetMaxPoint(GetPos().GetPointX() + boxSize, GetPos().GetPointY() + boxSize, GetPos().GetPointZ() + boxSize);
 	collisionBox.SetMinPoint(GetPos().GetPointX() - boxSize, GetPos().GetPointY() - boxSize, GetPos().GetPointZ() - boxSize);
 
@@ -70,7 +68,6 @@ void Enemy::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap
 	}
 	else
 	{
-
 		for (std::size_t ii = 0; ii < entityMap[1].size(); ii++)
 		{
 			if (collisionBox.AABBtoAABB(entityMap[1][ii]->GetCollider()))
@@ -88,17 +85,22 @@ void Enemy::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap
 		if (entityMap[5][ii] != NULL) {
 			if (collisionBox.AABBtoAABB(entityMap[5][ii]->GetCollider()))
 			{
-				if (damageTimer <= 0) {
-					SetCurrentHealth(GetCurrentHealth() - 1);
-					owner->PlaySoundAt(4);
-					damageTimer = damageTime;
+				Projectile *p = dynamic_cast<Projectile*>(entityMap[5][ii]);
+				if (p) {
+					if (!p->GetIsEnemy()) {
+						if (damageTimer <= 0) {
+							SetCurrentHealth(GetCurrentHealth() - 1);
+							owner->PlaySoundAt(4);
+							damageTimer = damageTime;
+						}
+					}
 				}
 			}
 		}
 	}
 
 	shootTimer -= dT;
-	damageTime -= dT;
+	damageTimer -= dT;
 }
 
 void Enemy::ChangeState(State* newState) {
@@ -123,7 +125,7 @@ State* Enemy::GetAttack() {
 
 void Enemy::Shoot() {
 	if (shootTimer <= 0) {
-		owner->AddProjectile(this, this->GetPos(), owner->GetPlayer()->GetPos() - this->GetPos(), 18);
+		owner->AddProjectile(this, this->GetPos(), (owner->GetPlayer()->GetPos() - this->GetPos()).UnitVector() * 3, 18, true);
 		
 		shootTimer = shootTime;
 	}

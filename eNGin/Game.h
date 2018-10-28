@@ -279,8 +279,9 @@ public:
 	 *	@param start The start position of the projectile
 	 *	@param dir The direction to move in
 	 *	@param tex The texture value to retrieve
+	 *	@param isE Is projectile enemy owned or not?
 	 */
-	void AddProjectile(Actor* owner, Vector3 start, Vector3 dir, int tex);
+	void AddProjectile(Actor* owner, Vector3 start, Vector3 dir, int tex, bool isE);
 
 	/**
 	*	Returns the gameScore

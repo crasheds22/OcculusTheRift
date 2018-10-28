@@ -183,6 +183,7 @@ void Game::Update(float deltaTime)
 					
 					if(Entities[tEnemy][i]->GetCurrentHealth() <= 0) {
 						Entities[tEnemy].erase(Entities[tEnemy].begin() + i);
+						gameScore += 35;
 					}
 				}
 			}
@@ -527,7 +528,7 @@ void Game::MouseClick(int button, int state, int x, int y) {
 	if (playerCharacter->GetShotTimer() <= 0) {
 		Vector3 playerPos(playerCharacter->GetPos().GetPointX(), playerCharacter->GetPos().GetPointY() + playerCharacter->GetCameraUp().GetPointY(), playerCharacter->GetPos().GetPointZ());
 
-		AddProjectile(playerCharacter, playerPos, playerCharacter->GetCameraViewDeltaVector(), 17);
+		AddProjectile(playerCharacter, playerPos, playerCharacter->GetCameraViewDeltaVector().UnitVector() * 5, 17, false);
 		playerCharacter->SetShotTimer(playerCharacter->GetShotTime());
 	}
 }
@@ -684,8 +685,8 @@ void Game::AddEnemy(float x, float y, float z)
 	Entities[tEnemy].push_back(enemy);
 }
 
-void Game::AddProjectile(Actor* owner, Vector3 start, Vector3 dir, int tex) {
-	Projectile *proj = new Projectile(owner, models[4], &textures[tex], 2, dir, start);
+void Game::AddProjectile(Actor* owner, Vector3 start, Vector3 dir, int tex, bool isE) {
+	Projectile *proj = new Projectile(owner, models[4], &textures[tex], 2, dir, start, isE);
 	PlaySoundAt(2);
 
 	Entities[tProjectile].push_back(proj);
