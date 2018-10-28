@@ -128,6 +128,12 @@ public:
 	*/
 	void PlaySound(int index);
 
+	/**
+	*	A function taking no arguments
+	*	Checks if the enemy has stopped
+	*/
+	bool IsStopped();
+
 private:
 	State* currentState;	/*<! The state the AI is currently in */
 
@@ -141,6 +147,10 @@ private:
 
 	float shootTime;	/*<! How frequently an Enemy is allowed to shoot */
 	float shootTimer;	/*<! A countdown timer that decides when the Enemy may shoot */
+
+
+	float stopTime;	/*<! How long an enemy waits when hitting another enemy */
+	float stopTimer;	/*<! A countdown timer that decides when the Enemy may move after colliding with another enemy */
 
 	double damageTime,		/*<! The amount of time between taking damage */
 		damageTimer;		/*<! Timer to determine when to take damage*/

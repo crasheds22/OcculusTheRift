@@ -17,6 +17,7 @@ Enemy::Enemy(Game* own, Model* mod, Texture* tex, float xPos, float yPos, float 
 	attack = new AttackState();
 
 	currentState = wander;
+	stopTime = 0.03;
 
 	SetMaxHealth(2);
 	SetCurrentHealth(2);
@@ -46,8 +47,12 @@ void Enemy::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap
 		currentState->Execute(this);
 	}
 
-	collisionBox.SetMaxPoint(GetPos().GetPointX() + 1, GetPos().GetPointY() + 1, GetPos().GetPointZ() + 1);
-	collisionBox.SetMinPoint(GetPos().GetPointX() - 1, GetPos().GetPointY() - 1, GetPos().GetPointZ() - 1);
+	float boxSize = 2.2;
+
+
+
+	collisionBox.SetMaxPoint(GetPos().GetPointX() + boxSize, GetPos().GetPointY() + boxSize, GetPos().GetPointZ() + boxSize);
+	collisionBox.SetMinPoint(GetPos().GetPointX() - boxSize, GetPos().GetPointY() - boxSize, GetPos().GetPointZ() - boxSize);
 
 	//Check for Wall Collisions
 	for (std::size_t ii = 0; ii < entityMap[2].size(); ii++)
@@ -59,14 +64,24 @@ void Enemy::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap
 		}
 	}
 	//Check for other enemy collisions
-	for (std::size_t ii = 0; ii < entityMap[1].size(); ii++)
+	if (stopTimer > 0)
 	{
-		if (collisionBox.AABBtoAABB(entityMap[1][ii]->GetCollider()))
+		stopTimer -= deltaTime;
+	}
+	else
+	{
+
+		for (std::size_t ii = 0; ii < entityMap[1].size(); ii++)
 		{
-			collisionBox.CollideWith(this, *entityMap[1][ii]);
+			if (collisionBox.AABBtoAABB(entityMap[1][ii]->GetCollider()))
+			{
+				collisionBox.CollideWith(this, *entityMap[1][ii]);
+				stopTimer = stopTime;
+			}
 
 		}
 	}
+
 	//Check for projectile collisions
 	for (std::size_t ii = 0; ii < entityMap[5].size(); ii++)
 	{
@@ -75,6 +90,7 @@ void Enemy::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMap
 			{
 				if (damageTimer <= 0) {
 					SetCurrentHealth(GetCurrentHealth() - 1);
+					owner->PlaySoundAt(4);
 					damageTimer = damageTime;
 				}
 			}
@@ -120,6 +136,11 @@ float Enemy::GetdT() {
 void Enemy::PlaySound(int index)
 {
 	owner->PlaySoundAt(index);
+}
+
+bool Enemy::IsStopped()
+{
+	return (stopTimer <= 0);
 }
 
 //=============================================================================
