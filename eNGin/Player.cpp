@@ -55,7 +55,6 @@ void Player::Update(float deltaTime, std::map<int, std::vector<Actor*>> entityMa
 		if (collisionBox.AABBtoAABB(entityMap[2][ii]->GetCollider()))
 		{
 			collisionBox.CollideWith(this, *entityMap[2][ii]);
-
 		}
 	}
 	//Check for projectile collisions

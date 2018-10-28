@@ -686,7 +686,7 @@ void Game::AddEnemy(float x, float y, float z)
 }
 
 void Game::AddProjectile(Actor* owner, Vector3 start, Vector3 dir, int tex, bool isE) {
-	Projectile *proj = new Projectile(owner, models[4], &textures[tex], 2, dir, start, isE);
+	Projectile *proj = new Projectile(owner, models[4], &textures[tex], 2 + (!isE * 4), dir, start, isE);
 	PlaySoundAt(2);
 
 	Entities[tProjectile].push_back(proj);
