@@ -61,12 +61,14 @@ void ChaseState::Execute(Enemy* entity) {
 		entity->PlaySound(3);
 	}
 	else {
-		//Chase player down
-		entity->MoveX(unitTarget.GetPointX());
-		//entity->MoveY(unitTarget.GetPointY());
-		entity->MoveZ(unitTarget.GetPointZ());
 
-		entity->SetRot(0, angle - 240, 0);
+			//Chase player down
+			entity->MoveX(unitTarget.GetPointX());
+			//entity->MoveY(unitTarget.GetPointY());
+			entity->MoveZ(unitTarget.GetPointZ());
+
+			entity->SetRot(0, angle - 240, 0);
+		
 	}
 }
 
