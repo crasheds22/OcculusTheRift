@@ -42,9 +42,6 @@
     <ClCompile Include="..\Model.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\Shay\Model_Shay.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\MusicPlayer.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -107,6 +104,9 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="..\SoundPlayer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Shay\Model_Shay.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -230,33 +230,51 @@
     <Media Include="data\test_song2.mp3">
       <Filter>Resources</Filter>
     </Media>
+    <Media Include="data\bgm_menu.mp3">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="data\bgm_stage1.mp3">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="data\bgm_stage2.mp3">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="data\bgm_stage3.mp3">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="data\coin.wav">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="data\eye_found.wav">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="data\eye_lost.wav">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="data\game_over.wav">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="data\game_over_music.wav">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="data\laser_charge.wav">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="data\laser_fire.wav">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="data\player_hurt.wav">
+      <Filter>Resources</Filter>
+    </Media>
+    <Media Include="data\step.wav">
+      <Filter>Resources</Filter>
+    </Media>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\data\handgun.png">
-      <Filter>Resources</Filter>
-    </Image>
-    <Image Include="..\data\hb_empty_left.png">
-      <Filter>Resources</Filter>
-    </Image>
-    <Image Include="..\data\hb_empty_middle.png">
-      <Filter>Resources</Filter>
-    </Image>
-    <Image Include="..\data\hb_empty_right.png">
-      <Filter>Resources</Filter>
-    </Image>
     <Image Include="data\hb_full_left.png">
       <Filter>Resources</Filter>
     </Image>
-    <Image Include="..\data\hb_full_left.png">
-      <Filter>Resources</Filter>
-    </Image>
     <Image Include="..\data\hb_full_middle.png">
-      <Filter>Resources</Filter>
-    </Image>
-    <Image Include="..\data\hb_full_right.png">
-      <Filter>Resources</Filter>
-    </Image>
-    <Image Include="..\data\Ring.png">
       <Filter>Resources</Filter>
     </Image>
     <Image Include="..\data\spr_health_pellet.png">
@@ -271,53 +289,789 @@
     <Image Include="..\data\Statue.png">
       <Filter>Resources</Filter>
     </Image>
+    <Image Include="data\coin.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\crosshairRGBA.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\crosshairs64.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\Death.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\enemy_laser.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\exit.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\eyeball.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\floor.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\floor2.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\floor3.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\Group.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\handgun.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\hb_empty_left.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\hb_empty_middle.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\hb_empty_right.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\hb_full_right.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\Menu.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\Pause.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\player_laser.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\portal.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\Ring.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\roof.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\roof2.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\roof3.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\spr_health_pellet.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\spr_healthbar.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\spr_healthbar_32.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\Statue.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\Story.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\wall1.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\wall1_vines.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\wall2.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\wall2_vines.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\wall3.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="data\wall3_vines.png">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="obj1.bin" />
     <None Include="packages.config" />
-    <None Include="..\data\440window.raw">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\data\abovechanctext.raw">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\data\abovechanctext2.raw">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\data\abovechanctext3.raw">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\data\aboveLibraryText.raw">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\data\aboveLibraryText2.raw">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\data\abovephysscitext.raw">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\data\aboveLibText.raw">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\data\aboveTicketsText.raw">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\data\aboveUnder4B.raw">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\data\aboveWindowEdge.raw">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\data\aboveWindowEdgeLib.raw">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\data\aboveWindows.raw">
-      <Filter>Resources</Filter>
-    </None>
-    <None Include="..\data\aboveWindows2.raw">
-      <Filter>Resources</Filter>
-    </None>
     <None Include="wave2.bin" />
+    <None Include="raw15.bin" />
+    <None Include="data\440window.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\abovechanctext.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\abovechanctext2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\abovechanctext3.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveLibraryText.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveLibraryText2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveLibText.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\abovephysscitext.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveTicketsText.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveUnder4B.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveWindowEdge.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveWindowEdgeLib.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveWindows.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveWindows2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveWindows2lib.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveWindows2posts.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveWindows2posts2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveWindows3bricks.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveWindows3bricksXY.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveWindowsChanc.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveWindowsEdge.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveWindowsLib.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\aboveWindowsLibEdge.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\bannerlossy.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\belowrooffill.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\bench.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\benchedge.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\benchedge2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\benchedge3.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\benchedgeside.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\benchedgetop.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\benchedgetop2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\benchside.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\benchside2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\Boardwalk440DoorWestXY.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\Boardwalk440DoorWestYZ.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\Boardwalk440StepXY.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\Boardwalk440StepXY_TopStripe.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\Boardwalk440StepYZ.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\Boardwalk440StepYZ_TopStripe.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\BookshopDoor.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\BookshopWindow1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\BookshopWindow2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\BookshopWindow3.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\box_back.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\box_front.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\brick87.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\brickgap.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\brickgap2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\bricks1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\bricks1edge.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\bricks2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\bricks2edge.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\bricks075.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\bricksecsign.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\brickshadow.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\bricksUSD.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\carpet.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\carpet2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\coffeeMachine.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\cokeMachine.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\compBlack.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\Copy of grass.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\COsign.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\counterside.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\countertop.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\desk.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\deskBoard.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\deskStand.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\doorpave1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\doorpost1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\doorPostLibSide.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\doorpostSec.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\doorpostside1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\doorpostside2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\drainpipe.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\drinksEdge.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\drinksSide.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\drinksSide2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\drinksSidetop.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\glassboard.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\glassboard2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\glassboard3.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\glassboardSide.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\grass.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\grass2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\grass3.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\Group.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\GSSign.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\GSSign2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\GSSignedge.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\HallDoor.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\hallway.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\handgun.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\insideCeiling.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\InsideDoor.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\kbl.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\kblCorner.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\kbltEdge.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\kbltEdge2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\KBLTside1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\KBLTside2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\light.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\lightsupport.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\lightsupport1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\lightsupport2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\machineSides.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\machineSides2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\mainPost.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\mainPost2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\map.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\map2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\monitor.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\nexus.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\nexusSide.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\noexit.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\nosmokesign.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\OutsideCeiling.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\pavement.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\pavement16.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\pavementcorner1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\pavementcorner2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\pavementflip.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\pavementSide.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\pavementside2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\pavementside3.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\pavementTop.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\pavementTopflip.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\phonebottom.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\phoneFill.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\phonefront.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\phonefront2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\phonefront3.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\phonemainside.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\phoneside1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\phoneside2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\phonetop1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\phonetop2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\portal.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\PSCsign.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\PSCsign2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\purplepost.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\purplepostside.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\redpost.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\redpostside.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\Ring.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\roofbeam1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\roofbeam2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\roofbeam3.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\roofbeam3top.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\roofbeam4.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\roofPlanks.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\roofPlanks2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\rooftop.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\rooftoplib.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\rustyman.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\securitysign1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\securitysign2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\sign1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\sign1side1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\sign1side2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\sign2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\sign2side.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\standalonePost.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\standalonePost2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\statravel.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\statravel2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\statravelbottom.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\statravelbracket.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\statraveledge.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\Statue.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\stepbricks.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\stepbrickscover.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\stepbricksedge.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\stepbricksedge2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\stepbrickstop.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\steppaving1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\steppaving2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\steppavingedge.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\stepslibrary.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\stepslibrarytop.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\sweetMachine.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\telephoneback.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\thanks.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\ticketcounteredge.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\ticketcounteredge2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\ticketcounteredge3.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\ticketcountertop.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\ticketledge.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\ticketledgeedge.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\ticketledgeedge2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\tile.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\toiletdoortop.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\toiletmen.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\toiletwomen.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\wallgap1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\WallPost.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\WallPost2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\welcome.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\whiteBrick.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\whiteBrickFlip.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowledge1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowledge2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowledgeend.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowledgeend2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowledgeLib1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowledgeLib2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowledgeLibfa.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowledgeLibfb.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowledgeLibta.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowledgeLibtb.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowledgeUS1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowledgeUS2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowledgeUS3.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowpost1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowposthalf1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowposthalf2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowpostLib.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowpostLibside1.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowpostLibside2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowpostside2.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowpostsmall.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowpostsmallside.raw">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="data\windowpostsmallside2.raw">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">

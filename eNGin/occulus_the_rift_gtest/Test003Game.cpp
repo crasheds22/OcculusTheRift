@@ -15,7 +15,7 @@ TEST(TestSuite003_GameTesting, DISABLED_GameTest001_GameCreation)
 	SUCCEED();
 }
 
-TEST(TestSuite003_GameTesting, DISABLED_GameTest002_GameInitialisation)
+TEST(TestSuite003_GameTesting, GameTest002_GameInitialisation)
 {
 	Game theGame;
 
