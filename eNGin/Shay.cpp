@@ -38,8 +38,8 @@ void Shay::Init()
 	cam.Position(32720.0, 9536.0, //original camera position
 		4800.0, 180.0);
 	/*/
-	cam.Position(-1192.0, 10350.0, //camera in 400 corridor
-		42060.0, 180.0);
+	cam.Position(-1792.0, 10350.0, //camera in 400 corridor
+		42060.0, 0.0);
 	//*/ //comment toggle
 
 	CreatePlains();
@@ -52,7 +52,6 @@ void Shay::Init()
 	// load texture images and create display lists
 	CreateTextureList();
 	CreateTextures();
-
 }
 
 void Shay::Draw() {
