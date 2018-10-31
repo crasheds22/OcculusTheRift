@@ -136,6 +136,8 @@
     <ClCompile Include="Test005Model.cpp" />
     <ClCompile Include="Test006Quarternion.cpp" />
     <ClCompile Include="Test007Player.cpp" />
+    <ClCompile Include="Test008Dungeon.cpp" />
+    <ClCompile Include="Test009SoundPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\440window.raw" />
