@@ -3,6 +3,7 @@
 
 #include "pch.h"
 #include <gl/glut.h>
+#include <iostream>
 
 //--------------------------------------------------------------------------------------
 //  Initialize Settings
@@ -42,6 +43,7 @@ int main(int argc, char **argv) {
 	myinit();
 	
 	
-	::testing::InitGoogleTest(&argc, argv);
+	::testing::InitGoogleTest(&argc, argv);	
+	
 	return RUN_ALL_TESTS();
 }

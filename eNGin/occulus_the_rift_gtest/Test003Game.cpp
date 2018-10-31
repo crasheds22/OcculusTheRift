@@ -7,7 +7,7 @@
 #include "Shay.h"
 #include "MusicPlayer.h"
 
-TEST(TestSuite003_GameTesting, DISABLED_GameTest001_GameCreation)
+TEST(TestSuite003_GameTesting, GameTest001_GameCreation)
 {
 	Game theGame;
 	theGame.Initialise();

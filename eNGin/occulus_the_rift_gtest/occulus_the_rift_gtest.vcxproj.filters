@@ -109,6 +109,8 @@
     <ClCompile Include="..\Shay\Model_Shay.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Test008Dungeon.cpp" />
+    <ClCompile Include="Test009SoundPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
