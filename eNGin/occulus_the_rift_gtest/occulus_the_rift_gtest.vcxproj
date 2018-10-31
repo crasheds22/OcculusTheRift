@@ -85,7 +85,6 @@
     <ClInclude Include="..\Vector3.h" />
     <ClInclude Include="..\Wall.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Actor.cpp" />
@@ -363,10 +362,7 @@
     <None Include="data\windowpostsmall.raw" />
     <None Include="data\windowpostsmallside.raw" />
     <None Include="data\windowpostsmallside2.raw" />
-    <None Include="obj1.bin" />
     <None Include="packages.config" />
-    <None Include="raw15.bin" />
-    <None Include="wave2.bin" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\data\hb_full_middle.png" />
@@ -431,6 +427,43 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="occulus_the_rift_gtest.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="data\coin.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </Resource>
+    <Resource Include="data\exit.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </Resource>
+    <Resource Include="data\eyeball.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </Resource>
+    <Resource Include="data\handgun.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </Resource>
+    <Resource Include="data\laser.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </Resource>
+    <None Include="data\portal.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </DeploymentContent>
+    </None>
+    <Resource Include="data\statue_base.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </Resource>
+    <Resource Include="data\wall1.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </Resource>
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
@@ -507,6 +540,9 @@
       <AdditionalLibraryDirectories>$(projectDir)../Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2main.lib;SDL2_mixer.lib;freeglut.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(projectDir)../Data;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>

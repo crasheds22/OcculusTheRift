@@ -163,9 +163,6 @@
     <ClInclude Include="..\Player.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="..\Shay.h">
       <Filter>Headers</Filter>
     </ClInclude>
@@ -396,10 +393,7 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="obj1.bin" />
     <None Include="packages.config" />
-    <None Include="wave2.bin" />
-    <None Include="raw15.bin" />
     <None Include="data\440window.raw">
       <Filter>Resources</Filter>
     </None>
@@ -1072,6 +1066,9 @@
     <None Include="data\windowpostsmallside2.raw">
       <Filter>Resources</Filter>
     </None>
+    <None Include="data\portal.obj">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
@@ -1083,5 +1080,28 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{7c4c3482-2fce-45ea-9322-119ee8f68d48}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="data\laser.obj">
+      <Filter>Resources</Filter>
+    </Resource>
+    <Resource Include="data\handgun.obj">
+      <Filter>Resources</Filter>
+    </Resource>
+    <Resource Include="data\eyeball.obj">
+      <Filter>Resources</Filter>
+    </Resource>
+    <Resource Include="data\exit.obj">
+      <Filter>Resources</Filter>
+    </Resource>
+    <Resource Include="data\coin.obj">
+      <Filter>Resources</Filter>
+    </Resource>
+    <Resource Include="data\statue_base.obj">
+      <Filter>Resources</Filter>
+    </Resource>
+    <Resource Include="data\wall1.obj">
+      <Filter>Resources</Filter>
+    </Resource>
   </ItemGroup>
 </Project>
