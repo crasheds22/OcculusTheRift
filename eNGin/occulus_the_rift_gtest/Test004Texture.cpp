@@ -1,7 +1,7 @@
 #include "pch.h"
 
 #include "Texture.h"
-/*
+
 
 TEST(TestSuite004_TextureTesting, TextureTest000_TestObjectCreation)
 {
@@ -66,4 +66,3 @@ TEST(TestSuite004_TextureTesting, TextureTest005_TestGetHeight)
 
 	SUCCEED();
 }
-*/

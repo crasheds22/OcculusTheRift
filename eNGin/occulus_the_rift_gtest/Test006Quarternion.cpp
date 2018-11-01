@@ -150,11 +150,12 @@ TEST(TestSuite006_QuarternionTesting, QuartTest006_QuartRotation)
 TEST(TestSuite006_QuarternionTesting, QuartTest007_QuartSlerp)
 {
 	Quarternion quartOne, quartTwo;
-	Quarternion theResult[10];
+	Quarternion theResult;
 
 	quartOne = Quarternion(0, 0.6, 0.8, 0);
 	quartTwo = Quarternion(0, -0.8, 0, -0.6);
 
+	/*
 	for (int ii = 0; ii < 10; ii++)
 	{
 		theResult[ii] = quartOne.Slerp(quartTwo, 0.1*ii);
@@ -164,13 +165,15 @@ TEST(TestSuite006_QuarternionTesting, QuartTest007_QuartSlerp)
 					<< " Y: " << theResult[ii].GetQuartY()
 					<< " Z: " << theResult[ii].GetQuartZ();
 	}
-	
+	*/
+
+	theResult = quartOne.Slerp(quartTwo, 0.1);
 
 
-	EXPECT_EQ(0, theResult[1].GetQuartW());
-	EXPECT_EQ(0.467140, theResult[1].GetQuartX());
-	EXPECT_EQ(0.872923, theResult[1].GetQuartY());
-	EXPECT_EQ(-0.140664, theResult[1].GetQuartZ());
+	EXPECT_EQ(0, theResult.GetQuartW());
+	EXPECT_EQ(0.467140, theResult.GetQuartX());
+	EXPECT_EQ(0.872923, theResult.GetQuartY());
+	EXPECT_EQ(-0.140664, theResult.GetQuartZ());
 
 	SUCCEED();
 }

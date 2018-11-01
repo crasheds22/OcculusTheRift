@@ -5,6 +5,22 @@
 #include <gl/glut.h>
 #include <iostream>
 
+#define SHAY_STATE 0
+#define MENU_STATE 1
+#define GAME_STATE 2
+#define PAUSE_MENU 5
+#define DEATH_MENU 6
+#define STORY_MENU 7
+
+// ratio of screen
+float ratio;
+
+// initializes setting
+void myinit();
+
+
+
+
 //--------------------------------------------------------------------------------------
 //  Initialize Settings
 //--------------------------------------------------------------------------------------
@@ -18,15 +34,14 @@ void myinit()
 	//Create Camera
 	GLdouble fov = 60;
 	GLdouble aspect = 1 * glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT);
-	GLdouble nearVal = 0.5;
-	GLdouble farVal = 1000;
+	GLdouble nearVal = 1;
+	GLdouble farVal = 100;
 
 	gluPerspective(fov, aspect, nearVal, farVal);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	//glEnable(GL_DEPTH_TEST);
 	gluLookAt(0.0, 1.75, 0.0,
 		0.0, 1.75, -1,
 		0.0f, 1.0f, 0.0f);

@@ -1293,7 +1293,7 @@ void Shay::DrawBackdrop()
 	DisplayRoof();
 	DisplayStepBricks ();
 
-	DisplayBanner();
+	//DisplayBanner();
 
 	DisplayBoardWalkGarden();
 	DisplayBoardwalk440WestPaving();
@@ -2072,9 +2072,11 @@ void Shay::DisplayMainPosts ()
 		glCallList(52);
 	glPopMatrix();
 
+
 	///=====================================================
 	///Tutorial 1 Posts
 	///=====================================================
+	/*
 	step = -1940.0;
 
 	glBindTexture(GL_TEXTURE_2D, tp.GetTexture(MAIN_POST));
@@ -2117,6 +2119,7 @@ void Shay::DisplayMainPosts ()
 	glTranslatef(step + 128.0-1600, 0.0, 20880.0);
 	glCallList(19);
 	glPopMatrix();
+	*/
 }
 
 void Shay::DrawMainPosts ()

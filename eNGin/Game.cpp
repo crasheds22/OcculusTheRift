@@ -267,7 +267,7 @@ void Game::Update(float deltaTime)
 						break;
 				}
 
-				dungeon = new Dungeon(this);
+				dungeon = new Dungeon(this); 
 			}
 			else
 			{

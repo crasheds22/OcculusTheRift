@@ -72,16 +72,12 @@
     <ClCompile Include="..\Vector3.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Test004Texture.cpp" />
     <ClCompile Include="Test005Model.cpp" />
     <ClCompile Include="..\Quarternion.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Test006Quarternion.cpp" />
-    <ClCompile Include="..\Dungeon.cpp" />
-    <ClCompile Include="..\Wall.cpp" />
     <ClCompile Include="Test007Player.cpp" />
-    <ClCompile Include="Test003Game.cpp" />
     <ClCompile Include="..\LevelExit.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -109,8 +105,16 @@
     <ClCompile Include="..\Shay\Model_Shay.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Test008Dungeon.cpp" />
     <ClCompile Include="Test009SoundPlayer.cpp" />
+    <ClCompile Include="..\Dungeon.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Wall.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Test004Texture.cpp" />
+    <ClCompile Include="Test003Game.cpp" />
+    <ClCompile Include="Test008Dungeon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -186,8 +190,6 @@
     <ClInclude Include="..\Quarternion.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="..\Dungeon.h" />
-    <ClInclude Include="..\Wall.h" />
     <ClInclude Include="..\LevelExit.h">
       <Filter>Headers</Filter>
     </ClInclude>
@@ -213,6 +215,12 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="..\State.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Dungeon.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Wall.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
